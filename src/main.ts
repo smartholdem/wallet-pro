@@ -24,6 +24,7 @@ import CardFooter from '@/components/bootstrap/CardFooter.vue';
 import CardGroup from '@/components/bootstrap/CardGroup.vue';
 import CardImgOverlay from '@/components/bootstrap/CardImgOverlay.vue';
 import CardExpandToggler from '@/components/bootstrap/CardExpandToggler.vue';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const emitter = mitt();
 const app = createApp(App);
@@ -36,7 +37,11 @@ app.component('CardGroup', CardGroup);
 app.component('CardImgOverlay', CardImgOverlay);
 app.component('CardExpandToggler', CardExpandToggler);
 
-app.use(createPinia());
+//app.use(createPinia());
+const pPersist = createPinia()
+pPersist.use(piniaPluginPersistedstate)
+app.use(pPersist);
+
 app.use(router);
 app.use(Vue3ProgressPlugin);
 app.use(PerfectScrollbar);
