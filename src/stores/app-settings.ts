@@ -11,7 +11,6 @@ export const useStore = defineStore('appSettings', {
       currency: "USDT",
       lockScreen: 600,
     }),
-
      */
     settings: {
       darkMode: true,
