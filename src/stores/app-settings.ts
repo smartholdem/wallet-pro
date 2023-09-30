@@ -36,8 +36,8 @@ export const useStoreSettings = defineStore('appSettings', {
     },
     validatePinCode(password: string) {
       const pinSha384 = CryptoJS.SHA384(password).toString();
-      return pinSha384 === this.settings.pinCode
-    }
+      return pinSha384 === this.settings.pinCode;
+    },
   },
   persist: true,
 });
