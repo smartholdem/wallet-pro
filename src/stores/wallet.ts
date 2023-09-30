@@ -20,7 +20,7 @@ export const useStoreWallet = defineStore("WalletStorage", {
         ...options
       };
     },
-    async addressFromPassword(secret: string) {
+    addressFromPassword(secret: string) {
       return Identities.Address.fromPassphrase(secret, 63);
     }
   },
