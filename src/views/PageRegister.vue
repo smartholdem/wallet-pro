@@ -1,10 +1,22 @@
 <script>
 import { useAppOptionStore } from "@/stores/app-option";
-import { useRouter, RouterLink } from "vue-router";
-
+//import { useRouter, RouterLink } from "vue-router";
 const appOption = useAppOptionStore();
 
+import { storeToRefs } from 'pinia'
+import { useStoreSettings } from '@/stores/app-settings.ts';
+const store = useStoreSettings()
+const { settings } = storeToRefs(store)
+
+
 export default {
+  data() {
+    return {
+      pinOne: "",
+      PinTwo: "",
+      pinIsInValid: true,
+    }
+  },
   mounted() {
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
@@ -17,8 +29,10 @@ export default {
   },
   methods: {
     submitForm: function() {
-      this.$router.push("/");
-    }
+      store.savePinCode(this.pinOne)
+      this.$router.push("/login");
+    },
+
   }
 };
 </script>
@@ -29,14 +43,14 @@ export default {
     <div class="register-content">
       <form v-on:submit.prevent="submitForm()" method="POST" name="register_form">
         <h1 class="text-center">Sign Up</h1>
-        <p class="text-inverse text-opacity-50 text-center">Set Password.</p>
+        <p class="text-inverse text-opacity-50 text-center">Set Wallet Password</p>
         <div class="mb-3">
           <label class="form-label">Password <span class="text-danger">*</span></label>
-          <input type="password" class="form-control form-control-lg bg-white bg-opacity-5" value="" />
+          <input type="password" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
         <div class="mb-3">
           <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" class="form-control form-control-lg bg-white bg-opacity-5" value="" />
+          <input type="password" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
 
         <div class="mb-3">
@@ -47,7 +61,7 @@ export default {
           </div>
         </div>
         <div class="mb-3">
-          <button type="submit" class="btn btn-outline-theme btn-lg d-block w-100">Sign Up</button>
+          <button :disabled="pinIsInValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100">Sign Up</button>
         </div>
         <!--
         <div class="text-inverse text-opacity-50 text-center">
