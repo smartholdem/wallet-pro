@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import {generateMnemonic} from "bip39";
-import {Identities} from "@smartholdem/crypto";
+import { generateMnemonic } from "bip39";
+import { Identities } from "@smartholdem/crypto";
 
 export const useStoreWallet = defineStore("WalletStorage", {
   state: () => ({
@@ -12,13 +12,16 @@ export const useStoreWallet = defineStore("WalletStorage", {
       return {
         secret: mnemonic,
         address: Identities.Address.fromPassphrase(mnemonic, 63)
-      }
+      };
     },
     async saveNewAddress(options: object) {
       this.accounts = {
         ...this.accounts,
-        ...options,
+        ...options
       };
+    },
+    async addressFromPassword(secret: string) {
+      return Identities.Address.fromPassphrase(secret, 63);
     }
   },
   persist: true,
