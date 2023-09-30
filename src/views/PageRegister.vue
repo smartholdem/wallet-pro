@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     submitForm: function() {
-      store.savePinCode(this.pinOne)
+      store.savePinCode(this.pinOne);
       this.$router.push("/login");
     },
 

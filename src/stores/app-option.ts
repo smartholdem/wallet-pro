@@ -17,8 +17,8 @@ export const useAppOptionStore = defineStore({
 			appContentFullHeight: false,
 			appContentClass: '',
 			appTopNav: false,
-			appFooter: true,
-			appFooterFixed: true,
+			appFooter: false,
+			appFooterFixed: false,
 			appThemePanelToggled: false,
 		}
   }
