@@ -26,7 +26,6 @@ import CardGroup from '@/components/bootstrap/CardGroup.vue';
 import CardImgOverlay from '@/components/bootstrap/CardImgOverlay.vue';
 import CardExpandToggler from '@/components/bootstrap/CardExpandToggler.vue';
 
-
 const emitter = mitt();
 const app = createApp(App);
 
@@ -46,6 +45,7 @@ app.use(pPersist);
 app.use(router);
 app.use(Vue3ProgressPlugin);
 app.use(PerfectScrollbar);
+
 
 app.config.globalProperties.emitter = emitter;
 app.mount('#app');

@@ -3,10 +3,10 @@ import { useAppOptionStore } from "@/stores/app-option";
 //import { useRouter, RouterLink } from "vue-router";
 const appOption = useAppOptionStore();
 
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia';
 import { useStoreSettings } from '@/stores/app-settings.ts';
-const store = useStoreSettings()
-const { settings } = storeToRefs(store)
+const store = useStoreSettings();
+const { settings } = storeToRefs(store);
 
 
 export default {
