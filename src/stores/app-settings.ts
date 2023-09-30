@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
 //import { useStorage } from "@vueuse/core";
+import CryptoJS from 'crypto-js'
 
-export const useStore = defineStore('appSettings', {
+export const useStoreSettings = defineStore('appSettings', {
   state: () => ({
     /*
     settings: useStorage('appSettings', {
@@ -28,6 +29,10 @@ export const useStore = defineStore('appSettings', {
         ...partialSettings,
       };
       //localStorage.setItem('appSettings', JSON.stringify(this.settings))
+    },
+    savePinCode(pin: string) {
+      this.settings.pinCode = CryptoJS.SHA384(pin).toString();
+      //console.log('sha384', this.settings.pinCode)
     },
   },
   persist: true,
