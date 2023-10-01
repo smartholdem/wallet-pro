@@ -5,8 +5,8 @@ const appOption = useAppOptionStore();
 
 import { storeToRefs } from 'pinia';
 import { useStoreSettings } from '@/stores/app-settings.ts';
-const store = useStoreSettings();
-const { settings } = storeToRefs(store);
+const storeSettings = useStoreSettings();
+const { settings } = storeToRefs(storeSettings);
 
 
 export default {
@@ -29,8 +29,9 @@ export default {
   },
   methods: {
     submitForm: function() {
-      store.savePinCode(this.pinOne);
-      this.$router.push("/login");
+      storeSettings.savePinCode(this.pinOne);
+      storeSettings.tmpPin = this.password;
+      this.$router.push("/");
     },
 
   }
@@ -46,11 +47,11 @@ export default {
         <p class="text-inverse text-opacity-50 text-center">Set Wallet Password</p>
         <div class="mb-3">
           <label class="form-label">Password <span class="text-danger">*</span></label>
-          <input type="password" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <input type="password" autocomplete="off" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
         <div class="mb-3">
           <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <input type="password" autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
 
         <div class="mb-3">
