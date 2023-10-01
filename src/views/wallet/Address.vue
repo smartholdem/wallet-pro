@@ -1,9 +1,10 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-xl-6 mb-3">
-      <card class="h-100">
+
+      <card class="h-100" v-if="currentAddress">
         <card-header class="card-header fw-bold">
-          <i v-show="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
+          <i v-if="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
              aria-hidden="true"> </i>
           <span v-if="!showPubKey" class="text-info">
             {{ $route.params.address }}
@@ -42,8 +43,13 @@
             </card>
 
           </div>
+          <div else>
+            <h5 class="card-title">Balance <span class="text-success">0</span> STH</h5>
+          </div>
         </card-body>
       </card>
+
+
     </div>
 
     <div class="col-xl-6 mb-3">
@@ -71,14 +77,11 @@
     <div class="col-xl-12 mb-3">
       <card>
         <card-header class="card-header fw-bold small">Transactions</card-header>
-        <card-body>
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-3 text-inverse text-opacity-50">Card subtitle</h6>
-          <p class="card-text mb-3">...</p>
-          <div>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
+        <card-body v-if="transactions.meta">
+          {{transactions}}
+        </card-body>
+        <card-body else class="text-center">
+          No transaction
         </card-body>
       </card>
     </div>
@@ -91,24 +94,35 @@ import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 
 const storeWallet = useStoreWallet();
-const { wallet } = storeToRefs(storeWallet);
+const { attributes } = storeToRefs(storeWallet);
 
 export default {
   name: "AddressPage",
   data() {
     return {
       operation: 0,
-      showPubKey: false
+      showPubKey: false,
+      account: { }
     };
   },
-  async beforeCreate() {
+  async created() {
     await storeWallet.getAttributes(this.$route.params.address);
+    await storeWallet.getTransactions(this.$route.params.address);
+  },
+  watch: {
+    storeWallet: function (val) {
+      this.account = val.attributes[this.$route.params.address]
+    },
   },
   computed: {
     currentAddress() {
       return storeWallet.attributes[this.$route.params.address];
-    }
-  }
+      //return attributes.value[this.$route.params.address];
+    },
+    transactions() {
+      return storeWallet.transactions[this.$route.params.address];
+    },
+  },
 
 };
 </script>
