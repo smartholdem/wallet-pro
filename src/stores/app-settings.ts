@@ -21,6 +21,12 @@ export const useStoreSettings = defineStore('appSettings', {
       lockScreen: 600,
       pinCode: "",
     },
+    tmpPin: "",
+    nodes: [
+      "node1.smartholdem.io",
+      "testnet02ru.smartholdem.io",
+    ],
+    activeNode: "node1.smartholdem.io",
   }),
   actions: {
     updateSettings(partialSettings: object) {
