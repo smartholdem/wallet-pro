@@ -5,18 +5,17 @@
         <card-header class="card-header fw-bold">
           <i v-show="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
              aria-hidden="true"> </i>
-          <span v-show="!showPubKey" class="text-info">
+          <span v-if="!showPubKey" class="text-info">
             {{ $route.params.address }}
           </span>
-          <span v-show="showPubKey" class="text-info">
+          <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
             {{ currentAddress.publicKey }}
           </span>
         </card-header>
         <card-body>
           <div v-if="currentAddress.publicKey">
-
-            <h5 class="card-title">STH {{ (currentAddress.balance / 10 ** 8).toFixed(8) }}</h5>
-
+            <h5 class="card-title">Balance <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
+              }}</span> STH</h5>
 
             <p v-if="currentAddress.attributes" class="card-text mb-3">
 
@@ -33,18 +32,14 @@
                   <li class="list-group-item">
                     Vote balance {{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }} STH
                   </li>
-                  <li class="list-group-item">Forged fees {{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }} STH</li>
-                  <li class="list-group-item">Produced blocks {{ currentAddress.attributes.delegate.producedBlocks }}</li>
+                  <li class="list-group-item">Forged fees
+                    {{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }} STH
+                  </li>
+                  <li class="list-group-item">Produced blocks {{ currentAddress.attributes.delegate.producedBlocks }}
+                  </li>
                 </ul>
               </card-body>
             </card>
-
-
-            <div>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-
 
           </div>
         </card-body>
@@ -53,11 +48,19 @@
 
     <div class="col-xl-6 mb-3">
       <card class="h-100">
-
+        <card-header class="card-header fw-bold">
+          OPERATIONS
+        </card-header>
         <card-body>
-          <h5 class="card-title">SEND</h5>
-          <h6 class="card-subtitle mb-3 text-inverse text-opacity-50">Card subtitle</h6>
-          <p class="card-text mb-3">...</p>
+          <div class="btn-group mb-3">
+            <button @click="operation = 1" type="button" class="btn btn-outline-theme">SEND STH <i class="fa fa-rocket" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div v-if="operation === 1" class="w-100">
+            здесь заполню форму
+          </div>
+
 
         </card-body>
       </card>
@@ -94,6 +97,7 @@ export default {
   name: "AddressPage",
   data() {
     return {
+      operation: 0,
       showPubKey: false
     };
   },
