@@ -36,8 +36,8 @@
             <li class="list-group-item" v-for="item in accounts" :key="item.address">
               <div class="btn-group">
                 <button @click="openAddress(item.address)" class="btn btn-outline-theme" style="width:350px;">{{item.address}}</button>
-                <button type="button" class="btn btn-outline-lime"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-outline-warning"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-outline-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
               </div>
             </li>
 

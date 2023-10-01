@@ -1,8 +1,8 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-xl-6">
-      <card>
-        <card-header class="card-header fw-bold small">{{ $route.params.address }}</card-header>
+    <div class="col-xl-6 mb-3">
+      <card class="h-100">
+        <card-header class="card-header fw-bold"><span class="text-info">{{ $route.params.address }}</span></card-header>
         <card-body>
           <h5 class="card-title">STH 1 000</h5>
           <h6 class="card-subtitle mb-3 text-inverse text-opacity-50">USDT 10 000</h6>
@@ -15,9 +15,9 @@
       </card>
     </div>
 
-    <div class="col-xl-6">
-      <card>
-        <card-header class="card-header fw-bold small">{{ $route.params.address }}</card-header>
+    <div class="col-xl-6 mb-3">
+      <card class="h-100">
+
         <card-body>
           <h5 class="card-title">SEND</h5>
           <h6 class="card-subtitle mb-3 text-inverse text-opacity-50">Card subtitle</h6>
@@ -27,9 +27,11 @@
       </card>
     </div>
 
-    <div class="col-xl-12 mt-3">
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-xl-12 mb-3">
       <card>
-        <card-header class="card-header fw-bold small">{{ $route.params.address }}</card-header>
+        <card-header class="card-header fw-bold small">Transactions</card-header>
         <card-body>
           <h5 class="card-title">Card title</h5>
           <h6 class="card-subtitle mb-3 text-inverse text-opacity-50">Card subtitle</h6>

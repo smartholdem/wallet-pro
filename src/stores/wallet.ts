@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
-import { generateMnemonic } from "bip39";
+import { generateMnemonic, validateMnemonic } from "bip39";
 import { Identities } from "@smartholdem/crypto";
+import {Connection} from "@smartholdem/client";
 
 export const useStoreWallet = defineStore("WalletStorage", {
   state: () => ({
@@ -21,7 +22,12 @@ export const useStoreWallet = defineStore("WalletStorage", {
       };
     },
     addressFromPassword(secret: string) {
-      return Identities.Address.fromPassphrase(secret, 63);
+      const isBip39 = validateMnemonic(secret);
+      const address = Identities.Address.fromPassphrase(secret, 63);
+      return {
+        isBip39: isBip39,
+        address: address,
+      }
     }
   },
   persist: true,
