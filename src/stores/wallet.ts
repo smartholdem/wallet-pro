@@ -8,7 +8,7 @@ import { useStoreSettings } from "@/stores/app-settings.ts";
 
 const storeSettings = useStoreSettings();
 const activeNode = "https://" + storeSettings.nodes[0] + "/api";
-
+console.log('activeNode', activeNode)
 
 const client = new Connection(activeNode);
 Managers.configManager.setFromPreset("mainnet");
@@ -26,15 +26,11 @@ export const useStoreWallet = defineStore("walletStorage", {
       result[address] = {};
       try {
         result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=10")).data;
-      } catch (e) {
-        result[address] = {
-          meta: false,
-          data: false,
-        }
         this.transactions = {
           ...this.transactions,
           ...result,
         };
+      } catch (e) {
         console.log("err: address not stored in blockchain");
       }
     },

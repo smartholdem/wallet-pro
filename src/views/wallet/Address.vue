@@ -1,7 +1,6 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-xl-6 mb-3">
-
       <card class="h-100" v-if="currentAddress">
         <card-header class="card-header fw-bold">
           <i v-if="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
@@ -15,14 +14,10 @@
         </card-header>
         <card-body>
           <div v-if="currentAddress.publicKey">
-            <h5 class="card-title">Balance <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
+            <h5 class="card-title">BALANCE <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
               }}</span> STH</h5>
 
-            <p v-if="currentAddress.attributes" class="card-text mb-3">
-
-            </p>
-
-
+            <div v-if="currentAddress.attributes">
             <card v-if="currentAddress.attributes.delegate">
               <card-header class="card-header fw-bold">
                 Delegate <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
@@ -41,15 +36,13 @@
                 </ul>
               </card-body>
             </card>
-
+            </div>
           </div>
-          <div else>
-            <h5 class="card-title">Balance <span class="text-success">0</span> STH</h5>
+          <div v-if="!currentAddress.publicKey">
+            <h5 class="card-title"><span class="text-warning">Wallet is empty</span></h5>
           </div>
         </card-body>
       </card>
-
-
     </div>
 
     <div class="col-xl-6 mb-3">
@@ -72,16 +65,19 @@
       </card>
     </div>
 
-  </div>
-  <div class="row justify-content-center">
     <div class="col-xl-12 mb-3">
-      <card>
-        <card-header class="card-header fw-bold small">Transactions</card-header>
-        <card-body v-if="transactions.meta">
-          {{transactions}}
+      <card v-if="transactions">
+        <card-header class="card-header fw-bold small text-uppercase">Transactions [<span class="text-success">{{transactions.meta.totalCount}}</span>]</card-header>
+        <card-body>
+          <div>
+            {{transactions.data}}
+          </div>
         </card-body>
-        <card-body else class="text-center">
-          No transaction
+      </card>
+      <card v-if="!transactions">
+        <card-header class="card-header fw-bold small">Transactions</card-header>
+        <card-body>
+          <div>No transactions</div>
         </card-body>
       </card>
     </div>
@@ -94,7 +90,7 @@ import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 
 const storeWallet = useStoreWallet();
-const { attributes } = storeToRefs(storeWallet);
+const { wallet } = storeToRefs(storeWallet);
 
 export default {
   name: "AddressPage",
@@ -109,15 +105,9 @@ export default {
     await storeWallet.getAttributes(this.$route.params.address);
     await storeWallet.getTransactions(this.$route.params.address);
   },
-  watch: {
-    storeWallet: function (val) {
-      this.account = val.attributes[this.$route.params.address]
-    },
-  },
   computed: {
     currentAddress() {
       return storeWallet.attributes[this.$route.params.address];
-      //return attributes.value[this.$route.params.address];
     },
     transactions() {
       return storeWallet.transactions[this.$route.params.address];
