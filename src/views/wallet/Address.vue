@@ -2,14 +2,50 @@
   <div class="row justify-content-center">
     <div class="col-xl-6 mb-3">
       <card class="h-100">
-        <card-header class="card-header fw-bold"><span class="text-info">{{ $route.params.address }}</span></card-header>
+        <card-header class="card-header fw-bold">
+          <i v-show="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
+             aria-hidden="true"> </i>
+          <span v-show="!showPubKey" class="text-info">
+            {{ $route.params.address }}
+          </span>
+          <span v-show="showPubKey" class="text-info">
+            {{ currentAddress.publicKey }}
+          </span>
+        </card-header>
         <card-body>
-          <h5 class="card-title">STH 1 000</h5>
-          <h6 class="card-subtitle mb-3 text-inverse text-opacity-50">USDT 10 000</h6>
-          <p class="card-text mb-3">...</p>
-          <div>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+          <div v-if="currentAddress.publicKey">
+
+            <h5 class="card-title">STH {{ (currentAddress.balance / 10 ** 8).toFixed(8) }}</h5>
+
+
+            <p v-if="currentAddress.attributes" class="card-text mb-3">
+
+            </p>
+
+
+            <card v-if="currentAddress.attributes.delegate">
+              <card-header class="card-header fw-bold">
+                Delegate <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
+              </card-header>
+              <card-body>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Rank {{ currentAddress.attributes.delegate.rank }}</li>
+                  <li class="list-group-item">
+                    Vote balance {{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }} STH
+                  </li>
+                  <li class="list-group-item">Forged fees {{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }} STH</li>
+                  <li class="list-group-item">Produced blocks {{ currentAddress.attributes.delegate.producedBlocks }}</li>
+                </ul>
+              </card-body>
+            </card>
+
+
+            <div>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+
+
           </div>
         </card-body>
       </card>
@@ -48,12 +84,29 @@
 </template>
 
 <script>
+import { storeToRefs } from "pinia";
+import { useStoreWallet } from "@/stores/wallet";
+
+const storeWallet = useStoreWallet();
+const { wallet } = storeToRefs(storeWallet);
+
 export default {
-  name: "AddressPage"
+  name: "AddressPage",
+  data() {
+    return {
+      showPubKey: false
+    };
+  },
+  async beforeCreate() {
+    await storeWallet.getAttributes(this.$route.params.address);
+  },
+  computed: {
+    currentAddress() {
+      return storeWallet.attributes[this.$route.params.address];
+    }
+  }
 
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
