@@ -1,12 +1,12 @@
 <script>
-import { useAppOptionStore } from '@/stores/app-option';
 //import { useRouter, RouterLink } from 'vue-router';
+import { useAppOptionStore } from '@/stores/app-option';
 const appOption = useAppOptionStore();
 
 import { storeToRefs } from 'pinia'
 import { useStoreSettings } from '@/stores/app-settings.ts';
-const store = useStoreSettings()
-const { settings } = storeToRefs(store)
+const storeSettings = useStoreSettings()
+const { settings } = storeToRefs(storeSettings)
 
 export default {
   data() {
@@ -27,16 +27,19 @@ export default {
 	},
 	methods: {
     pinValidator() {
-      const pinIsValid = store.validatePinCode(this.password);
+      const pinIsValid = storeSettings.validatePinCode(this.password);
       if (pinIsValid === true) {
+        this.$root.pin = this.password;
+        storeSettings.tmpPin = this.password;
         this.$router.push('/');
       }
-      //console.log('pinIsValid',pinIsValid)
     },
 		submitForm: function() {
-      const pinIsValid = store.validatePinCode(this.password);
+      const pinIsValid = storeSettings.validatePinCode(this.password);
       //console.log('pinIsValid',pinIsValid)
       if (pinIsValid) {
+        this.$root.pin = this.password;
+        storeSettings.tmpPin = this.password;
         this.$router.push('/');
       }
 		}
@@ -58,7 +61,7 @@ export default {
 						<label class="form-label">Password <span class="text-danger">*</span></label>
 						<a href="#" class="ms-auto text-inverse text-decoration-none text-opacity-50">Forgot password?</a>
 					</div>
-					<input type="password" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
+					<input type="password" autocomplete="off" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
 				</div>
         <!--
 				<div class="mb-3">
