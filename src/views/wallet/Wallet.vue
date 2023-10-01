@@ -57,6 +57,14 @@
                 >
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
+                <button
+                  @click="decryptSecret(item.address)"
+                  type="button"
+                  class="btn btn-outline-default"
+                  data-bs-toggle="modal" data-bs-target="#modalDecrypt"
+                >
+                  <i class="fa fa-key" aria-hidden="true"></i>
+                </button>
               </span>
             </li>
           </ul>
@@ -157,6 +165,13 @@
         </div>
       </div>
     </card>
+    <div class="modal modal-cover fade" id="modalDecrypt">
+      <div class="modal-dialog">
+        <div class="modal-content text-danger">
+          {{decryptedSecret}}
+        </div>
+      </div>
+    </div>
     <!-- toasts-container -->
     <div class="toasts-container">
       <div class="toast fade hide mb-3" data-autohide="false" id="toast-1">
@@ -186,6 +201,7 @@ export default {
   name: "WalletPage",
   data() {
     return {
+      decryptedSecret: "",
       notifyMsg: "",
       tabActive: 0,
       accounts: store.accounts,
@@ -210,6 +226,9 @@ export default {
     },
   },
   methods: {
+    async decryptSecret(address) {
+      this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
+    },
     showToast(event, target, msg) {
       event.preventDefault();
       this.notifyMsg = msg;
@@ -228,7 +247,7 @@ export default {
     },
     saveAccount(account) {
       if (account.address.length > 4) {
-        let objAddress = {};
+        const objAddress = {};
         const hash = CryptoJS.SHA384(this.$root.pin).toString();
         objAddress[account.address] = {
           address: account.address,
