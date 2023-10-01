@@ -18,24 +18,24 @@
               }}</span> STH</h5>
 
             <div v-if="currentAddress.attributes">
-            <card v-if="currentAddress.attributes.delegate">
-              <card-header class="card-header fw-bold">
-                Delegate <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
-              </card-header>
-              <card-body>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Rank {{ currentAddress.attributes.delegate.rank }}</li>
-                  <li class="list-group-item">
-                    Vote balance {{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }} STH
-                  </li>
-                  <li class="list-group-item">Forged fees
-                    {{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }} STH
-                  </li>
-                  <li class="list-group-item">Produced blocks {{ currentAddress.attributes.delegate.producedBlocks }}
-                  </li>
-                </ul>
-              </card-body>
-            </card>
+              <card v-if="currentAddress.attributes.delegate">
+                <card-header class="card-header fw-bold">
+                  Delegate <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
+                </card-header>
+                <card-body>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Rank {{ currentAddress.attributes.delegate.rank }}</li>
+                    <li class="list-group-item">
+                      Vote balance {{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }} STH
+                    </li>
+                    <li class="list-group-item">Forged fees
+                      {{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }} STH
+                    </li>
+                    <li class="list-group-item">Produced blocks {{ currentAddress.attributes.delegate.producedBlocks }}
+                    </li>
+                  </ul>
+                </card-body>
+              </card>
             </div>
           </div>
           <div v-if="!currentAddress.publicKey">
@@ -45,6 +45,7 @@
       </card>
     </div>
 
+    <!-- operations -->
     <div class="col-xl-6 mb-3">
       <card class="h-100">
         <card-header class="card-header fw-bold">
@@ -52,10 +53,12 @@
         </card-header>
         <card-body>
           <div class="btn-group mb-3">
-            <button @click="operation = 1" type="button" class="btn btn-outline-theme">SEND STH <i class="fa fa-rocket" aria-hidden="true"></i>
+            <button @click="operation = 1" type="button" class="btn btn-outline-theme">SEND STH <i class="fa fa-rocket"
+                                                                                                   aria-hidden="true"></i>
             </button>
           </div>
 
+          <!-- send sth -->
           <div v-if="operation === 1" class="w-100">
             здесь заполню форму
           </div>
@@ -65,12 +68,58 @@
       </card>
     </div>
 
+    <!-- transactions -->
     <div class="col-xl-12 mb-3">
       <card v-if="transactions">
-        <card-header class="card-header fw-bold small text-uppercase">Transactions [<span class="text-success">{{transactions.meta.totalCount}}</span>]</card-header>
+        <card-header class="card-header fw-bold small text-uppercase">Transactions [<span
+          class="text-success">{{ transactions.meta.totalCount }}</span>]
+        </card-header>
         <card-body>
+
+
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Time</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Sender</th>
+              <th scope="col">Recipient</th>
+              <th scope="col">Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in transactions.data" :key="item.id" >
+              <td :title="item.id">
+                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
+
+                {{ (item.id).slice(0,5) }} .. {{ (item.id).slice(-5) }}
+                </span>
+              </td>
+              <td>
+                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
+                {{tmFormat(item.timestamp.unix, 'MM/DD/YY')}}
+                <span class="small">{{ format_time(item.timestamp.unix * 1000) }}</span>
+                </span>
+              </td>
+              <td>
+                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
+                {{ (item.amount / 1e8).toFixed(8) }}
+                </span>
+              </td>
+              <td>
+                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
+                {{(item.sender).slice(0,5)}} .. {{(item.sender).slice(-5)}}
+                </span>
+              </td>
+              <td><span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{(item.recipient).slice(0,5)}} .. {{(item.recipient).slice(-5)}}</span></td>
+              <td><span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{(item.fee / 1e8).toFixed(3)}}</span></td>
+            </tr>
+            </tbody>
+          </table>
           <div>
-            {{transactions.data}}
+            <!--{{ transactions.data }}-->
+
           </div>
         </card-body>
       </card>
@@ -91,6 +140,7 @@ import { useStoreWallet } from "@/stores/wallet";
 
 const storeWallet = useStoreWallet();
 const { wallet } = storeToRefs(storeWallet);
+import moment from 'moment'
 
 export default {
   name: "AddressPage",
@@ -98,8 +148,20 @@ export default {
     return {
       operation: 0,
       showPubKey: false,
-      account: { }
+      account: {}
     };
+  },
+  methods: {
+    tmFormat(tm, format = "MM/DD/YYYY") {
+      return moment.unix(tm).format(format);
+    },
+    format_time(s) {
+      const dtFormat = new Intl.DateTimeFormat("ru-RU", {
+        timeStyle: "medium",
+        timeZone: "UTC"
+      });
+      return dtFormat.format(new Date(s * 1e3));
+    }
   },
   async created() {
     await storeWallet.getAttributes(this.$route.params.address);
@@ -111,8 +173,8 @@ export default {
     },
     transactions() {
       return storeWallet.transactions[this.$route.params.address];
-    },
-  },
+    }
+  }
 
 };
 </script>
