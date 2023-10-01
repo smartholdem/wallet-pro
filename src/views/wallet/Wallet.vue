@@ -24,26 +24,49 @@
         </li>
       </ul>
       <div class="tab-content p-4">
-        <div class="tab-pane fade show active" id="addressList">
+        <!-- list -->
+        <div
+          class="tab-pane fade"
+          :class="tabActive === 0 ? 'show active' : ''"
+          id="addressList"
+        >
           <h6 class="card-subtitle mb-3 text-inverse text-opacity-75">
             Select address
           </h6>
-          <addresses>
-
-          </addresses>
-
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-for="item in accounts" :key="item.address">
-              <div class="btn-group">
-                <button @click="openAddress(item.address)" class="btn btn-outline-theme" style="width:350px;">{{item.address}}</button>
-                <button type="button" class="btn btn-outline-secondary"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
-                <button type="button" class="btn btn-outline-default"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-              </div>
+            <li
+              class="list-group-item"
+              v-for="item in listAddresses"
+              :key="item.address"
+            >
+              <span class="btn-group">
+                <button
+                  @click="openAddress(item.address)"
+                  class="btn btn-outline-theme"
+                  style="width: 365px"
+                >
+                  {{ item.address }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary">
+                  <i class="fa fa-clipboard" aria-hidden="true"></i>
+                </button>
+                <button
+                  @click="deleteAddress(item.address)"
+                  type="button"
+                  class="btn btn-outline-default"
+                >
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </button>
+              </span>
             </li>
-
           </ul>
         </div>
-        <div class="tab-pane fade" id="addressNew">
+        <!-- new -->
+        <div
+          class="tab-pane fade"
+          :class="tabActive === 1 ? 'show active' : ''"
+          id="addressNew"
+        >
           <h6 class="card-subtitle mb-3 text-inverse text-opacity-75">
             Get new address
           </h6>
@@ -89,7 +112,12 @@
             </div>
           </card>
         </div>
-        <div class="tab-pane fade" id="addressImport">
+        <!-- import -->
+        <div
+          class="tab-pane fade"
+          :class="tabActive === 2 ? 'show active' : ''"
+          id="addressImport"
+        >
           <h6 class="card-subtitle mb-3 text-inverse text-opacity-75">
             Import address
           </h6>
@@ -129,6 +157,20 @@
         </div>
       </div>
     </card>
+    <!-- toasts-container -->
+    <div class="toasts-container">
+      <div class="toast fade hide mb-3" data-autohide="false" id="toast-1">
+        <div class="toast-header">
+          <i class="far fa-bell text-muted me-2"></i>
+          <strong class="me-auto">Address</strong>
+          <small>Success</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+          {{notifyMsg}}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -137,11 +179,15 @@ import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 const store = useStoreWallet();
 const { wallet } = storeToRefs(store);
+import CryptoJS from "crypto-js";
+import { Toast } from "bootstrap";
 
 export default {
   name: "WalletPage",
   data() {
     return {
+      notifyMsg: "",
+      tabActive: 0,
       accounts: store.accounts,
       checks: {
         agree: false,
@@ -158,36 +204,57 @@ export default {
       },
     };
   },
+  computed: {
+    listAddresses() {
+      return store.accounts;
+    },
+  },
   methods: {
+    showToast(event, target, msg) {
+      event.preventDefault();
+      this.notifyMsg = msg;
+      const toast = new Toast(document.getElementById(target));
+      toast.show();
+    },
+    async deleteAddress(address) {
+      await store.addressDelete(address);
+      this.showToast(event, 'toast-1', 'Deleted')
+    },
     async openAddress(address) {
       await this.$router.push("/address/" + address);
     },
     async getNewAccount() {
-      this.account = await store.getNewAddress();
+      this.account = await store.addressNew();
     },
     saveAccount(account) {
       if (account.address.length > 4) {
         let objAddress = {};
-        objAddress[account.address] = account;
-        store.saveNewAddress(objAddress);
+        const hash = CryptoJS.SHA384(this.$root.pin).toString();
+        objAddress[account.address] = {
+          address: account.address,
+          secret: (CryptoJS.AES.encrypt(account.secret, this.$root.pin + hash)).toString(),
+        };
+        store.addressSave(objAddress);
+        if (this.accountImport.address) {
+          this.showToast(event, 'toast-1', 'Imported')
+        }
+        if (this.account.address) {
+          this.showToast(event, 'toast-1', 'Created')
+        }
         this.accountImport = {
           address: "",
-          secret: ""
+          secret: "",
         };
-        this.account = {
-          address: "",
-          secret: ""
-        }
-        this.$router.push("/");
+        this.account = this.accountImport;
+        this.tabActive = 0;
       }
     },
     accountImportFromPassword() {
       if (this.accountImport.secret.length > 4) {
-        console.log(this.accountImport.secret)
-        this.accountImport.address = store.addressFromPassword(this.accountImport.secret);
+        const account = store.addressFromPassword(this.accountImport.secret);
+        this.accountImport.address = account.address;
       }
-
-    }
+    },
   },
 };
 </script>
