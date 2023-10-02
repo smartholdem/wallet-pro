@@ -18,9 +18,13 @@ export const useStoreWallet = defineStore("walletStorage", {
   state: () => ({
     accounts: {},
     attributes: {},
-    transactions: {}
+    transactions: {},
+    delegates: {},
   }),
   actions: {
+    async getDelegates() {
+
+    },
     async txTransfer(payload: object) {
       const txs = [];
       const secretDecrypted = await this.addressDecrypt(this.accounts[payload.sender].secret);

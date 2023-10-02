@@ -81,25 +81,33 @@
           <div v-if="operation === 1" class="w-100">
             <div v-if="txSendStep === 0">
               <div class="row">
-                <div class="col-10">
+                <div class="col-md-10">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendRecipient">Recipient</label>
                     <input v-model="forSend.recipientId" type="text" class="form-control form-control-sm" id="sendRecipient"
                            placeholder="Enter STH address">
                   </div>
                 </div>
-                <div class="col-2 pt-4">
-                  Fee 1 STH
+                <div class="col-md-2">
+                  <label class="form-label" for="sendFee">Fee STH</label>
+                  <input readonly value="1" type="text" class="form-control form-control-sm" id="sendFee"
+                  >
                 </div>
               </div>
               <div class="row">
-                <div class="col-4">
+                <div class="col-md-4">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
                     <input v-model="forSend.amount" type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
+                  <label class="form-label" for="sendMemo">Memo</label>
+                  <input v-model="forSend.memo" type="text" class="form-control form-control-sm" id="sendMemo"
+                         placeholder="Public Description max 250"
+                  >
+                </div>
+                <div class="col-md-4">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Network</label>
                     <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
@@ -110,10 +118,22 @@
                     </select>
                   </div>
                 </div>
+
               </div>
               <div>
                 <button @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
               </div>
+            </div>
+
+            <!-- tx result -->
+            <div v-if="txSendStep === 1">
+              <p class="mb-3">
+                success tx: {{txResult.accept[0]}}
+              </p>
+
+              <p>
+                <button @click="txSendStep=0" type="button" class="btn btn-success btn-sm">CONTINUE</button>
+              </p>
             </div>
           </div>
         </card-body>
@@ -216,10 +236,13 @@ export default {
   data() {
     return {
       txSendStep: 0,
+      txResult: null,
       forSend: {
+        sender: this.$route.params.address,
         recipientId: "",
         amount: "",
         fee: 1,
+        memo: "",
       },
       decryptedSecret: "",
       selectedNetwork: "mainnet",
@@ -230,7 +253,17 @@ export default {
   },
   methods: {
     async txSend() {
-
+      this.txResult = await storeWallet.txTransfer(this.forSend);
+      if (this.txResult) {
+        this.txSendStep = 1;
+        this.forSend = {
+          sender: this.$route.params.address,
+          recipientId: "",
+          amount: "",
+          fee: 1,
+          memo: "",
+        }
+      }
     },
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
