@@ -56,18 +56,20 @@
             <button @click="operation = 1" type="button" class="btn btn-outline-theme">
               SEND STH <i class="fa fa-rocket" aria-hidden="true"></i>
             </button>
+            <button disabled="true" type="button" class="btn btn-outline-theme">
+              <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
+            </button>
+            <button @click="decryptSecret()" data-bs-toggle="modal" data-bs-target="#modalDecryptAddress" type="button" class="btn btn-outline-theme">
+              <i class="fa fa-key" aria-hidden="true"></i>
+            </button>
             <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
               2nd PWD
             </button>
             <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
               DELEGATE REG
             </button>
-            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
-              <i class="fa fa-key" aria-hidden="true"></i>
-            </button>
-            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
-              <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
-            </button>
+
+
           </div>
 
           <!-- send sth -->
@@ -166,6 +168,14 @@
       </card>
     </div>
 
+    <div class="modal modal-cover fade" id="modalDecryptAddress">
+      <div class="modal-dialog">
+        <div class="modal-content text-danger">
+          {{decryptedSecret}}
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -176,13 +186,14 @@ import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
 
 const storeWallet = useStoreWallet();
-const { wallet } = storeToRefs(storeWallet);
+const { accounts } = storeToRefs(storeWallet);
 import moment from 'moment'
 
 export default {
   name: "AddressPage",
   data() {
     return {
+      decryptedSecret: "",
       selectedNetwork: "mainnet",
       operation: 0,
       showPubKey: false,
@@ -190,8 +201,8 @@ export default {
     };
   },
   methods: {
-    async decryptSecret(address) {
-      this.decryptedSecret = await storeWallet.addressDecrypt(this.listAddresses[address].secret);
+    async decryptSecret() {
+      this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
     },
     tmFormat(tm, format = "MM/DD/YYYY") {
       return moment.unix(tm).format(format);
