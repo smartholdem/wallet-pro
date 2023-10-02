@@ -19,18 +19,18 @@
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
                 <card-header class="card-header fw-bold">
-                  Delegate <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
+                  DELEGATE <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
                 </card-header>
                 <card-body>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Rank {{ currentAddress.attributes.delegate.rank }}</li>
+                    <li class="list-group-item">Rank <span class="text-info">{{ currentAddress.attributes.delegate.rank }}</span></li>
                     <li class="list-group-item">
-                      Vote balance {{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }} STH
+                      Votes <span class="text-info">{{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }}</span> STH
                     </li>
                     <li class="list-group-item">Forged fees
-                      {{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }} STH
+                      <span class="text-info">{{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }}</span> STH
                     </li>
-                    <li class="list-group-item">Produced blocks {{ currentAddress.attributes.delegate.producedBlocks }}
+                    <li class="list-group-item">Produced blocks <span class="text-info">{{ currentAddress.attributes.delegate.producedBlocks }}</span>
                     </li>
                   </ul>
                 </card-body>
@@ -128,7 +128,10 @@
             <!-- tx result -->
             <div v-if="txSendStep === 1">
               <p class="mb-3">
-                success tx: {{txResult.accept[0]}}
+                Success transaction: <span class="text-primary">{{txResult.accept[0]}}</span>
+              </p>
+              <p class="mb-3">
+                Please wait confirmation.
               </p>
 
               <p>
@@ -143,9 +146,7 @@
     <!-- transactions -->
     <div class="col-xl-12 mb-3">
       <card v-if="transactions">
-        <card-header class="card-header fw-bold small text-uppercase">Transactions [<span
-          class="text-success">{{ transactions.meta.totalCount }}</span>]
-        </card-header>
+        <card-header class="card-header fw-bold small text-uppercase">Transactions</card-header>
         <card-body>
           <table class="table table-hover">
             <thead>
@@ -159,7 +160,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in transactions.data" :key="item.id">
+            <tr v-for="item in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
               <td :title="item.id">
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
                 {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}

@@ -62,7 +62,7 @@ export default {
 						<label class="form-label">Password <span class="text-danger">*</span></label>
 						<a href="#" class="ms-auto text-inverse text-decoration-none text-opacity-50">Forgot password?</a>
 					</div>
-					<input type="password" autocomplete="off" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
+					<input autofocus type="password" autocomplete="off" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
 				</div>
         <!--
 				<div class="mb-3">
