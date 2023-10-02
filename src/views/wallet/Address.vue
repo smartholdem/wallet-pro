@@ -56,11 +56,51 @@
             <button @click="operation = 1" type="button" class="btn btn-outline-theme">
               SEND STH <i class="fa fa-rocket" aria-hidden="true"></i>
             </button>
+            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+              2nd PWD
+            </button>
+            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+              DELEGATE REG
+            </button>
+            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+              <i class="fa fa-key" aria-hidden="true"></i>
+            </button>
+            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+              <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
+            </button>
           </div>
 
           <!-- send sth -->
           <div v-if="operation === 1" class="w-100">
-            здесь заполню форму
+            <div class="form-group mb-3">
+              <label class="form-label" for="sendRecipient">Recipient</label>
+              <input type="text" class="form-control" id="sendRecipient" placeholder="Enter STH address">
+            </div>
+
+              <div class="row">
+              <div class="col-6">
+                <div class="form-group mb-3">
+                <label class="form-label" for="sendAmount">Amount</label>
+                <input type="text" class="form-control" id="sendAmount" placeholder="Amount STH">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group mb-3">
+                <label class="form-label" for="sendAmount">Network</label>
+                <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
+                  <option selected value="mainnet">Main Net</option>
+                  <option disabled value="bsc">BSC</option>
+                  <option disabled value="heco">HECO</option>
+                  <option disabled value="eth">Ethereum</option>
+                </select>
+                </div>
+
+              </div>
+
+
+
+
+            </div>
           </div>
         </card-body>
       </card>
@@ -143,12 +183,16 @@ export default {
   name: "AddressPage",
   data() {
     return {
+      selectedNetwork: "mainnet",
       operation: 0,
       showPubKey: false,
       account: {},
     };
   },
   methods: {
+    async decryptSecret(address) {
+      this.decryptedSecret = await storeWallet.addressDecrypt(this.listAddresses[address].secret);
+    },
     tmFormat(tm, format = "MM/DD/YYYY") {
       return moment.unix(tm).format(format);
     },
