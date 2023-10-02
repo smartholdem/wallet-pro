@@ -174,12 +174,12 @@ export default {
         if (self.page === '/address/' + self.$route.params.address) {
           await storeWallet.getTransactions(self.$route.params.address);
           await storeWallet.getAttributes(self.$route.params.address);
-          self.$root.timerTx= setTimeout(tick, 10000); // (*)
+          self.$root.timerTx= setTimeout(tick, 20000); // (*)
         } else {
           clearTimeout(this.$root.timerTx)
           console.log('stop timer')
         }
-      }, 10000);
+      }, 20000);
     }
 
   },
