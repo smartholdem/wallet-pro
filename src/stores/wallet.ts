@@ -8,7 +8,7 @@ import { useStoreSettings } from "@/stores/app-settings.ts";
 
 const storeSettings = useStoreSettings();
 const activeNode = "https://" + storeSettings.nodes[0] + "/api";
-console.log('activeNode', activeNode)
+console.log("activeNode", activeNode);
 
 const client = new Connection(activeNode);
 Managers.configManager.setFromPreset("mainnet");
@@ -18,18 +18,42 @@ export const useStoreWallet = defineStore("walletStorage", {
   state: () => ({
     accounts: {},
     attributes: {},
-    transactions: {},
+    transactions: {}
   }),
   actions: {
+    async txTransfer(payload: object) {
+      const txs = [];
+      const secretDecrypted = await this.addressDecrypt(this.accounts[payload.sender].secret);
+      const senderWallet = await client.api("wallets").get(payload.sender);
+      const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+
+      const transaction = Transactions.BuilderFactory.transfer()
+        .fee((payload.fee * 1e8).toString())
+        .version(2)
+        .nonce(senderNonce.toFixed())
+        .recipientId("STwdudWTpGYLE7oqPTh2YT5gQDR4SnU6Ho")
+        .amount((payload.amount * 1e8).toFixed(0))
+        .vendorField(payload.memo)
+        .sign(secretDecrypted);
+
+      txs.push(transaction.build().toJson());
+      let broadcastResponse = {};
+      try {
+        broadcastResponse = (await client.api("transactions").create({ transactions: txs })).body.data;
+      } catch(e) {
+          console.log('err: tx send')
+      }
+
+      return broadcastResponse;
+    },
     async getTransactions(address) {
       const result = {};
       result[address] = {};
       try {
         result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=10")).data;
-
         this.transactions = {
           ...this.transactions,
-          ...result,
+          ...result
         };
       } catch (e) {
         console.log("err: address not stored in blockchain");
@@ -47,8 +71,8 @@ export const useStoreWallet = defineStore("walletStorage", {
         };
       } catch (e) {
         result[address] = {
-          publicKey: false,
-        }
+          publicKey: false
+        };
         console.log("err: address not stored in blockchain");
       }
 
@@ -90,5 +114,5 @@ export const useStoreWallet = defineStore("walletStorage", {
       };
     }
   },
-  persist: true,
+  persist: true
 });
