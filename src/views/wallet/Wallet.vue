@@ -1,5 +1,5 @@
 <template>
-  <div class="col-xl-10">
+  <div class="col-xl-12">
     <ul class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">WALLET</a></li>
       <li class="breadcrumb-item active">ADDRESSES</li>
@@ -39,14 +39,14 @@
               v-for="item in listAddresses"
               :key="item.address"
             >
-              <span class="btn-group">
-                <button
-                  @click="openAddress(item.address)"
-                  class="btn btn-outline-theme"
-                  style="width: 365px"
-                >
-                  {{ item.address }}
-                </button>
+              <button
+                @click="openAddress(item.address)"
+                class="btn btn-outline-theme"
+                style="width: 320px"
+              >
+                {{ item.address }}
+              </button>&nbsp;
+              <div class="btn-group">
                 <button type="button" class="btn btn-outline-secondary">
                   <i class="fa fa-clipboard" aria-hidden="true"></i>
                 </button>
@@ -65,7 +65,7 @@
                 >
                   <i class="fa fa-key" aria-hidden="true"></i>
                 </button>
-              </span>
+              </div>
             </li>
           </ul>
         </div>

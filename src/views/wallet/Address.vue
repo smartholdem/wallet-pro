@@ -79,36 +79,40 @@
 
           <!-- send sth -->
           <div v-if="operation === 1" class="w-100">
-            <div class="row">
-              <div class="col-10">
-                <div class="form-group mb-3">
-                  <label class="form-label" for="sendRecipient">Recipient</label>
-                  <input type="text" class="form-control form-control-sm" id="sendRecipient"
-                         placeholder="Enter STH address">
+            <div v-if="txSendStep === 0">
+              <div class="row">
+                <div class="col-10">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="sendRecipient">Recipient</label>
+                    <input type="text" class="form-control form-control-sm" id="sendRecipient"
+                           placeholder="Enter STH address">
+                  </div>
+                </div>
+                <div class="col-2 pt-4">
+                  Fee 1 STH
                 </div>
               </div>
-              <div class="col-2 pt-4">
-                Fee 1 STH
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-4">
-                <div class="form-group mb-3">
-                  <label class="form-label" for="sendAmount">Amount</label>
-                  <input type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="sendAmount">Amount</label>
+                    <input type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="sendAmount">Network</label>
+                    <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
+                      <option selected value="mainnet">Main Net</option>
+                      <option disabled value="bsc">BSC</option>
+                      <option disabled value="heco">HECO</option>
+                      <option disabled value="eth">Ethereum</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div class="col-4">
-                <div class="form-group mb-3">
-                  <label class="form-label" for="sendAmount">Network</label>
-                  <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
-                    <option selected value="mainnet">Main Net</option>
-                    <option disabled value="bsc">BSC</option>
-                    <option disabled value="heco">HECO</option>
-                    <option disabled value="eth">Ethereum</option>
-                  </select>
-                </div>
+              <div>
+                <button @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
               </div>
             </div>
           </div>
@@ -158,10 +162,12 @@
                 </span>
               </td>
               <td><span
-                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.recipient).slice(0, 5) }} .. {{ (item.recipient).slice(-5) }}</span>
+                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.recipient).slice(0, 5)
+                }} .. {{ (item.recipient).slice(-5) }}</span>
               </td>
               <td><span
-                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3) }}</span>
+                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3)
+                }}</span>
               </td>
             </tr>
             </tbody>
@@ -209,6 +215,12 @@ export default {
   name: "AddressPage",
   data() {
     return {
+      txSendStep: 0,
+      forSend: {
+        recipientId: "",
+        amount: "",
+        fee: 1,
+      },
       decryptedSecret: "",
       selectedNetwork: "mainnet",
       operation: 0,
@@ -217,6 +229,9 @@ export default {
     };
   },
   methods: {
+    async txSend() {
+
+    },
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
     },
