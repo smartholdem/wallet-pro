@@ -84,7 +84,7 @@
                 <div class="col-10">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendRecipient">Recipient</label>
-                    <input type="text" class="form-control form-control-sm" id="sendRecipient"
+                    <input v-model="forSend.recipientId" type="text" class="form-control form-control-sm" id="sendRecipient"
                            placeholder="Enter STH address">
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="col-4">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
-                    <input type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
+                    <input v-model="forSend.amount" type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
                   </div>
                 </div>
                 <div class="col-4">
