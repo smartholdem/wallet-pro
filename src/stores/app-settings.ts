@@ -4,15 +4,6 @@ import CryptoJS from 'crypto-js'
 
 export const useStoreSettings = defineStore('appSettings', {
   state: () => ({
-    /*
-    settings: useStorage('appSettings', {
-      darkMode: true,
-      advancedMode: false,
-      language: "",
-      currency: "USDT",
-      lockScreen: 600,
-    }),
-     */
     settings: {
       darkMode: true,
       advancedMode: false,

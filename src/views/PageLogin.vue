@@ -1,5 +1,5 @@
 <script>
-//import { useRouter, RouterLink } from 'vue-router';
+import { useRouter, RouterLink } from 'vue-router';
 import { useAppOptionStore } from '@/stores/app-option';
 const appOption = useAppOptionStore();
 
@@ -16,11 +16,13 @@ export default {
     }
   },
 	mounted() {
+    appOption.appSidebarCollapsed = true;
 		appOption.appSidebarHide = true;
 		appOption.appHeaderHide = true;
 		appOption.appContentClass = 'p-0';
 	},
 	beforeUnmount() {
+    appOption.appSidebarCollapsed = false;
 		appOption.appSidebarHide = false;
 		appOption.appHeaderHide = false;
 		appOption.appContentClass = '';
@@ -36,7 +38,6 @@ export default {
     },
 		submitForm: function() {
       const pinIsValid = storeSettings.validatePinCode(this.password);
-      //console.log('pinIsValid',pinIsValid)
       if (pinIsValid) {
         this.$root.pin = this.password;
         storeSettings.tmpPin = this.password;
