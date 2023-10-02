@@ -209,10 +209,7 @@
     <div class="modal modal-cover fade" id="modalDecryptAddress">
       <div class="modal-dialog">
         <div class="modal-content text-danger">
-          <textarea v-model="decryptedSecret" class="form-control" rows="3">
-
-          </textarea>
-
+          <textarea v-model="decryptedSecret" class="form-control" rows="3"></textarea>
         </div>
       </div>
     </div>
@@ -221,12 +218,11 @@
 </template>
 
 <script>
-import { storeToRefs } from "pinia";
-import { useStoreWallet } from "@/stores/wallet";
 import { useAppOptionStore } from "@/stores/app-option";
-
 const appOption = useAppOptionStore();
 
+import { storeToRefs } from "pinia";
+import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
 import moment from "moment";
@@ -248,7 +244,7 @@ export default {
       selectedNetwork: "mainnet",
       operation: 0,
       showPubKey: false,
-      account: {}
+      account: {},
     };
   },
   methods: {
@@ -262,8 +258,17 @@ export default {
           amount: "",
           fee: 1,
           memo: "",
-        }
+        };
+
+        setTimeout(async () => {
+          await this.accountUpdate();
+        }, 10000);
+
       }
+    },
+    async accountUpdate() {
+      await storeWallet.getAttributes(this.$route.params.address);
+      await storeWallet.getTransactions(this.$route.params.address);
     },
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
@@ -281,8 +286,7 @@ export default {
   },
   async beforeCreate() {
     if (this.currentAddress) {
-      await storeWallet.getAttributes(this.$route.params.address);
-      await storeWallet.getTransactions(this.$route.params.address);
+      await this.accountUpdate();
     }
   },
   async mounted() {
@@ -291,8 +295,7 @@ export default {
       var self = this;
       this.$root.timerTx = setTimeout(async function tick() {
         if (self.page === "/address/" + self.$route.params.address) {
-          await storeWallet.getTransactions(self.$route.params.address);
-          await storeWallet.getAttributes(self.$route.params.address);
+          await self.accountUpdate();
           self.$root.timerTx = setTimeout(tick, 20000); // (*)
         } else {
           clearTimeout(self.$root.timerTx);
