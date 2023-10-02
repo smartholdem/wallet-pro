@@ -6,7 +6,6 @@
           Delegates
         </card-header>
         <card-body>
-
           <table class="table table-hover">
             <thead>
             <tr>
@@ -15,7 +14,7 @@
               <th scope="col">votes</th>
               <th scope="col">produced</th>
               <th scope="col">forged</th>
-              <th scope="col">status</th>
+              <!--<th scope="col">status</th>-->
             </tr>
             </thead>
             <tbody>
@@ -35,17 +34,16 @@
               <td>
                 {{(item.forged.total / 1e8).toFixed(8)}}
               </td>
+              <!--
               <td>
                 <span v-show-="item.last" class="text-success"><i class="fas fa-lg fa-fw me-2 fa-check-circle"></i></span>
                 <span v-show-="item.last" class="text-warning"><i class="fas fa-lg fa-fw me-2 fa-circle"></i></span>
                 <span v-show-="item.last" class="text-danger"><i class="fas fa-lg fa-fw me-2 fa-circle"></i></span>
-
               </td>
+              -->
             </tr>
             </tbody>
           </table>
-
-          {{ delegates.data }}
         </card-body>
       </card>
 
@@ -62,6 +60,17 @@ export default {
   name: "DelegatesPage",
   async created() {
     await storeWallet.getDelegates();
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    var self = this;
+    this.$root.timerDelegates = setTimeout(async function tick() {
+      if (self.page === "/delegates") {
+        await storeWallet.getDelegates();
+        self.$root.timerDelegates = setTimeout(tick, 60000 * 20); // (*)
+      } else {
+        clearTimeout(self.$root.timerDelegates);
+        console.log("stop timer delegates");
+      }
+    }, 60000 * 10);
   },
   computed: {
     delegates() {
