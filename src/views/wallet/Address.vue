@@ -67,7 +67,6 @@
     </div>
 
     <!-- transactions -->
-    {{transactions}}
     <div class="col-xl-12 mb-3">
       <card v-if="transactions">
         <card-header class="card-header fw-bold small text-uppercase">Transactions [<span
