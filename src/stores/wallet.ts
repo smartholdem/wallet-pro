@@ -41,16 +41,17 @@ export const useStoreWallet = defineStore("walletStorage", {
       result[address] = {};
       try {
         result[address] = (await axios.get(activeNode + "/wallets/" + address)).data.data;
+        this.attributes = {
+          ...this.attributes,
+          ...result
+        };
       } catch (e) {
         result[address] = {
           publicKey: false,
         }
         console.log("err: address not stored in blockchain");
       }
-      this.attributes = {
-        ...this.attributes,
-        ...result
-      };
+
       return result;
     },
     async addressNew() {

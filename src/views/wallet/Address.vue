@@ -16,7 +16,6 @@
           <div v-if="currentAddress.publicKey">
             <h5 class="card-title">BALANCE <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
               }}</span> STH</h5>
-
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
                 <card-header class="card-header fw-bold">
@@ -38,9 +37,14 @@
               </card>
             </div>
           </div>
-          <div v-if="!currentAddress.publicKey">
-            <h5 class="card-title"><span class="text-warning">Wallet is empty</span></h5>
-          </div>
+        </card-body>
+      </card>
+      <card class="h-100" v-if="!currentAddress">
+        <card-header class="card-header fw-bold">
+          {{ $route.params.address }}
+        </card-header>
+        <card-body>
+          <h3>Cold Address</h3>
         </card-body>
       </card>
     </div>
@@ -59,7 +63,8 @@
             <button disabled="true" type="button" class="btn btn-outline-theme">
               <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
             </button>
-            <button @click="decryptSecret()" data-bs-toggle="modal" data-bs-target="#modalDecryptAddress" type="button" class="btn btn-outline-theme">
+            <button @click="decryptSecret()" data-bs-toggle="modal" data-bs-target="#modalDecryptAddress" type="button"
+                    class="btn btn-outline-theme">
               <i class="fa fa-key" aria-hidden="true"></i>
             </button>
             <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
@@ -74,34 +79,37 @@
 
           <!-- send sth -->
           <div v-if="operation === 1" class="w-100">
-            <div class="form-group mb-3">
-              <label class="form-label" for="sendRecipient">Recipient</label>
-              <input type="text" class="form-control" id="sendRecipient" placeholder="Enter STH address">
+            <div class="row">
+              <div class="col-10">
+                <div class="form-group mb-3">
+                  <label class="form-label" for="sendRecipient">Recipient</label>
+                  <input type="text" class="form-control form-control-sm" id="sendRecipient"
+                         placeholder="Enter STH address">
+                </div>
+              </div>
+              <div class="col-2 pt-4">
+                Fee 1 STH
+              </div>
             </div>
 
-              <div class="row">
-              <div class="col-6">
+            <div class="row">
+              <div class="col-4">
                 <div class="form-group mb-3">
-                <label class="form-label" for="sendAmount">Amount</label>
-                <input type="text" class="form-control" id="sendAmount" placeholder="Amount STH">
+                  <label class="form-label" for="sendAmount">Amount</label>
+                  <input type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="form-group mb-3">
-                <label class="form-label" for="sendAmount">Network</label>
-                <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
-                  <option selected value="mainnet">Main Net</option>
-                  <option disabled value="bsc">BSC</option>
-                  <option disabled value="heco">HECO</option>
-                  <option disabled value="eth">Ethereum</option>
-                </select>
+                  <label class="form-label" for="sendAmount">Network</label>
+                  <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
+                    <option selected value="mainnet">Main Net</option>
+                    <option disabled value="bsc">BSC</option>
+                    <option disabled value="heco">HECO</option>
+                    <option disabled value="eth">Ethereum</option>
+                  </select>
                 </div>
-
               </div>
-
-
-
-
             </div>
           </div>
         </card-body>
@@ -127,15 +135,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in transactions.data" :key="item.id" >
+            <tr v-for="item in transactions.data" :key="item.id">
               <td :title="item.id">
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ (item.id).slice(0,5) }} .. {{ (item.id).slice(-5) }}
+                {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}
                 </span>
               </td>
               <td>
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{tmFormat(item.timestamp.unix, 'DD/MM/YY')}}
+                {{ tmFormat(item.timestamp.unix, "DD/MM/YY") }}
                 <span class="small">{{ format_time(item.timestamp.unix * 1000) }}</span>
                 </span>
               </td>
@@ -146,11 +154,15 @@
               </td>
               <td>
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{(item.sender).slice(0,5)}} .. {{(item.sender).slice(-5)}}
+                {{ (item.sender).slice(0, 5) }} .. {{ (item.sender).slice(-5) }}
                 </span>
               </td>
-              <td><span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{(item.recipient).slice(0,5)}} .. {{(item.recipient).slice(-5)}}</span></td>
-              <td><span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{(item.fee / 1e8).toFixed(3)}}</span></td>
+              <td><span
+                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.recipient).slice(0, 5) }} .. {{ (item.recipient).slice(-5) }}</span>
+              </td>
+              <td><span
+                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3) }}</span>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -171,7 +183,10 @@
     <div class="modal modal-cover fade" id="modalDecryptAddress">
       <div class="modal-dialog">
         <div class="modal-content text-danger">
-          {{decryptedSecret}}
+          <textarea v-model="decryptedSecret" class="form-control" rows="3">
+
+          </textarea>
+
         </div>
       </div>
     </div>
@@ -183,11 +198,12 @@
 import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 import { useAppOptionStore } from "@/stores/app-option";
+
 const appOption = useAppOptionStore();
 
 const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
-import moment from 'moment'
+import moment from "moment";
 
 export default {
   name: "AddressPage",
@@ -197,7 +213,7 @@ export default {
       selectedNetwork: "mainnet",
       operation: 0,
       showPubKey: false,
-      account: {},
+      account: {}
     };
   },
   methods: {
@@ -216,23 +232,23 @@ export default {
     }
   },
   async beforeCreate() {
-    await storeWallet.getAttributes(this.$route.params.address);
-    if (this.currentAddress.publicKey) {
+    if (this.currentAddress) {
+      await storeWallet.getAttributes(this.$route.params.address);
       await storeWallet.getTransactions(this.$route.params.address);
     }
   },
   async mounted() {
-    if (this.currentAddress.publicKey) {
+    if (this.currentAddress) {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       var self = this;
       this.$root.timerTx = setTimeout(async function tick() {
-        if (self.page === '/address/' + self.$route.params.address) {
+        if (self.page === "/address/" + self.$route.params.address) {
           await storeWallet.getTransactions(self.$route.params.address);
           await storeWallet.getAttributes(self.$route.params.address);
-          self.$root.timerTx= setTimeout(tick, 20000); // (*)
+          self.$root.timerTx = setTimeout(tick, 20000); // (*)
         } else {
-          clearTimeout(this.$root.timerTx)
-          console.log('stop timer')
+          clearTimeout(self.$root.timerTx);
+          console.log("stop timer");
         }
       }, 20000);
     }
@@ -252,7 +268,7 @@ export default {
     transactions() {
       return storeWallet.transactions[this.$route.params.address];
     }
-  },
+  }
 };
 </script>
 
