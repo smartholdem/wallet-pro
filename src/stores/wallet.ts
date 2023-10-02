@@ -23,7 +23,16 @@ export const useStoreWallet = defineStore("walletStorage", {
   }),
   actions: {
     async getDelegates() {
-
+      let result = {};
+      try {
+        result = (await axios.get(activeNode + "/delegates?page=1&limit=100")).data;
+        this.delegates = {
+          ...this.delegates,
+          ...result,
+        };
+      } catch (e) {
+        console.log("err: get delegates");
+      }
     },
     async txTransfer(payload: object) {
       const txs = [];
@@ -57,7 +66,7 @@ export const useStoreWallet = defineStore("walletStorage", {
         result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=10")).data;
         this.transactions = {
           ...this.transactions,
-          ...result
+          ...result,
         };
       } catch (e) {
         console.log("err: address not stored in blockchain");
