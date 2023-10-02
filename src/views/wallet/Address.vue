@@ -160,32 +160,32 @@ export default {
       return dtFormat.format(new Date(s * 1e3));
     }
   },
-
   async beforeCreate() {
-    console.log('beforeCreate')
-    await storeWallet.getTransactions(this.$route.params.address);
     await storeWallet.getAttributes(this.$route.params.address);
+    if (this.currentAddress.publicKey) {
+      await storeWallet.getTransactions(this.$route.params.address);
+    }
   },
   async mounted() {
+    if (this.currentAddress.publicKey) {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      var self = this;
+      this.$root.timerTx = setTimeout(async function tick() {
+        if (self.page === '/address/' + self.$route.params.address) {
+          await storeWallet.getTransactions(self.$route.params.address);
+          await storeWallet.getAttributes(self.$route.params.address);
+          self.$root.timerTx= setTimeout(tick, 10000); // (*)
+        } else {
+          clearTimeout(this.$root.timerTx)
+          console.log('stop timer')
+        }
+      }, 10000);
+    }
 
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    var self = this;
-    this.$root.timerTx = setTimeout(async function tick() {
-      if (self.page === '/address/' + self.$route.params.address) {
-        await storeWallet.getTransactions(self.$route.params.address);
-        await storeWallet.getAttributes(self.$route.params.address);
-        self.$root.timerTx= setTimeout(tick, 10000); // (*)
-      } else {
-        clearTimeout(this.$root.timerTx)
-        console.log('stop timer')
-      }
-    }, 10000);
   },
   async created() {
     //await storeWallet.getTransactions(this.$route.params.address);
     //window.addEventListener('beforeunload', clearTimeout(this.$root.timerTx))
-
-
   },
   computed: {
     page() {
@@ -198,7 +198,6 @@ export default {
       return storeWallet.transactions[this.$route.params.address];
     }
   },
-
 };
 </script>
 
