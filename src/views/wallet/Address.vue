@@ -53,8 +53,8 @@
         </card-header>
         <card-body>
           <div class="btn-group mb-3">
-            <button @click="operation = 1" type="button" class="btn btn-outline-theme">SEND STH <i class="fa fa-rocket"
-                                                                                                   aria-hidden="true"></i>
+            <button @click="operation = 1" type="button" class="btn btn-outline-theme">
+              SEND STH <i class="fa fa-rocket" aria-hidden="true"></i>
             </button>
           </div>
 
@@ -62,21 +62,18 @@
           <div v-if="operation === 1" class="w-100">
             здесь заполню форму
           </div>
-
-
         </card-body>
       </card>
     </div>
 
     <!-- transactions -->
+    {{transactions}}
     <div class="col-xl-12 mb-3">
       <card v-if="transactions">
         <card-header class="card-header fw-bold small text-uppercase">Transactions [<span
           class="text-success">{{ transactions.meta.totalCount }}</span>]
         </card-header>
         <card-body>
-
-
           <table class="table table-hover">
             <thead>
             <tr>
@@ -92,13 +89,12 @@
             <tr v-for="item in transactions.data" :key="item.id" >
               <td :title="item.id">
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-
                 {{ (item.id).slice(0,5) }} .. {{ (item.id).slice(-5) }}
                 </span>
               </td>
               <td>
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{tmFormat(item.timestamp.unix, 'MM/DD/YY')}}
+                {{tmFormat(item.timestamp.unix, 'DD/MM/YY')}}
                 <span class="small">{{ format_time(item.timestamp.unix * 1000) }}</span>
                 </span>
               </td>
@@ -137,6 +133,8 @@
 <script>
 import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
+import { useAppOptionStore } from "@/stores/app-option";
+const appOption = useAppOptionStore();
 
 const storeWallet = useStoreWallet();
 const { wallet } = storeToRefs(storeWallet);
@@ -148,7 +146,7 @@ export default {
     return {
       operation: 0,
       showPubKey: false,
-      account: {}
+      account: {},
     };
   },
   methods: {
@@ -163,18 +161,44 @@ export default {
       return dtFormat.format(new Date(s * 1e3));
     }
   },
-  async created() {
-    await storeWallet.getAttributes(this.$route.params.address);
+
+  async beforeCreate() {
+    console.log('beforeCreate')
     await storeWallet.getTransactions(this.$route.params.address);
+    await storeWallet.getAttributes(this.$route.params.address);
+  },
+  async mounted() {
+
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    var self = this;
+    this.$root.timerTx = setTimeout(async function tick() {
+      if (self.page === '/address/' + self.$route.params.address) {
+        await storeWallet.getTransactions(self.$route.params.address);
+        await storeWallet.getAttributes(self.$route.params.address);
+        self.$root.timerTx= setTimeout(tick, 10000); // (*)
+      } else {
+        clearTimeout(this.$root.timerTx)
+        console.log('stop timer')
+      }
+    }, 10000);
+  },
+  async created() {
+    //await storeWallet.getTransactions(this.$route.params.address);
+    //window.addEventListener('beforeunload', clearTimeout(this.$root.timerTx))
+
+
   },
   computed: {
+    page() {
+      return appOption.currentPage;
+    },
     currentAddress() {
       return storeWallet.attributes[this.$route.params.address];
     },
     transactions() {
       return storeWallet.transactions[this.$route.params.address];
     }
-  }
+  },
 
 };
 </script>

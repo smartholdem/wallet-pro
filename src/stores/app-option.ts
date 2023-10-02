@@ -20,6 +20,7 @@ export const useAppOptionStore = defineStore({
 			appFooter: false,
 			appFooterFixed: false,
 			appThemePanelToggled: false,
+			currentPage: "",
 		}
   }
 });

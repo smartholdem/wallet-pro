@@ -27,7 +27,8 @@ const internalInstance = getCurrentInstance();
 const progresses = [] as ProgressFinisher[];
 
 router.beforeEach(async (to, from) => {
-
+  //console.log(to)
+  appOption.currentPage = to.path
   progresses.push(useProgress().start());
   appOption.appSidebarMobileToggled = false;
   appOption.appSidebarToggled = false;
