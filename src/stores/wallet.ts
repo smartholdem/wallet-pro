@@ -23,6 +23,9 @@ export const useStoreWallet = defineStore("walletStorage", {
     delegates: {},
   }),
   actions: {
+    async validateAddress(address: string) {
+      return Identities.Address.validate(address);
+    },
     async getDelegates() {
       let result = {};
       try {
