@@ -48,7 +48,7 @@ export const useStoreWallet = defineStore("walletStorage", {
         .fee((payload.fee * 1e8).toString())
         .version(2)
         .nonce(senderNonce.toFixed())
-        .recipientId("STwdudWTpGYLE7oqPTh2YT5gQDR4SnU6Ho")
+        .recipientId(payload.recipientId)
         .amount((payload.amount * 1e8).toFixed(0))
         .vendorField(payload.memo)
         .sign(secretDecrypted);

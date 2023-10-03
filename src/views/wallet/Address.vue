@@ -88,7 +88,7 @@
                 <div class="col-md-10">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendRecipient">Recipient</label>
-                    <input v-model="forSend.recipientId" @input="validateAddress" type="text" class="form-control form-control-sm" id="sendRecipient"
+                    <input v-model="forSend.recipientId" @input="validateAddress" type="text" class="form-control form-control-sm" :class="forSend.addressIsValid && forSend.recipientId !== this.$route.params.address ? 'is-valid' : 'is-invalid'" id="sendRecipient"
                            placeholder="Enter address">
                   </div>
                 </div>
@@ -104,7 +104,7 @@
                 <div class="col-md-4">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
-                    <input v-model="forSend.amount" type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount">
+                    <input v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount" placeholder="Amount">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -129,7 +129,7 @@
 
               </div>
               <div>
-                <button :disable="forSend.amount <=0 || !forSend.recipientId" @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
+                <button :disabled="!forSend.addressIsValid || forSend.amount <=0 || !forSend.recipientId || forSend.recipientId === this.$route.params.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
               </div>
             </div>
 
