@@ -88,28 +88,32 @@
                 <div class="col-md-10">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendRecipient">Recipient</label>
-                    <input v-model="forSend.recipientId" type="text" class="form-control form-control-sm" id="sendRecipient"
-                           placeholder="Enter STH address">
+                    <input v-model="forSend.recipientId" @input="validateAddress" type="text" class="form-control form-control-sm" id="sendRecipient"
+                           placeholder="Enter address">
                   </div>
                 </div>
                 <div class="col-md-2">
+                  <div class="form-group mb-3">
                   <label class="form-label" for="sendFee">Fee STH</label>
                   <input readonly value="1" type="text" class="form-control form-control-sm" id="sendFee"
                   >
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
-                    <input v-model="forSend.amount" type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount STH">
+                    <input v-model="forSend.amount" type="text" class="form-control form-control-sm" id="sendAmount" placeholder="Amount">
                   </div>
                 </div>
                 <div class="col-md-4">
+                  <div class="form-group mb-3">
                   <label class="form-label" for="sendMemo">Memo</label>
                   <input v-model="forSend.memo" type="text" class="form-control form-control-sm" id="sendMemo"
                          placeholder="Public Description max 250"
                   >
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group mb-3">
@@ -240,6 +244,7 @@ export default {
       txSendStep: 0,
       txResult: null,
       forSend: {
+        addressIsValid: false,
         sender: this.$route.params.address,
         recipientId: "",
         amount: "",
@@ -254,11 +259,15 @@ export default {
     };
   },
   methods: {
+    async validateAddress() {
+      this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
+    },
     async txSend() {
       this.txResult = await storeWallet.txTransfer(this.forSend);
       if (this.txResult) {
         this.txSendStep = 1;
         this.forSend = {
+          addressIsValid: false,
           sender: this.$route.params.address,
           recipientId: "",
           amount: "",
