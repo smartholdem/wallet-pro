@@ -3,8 +3,8 @@
   "include": ["./integration/**/*", "./support/**/*"],
   "compilerOptions": {
     "isolatedModules": false,
-    "target": "es5",
+    "target": "es2015",
     "lib": ["es5", "dom"],
-    "types": ["cypress", "node"]
+    "types": ["cypress"]
   }
 }

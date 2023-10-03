@@ -1,12 +1,16 @@
 <template>
   <div class="row justify-content-center">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
+      <li class="breadcrumb-item active">ADDRESS</li>
+    </ul>
     <div class="col-xl-6 mb-3">
       <card class="h-100" v-if="currentAddress">
         <card-header class="card-header fw-bold">
           <i v-if="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
              aria-hidden="true"> </i>
-          <span v-if="!showPubKey" class="text-info">
-            {{ $route.params.address }}
+          <span v-if="!showPubKey" class="text-info" :class="isMobile ? 'small' : ''">
+            &nbsp;{{ $route.params.address }}
           </span>
           <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
             {{ currentAddress.publicKey }}
@@ -52,13 +56,13 @@
     <!-- operations -->
     <div class="col-xl-6 mb-3">
       <card class="h-100">
-        <card-header class="card-header fw-bold">
+        <card-header class="card-header fw-bold small">
           OPERATIONS
         </card-header>
         <card-body>
           <div class="btn-group mb-3">
             <button @click="operation = 1" type="button" class="btn btn-outline-theme">
-              SEND STH <i class="fa fa-rocket" aria-hidden="true"></i>
+              SEND STH
             </button>
             <button disabled="true" type="button" class="btn btn-outline-theme">
               <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
@@ -70,7 +74,7 @@
             <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
               2nd PWD
             </button>
-            <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+            <button disabled="true" @click="operation = 3" type="button" class="btn btn-outline-theme">
               DELEGATE REG
             </button>
 
@@ -121,7 +125,7 @@
 
               </div>
               <div>
-                <button @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
+                <button :disable="forSend.amount <=0 || !forSend.recipientId" @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
               </div>
             </div>
 
@@ -144,11 +148,11 @@
     </div>
 
     <!-- transactions -->
-    <div class="col-xl-12 mb-3">
-      <card v-if="transactions">
+    <div class="col-xl-12 mb-3" >
+      <card v-if="transactions" style="overflow: hidden;">
         <card-header class="card-header fw-bold small text-uppercase">Transactions</card-header>
-        <card-body>
-          <table class="table table-hover">
+        <card-body style="overflow-x: auto;">
+          <table class="table table-hover" >
             <thead>
             <tr>
               <th scope="col">id</th>
@@ -232,6 +236,7 @@ export default {
   name: "AddressPage",
   data() {
     return {
+      isMobile: appOption.isMobile,
       txSendStep: 0,
       txResult: null,
       forSend: {
@@ -286,9 +291,11 @@ export default {
     }
   },
   async beforeCreate() {
-    if (this.currentAddress) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    var self = this;
+    setTimeout(async () => {
       await this.accountUpdate();
-    }
+    }, 120);
   },
   async mounted() {
     if (this.currentAddress) {
@@ -307,8 +314,7 @@ export default {
 
   },
   async created() {
-    //await storeWallet.getTransactions(this.$route.params.address);
-    //window.addEventListener('beforeunload', clearTimeout(this.$root.timerTx))
+
   },
   computed: {
     page() {

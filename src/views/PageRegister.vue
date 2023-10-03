@@ -1,6 +1,6 @@
 <script>
 import { useAppOptionStore } from "@/stores/app-option";
-//import { useRouter, RouterLink } from "vue-router";
+import { useRouter, RouterLink } from "vue-router";
 const appOption = useAppOptionStore();
 
 import { storeToRefs } from 'pinia';
@@ -18,11 +18,13 @@ export default {
     }
   },
   mounted() {
+    appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
     appOption.appContentClass = "p-0";
   },
   beforeUnmount() {
+    appOption.appSidebarCollapsed = false;
     appOption.appSidebarHide = false;
     appOption.appHeaderHide = false;
     appOption.appContentClass = "";
@@ -46,12 +48,12 @@ export default {
         <h1 class="text-center">Sign Up</h1>
         <p class="text-inverse text-opacity-50 text-center">Set Wallet Password</p>
         <div class="mb-3">
-          <label class="form-label">Password <span class="text-danger">*</span></label>
-          <input type="password" autocomplete="off" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <label class="form-label" for="regPassword1">Password <span class="text-danger">*</span></label>
+          <input type="password" id="regPassword1" autocomplete="off" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
         <div class="mb-3">
-          <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <label class="form-label" for="regPassword2">Confirm Password <span class="text-danger">*</span></label>
+          <input type="password" id="regPassword2" autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
 
         <div class="mb-3">

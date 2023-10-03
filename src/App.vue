@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, onBeforeMount } from "vue";
+import { getCurrentInstance, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useAppOptionStore } from "@/stores/app-option";
 import { ProgressFinisher, useProgress } from "@marcoschulte/vue3-progress";
@@ -15,9 +15,16 @@ const storeSettings = useStoreSettings()
 const { settings } = storeToRefs(storeSettings)
 
 onMounted(() => {
+  appOption.isMobile = window.innerWidth < 768;
   if (!settings.value.pinCode) {
+    appOption.appSidebarCollapsed = true;
+    appOption.appSidebarHide = true;
+    appOption.appHeaderHide = true;
     router.push("/register");
   } else if (!settings.value.tmpPin) {
+    appOption.appSidebarCollapsed = true;
+    appOption.appSidebarHide = true;
+    appOption.appHeaderHide = true;
     router.push("/login");
   }
 });
@@ -27,9 +34,8 @@ const internalInstance = getCurrentInstance();
 const progresses = [] as ProgressFinisher[];
 
 router.beforeEach(async (to, from) => {
-  //console.log(to)
-  appOption.currentPage = to.path;
   progresses.push(useProgress().start());
+  appOption.currentPage = to.path;
   appOption.appSidebarMobileToggled = false;
   appOption.appSidebarToggled = false;
   document.body.scrollTop = 0;
@@ -66,7 +72,7 @@ document.querySelector("body").classList.add("app-init");
     <vue3-progress-bar />
     <app-header v-if="!appOption.appHeaderHide" />
     <app-top-nav v-if="appOption.appTopNav" />
-    <app-sidebar v-if="!appOption.appSidebarHide || this.$root.pin" />
+    <app-sidebar v-if="!appOption.appSidebarHide" />
     <div class="app-content" v-bind:class="appOption.appContentClass">
       <router-view></router-view>
     </div>

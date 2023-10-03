@@ -4,9 +4,10 @@ import { Transactions, Managers, Utils, Identities } from "@smartholdem/crypto";
 import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
-import { useStoreSettings } from "@/stores/app-settings.ts";
 
+import { useStoreSettings } from "@/stores/app-settings.ts";
 const storeSettings = useStoreSettings();
+
 const activeNode = "https://" + storeSettings.nodes[0] + "/api";
 console.log("activeNode", activeNode);
 

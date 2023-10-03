@@ -16,9 +16,8 @@ export const useStoreSettings = defineStore('appSettings', {
     nodes: [
       "node0.smartholdem.io",
       "node1.smartholdem.io",
-      "testnet02ru.smartholdem.io",
     ],
-    activeNode: "node1.smartholdem.io",
+    activeNode: "node0.smartholdem.io",
   }),
   actions: {
     updateSettings(partialSettings: object) {

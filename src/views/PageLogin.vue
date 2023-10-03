@@ -31,7 +31,7 @@ export default {
     pinValidator() {
       const pinIsValid = storeSettings.validatePinCode(this.password);
       if (pinIsValid === true) {
-        this.$root.pin = this.password;
+        //this.$root.pin = this.password;
         storeSettings.tmpPin = this.password;
         this.$router.push('/');
       }
@@ -39,7 +39,7 @@ export default {
 		submitForm: function() {
       const pinIsValid = storeSettings.validatePinCode(this.password);
       if (pinIsValid) {
-        this.$root.pin = this.password;
+        //this.$root.pin = this.password;
         storeSettings.tmpPin = this.password;
         this.$router.push('/');
       }
@@ -59,10 +59,10 @@ export default {
 				</div>
 				<div class="mb-3">
 					<div class="d-flex">
-						<label class="form-label">Password <span class="text-danger">*</span></label>
+						<label class="form-label" for="loginPassword">Password <span class="text-danger">*</span></label>
 						<a href="#" class="ms-auto text-inverse text-decoration-none text-opacity-50">Forgot password?</a>
 					</div>
-					<input autofocus type="password" autocomplete="off" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
+					<input id="loginPassword" autofocus type="password" autocomplete="off" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
 				</div>
         <!--
 				<div class="mb-3">

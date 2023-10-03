@@ -6,7 +6,7 @@ export const useAppOptionStore = defineStore({
     return {
     	appMode: 'dark',
     	appThemeClass: '',
-    	appCoverClass: 'bg-cover-4',
+    	appCoverClass: 'bg-cover-1',
 			appBoxedLayout: false,
 			appHeaderHide: false,
 			appHeaderSearchToggled: false,
@@ -21,6 +21,7 @@ export const useAppOptionStore = defineStore({
 			appFooterFixed: false,
 			appThemePanelToggled: false,
 			currentPage: "",
+			isMobile: false,
 		}
   }
 });

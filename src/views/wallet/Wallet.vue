@@ -1,12 +1,8 @@
 <template>
-  <div class="col-xl-12">
-    <ul class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">WALLET</a></li>
-      <li class="breadcrumb-item active">ADDRESSES</li>
-    </ul>
+  <div class="col-xl-10">
     <card>
       <card-header class="card-header fw-bold small"
-        >Your Addresses <small> please select, import or get new</small>
+        >List Your Addresses <small> please select, import or get new</small>
       </card-header>
       <ul class="nav nav-tabs pt-3 ps-4 pe-4">
         <li class="nav-item me-1">
@@ -42,14 +38,16 @@
               <button
                 @click="openAddress(item.address)"
                 class="btn btn-outline-theme"
-                style="width: 320px"
+                style="width: 336px"
               >
                 {{ item.address }}
               </button>&nbsp;
               <div class="btn-group">
+                <!--
                 <button type="button" class="btn btn-outline-secondary">
                   <i class="fa fa-clipboard" aria-hidden="true"></i>
                 </button>
+                -->
                 <button
                   @click="deleteAddress(item.address)"
                   type="button"
@@ -75,9 +73,6 @@
           :class="tabActive === 1 ? 'show active' : ''"
           id="addressNew"
         >
-          <h6 class="card-subtitle mb-3 text-inverse text-opacity-75">
-            Get new address
-          </h6>
           <button
             @click="getNewAccount"
             type="button"
@@ -85,13 +80,13 @@
           >
             Generate new address <i class="fas fa-dice"></i>
           </button>
-          <card class="mt-3 p-3">
+
+          <div class="mt-3">
             <div class="form-group mb-3">
-              <label class="form-label" for="newPublicAddress"
-                >Public Address</label
-              >
+              <label class="form-label" for="newPublicAddress">Public Address</label>
               <input
                 type="text"
+                readonly
                 :value="account.address"
                 class="form-control"
                 id="newPublicAddress"
@@ -100,25 +95,19 @@
             </div>
             <div class="form-group mb-3">
               <label class="form-label" for="newPrivateKey">Private Key</label>
-              <input
-                type="text"
-                :value="account.secret"
-                class="form-control"
-                id="newPrivateKey"
-                placeholder=""
-              />
+              <textarea id="newPrivateKey" readonly v-model="account.secret" class="form-control" rows="3"></textarea>
             </div>
             <div class="mb-3">
               <button
                 @click="saveAccount(account)"
                 :disabled="!this.account.address"
                 type="submit"
-                class="btn btn-outline-theme btn-lg d-block w-25"
+                class="btn btn-outline-theme btn-lg d-block"
               >
                 Save address
               </button>
             </div>
-          </card>
+          </div>
         </div>
         <!-- import -->
         <div
@@ -126,9 +115,6 @@
           :class="tabActive === 2 ? 'show active' : ''"
           id="addressImport"
         >
-          <h6 class="card-subtitle mb-3 text-inverse text-opacity-75">
-            Import address
-          </h6>
           <div class="form-group mb-3">
             <label class="form-label" for="importPrivateKey">Enter Private Key</label>
             <input
@@ -146,6 +132,7 @@
             >
             <input
               type="text"
+              readonly
               :value="accountImport.address"
               class="form-control"
               id="importPublicAddress"
@@ -157,7 +144,7 @@
               @click="saveAccount(accountImport)"
               :disabled="!accountImport.address"
               type="submit"
-              class="btn btn-outline-theme btn-lg d-block w-25"
+              class="btn btn-outline-theme btn-lg d-block"
             >
               Save address
             </button>
@@ -194,6 +181,13 @@ import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 const store = useStoreWallet();
 const { wallet } = storeToRefs(store);
+
+import { useAppOptionStore } from "@/stores/app-option";
+const appOption = useAppOptionStore();
+
+import { useStoreSettings } from "@/stores/app-settings.ts";
+const storeSettings = useStoreSettings();
+
 import CryptoJS from "crypto-js";
 import { Toast } from "bootstrap";
 
@@ -248,10 +242,10 @@ export default {
     saveAccount(account) {
       if (account.address.length > 4) {
         const objAddress = {};
-        const hash = CryptoJS.SHA384(this.$root.pin).toString();
+        const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
         objAddress[account.address] = {
           address: account.address,
-          secret: (CryptoJS.AES.encrypt(account.secret, this.$root.pin + hash)).toString(),
+          secret: (CryptoJS.AES.encrypt(account.secret, storeSettings.tmpPin + hash)).toString(),
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {

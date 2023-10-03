@@ -15,9 +15,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
-      process: "process/browser",
-      zlib: "browserify-zlib",
-      util: "util",
+      //process: "process/browser",
+      //zlib: "browserify-zlib",
+      //util: "util",
     },
   },
   optimizeDeps: {

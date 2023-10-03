@@ -3,22 +3,22 @@
     <div class="col-xl-12 mb-3">
       <card v-if="delegates">
         <card-header class="card-header fw-bold">
-          Delegates
+          DELEGATE LIST
         </card-header>
         <card-body>
           <table class="table table-hover">
             <thead>
-            <tr>
+            <tr class="text-uppercase">
               <th scope="col">rank</th>
               <th scope="col">name</th>
-              <th scope="col">votes</th>
               <th scope="col">produced</th>
+              <th scope="col">votes</th>
               <th scope="col">forged</th>
               <!--<th scope="col">status</th>-->
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in delegates.data" :key="item.address">
+            <tr v-for="item in delegates.data" :key="item.address" :class="item.rank > 21 ? 'bg-gradient' : ''">
               <td>
                 {{item.rank}}
               </td>
@@ -26,13 +26,13 @@
                 {{item.username}}
               </td>
               <td>
-                {{(item.votes / 1e8).toFixed(8)}}
-              </td>
-              <td>
                 {{item.blocks.produced}}
               </td>
               <td>
-                {{(item.forged.total / 1e8).toFixed(8)}}
+                {{(item.votes / 1e8).toFixed(0)}}
+              </td>
+              <td>
+                {{(item.forged.total / 1e8).toFixed(0)}}
               </td>
               <!--
               <td>
