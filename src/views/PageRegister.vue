@@ -82,12 +82,12 @@ export default {
     <div class="modal modal-cover fade" id="modalTerms">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="card">
-            <div class="card-header">
+          <card class="card mb-3">
+            <card-header class="card-header">
               Terms and Conditions
-            </div>
-            <div>
-              <div class="card-body p-3">
+            </card-header>
+
+              <card-body class="p-3">
                 <p class="ml-3 small color-brown">20 November 2017</p>
                 <p>
                   Technologies related to blockchain are subject to supervision and control by various regulatory bodies
@@ -114,15 +114,15 @@ export default {
                   risks mentioned in this document, there are additional risks that the SmartHoldem team can not foresee.
                   These risks can materialize in other forms of risk than those specified here.
                 </p>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
+              </card-body>
+
+          </card>
+          <card class="card">
+            <card-header class="card-header">
               Disclaimer of Warranties
-            </div>
-            <div>
-              <div class="card-body">
+            </card-header>
+
+              <card-body>
                 <p class="ml-3 small color-brown">20 November 2017</p>
                 <p>You agree that your use or inability to use SmartHoldem cryptocoins is carried out solely at your own risk
                   and</p>
@@ -130,9 +130,9 @@ export default {
                 <p>You agree that your use or inability to use SmartHoldem tokens is carried out solely at your own risk
                   and</p>
                 <p>you don't put any responsibility on SmartHoldem Team.</p>
-              </div>
-            </div>
-          </div>
+              </card-body>
+
+          </card>
         </div>
       </div>
     </div>

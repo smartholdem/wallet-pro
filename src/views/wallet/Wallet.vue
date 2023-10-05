@@ -2,7 +2,7 @@
   <div class="col-xl-10">
     <card>
       <card-header class="card-header fw-bold small"
-        >List your accounts
+        >List of your accounts
       </card-header>
       <ul class="nav nav-tabs pt-3 ps-4 pe-4">
         <li class="nav-item me-1">
