@@ -1,9 +1,12 @@
 <template>
   <div class="row justify-content-center">
-    <ul class="breadcrumb">
-      <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
-      <li class="breadcrumb-item active">ADDRESS</li>
-    </ul>
+    <div class="col-xl-12">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
+        <li class="breadcrumb-item active">ADDRESS</li>
+      </ul>
+    </div>
+
     <div class="col-xl-6 mb-3">
       <card class="h-100" v-if="currentAddress">
         <card-header class="card-header fw-bold">
@@ -62,7 +65,7 @@
         <card-body>
           <div class="btn-group mb-3">
             <button @click="operation = 1" type="button" class="btn btn-outline-theme">
-              SEND STH
+              SEND
             </button>
             <button disabled="true" type="button" class="btn btn-outline-theme">
               <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
@@ -92,7 +95,7 @@
                            placeholder="Enter address">
                   </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" v-show="!isMobile">
                   <div class="form-group mb-3">
                   <label class="form-label" for="sendFee">Fee STH</label>
                   <input readonly value="1" type="text" class="form-control form-control-sm" id="sendFee"
@@ -129,7 +132,7 @@
 
               </div>
               <div>
-                <button :disabled="!forSend.addressIsValid || forSend.amount <=0 || !forSend.recipientId || forSend.recipientId === this.$route.params.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND</button>
+                <button :disabled="!forSend.addressIsValid || forSend.amount <=0 || !forSend.recipientId || forSend.recipientId === this.$route.params.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND STH</button>
               </div>
             </div>
 

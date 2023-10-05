@@ -2,7 +2,7 @@
   <div class="col-xl-10">
     <card>
       <card-header class="card-header fw-bold small"
-        >List Your Addresses <small> please select, import or get new</small>
+        >List your accounts
       </card-header>
       <ul class="nav nav-tabs pt-3 ps-4 pe-4">
         <li class="nav-item me-1">
@@ -26,9 +26,57 @@
           :class="tabActive === 0 ? 'show active' : ''"
           id="addressList"
         >
-          <h6 class="card-subtitle mb-3 text-inverse text-opacity-75">
-            Select address
-          </h6>
+
+          <table class="table table-borderless">
+            <thead>
+            <tr v-for="item in listAddresses"
+                :key="item.address">
+              <td>
+                <button
+                  @click="openAddress(item.address)"
+                  class="btn btn-outline-theme mb-2"
+                  style="width: 336px"
+                >
+                  {{ item.address }}
+                </button>&nbsp;
+                <div class="btn-group">
+                  <!--
+                  <button type="button" class="btn btn-outline-secondary">
+                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                  </button>
+                  -->
+                  <button
+                    @click="deleteAddress(item.address)"
+                    type="button"
+                    class="btn btn-outline-default"
+                  >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    @click="decryptSecret(item.address)"
+                    type="button"
+                    class="btn btn-outline-default"
+                    data-bs-toggle="modal" data-bs-target="#modalDecrypt"
+                  >
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </thead>
+          </table>
+
+          <div class="alert alert-light">
+            Please select, import or get new address
+          </div>
+
+          <div v-if="!Object.keys(listAddresses)" class="alert alert-info">
+            No addresses. Import or create new address.
+          </div>
+
+
+
+          <!--
           <ul class="list-group list-group-flush">
             <li
               class="list-group-item"
@@ -43,11 +91,7 @@
                 {{ item.address }}
               </button>&nbsp;
               <div class="btn-group">
-                <!--
-                <button type="button" class="btn btn-outline-secondary">
-                  <i class="fa fa-clipboard" aria-hidden="true"></i>
-                </button>
-                -->
+
                 <button
                   @click="deleteAddress(item.address)"
                   type="button"
@@ -66,6 +110,7 @@
               </div>
             </li>
           </ul>
+        -->
         </div>
         <!-- new -->
         <div
