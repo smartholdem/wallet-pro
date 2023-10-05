@@ -45,15 +45,18 @@ export default {
     <!-- BEGIN register-content -->
     <div class="register-content">
       <form v-on:submit.prevent="submitForm()" method="POST" name="register_form">
+        <div class="w-100 text-center mb-2">
+          <img class="text-center" src="/logo-green120.png" alt="smartholdem logo green"/>
+        </div>
         <h1 class="text-center">Sign Up</h1>
         <p class="text-inverse text-opacity-50 text-center">Set Wallet Password</p>
         <div class="mb-3">
           <label class="form-label" for="regPassword1">Password <span class="text-danger">*</span></label>
-          <input type="password" id="regPassword1" autocomplete="off" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <input style="-webkit-text-security:disc;text-security:disc;" type="text" id="regPassword1" autocomplete="off" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
         <div class="mb-3">
           <label class="form-label" for="regPassword2">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" id="regPassword2" autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <input style="-webkit-text-security:disc;text-security:disc;" type="text" id="regPassword2" autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
 
         <div class="mb-3">
