@@ -39,7 +39,7 @@
                 >
                   {{ item.address }}
                 </button>&nbsp;
-                <div class="btn-group">
+                <div class="btn-group mb-2">
                   <!--
                   <button type="button" class="btn btn-outline-secondary">
                     <i class="fa fa-clipboard" aria-hidden="true"></i>
@@ -60,7 +60,13 @@
                   >
                     <i class="fa fa-key" aria-hidden="true"></i>
                   </button>
+                  <!--
+                  <button type="button" class="btn btn-outline-secondary">
+                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                  </button>
+                  -->
                 </div>
+
               </td>
             </tr>
             </thead>
@@ -74,43 +80,6 @@
             No addresses. Import or create new address.
           </div>
 
-
-
-          <!--
-          <ul class="list-group list-group-flush">
-            <li
-              class="list-group-item"
-              v-for="item in listAddresses"
-              :key="item.address"
-            >
-              <button
-                @click="openAddress(item.address)"
-                class="btn btn-outline-theme"
-                style="width: 336px"
-              >
-                {{ item.address }}
-              </button>&nbsp;
-              <div class="btn-group">
-
-                <button
-                  @click="deleteAddress(item.address)"
-                  type="button"
-                  class="btn btn-outline-default"
-                >
-                  <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </button>
-                <button
-                  @click="decryptSecret(item.address)"
-                  type="button"
-                  class="btn btn-outline-default"
-                  data-bs-toggle="modal" data-bs-target="#modalDecrypt"
-                >
-                  <i class="fa fa-key" aria-hidden="true"></i>
-                </button>
-              </div>
-            </li>
-          </ul>
-        -->
         </div>
         <!-- new -->
         <div
