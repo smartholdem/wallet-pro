@@ -60,12 +60,12 @@ export default {
 
 				<h1 class="text-center">Unlock Wallet</h1>
 				<div class="text-inverse text-opacity-50 text-center mb-4">
-					For your protection, please enter your password.
+					For your protection, please enter your Pin code.
 				</div>
 				<div class="mb-3">
 					<div class="d-flex">
-						<label class="form-label" for="loginPassword">Password <span class="text-danger">*</span></label>
-						<a href="#" class="ms-auto text-inverse text-decoration-none text-opacity-50">Forgot password?</a>
+						<label class="form-label" for="loginPassword">Pin code <span class="text-danger">*</span></label>
+						<a href="#" class="ms-auto text-inverse text-decoration-none text-opacity-50">Forgot Pin code?</a>
 					</div>
 					<input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;" autofocus type="text" autocomplete="off" v-model="password" @input="pinValidator" class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
 				</div>

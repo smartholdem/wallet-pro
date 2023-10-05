@@ -4,9 +4,10 @@
       <div class="card-header">
         <h1>Disclaimers and Limitation of Liability</h1>
       </div>
-      <p class="ml-3 small color-brown">20 November 2017</p>
+
       <div>
         <div class="card-body">
+          <p class="ml-3 small color-brown">20 November 2017</p>
           <p>
             The Licensed Technology and all other materials and information provided by SmartHoldem (the “SmartHoldem
             Materials”)
