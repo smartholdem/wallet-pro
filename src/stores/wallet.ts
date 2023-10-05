@@ -8,7 +8,7 @@ import axios from "axios";
 import { useStoreSettings } from "@/stores/app-settings.ts";
 const storeSettings = useStoreSettings();
 
-const activeNode = "https://" + storeSettings.nodes[0] + "/api";
+const activeNode = "https://" + storeSettings.nodes[1] + "/api";
 console.log("activeNode", activeNode);
 
 const client = new Connection(activeNode);

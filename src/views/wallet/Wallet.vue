@@ -277,7 +277,7 @@ export default {
       }
     },
     accountImportFromPassword() {
-      if (this.accountImport.secret.length > 4) {
+      if (this.accountImport.secret.length > 7) {
         const account = store.addressFromPassword(this.accountImport.secret);
         this.accountImport.address = account.address;
       }
