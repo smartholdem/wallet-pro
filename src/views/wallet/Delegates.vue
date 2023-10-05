@@ -1,19 +1,23 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-xl-12 mb-3">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
+        <li class="breadcrumb-item active">DELEGATE</li>
+      </ul>
       <card v-if="delegates">
         <card-header class="card-header fw-bold">
           DELEGATE LIST
         </card-header>
-        <card-body>
+        <card-body style="overflow-x: hidden; overflow-y: auto;">
           <table class="table table-hover">
             <thead>
             <tr class="text-uppercase">
-              <th scope="col">rank</th>
-              <th scope="col">name</th>
-              <th scope="col">produced</th>
-              <th scope="col">votes</th>
-              <th scope="col">forged</th>
+              <th scope="col">Rank</th>
+              <th scope="col">Name</th>
+              <th scope="col">Blocks produced</th>
+              <th scope="col">Votes</th>
+              <th scope="col">Forged fees</th>
               <!--<th scope="col">status</th>-->
             </tr>
             </thead>
