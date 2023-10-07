@@ -13,7 +13,8 @@ export default {
   data() {
     return {
       pinIsValid: false,
-      password: ""
+      password: "",
+      timerPin: null,
     };
   },
   mounted() {
@@ -34,12 +35,21 @@ export default {
       this.$router.push("/register");
     },
     pinValidator() {
-      const pinIsValid = storeSettings.validatePinCode(this.password);
-      if (pinIsValid === true) {
-        //this.$root.pin = this.password;
-        storeSettings.tmpPin = this.password;
-        this.$router.push("/");
+      if (this.password.length > 3) {
+        clearTimeout(this.timerPin);
+        this.timerPin = setTimeout(async () => {
+          const pinIsValid = storeSettings.validatePinCode(this.password);
+          if (pinIsValid === true) {
+            this.pinIsValid = pinIsValid;
+            //this.$root.pin = this.password;
+            storeSettings.tmpPin = this.timerPin;
+            this.$router.push("/");
+          }
+        }, 200);
       }
+
+
+
     },
     submitForm: function() {
       const pinIsValid = storeSettings.validatePinCode(this.password);
@@ -84,7 +94,7 @@ export default {
 					</div>
 				</div>
 				-->
-        <button :disabled="pinIsValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">Sign
+        <button :disabled="!pinIsValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">Sign
           In
         </button>
         <!--

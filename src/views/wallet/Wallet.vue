@@ -289,8 +289,6 @@ export default {
           const account = store.addressFromPassword(this.accountImport.secret);
           this.accountImport.address = account.address;
         }, 200);
-
-
       }
     },
   },
