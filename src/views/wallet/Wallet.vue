@@ -111,16 +111,26 @@
               <label class="form-label" for="newPrivateKey">Private Key</label>
               <textarea id="newPrivateKey" readonly v-model="account.secret" class="form-control" rows="3"></textarea>
             </div>
-            <div class="mb-3">
-              <button
-                @click="saveAccount(account)"
-                :disabled="!this.account.address"
-                type="submit"
-                class="btn btn-outline-theme btn-lg d-block"
-              >
-                Save address
-              </button>
+            <div class="form-group mb-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <label class="form-label" for="encrypted">Encrypted methods</label>
+                  <select v-model="encryptedAlgo" class="form-select form-select-sm" id="encrypted">
+                    <option selected="selected" value="aes">AES256</option>
+                    <option value="rabbit">Rabbit</option>
+                  </select>
+                </div>
+              </div>
             </div>
+            <button
+              @click="saveAccount(account)"
+              :disabled="!this.account.address"
+              type="submit"
+              class="btn btn-outline-theme btn-lg d-block"
+            >
+              Save address
+            </button>
+
           </div>
         </div>
         <!-- import -->
@@ -152,6 +162,17 @@
               id="importPublicAddress"
               placeholder=""
             />
+          </div>
+          <div class="form-group mb-3">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label" for="encryptedImport">Encrypted methods</label>
+                <select v-model="encryptedAlgo" class="form-select form-select-sm" id="encryptedImport">
+                  <option selected="selected" value="aes">AES256</option>
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
           </div>
           <div class="mb-3">
             <button
@@ -214,6 +235,7 @@ export default {
   },
   data() {
     return {
+      encryptedAlgo: 'aes',
       isMobile: appOption.isMobile,
       timerPassword: null,
       decryptedSecret: "",
@@ -267,13 +289,16 @@ export default {
       if (account.address.length > 4) {
         const objAddress = {};
         const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
-        //const encrypted = (CryptoJS.AES.encrypt(account.secret, storeSettings.tmpPin + hash)).toString();
-        const encrypted = (CryptoJS.Rabbit.encrypt(account.secret, storeSettings.tmpPin + hash)).toString();
-
+        let encryptedSecret = '';
+        if (this.encryptedAlgo === 'rabbit') {
+          encryptedSecret = (CryptoJS.Rabbit.encrypt(account.secret, storeSettings.tmpPin + hash)).toString();
+        } else {
+          encryptedSecret = (CryptoJS.AES.encrypt(account.secret, storeSettings.tmpPin + hash)).toString();
+        }
         objAddress[account.address] = {
           address: account.address,
-          secret: encrypted,
-          encrypt: 'rabbit'
+          secret: encryptedSecret,
+          encrypt: this.encryptedAlgo
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {

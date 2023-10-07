@@ -165,7 +165,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     async decryptByAddress(address: string) {
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
       let result = "";
-      if (this.accounts[address].encrypt) {
+      if (this.accounts[address].encrypt == 'rabbit') {
         const accountBytes = CryptoJS.Rabbit.decrypt(
           this.accounts[address].secret,
           storeSettings.tmpPin + hash,

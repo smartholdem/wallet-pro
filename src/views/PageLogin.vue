@@ -41,7 +41,6 @@ export default {
           const pinIsValid = storeSettings.validatePinCode(this.password);
           if (pinIsValid === true) {
             this.pinIsValid = pinIsValid;
-            //this.$root.pin = this.password;
             storeSettings.tmpPin = this.password;
             this.$router.push("/");
           }
