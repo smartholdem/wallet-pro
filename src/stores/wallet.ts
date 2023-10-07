@@ -23,8 +23,18 @@ export const useStoreWallet = defineStore("walletStorage", {
     transactions: {},
     delegates: {},
     nodeConfig: {},
+    blockchain: {},
   }),
   actions: {
+    async getBlockchain() {
+      let result = {};
+      try {
+        result = (await axios.get(activeNode + "/blockchain")).data.data;
+        this.blockchain = result;
+      } catch (e) {
+        console.log("err: get blockchain");
+      }
+    },
     async validateAddress(address: string) {
       return Identities.Address.validate(address);
     },

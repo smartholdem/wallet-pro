@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-xl-5 mb-3">
-      <card class="h-100" v-if="blockchain">
+      <card class="h-100" v-if="nodeConfig">
         <card-header class="card-header fw-bold small text-uppercase">Static Fees</card-header>
         <card-body>
           <table class="table table-striped">
@@ -26,7 +26,7 @@
                 Transfer
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.transfer / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.transfer / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -34,7 +34,7 @@
                 Second Signature
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.secondSignature / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.secondSignature / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
                 Delegate Registration
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.delegateRegistration / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.delegateRegistration / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
                 Vote
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.vote / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.vote / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -58,7 +58,7 @@
                 Multi Signature
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.multiSignature / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.multiSignature / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
                 IPFS
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.ipfs / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.ipfs / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@
                 Multi Payment
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.multiPayment / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.multiPayment / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -82,7 +82,7 @@
                 Delegate Resignation
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.delegateResignation / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.delegateResignation / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
                 HTLC Lock
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.htlcLock / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.htlcLock / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                 HTLC Claim
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.htlcClaim / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.htlcClaim / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -106,7 +106,7 @@
                 HTLC Refund
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.htlcRefund / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.htlcRefund / 1e8).toFixed(2) }}
               </td>
             </tr>
             </tbody>
@@ -120,7 +120,7 @@
     <!-- dynamic fees -->
     <!--
     <div class="col-xl-3 mb-3">
-      <card class="h-100" v-if="blockchain">
+      <card class="h-100" v-if="nodeConfig">
         <card-header class="card-header fw-bold small text-uppercase">Dynamic Fees</card-header>
         <card-body>
           <table class="table table-striped">
@@ -136,7 +136,7 @@
                 minFeePool
               </td>
               <td>
-                {{ (blockchain.transactionPool.dynamicFees.minFeePool / 1e8).toFixed(8) }}
+                {{ (nodeConfig.transactionPool.dynamicFees.minFeePool / 1e8).toFixed(8) }}
               </td>
             </tr>
             <tr>
@@ -144,7 +144,7 @@
                 Second Signature
               </td>
               <td>
-                {{ (blockchain.transactionPool.dynamicFees.minFeeBroadcast / 1e8).toFixed(8) }}
+                {{ (nodeConfig.transactionPool.dynamicFees.minFeeBroadcast / 1e8).toFixed(8) }}
               </td>
             </tr>
             <tr>
@@ -152,7 +152,7 @@
                 Delegate Registration
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.delegateRegistration / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.delegateRegistration / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -160,7 +160,7 @@
                 Vote
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.vote / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.vote / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -168,7 +168,7 @@
                 Multi Signature
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.multiSignature / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.multiSignature / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -176,7 +176,7 @@
                 IPFS
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.ipfs / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.ipfs / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -184,7 +184,7 @@
                 Multi Payment
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.multiPayment / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.multiPayment / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -192,7 +192,7 @@
                 Delegate Resignation
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.delegateResignation / 1e8).toFixed(0) }}
+                {{ (nodeConfig.constants.fees.staticFees.delegateResignation / 1e8).toFixed(0) }}
               </td>
             </tr>
             <tr>
@@ -200,7 +200,7 @@
                 HTLC Lock
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.htlcLock / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.htlcLock / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -208,7 +208,7 @@
                 HTLC Claim
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.htlcClaim / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.htlcClaim / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -216,7 +216,7 @@
                 HTLC Refund
               </td>
               <td>
-                {{ (blockchain.constants.fees.staticFees.htlcRefund / 1e8).toFixed(2) }}
+                {{ (nodeConfig.constants.fees.staticFees.htlcRefund / 1e8).toFixed(2) }}
               </td>
             </tr>
             </tbody>
@@ -230,7 +230,7 @@
     -->
 
     <div class="col-xl-7 mb-3">
-      <card class="h-100" v-if="blockchain">
+      <card class="h-100" v-if="nodeConfig">
         <card-header class="card-header fw-bold small text-uppercase">Blockchain</card-header>
         <card-body>
           <table class="table table-striped">
@@ -240,39 +240,7 @@
                 Net Hash
               </td>
               <td>
-                {{ blockchain.nethash }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Token
-              </td>
-              <td>
-                {{ blockchain.token }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Version
-              </td>
-              <td>
-                {{ blockchain.version }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Slip44
-              </td>
-              <td>
-                {{ blockchain.slip44 }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                WIF
-              </td>
-              <td>
-                {{ blockchain.wif }}
+                {{ nodeConfig.nethash }}
               </td>
             </tr>
             <tr>
@@ -280,7 +248,47 @@
                 Height
               </td>
               <td>
-                {{ blockchain.constants.height }}
+                {{ blockchain.block.height }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Token
+              </td>
+              <td>
+                {{ nodeConfig.token }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Supply
+              </td>
+              <td>
+                {{ (blockchain.supply / 1e8 - 92068).toFixed(0) }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Version
+              </td>
+              <td>
+                {{ nodeConfig.version }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Slip44
+              </td>
+              <td>
+                {{ nodeConfig.slip44 }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                WIF
+              </td>
+              <td>
+                {{ nodeConfig.wif }}
               </td>
             </tr>
             <tr>
@@ -288,7 +296,7 @@
                 Active Delegates
               </td>
               <td>
-                {{ blockchain.constants.activeDelegates }}
+                {{ nodeConfig.constants.activeDelegates }}
               </td>
             </tr>
             <tr>
@@ -296,7 +304,7 @@
                 Block Time
               </td>
               <td>
-                {{ blockchain.constants.blocktime }}
+                {{ nodeConfig.constants.blocktime }}
               </td>
             </tr>
             <tr>
@@ -304,11 +312,12 @@
                 Epoch
               </td>
               <td>
-                {{ blockchain.constants.epoch }}
+                {{ nodeConfig.constants.epoch }}
               </td>
             </tr>
             </tbody>
           </table>
+
         </card-body>
       </card>
     </div>
@@ -327,28 +336,42 @@ const storeWallet = useStoreWallet();
 const { nodeConfig } = storeToRefs(storeWallet);
 
 export default {
-  name: "BlockchainPage",
+  name: "nodeConfigPage",
   async created() {
     await storeWallet.getNodeConfig();
+    await storeWallet.getBlockchain();
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     var self = this;
-    this.$root.timerChain = setTimeout(async function tick() {
+    this.$root.timerNode = setTimeout(async function tick() {
       if (self.page === "/blockchain") {
         await storeWallet.getNodeConfig();
-        self.$root.timerChain = setTimeout(tick, 60000 * 60); // (*)
+        self.$root.timerNode = setTimeout(tick, 60000 * 60); // (*)
+      } else {
+        clearTimeout(self.$root.timerNode);
+        //console.log("stop timer node");
+      }
+    }, 60000 * 60);
+
+    this.$root.timerChain = setTimeout(async function tick() {
+      if (self.page === "/blockchain") {
+        await storeWallet.getBlockchain();
+        self.$root.timerChain = setTimeout(tick, 8000); // (*)
       } else {
         clearTimeout(self.$root.timerChain);
         console.log("stop timer chain");
       }
-    }, 60000 * 60);
+    }, 8000);
   },
 
   computed: {
     page() {
       return appOption.currentPage;
     },
-    blockchain() {
+    nodeConfig() {
       return storeWallet.nodeConfig;
+    },
+    blockchain() {
+      return storeWallet.blockchain;
     },
   }
 };
