@@ -260,7 +260,7 @@
             </tr>
             <tr>
               <td>
-                Token
+                Coin
               </td>
               <td>
                 {{ nodeConfig.token }}
