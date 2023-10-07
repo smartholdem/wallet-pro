@@ -174,8 +174,8 @@
       </div>
     </div>
     <!-- toasts-container -->
-    <div class="toasts-container">
-      <div class="toast fade hide mb-3" data-autohide="false" id="toast-1">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div class="toast fade hide mb-3" data-autohide="false" id="toast-1" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <i class="far fa-bell text-muted me-2"></i>
           <strong class="me-auto">Address</strong>
