@@ -83,7 +83,7 @@ export default {
           </div>
           <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;" autofocus type="text"
                  autocomplete="off" v-model="password" @input="pinValidator"
-                 class="form-control form-control-lg bg-white bg-opacity-5" placeholder="" />
+                 class="form-control form-control-lg bg-white bg-opacity-5" :class="pinIsValid ? 'is-valid' : ''" placeholder="" />
         </div>
         <!--
 				<div class="mb-3">

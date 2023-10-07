@@ -264,6 +264,7 @@ export default {
   },
   methods: {
     async decryptSecret(address) {
+      console.log('decrypt', address)
       //this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
       this.decryptedSecret = await store.decryptByAddress(address);
     },
@@ -298,7 +299,7 @@ export default {
         objAddress[account.address] = {
           address: account.address,
           secret: encryptedSecret,
-          encrypt: this.encryptedAlgo
+          encrypt: this.encryptedAlgo,
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {

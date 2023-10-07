@@ -165,19 +165,21 @@ export const useStoreWallet = defineStore("walletStorage", {
     async decryptByAddress(address: string) {
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
       let result = "";
+      console.log('storeSettings.tmpPin', storeSettings.tmpPin)
       if (this.accounts[address].encrypt == 'rabbit') {
-        const accountBytes = CryptoJS.Rabbit.decrypt(
+        const accountBytes = await CryptoJS.Rabbit.decrypt(
           this.accounts[address].secret,
           storeSettings.tmpPin + hash,
         );
         result = accountBytes.toString(CryptoJS.enc.Utf8); //
       } else {
-        const accountBytes = CryptoJS.AES.decrypt(
+        const accountBytes = await  CryptoJS.AES.decrypt(
           this.accounts[address].secret,
           storeSettings.tmpPin + hash,
         );
         result = accountBytes.toString(CryptoJS.enc.Utf8); //
       }
+      console.log('result', result)
       return result;
     },
     addressFromPassword(secret: string) {
