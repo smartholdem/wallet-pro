@@ -1,6 +1,6 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-xl-12 mb-3">
+  <div class="row justify-content-left">
+    <div class="col-xl-8 mb-3">
       <ul class="breadcrumb">
         <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
         <li class="breadcrumb-item active">DELEGATE</li>
@@ -56,8 +56,10 @@
 </template>
 
 <script>
-import { useStoreWallet } from "@/stores/wallet";
+import { useAppOptionStore } from "@/stores/app-option";
+const appOption = useAppOptionStore();
 
+import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
 
 export default {
@@ -77,6 +79,9 @@ export default {
     }, 60000 * 10);
   },
   computed: {
+    page() {
+      return appOption.currentPage;
+    },
     delegates() {
       return storeWallet.delegates;
     }
