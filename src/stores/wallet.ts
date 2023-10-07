@@ -6,6 +6,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 
 import { useStoreSettings } from "@/stores/app-settings.ts";
+
 const storeSettings = useStoreSettings();
 
 const activeNode = "https://" + storeSettings.nodes[1] + "/api";
@@ -21,10 +22,20 @@ export const useStoreWallet = defineStore("walletStorage", {
     attributes: {},
     transactions: {},
     delegates: {},
+    nodeConfig: {},
   }),
   actions: {
     async validateAddress(address: string) {
       return Identities.Address.validate(address);
+    },
+    async getNodeConfig() {
+      let result = {};
+      try {
+        result = (await axios.get(activeNode + "/node/configuration")).data.data;
+        this.nodeConfig = result;
+      } catch (e) {
+        console.log("err: get node config");
+      }
     },
     async getDelegates() {
       let result = {};
@@ -57,8 +68,8 @@ export const useStoreWallet = defineStore("walletStorage", {
       let broadcastResponse = {};
       try {
         broadcastResponse = (await client.api("transactions").create({ transactions: txs })).body.data;
-      } catch(e) {
-          console.log('err: tx send')
+      } catch (e) {
+        console.log("err: tx send");
       }
 
       return broadcastResponse;
@@ -70,7 +81,7 @@ export const useStoreWallet = defineStore("walletStorage", {
         result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=10")).data;
         this.transactions = {
           ...this.transactions,
-          ...result,
+          ...result
         };
       } catch (e) {
         console.log("err: address not stored in blockchain");

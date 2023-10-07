@@ -329,7 +329,6 @@ export default {
         }
       }, 20000);
     }
-
   },
   async created() {
 
