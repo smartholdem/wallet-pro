@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       pinOne: "",
-      PinTwo: "",
+      pinTwo: "",
       pinIsInValid: true,
     }
   },

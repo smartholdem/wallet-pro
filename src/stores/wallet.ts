@@ -150,7 +150,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     },
     async addressDecrypt(secret: string) {
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
-      const accountBytes = CryptoJS.AES.decrypt(secret.toString(), storeSettings.tmpPin + hash);
+      const accountBytes = CryptoJS.AES.decrypt(secret, storeSettings.tmpPin + hash);
       return accountBytes.toString(CryptoJS.enc.Utf8);
     },
     addressFromPassword(secret: string) {
