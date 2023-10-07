@@ -42,7 +42,7 @@ export default {
           if (pinIsValid === true) {
             this.pinIsValid = pinIsValid;
             //this.$root.pin = this.password;
-            storeSettings.tmpPin = this.timerPin;
+            storeSettings.tmpPin = this.password;
             this.$router.push("/");
           }
         }, 120);
