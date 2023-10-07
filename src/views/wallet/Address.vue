@@ -21,8 +21,10 @@
         </card-header>
         <card-body>
 
-          <h5 v-if="currentAddress.balance" class="card-title">BALANCE <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
-            }}</span> STH</h5>
+          <h5 v-if="currentAddress.balance" class="card-title">
+            <img src="/images/logo-green32.png"/> <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
+            }}</span> STH
+          </h5>
           <div v-if="currentAddress.publicKey">
 
             <div v-if="currentAddress.attributes">
