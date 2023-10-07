@@ -209,6 +209,7 @@ export default {
   name: "WalletPage",
   data() {
     return {
+      timerPassword: null,
       decryptedSecret: "",
       notifyMsg: "",
       tabActive: 0,
@@ -277,9 +278,14 @@ export default {
       }
     },
     accountImportFromPassword() {
+      clearTimeout(this.timerPassword);
       if (this.accountImport.secret.length > 7) {
-        const account = store.addressFromPassword(this.accountImport.secret);
-        this.accountImport.address = account.address;
+        this.timerPassword = setTimeout(async () => {
+          const account = store.addressFromPassword(this.accountImport.secret);
+          this.accountImport.address = account.address;
+        }, 200);
+
+
       }
     },
   },
