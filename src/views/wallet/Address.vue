@@ -295,7 +295,8 @@ export default {
       await storeWallet.getTransactions(this.$route.params.address);
     },
     async decryptSecret() {
-      this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
+      //this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
+      this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
     },
     tmFormat(tm, format = "MM/DD/YYYY") {
       return moment.unix(tm).format(format);

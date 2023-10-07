@@ -136,7 +136,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     async addressSave(payload: object) {
       this.accounts = {
         ...this.accounts,
-        ...payload
+        ...payload,
       };
     },
     addressDelete(address) {
@@ -149,9 +149,35 @@ export const useStoreWallet = defineStore("walletStorage", {
       this.accounts = accounts;
     },
     async addressDecrypt(secret: string) {
+      if (!secret) {
+        console.log('no secret');
+        return;
+      }
+      console.log('cipher secret', secret)
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
-      const accountBytes = CryptoJS.AES.decrypt(secret, storeSettings.tmpPin + hash);
-      return accountBytes.toString(CryptoJS.enc.Utf8);
+      const accountBytes = CryptoJS.AES.decrypt(
+        secret.toString(),
+        storeSettings.tmpPin + hash,
+      );
+      return accountBytes.toString(CryptoJS.enc.Utf8); //
+    },
+    async decryptByAddress(address: string) {
+      const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
+      let result = "";
+      if (this.accounts[address].encrypt) {
+        const accountBytes = CryptoJS.Rabbit.decrypt(
+          this.accounts[address].secret,
+          storeSettings.tmpPin + hash,
+        );
+        result = accountBytes.toString(CryptoJS.enc.Utf8); //
+      } else {
+        const accountBytes = CryptoJS.AES.decrypt(
+          this.accounts[address].secret,
+          storeSettings.tmpPin + hash,
+        );
+        result = accountBytes.toString(CryptoJS.enc.Utf8); //
+      }
+      return result;
     },
     addressFromPassword(secret: string) {
       const isBip39 = validateMnemonic(secret);

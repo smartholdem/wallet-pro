@@ -242,7 +242,8 @@ export default {
   },
   methods: {
     async decryptSecret(address) {
-      this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
+      //this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
+      this.decryptedSecret = await store.decryptByAddress(address);
     },
     showToast(event, target, msg) {
       event.preventDefault();
@@ -261,12 +262,18 @@ export default {
       this.account = await store.addressNew();
     },
     saveAccount(account) {
+
+
       if (account.address.length > 4) {
         const objAddress = {};
         const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
+        //const encrypted = (CryptoJS.AES.encrypt(account.secret, storeSettings.tmpPin + hash)).toString();
+        const encrypted = (CryptoJS.Rabbit.encrypt(account.secret, storeSettings.tmpPin + hash)).toString();
+
         objAddress[account.address] = {
           address: account.address,
-          secret: (CryptoJS.AES.encrypt(account.secret, storeSettings.tmpPin + hash)).toString(),
+          secret: encrypted,
+          encrypt: 'rabbit'
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {
