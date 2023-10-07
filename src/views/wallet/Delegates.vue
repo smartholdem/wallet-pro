@@ -2,7 +2,9 @@
   <div class="row justify-content-left">
     <div class="col-xl-8 mb-3">
       <ul class="breadcrumb">
-        <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
+        <li class="breadcrumb-item">
+          <router-link to="/">WALLET</router-link>
+        </li>
         <li class="breadcrumb-item active">DELEGATE</li>
       </ul>
       <card v-if="delegates">
@@ -24,19 +26,19 @@
             <tbody>
             <tr v-for="item in delegates.data" :key="item.address" :class="item.rank > 21 ? 'bg-gradient' : ''">
               <td>
-                {{item.rank}}
+                {{ item.rank }}
               </td>
               <td>
-                {{item.username}}
+                {{ item.username }}
               </td>
               <td>
-                {{item.blocks.produced}}
+                {{ item.blocks.produced }}
               </td>
               <td>
-                {{(item.votes / 1e8).toFixed(0)}}
+                {{ (item.votes / 1e8).toFixed(0) }}
               </td>
               <td>
-                {{(item.forged.total / 1e8).toFixed(0)}}
+                {{ (item.forged.total / 1e8).toFixed(0) }}
               </td>
               <!--
               <td>
@@ -57,9 +59,11 @@
 
 <script>
 import { useAppOptionStore } from "@/stores/app-option";
+
 const appOption = useAppOptionStore();
 
 import { useStoreWallet } from "@/stores/wallet";
+
 const storeWallet = useStoreWallet();
 
 export default {
@@ -71,12 +75,12 @@ export default {
     this.$root.timerDelegates = setTimeout(async function tick() {
       if (self.page === "/delegates") {
         await storeWallet.getDelegates();
-        self.$root.timerDelegates = setTimeout(tick, 60000 * 20); // (*)
+        self.$root.timerDelegates = setTimeout(tick, 21 * 8 * 1000); // (*)
       } else {
         clearTimeout(self.$root.timerDelegates);
         console.log("stop timer delegates");
       }
-    }, 60000 * 10);
+    }, 21 * 8 * 1000);
   },
   computed: {
     page() {
