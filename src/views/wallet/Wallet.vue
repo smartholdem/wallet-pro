@@ -35,9 +35,9 @@
                 <button
                   @click="openAddress(item.address)"
                   class="btn btn-outline-theme mb-2"
-                  style="width: 336px"
+                  :style="!isMobile ? 'width: 336px' : 'width: 125px'"
                 >
-                  {{ item.address }}
+                  <AddressComponent :address="item.address"/>
                 </button>&nbsp;
                 <div class="btn-group mb-2">
                   <!--
@@ -204,11 +204,16 @@ const storeSettings = useStoreSettings();
 
 import CryptoJS from "crypto-js";
 import { Toast } from "bootstrap";
+import AddressComponent from "@/components/wallet/Address.vue";
 
 export default {
   name: "WalletPage",
+  components: {
+    AddressComponent: AddressComponent,
+  },
   data() {
     return {
+      isMobile: appOption.isMobile,
       timerPassword: null,
       decryptedSecret: "",
       notifyMsg: "",

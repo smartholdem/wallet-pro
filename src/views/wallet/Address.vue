@@ -241,8 +241,10 @@ const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
 import moment from "moment";
 
+
 export default {
   name: "AddressPage",
+
   data() {
     return {
       isMobile: appOption.isMobile,
