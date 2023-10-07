@@ -71,7 +71,8 @@ export const useStoreWallet = defineStore("walletStorage", {
     },
     async txTransfer(payload: object) {
       const txs = [];
-      const secretDecrypted = await this.addressDecrypt(this.accounts[payload.sender].secret);
+      //const secretDecrypted = await this.addressDecrypt(this.accounts[payload.sender].secret);
+      const secretDecrypted = await this.decryptByAddress(payload.sender);
       const senderWallet = await client.api("wallets").get(payload.sender);
       const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
 
