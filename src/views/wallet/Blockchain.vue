@@ -317,6 +317,9 @@
 </template>
 
 <script>
+import { useAppOptionStore } from "@/stores/app-option";
+const appOption = useAppOptionStore();
+
 import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 
@@ -327,11 +330,26 @@ export default {
   name: "BlockchainPage",
   async created() {
     await storeWallet.getNodeConfig();
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    var self = this;
+    this.$root.timerChain = setTimeout(async function tick() {
+      if (self.page === "/blockchain") {
+        await storeWallet.getNodeConfig();
+        self.$root.timerChain = setTimeout(tick, 60000 * 60); // (*)
+      } else {
+        clearTimeout(self.$root.timerChain);
+        console.log("stop timer chain");
+      }
+    }, 60000 * 60);
   },
+
   computed: {
+    page() {
+      return appOption.currentPage;
+    },
     blockchain() {
       return storeWallet.nodeConfig;
-    }
+    },
   }
 };
 </script>
