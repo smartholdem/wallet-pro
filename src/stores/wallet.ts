@@ -165,7 +165,6 @@ export const useStoreWallet = defineStore("walletStorage", {
     async decryptByAddress(address: string) {
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
       let result = "";
-      console.log('storeSettings.tmpPin', storeSettings.tmpPin)
       if (this.accounts[address].encrypt == 'rabbit') {
         const accountBytes = await CryptoJS.Rabbit.decrypt(
           this.accounts[address].secret,
@@ -179,7 +178,6 @@ export const useStoreWallet = defineStore("walletStorage", {
         );
         result = accountBytes.toString(CryptoJS.enc.Utf8); //
       }
-      console.log('result', result)
       return result;
     },
     addressFromPassword(secret: string) {

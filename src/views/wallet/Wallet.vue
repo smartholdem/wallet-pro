@@ -264,7 +264,6 @@ export default {
   },
   methods: {
     async decryptSecret(address) {
-      console.log('decrypt', address)
       //this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
       this.decryptedSecret = await store.decryptByAddress(address);
     },

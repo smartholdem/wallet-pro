@@ -79,7 +79,7 @@ export default {
         <div class="mb-3">
           <div class="d-flex">
             <label class="form-label" for="loginPassword">Pin code <span class="text-danger">*</span></label>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">Forgot Pin code?</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">Reset all data?</a>
           </div>
           <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;" autofocus type="text"
                  autocomplete="off" v-model="password" @input="pinValidator"
@@ -96,6 +96,8 @@ export default {
         <button :disabled="!pinIsValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">Sign
           In
         </button>
+
+        <span v-show="pinIsValid">Loading...</span>
         <!--
 				<div class="text-center text-inverse text-opacity-50">
 					Don't have an account yet? <RouterLink to="/page/register">Sign up</RouterLink>.
