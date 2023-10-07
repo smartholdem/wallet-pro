@@ -204,7 +204,7 @@ const storeSettings = useStoreSettings();
 
 import CryptoJS from "crypto-js";
 import { Toast } from "bootstrap";
-import AddressComponent from "@/components/wallet/Address.vue";
+import AddressComponent from "@/components/wallet/ComponentAddress.vue";
 
 export default {
   name: "WalletPage",

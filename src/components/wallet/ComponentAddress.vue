@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "AddressComponent",
+  name: "componentAddress",
   props: {
     address: String,
   },
