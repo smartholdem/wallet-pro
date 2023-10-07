@@ -45,7 +45,7 @@ export default {
             storeSettings.tmpPin = this.timerPin;
             this.$router.push("/");
           }
-        }, 100);
+        }, 120);
       }
 
 
