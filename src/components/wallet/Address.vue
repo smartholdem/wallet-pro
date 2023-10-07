@@ -5,7 +5,9 @@
 <script>
 export default {
   name: "AddressComponent",
-  props: ['address'],
+  props: {
+    address: String,
+  },
   computed: {
     isMobile() {
       return window.innerWidth < 768;
