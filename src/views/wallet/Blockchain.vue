@@ -234,8 +234,15 @@
         <card-header class="card-header fw-bold small text-uppercase">Blockchain</card-header>
         <card-body>
           <table class="table table-striped">
-            <tbody>
+            <thead>
             <tr>
+              <td>Option</td>
+              <td>Value</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-show="!isMobile">
               <td>
                 Net Hash
               </td>
@@ -264,9 +271,18 @@
                 Supply
               </td>
               <td>
-                {{ (blockchain.supply / 1e8 - 92068).toFixed(0) }}
+                {{ (blockchain.supply / 1e8 - 92068).toFixed(0) }} STH
               </td>
             </tr>
+            <tr>
+              <td>
+                SmartHolder Lock
+              </td>
+              <td>
+                {{ (smartHolder.total.realAmount * 1).toFixed(0) }} STH <span class="small text-info">{{(smartHolder.total.realAmount / (blockchain.supply / 1e8 - 92068) * 100).toFixed(0)}}%</span>
+              </td>
+            </tr>
+
             <tr>
               <td>
                 Version
@@ -317,7 +333,6 @@
             </tr>
             </tbody>
           </table>
-
         </card-body>
       </card>
     </div>
@@ -337,9 +352,15 @@ const { nodeConfig } = storeToRefs(storeWallet);
 
 export default {
   name: "nodeConfigPage",
+  data() {
+    return {
+      isMobile: appOption.isMobile,
+    }
+  },
   async created() {
     await storeWallet.getNodeConfig();
     await storeWallet.getBlockchain();
+    await storeWallet.getSmartHolder();
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     var self = this;
     this.$root.timerNode = setTimeout(async function tick() {
@@ -373,6 +394,10 @@ export default {
     blockchain() {
       return storeWallet.blockchain;
     },
+    smartHolder() {
+      return storeWallet.smartHolder;
+    },
+
   }
 };
 </script>

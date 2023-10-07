@@ -24,8 +24,18 @@ export const useStoreWallet = defineStore("walletStorage", {
     delegates: {},
     nodeConfig: {},
     blockchain: {},
+    smartHolder: {},
   }),
   actions: {
+    async getSmartHolder() {
+      let result = {};
+      try {
+        result = (await axios.get("https://smartholder.xbts.io/api/public/percents")).data;
+        this.smartHolder = result;
+      } catch (e) {
+        console.log("err: get smartHolder");
+      }
+    },
     async getBlockchain() {
       let result = {};
       try {
