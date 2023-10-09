@@ -71,7 +71,7 @@
             <button @click="operation = 1" type="button" class="btn btn-outline-theme">
               SEND
             </button>
-            <button disabled="true" type="button" class="btn btn-outline-theme">
+            <button disabled="disabled" data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
               <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
             </button>
             <button @click="decryptSecret()" data-bs-toggle="modal" data-bs-target="#modalDecryptAddress" type="button"
@@ -84,8 +84,6 @@
             <button disabled="true" @click="operation = 3" type="button" class="btn btn-outline-theme">
               DELEGATE REG
             </button>
-
-
           </div>
 
           <!-- send sth -->
@@ -230,25 +228,34 @@
       </div>
     </div>
 
+    <div class="modal modal-cover fade" id="modalQr">
+      <div class="modal-dialog">
+        <div class="modal-content text-danger">
+            QR
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
-
 import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
 import moment from "moment";
 
-
 export default {
   name: "AddressPage",
-
   data() {
     return {
+      invoice: {
+        amount: '',
+        memo: '',
+      },
       isMobile: appOption.isMobile,
       txSendStep: 0,
       txResult: null,
