@@ -121,13 +121,13 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="form-group mb-3">
-                    <label class="form-label" for="sendAmount">Network</label>
+                  <div class="form-group mb-3" >
+                    <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendAmount" >Network</label>
                     <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
                       <option selected value="mainnet">Main Net</option>
-                      <option disabled value="bsc">BSC</option>
-                      <option disabled value="heco">HECO</option>
-                      <option disabled value="eth">Ethereum</option>
+                      <option value="bsc">BSC</option>
+                      <option data-thumbnail="/images/heco.svg" value="heco" style="background-image:url('/images/heco.svg');background-repeat: no-repeat;background-size: 16px;">HECO</option>
+                      <option value="eth">Ethereum</option>
                     </select>
                   </div>
                 </div>
@@ -367,4 +367,33 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.ico-heco {
+  background-image:url('/images/heco.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.ico-mainnet {
+  background-image:url('/images/logo-green32.png');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.ico-bsc {
+  background-image:url('/images/bsc.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+.ico-eth {
+  background-image:url('/images/eth.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+
+</style>
