@@ -231,6 +231,7 @@
     <div class="modal modal-cover fade" id="modalQr">
       <div class="modal-dialog">
         <div class="modal-content text-info text-center">
+          <h3>Receiving address</h3>
           <p class="text-center">{{$route.params.address}}</p>
           <div class="">
             <qrcode-vue class="m-auto border border-5 border-secondary" :value="$route.params.address" :size="280" level="H" />
@@ -299,6 +300,9 @@ export default {
     async validateAddress() {
       this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
     },
+    async validateAddressCrossChain() {
+
+    },
     async txSend() {
       this.txResult = await storeWallet.txTransfer(this.forSend);
       if (this.txResult) {
@@ -347,7 +351,7 @@ export default {
             self.$root.timerTx = setTimeout(tick, 20000); // (*)
           } else {
             clearTimeout(self.$root.timerTx);
-            console.log("stop timer");
+            //console.log("stop timer");
           }
         }, 20000);
       }

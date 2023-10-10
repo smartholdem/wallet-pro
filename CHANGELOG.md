@@ -1,3 +1,9 @@
+v1.1.0
+- add QR code for receive STH
+- add reload update date
+- add networks MainNet, BSC, HECO, ETH
+
+
 v1.0.0
 
 - Rabbit crypto & AES
@@ -7,3 +13,4 @@ v1.0.0
 - Mobile fixes
 - Pin code storage fixes
 - Add Reset All data
+

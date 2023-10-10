@@ -4,6 +4,7 @@ import { Transactions, Managers, Utils, Identities } from "@smartholdem/crypto";
 import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
+import {validate} from "wallet-validator";
 
 import { useStoreSettings } from "@/stores/app-settings.ts";
 
@@ -27,6 +28,9 @@ export const useStoreWallet = defineStore("walletStorage", {
     smartHolder: {},
   }),
   actions: {
+    async validateAddressCrossChain(address: string) {
+      return (await validate(address, 'eth'))
+    },
     async getSmartHolder() {
       let result = {};
       try {
