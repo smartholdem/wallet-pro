@@ -71,7 +71,7 @@
             <button @click="operation = 1" type="button" class="btn btn-outline-theme">
               SEND
             </button>
-            <button disabled="disabled" data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
+            <button data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
               <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
             </button>
             <button @click="decryptSecret()" data-bs-toggle="modal" data-bs-target="#modalDecryptAddress" type="button"
@@ -230,8 +230,11 @@
 
     <div class="modal modal-cover fade" id="modalQr">
       <div class="modal-dialog">
-        <div class="modal-content text-danger">
-            QR
+        <div class="modal-content text-info text-center">
+          <p class="text-center">{{$route.params.address}}</p>
+          <div class="">
+            <qrcode-vue class="m-auto border border-5 border-secondary" :value="$route.params.address" :size="280" level="H" />
+          </div>
         </div>
       </div>
     </div>
@@ -240,6 +243,7 @@
 </template>
 
 <script>
+import QrcodeVue from 'qrcode.vue';
 import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
 import { storeToRefs } from "pinia";
@@ -250,6 +254,9 @@ import moment from "moment";
 
 export default {
   name: "AddressPage",
+  components: {
+    QrcodeVue,
+  },
   data() {
     return {
       invoice: {
