@@ -259,6 +259,20 @@ export default {
   },
   data() {
     return {
+      networksTransfer: {
+        mainnet: {
+          fee: 1,
+        },
+        bsc: {
+          fee: 10,
+        },
+        heco: {
+          fee: 10,
+        },
+        eth: {
+          fee: 200,
+        },
+      },
       invoice: {
         amount: '',
         memo: '',
