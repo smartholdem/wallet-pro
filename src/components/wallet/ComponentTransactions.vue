@@ -1,3 +1,4 @@
+<!-- Не забудь вынести транзакции в отдельный модуль -->
 <template>
   <div class="col-xl-12 mb-3" >
     <card v-if="transactions" style="overflow: hidden;">
