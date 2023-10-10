@@ -324,6 +324,11 @@ export default {
     }, 120);
   },
   async mounted() {
+    var self = this;
+    document.body.onfocus = async function(e){
+      console.info(e.type)
+      await self.accountUpdate();
+    }
     if (this.currentAddress) {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       var self = this;
