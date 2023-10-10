@@ -314,7 +314,23 @@ export default {
         timeZone: "UTC"
       });
       return dtFormat.format(new Date(s * 1e3));
-    }
+    },
+    startUpdateByTimer() {
+      if (this.currentAddress) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        var self = this;
+        //console.log('timer restart')
+        this.$root.timerTx = setTimeout(async function tick() {
+          if (self.page === "/address/" + self.$route.params.address) {
+            await self.accountUpdate();
+            self.$root.timerTx = setTimeout(tick, 20000); // (*)
+          } else {
+            clearTimeout(self.$root.timerTx);
+            console.log("stop timer");
+          }
+        }, 20000);
+      }
+    },
   },
   async beforeCreate() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -324,24 +340,15 @@ export default {
     }, 120);
   },
   async mounted() {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     var self = this;
     document.body.onfocus = async function(e){
-      console.info(e.type)
+      //console.info(e.type);
       await self.accountUpdate();
+      await self.startUpdateByTimer();
     }
-    if (this.currentAddress) {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      var self = this;
-      this.$root.timerTx = setTimeout(async function tick() {
-        if (self.page === "/address/" + self.$route.params.address) {
-          await self.accountUpdate();
-          self.$root.timerTx = setTimeout(tick, 20000); // (*)
-        } else {
-          clearTimeout(self.$root.timerTx);
-          console.log("stop timer");
-        }
-      }, 20000);
-    }
+    await this.startUpdateByTimer();
+
   },
   async created() {
 
