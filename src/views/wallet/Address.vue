@@ -298,10 +298,11 @@ export default {
   },
   methods: {
     async validateAddress() {
-      this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
-    },
-    async validateAddressCrossChain() {
-
+      if (this.selectedNetwork === 'mainnet') {
+        this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
+      } else {
+        this.forSend.addressIsValid = await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
+      }
     },
     async txSend() {
       this.txResult = await storeWallet.txTransfer(this.forSend);
