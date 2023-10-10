@@ -4,7 +4,8 @@ import { Transactions, Managers, Utils, Identities } from "@smartholdem/crypto";
 import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
-import {validate} from "wallet-validator";
+import web3 from "web3";
+
 
 import { useStoreSettings } from "@/stores/app-settings.ts";
 
@@ -25,11 +26,17 @@ export const useStoreWallet = defineStore("walletStorage", {
     delegates: {},
     nodeConfig: {},
     blockchain: {},
-    smartHolder: {},
+    smartHolder: {}
   }),
   actions: {
     async validateAddressCrossChain(address: string) {
-      return (await validate(address, 'eth'))
+      let result = false;
+      try {
+        result = web3.utils.isAddress(address);
+      } catch (e) {
+        console.log("err validator");
+      }
+      return result;
     },
     async getSmartHolder() {
       let result = {};
@@ -67,36 +74,46 @@ export const useStoreWallet = defineStore("walletStorage", {
         result = (await axios.get(activeNode + "/delegates?page=1&limit=100")).data;
         this.delegates = {
           ...this.delegates,
-          ...result,
+          ...result
         };
       } catch (e) {
         console.log("err: get delegates");
       }
     },
     async txTransfer(payload: object) {
+      console.log(payload)
       const txs = [];
-      //const secretDecrypted = await this.addressDecrypt(this.accounts[payload.sender].secret);
       const secretDecrypted = await this.decryptByAddress(payload.sender);
       const senderWallet = await client.api("wallets").get(payload.sender);
       const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
 
-      const transaction = Transactions.BuilderFactory.transfer()
-        .fee((payload.fee * 1e8).toString())
-        .version(2)
-        .nonce(senderNonce.toFixed())
-        .recipientId(payload.recipientId)
-        .amount((payload.amount * 1e8).toFixed(0))
-        .vendorField(payload.memo)
-        .sign(secretDecrypted);
-
-      txs.push(transaction.build().toJson());
+      if (payload.network == "mainnet") {
+        const transaction = Transactions.BuilderFactory.transfer()
+          .fee((payload.fee * 1e8).toString())
+          .version(2)
+          .nonce(senderNonce.toFixed())
+          .recipientId(payload.recipientId)
+          .amount((payload.amount * 1e8).toFixed(0))
+          .vendorField(payload.memo)
+          .sign(secretDecrypted);
+        txs.push(transaction.build().toJson());
+      } else {
+        const transaction = Transactions.BuilderFactory.transfer()
+          .fee((payload.fee * 1e8).toString())
+          .version(2)
+          .nonce(senderNonce.toFixed())
+          .recipientId("STQnKW8JQ6cMKwLrcfdfMwhChyHUysccts")
+          .amount(((payload.amount) * 1e8).toFixed(0))
+          .vendorField(payload.memo)
+          .sign(secretDecrypted);
+        txs.push(transaction.build().toJson());
+      }
       let broadcastResponse = {};
       try {
         broadcastResponse = (await client.api("transactions").create({ transactions: txs })).body.data;
       } catch (e) {
         console.log("err: tx send");
       }
-
       return broadcastResponse;
     },
     async getTransactions(address) {
@@ -141,7 +158,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     async addressSave(payload: object) {
       this.accounts = {
         ...this.accounts,
-        ...payload,
+        ...payload
       };
     },
     addressDelete(address) {
@@ -155,30 +172,30 @@ export const useStoreWallet = defineStore("walletStorage", {
     },
     async addressDecrypt(secret: string) {
       if (!secret) {
-        console.log('no secret');
+        console.log("no secret");
         return;
       }
-      console.log('cipher secret', secret)
+      console.log("cipher secret", secret);
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
       const accountBytes = CryptoJS.AES.decrypt(
         secret.toString(),
-        storeSettings.tmpPin + hash,
+        storeSettings.tmpPin + hash
       );
       return accountBytes.toString(CryptoJS.enc.Utf8); //
     },
     async decryptByAddress(address: string) {
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
       let result = "";
-      if (this.accounts[address].encrypt == 'rabbit') {
+      if (this.accounts[address].encrypt == "rabbit") {
         const accountBytes = await CryptoJS.Rabbit.decrypt(
           this.accounts[address].secret,
-          storeSettings.tmpPin + hash,
+          storeSettings.tmpPin + hash
         );
         result = accountBytes.toString(CryptoJS.enc.Utf8); //
       } else {
-        const accountBytes = await  CryptoJS.AES.decrypt(
+        const accountBytes = await CryptoJS.AES.decrypt(
           this.accounts[address].secret,
-          storeSettings.tmpPin + hash,
+          storeSettings.tmpPin + hash
         );
         result = accountBytes.toString(CryptoJS.enc.Utf8); //
       }

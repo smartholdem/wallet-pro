@@ -21,8 +21,8 @@
         </card-header>
         <card-body>
 
-          <h5 v-if="currentAddress.balance" class="card-title">
-            <img src="/images/logo-green32.png"/> <span class="text-success">{{ (currentAddress.balance / 10 ** 8).toFixed(8)
+          <h5 v-if="currentAddress.balance" class="card-title" @click="forSend.amount = balanceDecimal - networksTransfer[selectedNetwork].fee">
+            <img src="/images/logo-green32.png"/> <span class="text-success">{{ (balanceDecimal).toFixed(8)
             }}</span> STH
           </h5>
           <div v-if="currentAddress.publicKey">
@@ -100,33 +100,33 @@
                 <div class="col-md-2" v-show="!isMobile">
                   <div class="form-group mb-3">
                   <label class="form-label" for="sendFee">Fee STH</label>
-                  <input readonly value="1" type="text" class="form-control form-control-sm" id="sendFee"
+                  <input readonly :value="networksTransfer[selectedNetwork].fee" type="text" class="form-control form-control-sm" id="sendFee"
                   >
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
                     <input v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount" placeholder="Amount">
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group mb-3">
                   <label class="form-label" for="sendMemo">Memo</label>
-                  <input v-model="forSend.memo" type="text" class="form-control form-control-sm" id="sendMemo"
+                  <input :readonly="selectedNetwork !== 'mainnet'" v-model="forSend.memo" type="text" class="form-control form-control-sm" id="sendMemo"
                          placeholder="Public Description max 250"
                   >
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group mb-3" >
                     <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendAmount" >Network</label>
-                    <select v-model="selectedNetwork" class="form-select form-select-sm" id="sendNetwork">
+                    <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm" id="sendNetwork">
                       <option selected value="mainnet">Main Net</option>
                       <option value="bsc">BSC</option>
-                      <option data-thumbnail="/images/heco.svg" value="heco" style="background-image:url('/images/heco.svg');background-repeat: no-repeat;background-size: 16px;">HECO</option>
+                      <option value="heco">HECO</option>
                       <option value="eth">Ethereum</option>
                     </select>
                   </div>
@@ -134,7 +134,7 @@
 
               </div>
               <div>
-                <button :disabled="!forSend.addressIsValid || forSend.amount <=0 || !forSend.recipientId || forSend.recipientId === this.$route.params.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND STH</button>
+                <button :disabled="((forSend.amount * 1 + networksTransfer[selectedNetwork].fee) > balanceDecimal) || !forSend.addressIsValid || forSend.amount < 0.001 || !forSend.recipientId || forSend.recipientId === this.$route.params.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND STH</button>
               </div>
             </div>
 
@@ -263,15 +263,19 @@ export default {
       networksTransfer: {
         mainnet: {
           fee: 1,
+          minAmount: 0.00001,
         },
         bsc: {
           fee: 10,
+          minAmount: 500,
         },
         heco: {
           fee: 10,
+          minAmount: 500,
         },
         eth: {
           fee: 200,
+          minAmount: 500,
         },
       },
       invoice: {
@@ -299,16 +303,23 @@ export default {
   methods: {
     async validateAddress() {
       if (this.selectedNetwork === 'mainnet') {
+        this.forSend.memo = '';
         this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
       } else {
         this.forSend.addressIsValid = await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
+        if (this.forSend.addressIsValid) {
+          this.forSend.memo = this.selectedNetwork + ':' + this.forSend.recipientId;
+        }
+
       }
     },
     async txSend() {
+      this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
       this.txResult = await storeWallet.txTransfer(this.forSend);
       if (this.txResult) {
         this.txSendStep = 1;
         this.forSend = {
+          network: this.selectedNetwork,
           addressIsValid: false,
           sender: this.$route.params.address,
           recipientId: "",
@@ -316,11 +327,9 @@ export default {
           fee: 1,
           memo: "",
         };
-
         setTimeout(async () => {
           await this.accountUpdate();
         }, 10000);
-
       }
     },
     async accountUpdate() {
@@ -380,6 +389,9 @@ export default {
 
   },
   computed: {
+    balanceDecimal() {
+      return this.currentAddress.balance / 10 ** 8;
+    },
     page() {
       return appOption.currentPage;
     },
