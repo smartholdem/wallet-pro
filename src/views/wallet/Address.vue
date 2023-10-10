@@ -109,7 +109,7 @@
                 <div class="col-md-3">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
-                    <input v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount" placeholder="Amount">
+                    <input :placeholder="'min ' + networksTransfer[selectedNetwork].minAmount" v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount" placeholder="Amount">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -176,12 +176,9 @@
             <tbody>
             <tr v-for="item in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
               <td :title="item.id">
-
                   <span v-if="item.vendorField">
                      <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
                   </span>
-
-
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
                 {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}
                 </span>
@@ -230,8 +227,9 @@
               <tr>
                 <td>id</td>
                 <td>
-
-
+                  <span v-if="item.vendorField">
+                     <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
+                  </span>
                   <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
                         {{ (item.id).slice(0, 11) }}..{{ (item.id).slice(-11) }}
                       </span>

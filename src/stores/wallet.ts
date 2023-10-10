@@ -81,7 +81,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       }
     },
     async txTransfer(payload: object) {
-      console.log(payload)
+      //console.log(payload)
       const txs = [];
       const secretDecrypted = await this.decryptByAddress(payload.sender);
       const senderWallet = await client.api("wallets").get(payload.sender);

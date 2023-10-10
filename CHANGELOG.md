@@ -13,4 +13,5 @@ v1.0.0
 - Mobile fixes
 - Pin code storage fixes
 - Add Reset All data
+- Add full screen mode
 
