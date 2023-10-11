@@ -114,7 +114,10 @@ export const useStoreWallet = defineStore("walletStorage", {
       } catch (e) {
         console.log("err: tx send");
       }
-      return broadcastResponse;
+      return {
+        response: broadcastResponse,
+        tx: txs[0],
+      };
     },
     async getTransactions(address) {
       const result = {};
