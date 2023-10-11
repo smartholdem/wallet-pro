@@ -341,16 +341,16 @@ export default {
           minAmount: 0.00001,
         },
         bsc: {
-          fee: 10,
-          minAmount: 500,
+          fee: 30,
+          minAmount: 100,
         },
         heco: {
           fee: 10,
-          minAmount: 500,
+          minAmount: 100,
         },
         eth: {
           fee: 200,
-          minAmount: 500,
+          minAmount: 100,
         },
       },
       invoice: {
