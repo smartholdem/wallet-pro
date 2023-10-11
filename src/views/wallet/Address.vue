@@ -127,7 +127,7 @@
                       <option selected value="mainnet">Main Net</option>
                       <option value="bsc">BSC</option>
                       <option value="heco">HECO</option>
-                      <!--<option value="eth">Ethereum</option>-->
+                      <!--<option disabled value="eth">Ethereum</option>-->
                     </select>
                   </div>
                 </div>
@@ -140,9 +140,28 @@
 
             <!-- tx result -->
             <div v-if="txSendStep === 1">
-              <p class="mb-3">
-                Success transaction: <span class="text-primary">{{txResult.accept[0]}}</span>
-              </p>
+              <div class="mb-3">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Success txId</td>
+                      <td><span class="text-primary">{{txResult.tx.id}}</span></td>
+                    </tr>
+                  <tr>
+                    <td>Amount</td>
+                    <td>{{(txResult.tx.amount / 1e8).toFixed(8)}} STH</td>
+                  </tr>
+                  <tr>
+                    <td>Fee</td>
+                    <td>{{(txResult.tx.fee / 1e8).toFixed(8) }} STH</td>
+                  </tr>
+                  <tr>
+                    <td>Recipient</td>
+                    <td>{{txResult.tx.recipientId}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
               <p class="mb-3">
                 Please wait confirmation.
               </p>
