@@ -68,7 +68,7 @@
         </card-header>
         <card-body>
           <div class="btn-group mb-3">
-            <button @click="operation = 1" type="button" class="btn btn-outline-theme">
+            <button @click="sendTabPrepare" type="button" class="btn btn-outline-theme">
               SEND
             </button>
             <button data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
@@ -86,8 +86,9 @@
             </button>
           </div>
 
-          <!-- send sth -->
+
           <div v-if="operation === 1" class="w-100">
+            <!-- send sth prepare tx -->
             <div v-if="txSendStep === 0">
               <div class="row">
                 <div class="col-md-10">
@@ -109,7 +110,7 @@
                 <div class="col-md-3">
                   <div class="form-group mb-3">
                     <label class="form-label" for="sendAmount">Amount</label>
-                    <input :placeholder="'min ' + networksTransfer[selectedNetwork].minAmount" v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount" placeholder="Amount">
+                    <input :placeholder="'min ' + networksTransfer[selectedNetwork].minAmount" v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -124,7 +125,7 @@
                   <div class="form-group mb-3" >
                     <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendAmount" >Network</label>
                     <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm" id="sendNetwork">
-                      <option selected value="mainnet">Main Net</option>
+                      <option selected value="mainnet">MainNet</option>
                       <option value="bsc">BSC</option>
                       <option value="heco">HECO</option>
                       <!--<option disabled value="eth">Ethereum</option>-->
@@ -159,15 +160,22 @@
                     <td>Recipient</td>
                     <td>{{txResult.tx.recipientId}}</td>
                   </tr>
+                  <tr v-if="txResult.tx.vendorField">
+                    <td>Memo</td>
+                    <td>{{txResult.tx.vendorField}}</td>
+                  </tr>
+                    <tr>
+                      <td>Network&nbsp;<i class="px-3 py-1" :class="'ico-' + txResult.network"></i></td>
+                      <td><span class="text-uppercase text-info">{{txResult.network}}</span></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
-              <p class="mb-3">
+              <p class="mb-3" v-show="waitConfirmTx">
                 Please wait confirmation.
               </p>
-
               <p>
-                <button @click="txSendStep=0" type="button" class="btn btn-success btn-sm">CONTINUE</button>
+                <button @click="sendTabPrepare" type="button" class="btn btn-success btn-sm">CONTINUE</button>
               </p>
             </div>
           </div>
@@ -296,12 +304,8 @@
                 </td>
               </tr>
               <tr v-if="item.vendorField">
-                <td>
-                  Memo
-                </td>
-                <td>
-                  <span>{{item.vendorField.length < 40 ? item.vendorField : item.vendorField.slice(0, 25) + '..'}}</span>
-                </td>
+                <td>Memo</td>
+                <td><span>{{item.vendorField.length < 40 ? item.vendorField : item.vendorField.slice(0, 25) + '..'}}</span></td>
               </tr>
               </tbody>
             </table>
@@ -354,6 +358,7 @@ export default {
   },
   data() {
     return {
+      waitConfirmTx: true,
       networksTransfer: {
         mainnet: {
           fee: 1,
@@ -380,6 +385,7 @@ export default {
       txSendStep: 0,
       txResult: null,
       forSend: {
+        network: 'mainnet',
         addressIsValid: false,
         sender: this.$route.params.address,
         recipientId: "",
@@ -395,6 +401,21 @@ export default {
     };
   },
   methods: {
+    async sendTabPrepare() {
+      this.waitConfirmTx = true;
+      this.operation = 1;
+      this.txSendStep = 0;
+      this.selectedNetwork = 'mainnet';
+      this.forSend = {
+        network: 'mainnet',
+        addressIsValid: false,
+        sender: this.$route.params.address,
+        recipientId: "",
+        amount: "",
+        fee: 1,
+        memo: "",
+      };
+    },
     async validateAddress() {
       if (this.selectedNetwork === 'mainnet') {
         this.forSend.memo = '';
@@ -409,11 +430,13 @@ export default {
     },
     async txSend() {
       this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
+      this.forSend.network = this.selectedNetwork; // net fix
       this.txResult = await storeWallet.txTransfer(this.forSend);
       if (this.txResult) {
         this.txSendStep = 1;
+        this.selectedNetwork = 'mainnet'
         this.forSend = {
-          network: this.selectedNetwork,
+          network: 'mainnet',
           addressIsValid: false,
           sender: this.$route.params.address,
           recipientId: "",
@@ -422,8 +445,9 @@ export default {
           memo: "",
         };
         setTimeout(async () => {
+          this.waitConfirmTx = false;
           await this.accountUpdate();
-        }, 10000);
+        }, 9000);
       }
     },
     async accountUpdate() {
@@ -457,7 +481,7 @@ export default {
             clearTimeout(self.$root.timerTx);
             //console.log("stop timer");
           }
-        }, 20000);
+        }, 28000);
       }
     },
   },
@@ -477,9 +501,6 @@ export default {
       await self.startUpdateByTimer();
     }
     await this.startUpdateByTimer();
-
-  },
-  async created() {
 
   },
   computed: {

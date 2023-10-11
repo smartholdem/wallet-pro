@@ -11,7 +11,7 @@ import { useStoreSettings } from "@/stores/app-settings.ts";
 
 const storeSettings = useStoreSettings();
 
-const activeNode = "https://" + storeSettings.nodes[1] + "/api";
+const activeNode = "https://" + storeSettings.nodes[0] + "/api";
 console.log("activeNode", activeNode);
 
 const client = new Connection(activeNode);
@@ -32,7 +32,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     async validateAddressCrossChain(address: string) {
       let result = false;
       try {
-        result = web3.utils.isAddress(address);
+        result = await web3.utils.isAddress(address);
       } catch (e) {
         console.log("err validator");
       }
@@ -117,6 +117,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       return {
         response: broadcastResponse,
         tx: txs[0],
+        network: payload.network
       };
     },
     async getTransactions(address) {
