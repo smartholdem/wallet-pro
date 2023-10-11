@@ -2,7 +2,9 @@ v1.1.0
 - add QR code for receive STH
 - add reload update date
 - add cross chain networks MainNet, BSC, HECO
-
+- validate nodes status
+- add mobile mode transactions list
+- add cross chains icons in transactions
 
 v1.0.0
 

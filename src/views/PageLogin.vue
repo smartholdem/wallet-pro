@@ -4,7 +4,7 @@ import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
 
 import { storeToRefs, getActivePinia } from "pinia";
-import { useStoreSettings } from "@/stores/app-settings.ts";
+import { useStoreSettings } from "@/stores/app-settings";
 
 const storeSettings = useStoreSettings();
 const { settings } = storeToRefs(storeSettings);
@@ -17,11 +17,15 @@ export default {
       timerPin: null,
     };
   },
-  mounted() {
+  async created() {
+    await storeSettings.updateNodes();
+  },
+   mounted() {
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
     appOption.appContentClass = "p-0";
+
   },
   beforeUnmount() {
     appOption.appSidebarCollapsed = false;

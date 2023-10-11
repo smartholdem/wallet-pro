@@ -230,7 +230,7 @@
     -->
 
     <div class="col-xl-7 mb-3">
-      <card class="h-100" v-if="nodeConfig">
+      <card class="h-100" v-if="nodeConfig && blockchain">
         <card-header class="card-header fw-bold small text-uppercase">Blockchain</card-header>
         <card-body>
           <table class="table table-striped">

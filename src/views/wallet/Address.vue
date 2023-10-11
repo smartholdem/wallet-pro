@@ -126,8 +126,8 @@
                     <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendAmount" >Network</label>
                     <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm" id="sendNetwork">
                       <option selected value="mainnet">MainNet</option>
-                      <option value="bsc">BSC</option>
-                      <option value="heco">HECO</option>
+                      <!--<option value="bsc">BSC</option>-->
+                      <!--<option value="heco">HECO</option>-->
                       <!--<option disabled value="eth">Ethereum</option>-->
                     </select>
                   </div>
@@ -425,7 +425,6 @@ export default {
         if (this.forSend.addressIsValid) {
           this.forSend.memo = this.selectedNetwork + ':' + this.forSend.recipientId;
         }
-
       }
     },
     async txSend() {
@@ -451,8 +450,13 @@ export default {
       }
     },
     async accountUpdate() {
-      await storeWallet.getAttributes(this.$route.params.address);
-      await storeWallet.getTransactions(this.$route.params.address);
+      if (this.$route.params.address) {
+        await storeWallet.getAttributes(this.$route.params.address);
+        await storeWallet.getTransactions(this.$route.params.address);
+      } else {
+        console.log('accountUpdate err', this.$route.params.address);
+      }
+
     },
     async decryptSecret() {
       //this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
@@ -468,8 +472,9 @@ export default {
       });
       return dtFormat.format(new Date(s * 1e3));
     },
-    startUpdateByTimer() {
+    async startUpdateByTimer() {
       if (this.currentAddress) {
+        clearTimeout(this.$root.timerTx);
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         var self = this;
         //console.log('timer restart')
@@ -547,6 +552,11 @@ export default {
   background-repeat: no-repeat;
   background-size: 18px;
 }
-
+.ico-xbts {
+  background-image:url('/images/xbts32.png');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
 
 </style>

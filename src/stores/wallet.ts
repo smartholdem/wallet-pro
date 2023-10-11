@@ -11,8 +11,8 @@ import { useStoreSettings } from "@/stores/app-settings.ts";
 
 const storeSettings = useStoreSettings();
 
-const activeNode = "https://" + storeSettings.nodes[0] + "/api";
-console.log("activeNode", activeNode);
+const activeNode = "https://" + storeSettings.activeNode + "/api";
+
 
 const client = new Connection(activeNode);
 Managers.configManager.setFromPreset("mainnet");
@@ -121,6 +121,9 @@ export const useStoreWallet = defineStore("walletStorage", {
       };
     },
     async getTransactions(address) {
+      if (!address) {
+        return;
+      }
       const result = {};
       result[address] = {};
       try {
@@ -135,6 +138,9 @@ export const useStoreWallet = defineStore("walletStorage", {
       return result[address];
     },
     async getAttributes(address) {
+      if (!address) {
+        return;
+      }
       const result = {};
       result[address] = {};
       try {
