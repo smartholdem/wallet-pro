@@ -127,7 +127,7 @@
                       <option selected value="mainnet">Main Net</option>
                       <option value="bsc">BSC</option>
                       <option value="heco">HECO</option>
-                      <option value="eth">Ethereum</option>
+                      <!--<option value="eth">Ethereum</option>-->
                     </select>
                   </div>
                 </div>
