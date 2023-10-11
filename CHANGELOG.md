@@ -1,4 +1,5 @@
 v1.1.0
+- add cross chain support XBTS DEX (BitShares) 
 - add QR code for receive STH
 - add reload update date
 - add cross chain networks MainNet, BSC, HECO
