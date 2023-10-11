@@ -206,6 +206,10 @@
                   <span v-if="item.vendorField">
                      <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
                   </span>
+                  <span v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'">
+                     <span :class="'ico-xbts'" style="padding:3px; padding-right:16px">&nbsp;</span>
+                  </span>
+
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
                 {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}
                 </span>
