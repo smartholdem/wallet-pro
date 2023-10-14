@@ -2,6 +2,7 @@ v1.1.1
 - add wait transaction with 0 confirmations
 - add status transaction Success or Err
 - mobile view transactions list
+- add component list transactions
 
 v1.1.0
 - add cross chain support XBTS DEX (BitShares) 
