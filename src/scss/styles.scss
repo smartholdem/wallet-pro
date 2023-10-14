@@ -1,0 +1,51 @@
+@import '_functions.scss';
+@import '_variables.scss';
+@import '_variables-dark.scss';
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import '_mixins.scss';
+
+@import '_root.scss';
+@import '_reboot.scss';
+@import '_helper.scss';
+
+@import '_app.scss';
+@import '_layout.scss';
+@import '_ui.scss';
+@import '_plugins.scss';
+@import '_pages.scss';
+@import '_widgets.scss';
+@import '_rtl.scss';
+
+.ico-heco {
+  background-image:url('/images/heco.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.ico-mainnet {
+  background-image:url('/images/logo-green32.png');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.ico-bsc {
+  background-image:url('/images/bsc.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+.ico-eth {
+  background-image:url('/images/eth.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+.ico-xbts {
+  background-image:url('/images/xbts32.png');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
