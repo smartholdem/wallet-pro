@@ -13,10 +13,23 @@
             <th scope="col">Sender</th>
             <th scope="col">Recipient</th>
             <th scope="col">Fee</th>
+            <th scope="col">Confirmations</th>
             <th scope="col">Memo</th>
           </tr>
           </thead>
           <tbody>
+          <Transition>
+          <tr v-if="newTx && transactions.data[0].id !== newTx.id" class="text-secondary">
+            <td class="text-secondary">{{ (newTx.id).slice(0, 5) }} .. {{ (newTx.id).slice(-5) }}</td>
+            <td class="text-secondary">Now</td>
+            <td class="text-secondary"><i class="text-secondary fas fa-sm fa-fw me-2 fa-angle-double-up"></i> {{ (newTx.amount / 1e8).toFixed(8) }}</td>
+            <td class="text-secondary">{{ (address).slice(0, 5) }} .. {{ (address).slice(-5) }}</td>
+            <td class="text-secondary">{{ (newTx.recipientId).slice(0, 5) }} .. {{ (newTx.recipientId).slice(-5) }}</td>
+            <td class="text-secondary">{{ (newTx.fee / 1e8).toFixed(3) }}</td>
+            <td class="text-secondary"><i class="fas fa-fw fa-clock"></i></td>
+            <td class="text-secondary">{{newTx.vendorField ? newTx.vendorField : ''}}</td>
+          </tr>
+          </Transition>
           <tr v-for="item in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
             <td :title="item.id">
                   <span v-if="item.vendorField">
@@ -56,6 +69,11 @@
               :class="item.recipient === this.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3)
               }}</span>
             </td>
+            <td>
+                    <span
+                      :class="item.confirmations > 7 ? 'text-success' : 'text-warning'">{{ (item.confirmations )
+                      }}</span>
+            </td>
             <td><span>{{item.vendorField}}</span>
             </td>
           </tr>
@@ -68,7 +86,10 @@
     </card>
     <!-- tx mobile -->
     <div v-if="transactions && isMobile" style="overflow: hidden;">
-      <div class="card-header fw-bold small text-uppercase">Transactions</div>
+      <card>
+        <div class="card-header fw-bold small text-uppercase">Transactions</div>
+      </card>
+
       <card v-for="item in transactions.data" :key="item.id">
         <card-body class="overflow-hidden">
           <table class="table table-striped">
@@ -128,6 +149,15 @@
                       }}</span>
               </td>
             </tr>
+            <tr>
+              <td>Confirmations</td>
+              <td>
+                    <span
+                      :class="item.confirmations > 7 ? 'text-success' : 'text-warning'">{{ (item.confirmations )
+                      }}</span>
+              </td>
+            </tr>
+
             <tr v-if="item.vendorField">
               <td>Memo</td>
               <td><span>{{item.vendorField.length < 40 ? item.vendorField : item.vendorField.slice(0, 25) + '..'}}</span></td>
@@ -155,9 +185,11 @@ export default {
   name: "ComponentTransactions",
   props: {
     address: String,
+    newTx: {},
   },
   data() {
     return {
+      hideNewTx: true,
       isMobile: appOption.isMobile,
       timerTx: null,
       networksTransfer: {

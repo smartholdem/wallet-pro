@@ -148,7 +148,8 @@
                 <table class="table">
                   <tbody>
                     <tr>
-                      <td>Success txId</td>
+                      <td v-if="txErr === 0">Success txId</td>
+                      <td v-if="txErr > 0" class="text-danger">Error txId</td>
                       <td><span class="text-primary">{{txResult.tx.id}}</span></td>
                     </tr>
                   <tr>
@@ -178,7 +179,7 @@
                 Please wait confirmation.
               </p>
               <p>
-                <button @click="sendTabPrepare" type="button" class="btn btn-success btn-sm">CONTINUE</button>
+                <button @click="sendTabPrepare" type="button" class="btn btn-sm" :class="txErr > 0 ? 'btn-danger' : 'btn-success'">CONTINUE</button>
               </p>
             </div>
           </div>
@@ -187,7 +188,7 @@
     </div>
 
     <!-- transactions -->
-    <Txs :address="$route.params.address"/>
+    <Txs :address="$route.params.address" :newTx="txResult.tx"/>
 
     <!-- modal decrypt -->
     <div class="modal modal-cover fade" id="modalDecryptAddress">
@@ -259,7 +260,10 @@ export default {
       },
       isMobile: appOption.isMobile,
       txSendStep: 0,
-      txResult: null,
+      txResult: {
+        response: null,
+        tx: null,
+      },
       forSend: {
         network: 'mainnet',
         addressIsValid: false,
@@ -274,10 +278,16 @@ export default {
       operation: 0,
       showPubKey: false,
       account: {},
+      txErr: 0,
     };
   },
   methods: {
     async sendTabPrepare() {
+      this.txResult = {
+        response: null,
+        tx: null,
+      };
+      this.txErr = 0;
       this.waitConfirmTx = true;
       this.operation = 1;
       this.txSendStep = 0;
@@ -307,7 +317,8 @@ export default {
       this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
       this.forSend.network = this.selectedNetwork; // net fix
       this.txResult = await storeWallet.txTransfer(this.forSend);
-      if (this.txResult) {
+      if (this.txResult.response) {
+        this.txErr = this.txResult.response.invalid.length;
         this.txSendStep = 1;
         this.selectedNetwork = 'mainnet'
         this.forSend = {
