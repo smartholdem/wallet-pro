@@ -39,7 +39,7 @@
                      <span :class="'ico-xbts'" style="padding:3px; padding-right:16px">&nbsp;</span>
                   </span>
 
-              <a :class="item.recipient === this.address ? 'text-success' : 'text-white'" :href="'https://explorer.smartholdem.io/#/transaction/' + item.id" target="_blank">
+              <a :class="item.recipient === this.address ? 'text-success' : 'text-default'" :href="'https://explorer.smartholdem.io/#/transaction/' + item.id" target="_blank">
               <span>
                 {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}
                 </span>
@@ -59,22 +59,28 @@
                 </span>
             </td>
             <td>
-                <span :class="item.recipient === this.address ? 'text-success' : ''">
+              <a :class="item.recipient === this.address ? 'text-success' : 'text-default'" :href="'https://explorer.smartholdem.io/#/wallets/' + item.sender" target="_blank">
+                <span>
                 {{ (item.sender).slice(0, 5) }} .. {{ (item.sender).slice(-5) }}
                 </span>
+              </a>
             </td>
-            <td><span
-              :class="item.recipient === this.address ? 'text-success' : ''">{{ (item.recipient).slice(0, 5)
-              }} .. {{ (item.recipient).slice(-5) }}</span>
+            <td>
+              <a :class="item.recipient === this.address ? 'text-success' : 'text-default'" :href="'https://explorer.smartholdem.io/#/wallets/' + item.recipient" target="_blank">
+              <span>{{ (item.recipient).slice(0, 5)}} .. {{ (item.recipient).slice(-5) }}</span>
+              </a>
             </td>
             <td><span
               :class="item.recipient === this.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3)
               }}</span>
             </td>
             <td>
-                    <span
+              <span v-if="item.recipient === this.address"
                       :class="item.confirmations > 7 ? 'text-success' : 'text-warning'">{{ (item.confirmations )
                       }}</span>
+              <span v-if="item.recipient !== this.address"
+                    :class="item.confirmations > 7 ? 'text-default' : 'text-warning'">{{ (item.confirmations )
+                }}</span>
             </td>
             <td><span>{{item.vendorField}}</span>
             </td>
@@ -149,9 +155,11 @@
                 <span v-if="item.vendorField">
                      <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
                   </span>
-                <span :class="item.recipient === this.address ? 'text-success' : ''">
+                <a :class="item.recipient === this.address ? 'text-success' : 'text-default'" :href="'https://explorer.smartholdem.io/#/transaction/' + item.id" target="_blank">
+                <span>
                         {{ (item.id).slice(0, 11) }}..{{ (item.id).slice(-11) }}
                       </span>
+                </a>
               </td>
             </tr>
             <tr>
@@ -198,9 +206,12 @@
             <tr>
               <td>Confirmations</td>
               <td>
-                    <span
-                      :class="item.confirmations > 7 ? 'text-success' : 'text-warning'">{{ (item.confirmations )
-                      }}</span>
+                     <span v-if="item.recipient === this.address"
+                           :class="item.confirmations > 7 ? 'text-success' : 'text-warning'">{{ (item.confirmations )
+                       }}</span>
+                <span v-if="item.recipient !== this.address"
+                      :class="item.confirmations > 7 ? 'text-default' : 'text-warning'">{{ (item.confirmations )
+                  }}</span>
               </td>
             </tr>
 
