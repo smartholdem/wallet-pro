@@ -90,6 +90,47 @@
         <div class="card-header fw-bold small text-uppercase">Transactions</div>
       </card>
 
+      <card>
+        <card-body v-if="newTx && transactions.data[0].id !== newTx.id" class="overflow-hidden text-secondary">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td>id</td>
+                <td class="text-secondary">{{ (newTx.id).slice(0, 5) }} .. {{ (newTx.id).slice(-5) }}</td>
+              </tr>
+              <tr>
+                <td>Time</td>
+                <td class="text-secondary">Now</td>
+              </tr>
+              <tr>
+                <td>Amount</td>
+                <td class="text-secondary"><i class="text-secondary fas fa-sm fa-fw me-2 fa-angle-double-up"></i> {{ (newTx.amount / 1e8).toFixed(8) }}</td>
+              </tr>
+              <tr>
+                <td>Sender</td>
+                <td class="text-secondary">{{ (address).slice(0, 5) }} .. {{ (address).slice(-5) }}</td>
+              </tr>
+              <tr>
+                <td>Recipient</td>
+                <td class="text-secondary">{{ (newTx.recipientId).slice(0, 5) }} .. {{ (newTx.recipientId).slice(-5) }}</td>
+              </tr>
+              <tr>
+                <td>Fee</td>
+                <td class="text-secondary">{{ (newTx.fee / 1e8).toFixed(3) }}</td>
+              </tr>
+              <tr>
+                <td>Confirmations</td>
+                <td><i class="fas fa-fw fa-clock text-info"></i></td>
+              </tr>
+              <tr v-if="newTx.vendorField">
+                <td>Memo</td>
+                <td class="text-secondary">{{newTx.vendorField ? newTx.vendorField : ''}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </card-body>
+      </card>
+
       <card v-for="item in transactions.data" :key="item.id">
         <card-body class="overflow-hidden">
           <table class="table table-striped">

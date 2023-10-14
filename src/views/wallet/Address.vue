@@ -67,7 +67,17 @@
           OPERATIONS
         </card-header>
         <card-body>
-          <div class="btn-group mb-3">
+          <div v-if="!currentAddress" class="btn-group mb-3">
+            <button data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
+              <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
+            </button>
+            <button @click="decryptSecret()" data-bs-toggle="modal" data-bs-target="#modalDecryptAddress" type="button"
+                    class="btn btn-outline-theme">
+              <i class="fa fa-key" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div v-if="currentAddress" class="btn-group mb-3">
             <button @click="sendTabPrepare" type="button" class="btn btn-outline-theme">
               SEND
             </button>
@@ -81,9 +91,11 @@
             <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
               2nd PWD
             </button>
-            <button disabled="true" @click="operation = 3" type="button" class="btn btn-outline-theme">
+
+            <button v-if="!currentAddress.attributes.delegate" disabled="true" @click="operation = 3" type="button" class="btn btn-outline-theme">
               DELEGATE REG
             </button>
+
             <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
               VOTE
             </button>
@@ -143,7 +155,7 @@
             </div>
 
             <!-- tx result -->
-            <div v-if="txSendStep === 1">
+            <div v-if="txSendStep === 1" class="overflow-hidden overflow-x-auto">
               <div class="mb-3">
                 <table class="table">
                   <tbody>
