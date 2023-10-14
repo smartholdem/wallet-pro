@@ -30,7 +30,7 @@
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
                 <card-header class="card-header fw-bold">
-                  DELEGATE <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
+                  <i class="fas fa-lg fa-fw me-1 fa-university"></i>DELEGATE <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
                 </card-header>
                 <card-body>
                   <ul class="list-group list-group-flush">
