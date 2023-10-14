@@ -84,6 +84,9 @@
             <button disabled="true" @click="operation = 3" type="button" class="btn btn-outline-theme">
               DELEGATE REG
             </button>
+            <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
+              VOTE
+            </button>
           </div>
 
 
@@ -459,6 +462,11 @@ export default {
         }, 9000);
       }
     },
+    async decryptSecret() {
+      //this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
+      this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
+    },
+
     async accountUpdate() {
       if (this.$route.params.address) {
         await storeWallet.getAttributes(this.$route.params.address);
@@ -467,10 +475,6 @@ export default {
         console.log('accountUpdate err', this.$route.params.address);
       }
 
-    },
-    async decryptSecret() {
-      //this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
-      this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
     },
     tmFormat(tm, format = "MM/DD/YYYY") {
       return moment.unix(tm).format(format);
@@ -516,7 +520,6 @@ export default {
       await self.startUpdateByTimer();
     }
     await this.startUpdateByTimer();
-
   },
   computed: {
     balanceDecimal() {
