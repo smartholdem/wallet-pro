@@ -1,3 +1,8 @@
+v1.1.1
+- add wait transaction with 0 confirmations
+- add status transaction Success or Err
+- mobile view transactions list
+
 v1.1.0
 - add cross chain support XBTS DEX (BitShares) 
 - add QR code for receive STH

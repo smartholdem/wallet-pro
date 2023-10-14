@@ -18,7 +18,7 @@
           </tr>
           </thead>
           <tbody>
-          <Transition>
+
           <tr v-if="newTx && transactions.data[0].id !== newTx.id" class="text-secondary">
             <td class="text-secondary">{{ (newTx.id).slice(0, 5) }} .. {{ (newTx.id).slice(-5) }}</td>
             <td class="text-secondary">Now</td>
@@ -29,7 +29,7 @@
             <td class="text-secondary"><i class="fas fa-fw fa-clock"></i></td>
             <td class="text-secondary">{{newTx.vendorField ? newTx.vendorField : ''}}</td>
           </tr>
-          </Transition>
+
           <tr v-for="item in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
             <td :title="item.id">
                   <span v-if="item.vendorField">
@@ -90,8 +90,10 @@
         <div class="card-header fw-bold small text-uppercase">Transactions</div>
       </card>
 
+
       <card>
         <card-body v-if="newTx && transactions.data[0].id !== newTx.id" class="overflow-hidden text-secondary">
+          <transition name="slide-fade">
           <table class="table table-striped">
             <tbody>
               <tr>
@@ -128,6 +130,7 @@
               </tr>
             </tbody>
           </table>
+          </transition>
         </card-body>
       </card>
 

@@ -345,7 +345,8 @@ export default {
         setTimeout(async () => {
           this.waitConfirmTx = false;
           await this.accountUpdate();
-        }, 9000);
+          await this.sendTabPrepare();
+        }, 9200);
       }
     },
     async decryptSecret() {
