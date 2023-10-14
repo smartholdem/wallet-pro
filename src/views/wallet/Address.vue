@@ -221,6 +221,8 @@
                 </span>
               </td>
               <td>
+                <i v-show="item.recipient === this.$route.params.address" class="text-warning fas fa-sm fa-fw me-2 fa-angle-double-down"></i>
+                <i v-show="item.recipient !== this.$route.params.address" class="text-info fas fa-sm fa-fw me-2 fa-angle-double-up"></i>
                 <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
                 {{ (item.amount / 1e8).toFixed(8) }}
                 </span>
@@ -249,6 +251,7 @@
           </div>
         </card-body>
       </card>
+      <!-- tx mobile -->
       <div v-if="transactions && isMobile" style="overflow: hidden;">
         <div class="card-header fw-bold small text-uppercase">Transactions</div>
         <card v-for="item in transactions.data" :key="item.id">
