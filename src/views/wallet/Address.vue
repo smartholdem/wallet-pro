@@ -187,147 +187,7 @@
     </div>
 
     <!-- transactions -->
-    <div class="col-xl-12 mb-3" >
-      <card v-if="transactions && !isMobile" style="overflow: hidden;">
-        <card-header class="card-header fw-bold small text-uppercase">Transactions</card-header>
-        <card-body style="overflow-x: auto;">
-          <table class="table table-hover" >
-            <thead>
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">Time</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Sender</th>
-              <th scope="col">Recipient</th>
-              <th scope="col">Fee</th>
-              <th scope="col">Memo</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
-              <td :title="item.id">
-                  <span v-if="item.vendorField">
-                     <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
-                  </span>
-                  <span v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'">
-                     <span :class="'ico-xbts'" style="padding:3px; padding-right:16px">&nbsp;</span>
-                  </span>
-
-                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}
-                </span>
-              </td>
-              <td>
-                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ tmFormat(item.timestamp.unix, "DD/MM/YY") }}
-                <span class="small">{{ format_time(item.timestamp.unix * 1000) }}</span>
-                </span>
-              </td>
-              <td>
-                <i v-show="item.recipient === this.$route.params.address" class="text-warning fas fa-sm fa-fw me-2 fa-angle-double-down"></i>
-                <i v-show="item.recipient !== this.$route.params.address" class="text-info fas fa-sm fa-fw me-2 fa-angle-double-up"></i>
-                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ (item.amount / 1e8).toFixed(8) }}
-                </span>
-              </td>
-              <td>
-                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ (item.sender).slice(0, 5) }} .. {{ (item.sender).slice(-5) }}
-                </span>
-              </td>
-              <td><span
-                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.recipient).slice(0, 5)
-                }} .. {{ (item.recipient).slice(-5) }}</span>
-              </td>
-              <td><span
-                :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3)
-                }}</span>
-              </td>
-              <td><span>{{item.vendorField}}</span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div>
-            <!--{{ transactions.data }}-->
-
-          </div>
-        </card-body>
-      </card>
-      <!-- tx mobile -->
-      <div v-if="transactions && isMobile" style="overflow: hidden;">
-        <div class="card-header fw-bold small text-uppercase">Transactions</div>
-        <card v-for="item in transactions.data" :key="item.id">
-          <card-body class="overflow-hidden">
-            <table class="table table-striped">
-              <tbody>
-              <tr>
-                <td>id</td>
-                <td>
-                  <span v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'">
-                     <span :class="'ico-xbts'" style="padding:3px; padding-right:16px">&nbsp;</span>
-                  </span>
-                  <span v-if="item.vendorField">
-                     <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
-                  </span>
-                  <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                        {{ (item.id).slice(0, 11) }}..{{ (item.id).slice(-11) }}
-                      </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Time</td>
-                <td>
-                    <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ tmFormat(item.timestamp.unix, "DD/MM/YY") }}
-                <span class="small">{{ format_time(item.timestamp.unix * 1000) }}</span>
-                </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Amount</td>
-                <td>
-                <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                {{ (item.amount / 1e8).toFixed(8) }}
-                </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Sender</td>
-                <td>
-                    <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                      {{ (item.sender.slice(0, 11))}}..{{(item.sender.slice(-11)) }}
-                    </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Recipient</td>
-                <td>
-                    <span :class="item.recipient === this.$route.params.address ? 'text-success' : ''">
-                    {{ (item.recipient.slice(0, 11))}}..{{(item.recipient.slice(-11)) }}
-                    </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Fee</td>
-                <td>
-                    <span
-                      :class="item.recipient === this.$route.params.address ? 'text-success' : ''">{{ (item.fee / 1e8).toFixed(3)
-                      }}</span>
-                </td>
-              </tr>
-              <tr v-if="item.vendorField">
-                <td>Memo</td>
-                <td><span>{{item.vendorField.length < 40 ? item.vendorField : item.vendorField.slice(0, 25) + '..'}}</span></td>
-              </tr>
-              </tbody>
-            </table>
-          </card-body>
-        </card>
-      </div>
-
-        <div v-if="!transactions">No transactions</div>
-    </div>
+    <Txs :address="$route.params.address"/>
 
     <!-- modal decrypt -->
     <div class="modal modal-cover fade" id="modalDecryptAddress">
@@ -363,11 +223,14 @@ import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
 import moment from "moment";
+import Txs from "./Transactions.vue";
+
 
 export default {
   name: "AddressPage",
   components: {
     QrcodeVue,
+    Txs,
   },
   data() {
     return {
