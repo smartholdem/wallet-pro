@@ -13,7 +13,7 @@
             <th scope="col">Sender</th>
             <th scope="col">Recipient</th>
             <th scope="col">Fee</th>
-            <th scope="col">Confirmations</th>
+            <th scope="col" title="confirmations"><i class="fas fa-fw fa-clock"></i></th>
             <th scope="col">Memo</th>
           </tr>
           </thead>
@@ -26,7 +26,7 @@
             <td class="text-secondary">{{ (address).slice(0, 5) }} .. {{ (address).slice(-5) }}</td>
             <td class="text-secondary">{{ (newTx.recipientId).slice(0, 5) }} .. {{ (newTx.recipientId).slice(-5) }}</td>
             <td class="text-secondary">{{ (newTx.fee / 1e8).toFixed(3) }}</td>
-            <td class="text-secondary"><i class="fas fa-fw fa-clock"></i></td>
+            <td class="text-secondary"><i class="fas fa-fw fa-hourglass"></i></td>
             <td class="text-secondary">{{newTx.vendorField ? newTx.vendorField : ''}}</td>
           </tr>
 
