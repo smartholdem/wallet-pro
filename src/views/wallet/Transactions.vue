@@ -39,9 +39,11 @@
                      <span :class="'ico-xbts'" style="padding:3px; padding-right:16px">&nbsp;</span>
                   </span>
 
-              <span :class="item.recipient === this.address ? 'text-success' : ''">
+              <a :class="item.recipient === this.address ? 'text-success' : 'text-white'" :href="'https://explorer.smartholdem.io/#/transaction/' + item.id" target="_blank">
+              <span>
                 {{ (item.id).slice(0, 5) }} .. {{ (item.id).slice(-5) }}
                 </span>
+              </a>
             </td>
             <td>
                 <span :class="item.recipient === this.address ? 'text-success' : ''">
