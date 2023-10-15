@@ -264,14 +264,15 @@ export default {
   },
   methods: {
     tmFormat(tm, format = "MM/DD/YYYY") {
+      moment.locale('pt-br');
       return moment.unix(tm).format(format);
     },
     format_time(s) {
-      const dtFormat = new Intl.DateTimeFormat("ru-RU", {
+      const dtFormat = new Intl.DateTimeFormat("ru", {
         timeStyle: "medium",
-        timeZone: "UTC"
+        //timeZone: "UTC"
       });
-      return dtFormat.format(new Date(s * 1e3));
+      return dtFormat.format(new Date(s));
     },
   },
 };
