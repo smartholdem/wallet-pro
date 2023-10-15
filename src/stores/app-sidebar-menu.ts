@@ -23,6 +23,11 @@ export const useAppSidebarMenuStore = defineStore({
         "icon": "fas fa-braille",
         "text": "Blockchain"
       },
+      {
+        "url": "/address-book",
+        "icon": "fas fa-address-book",
+        "text": "Address Book"
+      },
       /**
       {
         "url": "/settings",
