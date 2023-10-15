@@ -26,9 +26,23 @@ export const useStoreWallet = defineStore("walletStorage", {
     delegates: {},
     nodeConfig: {},
     blockchain: {},
-    smartHolder: {}
+    smartHolder: {},
+    addressBook: {},
   }),
   actions: {
+    /**
+     *
+     * @param options
+     * address - string
+     * label - string
+     * data - object
+     */
+    async addInAddressBook(options: object) {
+      this.addressBook = {
+        ...this.addressBook,
+        ...options
+      };
+    },
     async validateAddressCrossChain(address: string) {
       let result = false;
       try {
