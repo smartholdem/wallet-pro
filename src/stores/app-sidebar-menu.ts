@@ -25,7 +25,7 @@ export const useAppSidebarMenuStore = defineStore({
       },
       {
         "url": "/address-book",
-        "icon": "fas fa-address-book",
+        "icon": "fa fa-address-book",
         "text": "Address Book"
       },
       /**

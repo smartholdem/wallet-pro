@@ -35,6 +35,7 @@ export const useStoreWallet = defineStore("walletStorage", {
      * @param options
      * address - string
      * label - string
+     * network - string
      * data - object
      */
     async addInAddressBook(options: object) {
