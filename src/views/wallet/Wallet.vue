@@ -60,11 +60,11 @@
                   >
                     <i class="fa fa-key" aria-hidden="true"></i>
                   </button>
-                  <!--
-                  <button type="button" class="btn btn-outline-secondary">
-                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+
+                  <button disabled type="button" class="btn btn-outline-secondary">
+                    <i class="fas fa-tag"></i>
                   </button>
-                  -->
+
                 </div>
 
               </td>
