@@ -353,7 +353,6 @@ export default {
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
     },
-
     async accountUpdate() {
       if (this.$route.params.address) {
         await storeWallet.getAttributes(this.$route.params.address);

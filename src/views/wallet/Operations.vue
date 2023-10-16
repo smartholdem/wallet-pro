@@ -162,8 +162,129 @@
 </template>
 
 <script>
+import { storeToRefs } from "pinia";
+import { useAppOptionStore } from "@/stores/app-option.ts";
+const appOption = useAppOptionStore();
+
+import { useStoreWallet } from "@/stores/wallet.ts";
+const storeWallet = useStoreWallet();
+
 export default {
-  name: "OperationsComponent"
+  name: "OperationsComponent",
+  props: {
+    address: String,
+  },
+  data() {
+    return {
+      decryptedSecret: "",
+      waitConfirmTx: true,
+      networksTransfer: {
+        mainnet: {
+          fee: 1,
+          minAmount: 0.00001,
+        },
+        bsc: {
+          fee: 30,
+          minAmount: 100,
+        },
+        heco: {
+          fee: 10,
+          minAmount: 100,
+        },
+        eth: {
+          fee: 200,
+          minAmount: 100,
+        },
+      },
+      invoice: {
+        amount: '',
+        memo: '',
+      },
+      isMobile: appOption.isMobile,
+      txSendStep: 0,
+      txResult: {
+        response: null,
+        tx: null,
+      },
+      forSend: {
+        network: 'mainnet',
+        addressIsValid: false,
+        sender: this.address,
+        recipientId: "",
+        amount: "",
+        fee: 1,
+        memo: "",
+      },
+      selectedNetwork: "mainnet",
+      operation: 0,
+      txErr: 0,
+    }
+  },
+  computed: {
+    currentAddress() {
+      return storeWallet.attributes[this.address];
+    },
+    methods: {
+      async sendTabPrepare() {
+        this.txResult = {
+          response: null,
+          tx: null,
+        };
+        this.txErr = 0;
+        this.waitConfirmTx = true;
+        this.operation = 1;
+        this.txSendStep = 0;
+        this.selectedNetwork = 'mainnet';
+        this.forSend = {
+          network: 'mainnet',
+          addressIsValid: false,
+          sender: this.address,
+          recipientId: "",
+          amount: "",
+          fee: 1,
+          memo: "",
+        };
+      },
+      async validateAddress() {
+        if (this.selectedNetwork === 'mainnet') {
+          this.forSend.memo = '';
+          this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
+        } else {
+          this.forSend.addressIsValid = await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
+          if (this.forSend.addressIsValid) {
+            this.forSend.memo = this.selectedNetwork + ':' + this.forSend.recipientId;
+          }
+        }
+      },
+      async txSend() {
+        this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
+        this.forSend.network = this.selectedNetwork; // net fix
+        this.txResult = await storeWallet.txTransfer(this.forSend);
+        if (this.txResult.response) {
+          this.txErr = this.txResult.response.invalid.length;
+          this.txSendStep = 1;
+          this.selectedNetwork = 'mainnet'
+          this.forSend = {
+            network: 'mainnet',
+            addressIsValid: false,
+            sender: this.address,
+            recipientId: "",
+            amount: "",
+            fee: 1,
+            memo: "",
+          };
+          setTimeout(async () => {
+            this.waitConfirmTx = false;
+            await this.accountUpdate();
+            await this.sendTabPrepare();
+          }, 9200);
+        }
+      },
+      async decryptSecret() {
+        this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
+      },
+    }
+  }
 };
 </script>
 
