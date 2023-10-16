@@ -54,7 +54,7 @@
               </div>
               <div class="col-md-2" v-show="!isMobile">
                 <div class="form-group mb-3">
-                  <label class="form-label" for="sendFee">Fee STH</label>
+                  <label class="form-label" for="sendFee">Fee</label>
                   <input readonly :value="networksTransfer[selectedNetwork].fee" type="text" class="form-control form-control-sm" id="sendFee"
                   >
                 </div>
@@ -63,7 +63,7 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group mb-3">
-                  <label class="form-label" for="sendAmount">Amount</label>
+                  <label @click="forSend.amount = balanceDecimal - networksTransfer[selectedNetwork].fee" class="form-label" for="sendAmount">Amount <span class="badge text-info">[max]</span></label>
                   <input :placeholder="'min ' + networksTransfer[selectedNetwork].minAmount" v-model="forSend.amount" type="text" class="form-control form-control-sm" :class="forSend.amount > 0.00000001 ? 'is-valid' : 'is-invalid'" id="sendAmount">
                 </div>
               </div>
@@ -89,7 +89,13 @@
 
             </div>
             <div>
-              <button :disabled="((forSend.amount * 1 + networksTransfer[selectedNetwork].fee) > balanceDecimal) || !forSend.addressIsValid || forSend.amount < 0.001 || !forSend.recipientId || forSend.recipientId === this.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND STH</button>
+              <button :disabled="((forSend.amount * 1 + networksTransfer[selectedNetwork].fee) > balanceDecimal) || !forSend.addressIsValid || forSend.amount < 0.001 || !forSend.recipientId || forSend.recipientId === this.address"
+                      @click="txSend"
+                      type="button"
+                      class="btn btn-sm"
+                      :class="(((forSend.amount * 1 + networksTransfer[selectedNetwork].fee) > balanceDecimal) || !forSend.addressIsValid || forSend.amount < 0.001 || !forSend.recipientId || forSend.recipientId === this.address) ? 'btn-secondary' : 'btn-success'">
+                SEND STH
+              </button>
             </div>
           </div>
 
@@ -162,6 +168,7 @@
 </template>
 
 <script>
+import QrcodeVue from "qrcode.vue";
 import { storeToRefs } from "pinia";
 import { useAppOptionStore } from "@/stores/app-option.ts";
 const appOption = useAppOptionStore();
@@ -171,6 +178,9 @@ const storeWallet = useStoreWallet();
 
 export default {
   name: "OperationsComponent",
+  components: {
+    QrcodeVue,
+  },
   props: {
     address: String,
   },
@@ -227,6 +237,14 @@ export default {
     currentAddress() {
       return storeWallet.attributes[this.address];
     },
+  },
+  watch: {
+    txResult: {
+      handler: function() {
+        this.$emit('txResultData', this.txResult);
+      },
+      deep: true
+    }
   },
   methods: {
     async sendTabPrepare() {
@@ -287,6 +305,14 @@ export default {
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
     },
+    async accountUpdate() {
+      if (this.address) {
+        await storeWallet.getAttributes(this.address);
+        await storeWallet.getTransactions(this.address);
+      } else {
+        console.log('accountUpdate err', this.address);
+      }
+    }
   }
 };
 </script>

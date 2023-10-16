@@ -21,9 +21,8 @@
         </card-header>
         <card-body>
 
-          <h5 v-if="currentAddress.balance" class="card-title" @click="forSend.amount = balanceDecimal - networksTransfer[selectedNetwork].fee">
-            <img src="/images/logo-green32.png"/> <span class="text-success">{{ (balanceDecimal).toFixed(8)
-            }}</span> STH
+          <h5 v-if="currentAddress.balance" class="card-title">
+            <img src="/images/logo-green32.png"/> <span class="text-success">{{ (balanceDecimal).toFixed(8)}}</span> STH
           </h5>
           <div v-if="currentAddress.publicKey">
 
@@ -61,6 +60,11 @@
     </div>
 
     <!-- operations -->
+    <div class="col-xl-6 mb-3">
+      <Ops @txResultData="handleData($event)" :address="$route.params.address"/>
+    </div>
+
+    <!--
     <div class="col-xl-6 mb-3">
       <card class="h-100">
         <card-header class="card-header fw-bold small">
@@ -103,7 +107,7 @@
 
 
           <div v-if="operation === 1" class="w-100">
-            <!-- send sth prepare tx -->
+
             <div v-if="txSendStep === 0">
               <div class="row">
                 <div class="col-md-10">
@@ -141,9 +145,9 @@
                     <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendAmount" >Network</label>
                     <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm" id="sendNetwork">
                       <option selected value="mainnet">MainNet</option>
-                      <!--<option value="bsc">BSC</option>-->
+                      <option value="bsc">BSC</option>
                       <option value="heco">HECO</option>
-                      <!--<option disabled value="eth">Ethereum</option>-->
+                      <option disabled value="eth">Ethereum</option>
                     </select>
                   </div>
                 </div>
@@ -154,7 +158,7 @@
               </div>
             </div>
 
-            <!-- tx result -->
+
             <div v-if="txSendStep === 1" class="overflow-hidden overflow-x-auto">
               <div class="mb-3">
                 <table class="table">
@@ -198,7 +202,7 @@
         </card-body>
       </card>
     </div>
-
+    -->
     <!-- transactions -->
     <Txs :address="$route.params.address" :newTx="txResult.tx"/>
 
@@ -236,16 +240,22 @@ import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
 import Txs from "./Transactions.vue";
+import Ops from "./Operations.vue";
 
 export default {
   name: "AddressPage",
   components: {
     QrcodeVue,
     Txs,
+    Ops,
   },
   data() {
     return {
-      waitConfirmTx: true,
+      txResult: {
+        response: null,
+        tx: null,
+      },
+      isMobile: appOption.isMobile,
       networksTransfer: {
         mainnet: {
           fee: 1,
@@ -264,16 +274,15 @@ export default {
           minAmount: 100,
         },
       },
+
+
+      waitConfirmTx: true,
       invoice: {
         amount: '',
         memo: '',
       },
-      isMobile: appOption.isMobile,
       txSendStep: 0,
-      txResult: {
-        response: null,
-        tx: null,
-      },
+
       forSend: {
         network: 'mainnet',
         addressIsValid: false,
@@ -293,6 +302,10 @@ export default {
     };
   },
   methods: {
+    handleData: function(e) {
+      this.txResult = e;
+    },
+    /*
     async sendTabPrepare() {
       this.txResult = {
         response: null,
@@ -351,6 +364,7 @@ export default {
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
     },
+     */
     async accountUpdate() {
       if (this.$route.params.address) {
         await storeWallet.getAttributes(this.$route.params.address);
