@@ -16,6 +16,14 @@
 @import '_widgets.scss';
 @import '_rtl.scss';
 
+.pointer {
+cursor: pointer;
+}
+
+.hover-info:hover {
+  color: $info;
+}
+
 .ico-heco {
   background-image:url('/images/heco.svg');
   background-position: 0px 2px;
