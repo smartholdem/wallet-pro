@@ -253,6 +253,9 @@ export default {
     }
   },
   methods: {
+    async copyText(text) {
+      navigator.clipboard.writeText(text);
+    },
     async sendTabPrepare() {
       this.txResult = {
         response: null,

@@ -197,10 +197,10 @@
     <!-- toasts-container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div class="toast fade hide mb-3" data-autohide="false" id="toast-1" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <i class="far fa-bell text-muted me-2"></i>
+        <div class="toast-header text-info">
+          <i class="far fa-bell me-2 text-info"></i>
           <strong class="me-auto">Address</strong>
-          <small>Success</small>
+          <small class="text-success-emphasis">Success</small>
           <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
         </div>
         <div class="toast-body">
@@ -266,7 +266,7 @@ export default {
   methods: {
     async copyAddress(address) {
       navigator.clipboard.writeText(address);
-      console.log('copied to clipboard!')
+      this.showToast(event, 'toast-1', 'Copied to clipboard!')
     },
     async decryptSecret(address) {
       //this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);

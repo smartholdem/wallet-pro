@@ -12,8 +12,8 @@
         <card-header class="card-header fw-bold">
           <i v-if="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
              aria-hidden="true"> </i>
-          <span v-if="!showPubKey" class="text-info" :class="isMobile ? 'small' : ''">
-            &nbsp;{{ $route.params.address }}
+          <span v-if="!showPubKey" @click="copyText($route.params.address)" class="text-default pointer" :class="isMobile ? 'small' : ''">
+            &nbsp;{{ $route.params.address }} <i class="fa fa-clipboard hover-info" aria-hidden="true"></i>
           </span>
           <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
             {{ currentAddress.publicKey }}
@@ -67,6 +67,22 @@
     <!-- transactions -->
     <Txs :address="$route.params.address" :newTx="txResult.tx"/>
 
+
+    <!-- toasts-container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div class="toast fade hide mb-3" data-autohide="false" id="toast-address" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" :class="'text-' + toastStyle">
+          <i class="far fa-bell me-2"/>
+          <strong class="me-auto">{{toastStyle}}</strong>
+          <small class="text-success-emphasis">{{notifyOp}}</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body small">
+          {{notifyMsg}}
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -79,6 +95,7 @@ const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
 import Txs from "./Transactions.vue";
 import Ops from "./Operations.vue";
+import { Toast } from "bootstrap";
 
 export default {
   name: "AddressPage",
@@ -88,6 +105,9 @@ export default {
   },
   data() {
     return {
+      notifyOp: 'operation',
+      toastStyle: 'success',
+      notifyMsg: "",
       txResult: {
         response: null,
         tx: null,
@@ -116,6 +136,18 @@ export default {
     };
   },
   methods: {
+    showToast(event, target, msg, style = 'success') {
+      event.preventDefault();
+      this.notifyMsg = msg;
+      this.toastStyle = style;
+      const toast = new Toast(document.getElementById(target));
+      toast.show();
+    },
+    async copyText(text) {
+      navigator.clipboard.writeText(text);
+      this.notifyOp = 'operation';
+      this.showToast(event, 'toast-address', 'Copied to clipboard!', 'success')
+    },
     handleData: function(e) {
       this.txResult = e;
     },
