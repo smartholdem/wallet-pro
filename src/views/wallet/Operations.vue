@@ -132,11 +132,8 @@
                 </tbody>
               </table>
             </div>
-            <p class="mb-3" v-show="waitConfirmTx">
-              Please wait confirmation.
-            </p>
             <p>
-              <button @click="sendTabPrepare" type="button" class="btn btn-sm" :class="txErr > 0 ? 'btn-danger' : 'btn-success'">CONTINUE</button>
+              <button @click="sendTabPrepare" type="button" class="btn btn-sm" :class="txErr > 0 ? 'btn-danger' : 'btn-success'">CONTINUE</button>&nbsp;<span v-show="waitConfirmTx">Please wait confirmation..</span>
             </p>
           </div>
         </div>
