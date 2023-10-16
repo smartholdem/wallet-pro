@@ -84,6 +84,7 @@
                     <option value="heco">HECO</option>
                     <!--<option disabled value="eth">Ethereum</option>-->
                   </select>
+
                 </div>
               </div>
 
@@ -181,11 +182,15 @@ const appOption = useAppOptionStore();
 
 import { useStoreWallet } from "@/stores/wallet.ts";
 const storeWallet = useStoreWallet();
+import typeahead from '@/components/plugins/Typeahead.vue';
+//import vueSelect from '@/components/plugins/vueSelect.vue';
 
 export default {
   name: "OperationsComponent",
   components: {
     QrcodeVue,
+    typeahead,
+    //vueSelect,
   },
   props: {
     address: String,
@@ -237,6 +242,9 @@ export default {
     }
   },
   computed: {
+    book() {
+      return storeWallet.addressBook;
+    },
     balanceDecimal() {
       return this.currentAddress.balance / 10 ** 8;
     },
@@ -322,7 +330,7 @@ export default {
         console.log('accountUpdate err', this.address);
       }
     }
-  }
+  },
 };
 </script>
 
