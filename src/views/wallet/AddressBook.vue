@@ -16,11 +16,11 @@
 
     </div>
 
-  <div class="modal">
+  <div class="modal" id="modalAddressBook">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">MODAL TITLE</h5>
+          <h5 class="modal-title">ADD NEW ADDRESS</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
