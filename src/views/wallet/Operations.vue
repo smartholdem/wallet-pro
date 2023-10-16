@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-100">
 
     <card class="h-100">
       <card-header class="card-header fw-bold small">
