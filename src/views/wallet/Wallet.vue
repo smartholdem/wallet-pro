@@ -40,11 +40,11 @@
                   <AddressComponent :address="item.address"/>
                 </button>&nbsp;
                 <div class="btn-group mb-2">
-                  <!--
-                  <button type="button" class="btn btn-outline-secondary">
+
+                  <button @click="copyAddress(item.address)" type="button" class="btn btn-outline-secondary">
                     <i class="fa fa-clipboard" aria-hidden="true"></i>
                   </button>
-                  -->
+
                   <button
                     @click="deleteAddress(item.address)"
                     type="button"
@@ -228,6 +228,7 @@ import CryptoJS from "crypto-js";
 import { Toast } from "bootstrap";
 import AddressComponent from "@/components/wallet/ComponentAddress.vue";
 
+
 export default {
   name: "WalletPage",
   components: {
@@ -263,6 +264,10 @@ export default {
     },
   },
   methods: {
+    async copyAddress(address) {
+      navigator.clipboard.writeText(address);
+      console.log('copied to clipboard!')
+    },
     async decryptSecret(address) {
       //this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
       this.decryptedSecret = await store.decryptByAddress(address);
