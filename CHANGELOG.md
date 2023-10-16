@@ -10,6 +10,7 @@ v1.1.1
 - clipboard copy
 - label in address new & import
 - copy new address data to clipboard
+- telegram airdrop icon in tx
 
 v1.1.0
 - cross chain support XBTS DEX (BitShares) 
