@@ -289,8 +289,9 @@ export default {
       selectedNetwork: "mainnet",
       operation: 0,
       showPubKey: false,
-      account: {},
+      //account: {},
       txErr: 0,
+      timerTx: null,
     };
   },
   methods: {
@@ -350,7 +351,6 @@ export default {
       }
     },
     async decryptSecret() {
-      //this.decryptedSecret = await storeWallet.addressDecrypt(accounts.value[this.$route.params.address].secret);
       this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
     },
 
@@ -363,29 +363,17 @@ export default {
       }
 
     },
-    tmFormat(tm, format = "MM/DD/YYYY") {
-      return moment.unix(tm).format(format);
-    },
-    format_time(s) {
-      const dtFormat = new Intl.DateTimeFormat("ru-RU", {
-        timeStyle: "medium",
-        timeZone: "UTC"
-      });
-      return dtFormat.format(new Date(s * 1e3));
-    },
     async startUpdateByTimer() {
       if (this.currentAddress) {
-        clearTimeout(this.$root.timerTx);
+        clearTimeout(this.timerTx);
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         var self = this;
-        //console.log('timer restart')
-        this.$root.timerTx = setTimeout(async function tick() {
+        this.timerTx = setTimeout(async function tick() {
           if (self.page === "/address/" + self.$route.params.address) {
             await self.accountUpdate();
-            self.$root.timerTx = setTimeout(tick, 20000); // (*)
+            self.timerTx = setTimeout(tick, 20000); // (*)
           } else {
-            clearTimeout(self.$root.timerTx);
-            //console.log("stop timer");
+            clearTimeout(self.timerTx);
           }
         }, 28000);
       }
@@ -418,9 +406,6 @@ export default {
     currentAddress() {
       return storeWallet.attributes[this.$route.params.address];
     },
-    transactions() {
-      return storeWallet.transactions[this.$route.params.address];
-    }
   }
 };
 </script>
