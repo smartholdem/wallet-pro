@@ -36,12 +36,13 @@ export const useStoreWallet = defineStore("walletStorage", {
      * address - string
      * label - string
      * network - string
-     * data - object
      */
     async addInAddressBook(options: object) {
+      const result = {};
+      result[options.address] = options;
       this.addressBook = {
         ...this.addressBook,
-        ...options
+        ...result
       };
     },
     async validateAddressCrossChain(address: string) {

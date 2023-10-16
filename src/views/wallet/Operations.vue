@@ -47,7 +47,7 @@
             <div class="row">
               <div class="col-md-10">
                 <div class="form-group mb-3">
-                  <label class="form-label" for="sendRecipient">Recipient</label>
+                  <label class="form-label" for="sendRecipient">Recipient <i class="fa fa-address-book hover-info"></i></label>
                   <input v-model="forSend.recipientId" @input="validateAddress" type="text" class="form-control form-control-sm" :class="forSend.addressIsValid && forSend.recipientId !== this.address ? 'is-valid' : 'is-invalid'" id="sendRecipient"
                          placeholder="Enter address">
                 </div>
@@ -77,7 +77,7 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group mb-3" >
-                  <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendAmount" >Network</label>
+                  <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendNetwork" >Network</label>
                   <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm" id="sendNetwork">
                     <option selected value="mainnet">MainNet</option>
                     <!--<option value="bsc">BSC</option>-->
