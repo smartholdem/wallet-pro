@@ -9,7 +9,7 @@ v1.1.1
 - notifications
 - clipboard copy
 - label in import address
-- clipboard copy address data after create new
+- copy new address data to clipboard
 
 v1.1.0
 - cross chain support XBTS DEX (BitShares) 

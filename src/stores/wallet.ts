@@ -182,6 +182,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       };
     },
     async addressSave(payload: object) {
+      console.log(payload)
       this.accounts = {
         ...this.accounts,
         ...payload

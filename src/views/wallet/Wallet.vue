@@ -37,10 +37,11 @@
                   class="btn btn-outline-theme mb-2"
                   :style="!isMobile ? 'width: 336px' : 'width: 125px'"
                 >
-                  <AddressComponent :address="item.address"/>
+                  <AddressComponent v-if="!isMobile" :address="item.address"/>
+                  <AddressComponent v-if="isMobile && !item.label" :address="item.address"/>
+                  <span v-if="item.label && isMobile">{{item.label.length < 12 ? item.label : item.label.slice(0, 11) + '..'}}</span>
                 </button>&nbsp;
                 <div class="btn-group mb-2">
-
                   <button @click="copyAddress(item.address)" type="button" class="btn btn-outline-secondary">
                     <i class="fa fa-clipboard" aria-hidden="true"></i>
                   </button>
@@ -61,8 +62,8 @@
                     <i class="fa fa-key" aria-hidden="true"></i>
                   </button>
 
-                  <button disabled type="button" class="btn btn-outline-secondary">
-                    <i class="fas fa-tag"></i>
+                  <button v-if="!isMobile && item.label" type="button" class="btn btn-outline-secondary">
+                    <i class="fas fa-tag"></i> <span v-show="item.label">{{item.label}}</span>
                   </button>
 
                 </div>
@@ -81,7 +82,7 @@
           </div>
 
         </div>
-        <!-- new -->
+        <!-- new address tab-->
         <div
           class="tab-pane fade"
           :class="tabActive === 1 ? 'show active' : ''"
@@ -108,8 +109,6 @@
           </div>
 
 
-
-
           <div class="mt-3">
             <div class="form-group mb-3">
               <label class="form-label" for="newPublicAddress">Public Address</label>
@@ -124,7 +123,7 @@
             </div>
             <div class="form-group mb-3">
               <label class="form-label" for="newPrivateKey">Private Key <span class="small text-danger">please keep in secret</span></label>
-              <textarea id="newPrivateKey" readonly v-model="account.secret" class="form-control form-control-sm" rows="3"></textarea>
+              <textarea id="newPrivateKey" readonly v-model="account.secret" class="form-control" rows="3"></textarea>
             </div>
             <div class="form-group mb-3">
               <div class="row">
@@ -134,6 +133,18 @@
                     <option selected="selected" value="aes">AES256</option>
                     <option value="rabbit">Rabbit</option>
                   </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="newLabel"
+                  >Label</label
+                  >
+                  <input
+                    type="text"
+                    v-model="account.label"
+                    class="form-control form-control-sm"
+                    id="newLabel"
+                    placeholder="label"
+                  />
                 </div>
               </div>
             </div>
@@ -193,7 +204,7 @@
                 >
                 <input
                   type="text"
-                  :value="accountImport.label"
+                  v-model="accountImport.label"
                   class="form-control form-control-sm"
                   id="importLabel"
                   placeholder="label"
@@ -264,6 +275,7 @@ export default {
   },
   data() {
     return {
+      showHideEditLabel: false,
       encryptedAlgo: 'aes',
       isMobile: appOption.isMobile,
       timerPassword: null,
@@ -303,7 +315,6 @@ export default {
       this.showToast(event, 'toast-1', 'Copied to clipboard!')
     },
     async decryptSecret(address) {
-      //this.decryptedSecret = await store.addressDecrypt(this.listAddresses[address].secret);
       this.decryptedSecret = await store.decryptByAddress(address);
     },
     showToast(event, target, msg) {
@@ -324,7 +335,6 @@ export default {
     },
     saveAccount(account) {
 
-
       if (account.address.length > 4) {
         const objAddress = {};
         const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
@@ -338,6 +348,7 @@ export default {
           address: account.address,
           secret: encryptedSecret,
           encrypt: this.encryptedAlgo,
+          label:  account.label,
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {
@@ -349,6 +360,7 @@ export default {
         this.accountImport = {
           address: "",
           secret: "",
+          label: ""
         };
         this.account = this.accountImport;
         this.tabActive = 0;
