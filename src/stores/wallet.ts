@@ -6,7 +6,7 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import web3 from "web3";
 
-
+import { storeToRefs } from "pinia";
 import { useStoreSettings } from "@/stores/app-settings.ts";
 
 const storeSettings = useStoreSettings();
