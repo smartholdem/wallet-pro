@@ -65,8 +65,8 @@
 
             <div class="col-md-3">
               <div class="form-group mb-3">
-                <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendNetwork">Network</label>
-                <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm"
+                <label class="form-label px-4" :class="'ico-' + toSave.network" for="sendNetwork">Network</label>
+                <select v-model="toSave.network" @change="validateAddress" class="form-select form-select-sm"
                         id="sendNetwork">
                   <option selected value="mainnet">MainNet</option>
                   <option value="bsc">BSC</option>
@@ -107,7 +107,6 @@ export default {
         label: "",
         address: ""
       },
-      selectedNetwork: "mainnet",
       isValid: false
     };
   },
@@ -126,7 +125,7 @@ export default {
       };
     },
     async validateAddress() {
-      if (this.selectedNetwork === "mainnet") {
+      if (this.toSave.network === "mainnet") {
         this.isValid = await storeWallet.validateAddress(this.toSave.address);
       } else {
         this.isValid = await storeWallet.validateAddressCrossChain(this.toSave.address);
