@@ -1,31 +1,31 @@
 v1.1.1
-- add wait transaction with 0 confirmations
-- add status transaction Success or Err
+- wait transaction with 0 confirmations
+- status transaction Success or Error
 - mobile view transactions list
-- add component list transactions
-- add explorer onclick txId, address
+- component list transactions
+- explorer onclick txId, address
 - address book
 - operation component
 - notifications
 - clipboard copy 
 
 v1.1.0
-- add cross chain support XBTS DEX (BitShares) 
-- add QR code for receive STH
-- add reload update date
-- add cross chain networks MainNet, BSC, HECO
+- cross chain support XBTS DEX (BitShares) 
+- QR code for receive STH
+- reload update date
+- cross chain networks MainNet, BSC, HECO
 - validate nodes status
-- add mobile mode transactions list
-- add cross chains icons in transactions
+- mobile mode transactions list
+- cross chains icons in transactions
 
 v1.0.0
 
 - Rabbit crypto & AES
 - encrypted methods select
-- add apps links Explorer, Full Screen, Git 
-- add blockchain section and fees
+- links Explorer, Full Screen, Git 
+- blockchain section and fees
 - mobile fixes
 - pin code storage fixes
-- add Reset All data
-- add full screen mode
+- Reset All data
+- full screen mode
 
