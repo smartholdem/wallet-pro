@@ -17,7 +17,23 @@
         </card-header>
         <card-body>
 
-          {{ book }}
+          <table class="table table-hover table-stripped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Label</th>
+              <th scope="col">Address</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in book" :key="item.address">
+                <td class="text-uppercase"><span :class="'px-3 py-1 ico-' + item.network"></span> {{item.network}}</td>
+                <td>{{item.label}}</td>
+                <td>{{item.address}}</td>
+              </tr>
+            </tbody>
+          </table>
+
         </card-body>
 
       </card>
