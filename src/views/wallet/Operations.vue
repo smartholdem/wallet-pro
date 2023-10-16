@@ -141,10 +141,19 @@
     </card>
 
     <!-- modal decrypt -->
-    <div class="modal modal-cover fade" id="modalDecryptAddress">
+    <div class="modal fade fade" id="modalDecryptAddress">
       <div class="modal-dialog">
-        <div class="modal-content text-danger">
-          <textarea v-model="decryptedSecret" class="form-control" rows="3"></textarea>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">SECRET KEY</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>For address {{address}} </p>
+            <textarea v-model="decryptedSecret" class="form-control text-info" rows="3"></textarea>
+            <p class="small text-danger mt-2">Please keep in secret!</p>
+          </div>
+
         </div>
       </div>
     </div>

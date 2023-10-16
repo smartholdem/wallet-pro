@@ -7,7 +7,12 @@
       </ul>
 
       <card>
-        <card-header class="card-header fw-bold small text-uppercase">List saved addresses</card-header>
+        <card-header class="card-header fw-bold small text-uppercase">
+          <button data-bs-toggle="modal" data-bs-target="#modalAddressBook"
+                  type="button"
+                  class="btn btn-sm btn-light">ADD NEW ADDRESS
+          </button>
+        </card-header>
         <card-body>
           {{book}}
         </card-body>
@@ -16,7 +21,7 @@
 
     </div>
 
-  <div class="modal" id="modalAddressBook">
+  <div class="modal fade" id="modalAddressBook">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
