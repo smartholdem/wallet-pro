@@ -210,33 +210,33 @@ export default {
 <style scoped>
 .ico-heco {
   background-image:url('/images/heco.svg');
-  background-position: 0px 2px;
+  background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 
 .ico-mainnet {
   background-image:url('/images/logo-green32.png');
-  background-position: 0px 2px;
+  background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 
 .ico-bsc {
   background-image:url('/images/bsc.svg');
-  background-position: 0px 2px;
+  background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 .ico-eth {
   background-image:url('/images/eth.svg');
-  background-position: 0px 2px;
+  background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 .ico-xbts {
   background-image:url('/images/xbts32.png');
-  background-position: 0px 2px;
+  background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
