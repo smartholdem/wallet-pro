@@ -4,6 +4,10 @@ v1.1.1
 - mobile view transactions list
 - add component list transactions
 - add explorer onclick txId, address
+- address book
+- operation component
+- notifications
+- clipboard copy 
 
 v1.1.0
 - add cross chain support XBTS DEX (BitShares) 
