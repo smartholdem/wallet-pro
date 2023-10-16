@@ -8,7 +8,7 @@ v1.1.1
 - operation component
 - notifications
 - clipboard copy
-- label in import address
+- label in address new & import
 - copy new address data to clipboard
 
 v1.1.0
