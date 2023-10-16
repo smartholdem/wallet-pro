@@ -87,13 +87,28 @@
           :class="tabActive === 1 ? 'show active' : ''"
           id="addressNew"
         >
-          <button
-            @click="getNewAccount"
-            type="button"
-            class="btn btn-outline-theme"
-          >
-            Generate new address <i class="fas fa-dice"></i>
-          </button>
+
+          <div class="btn-group mb-1">
+            <button
+              @click="getNewAccount"
+              type="button"
+              class="btn btn-outline-theme"
+            >
+              Generate new address <i class="fas fa-dice"></i>
+            </button>
+
+            <button
+              v-show="account.address"
+              @click="copyJson(account)"
+              type="button"
+              class="btn btn-outline-theme"
+            >
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+
+
+
 
           <div class="mt-3">
             <div class="form-group mb-3">
@@ -102,14 +117,14 @@
                 type="text"
                 readonly
                 :value="account.address"
-                class="form-control"
+                class="form-control form-control-sm"
                 id="newPublicAddress"
                 placeholder=""
               />
             </div>
             <div class="form-group mb-3">
-              <label class="form-label" for="newPrivateKey">Private Key</label>
-              <textarea id="newPrivateKey" readonly v-model="account.secret" class="form-control" rows="3"></textarea>
+              <label class="form-label" for="newPrivateKey">Private Key <span class="small text-danger">please keep in secret</span></label>
+              <textarea id="newPrivateKey" readonly v-model="account.secret" class="form-control form-control-sm" rows="3"></textarea>
             </div>
             <div class="form-group mb-3">
               <div class="row">
@@ -145,7 +160,7 @@
               type="text"
               v-model="accountImport.secret"
               @input="accountImportFromPassword()"
-              class="form-control"
+              class="form-control form-control-sm"
               id="importPrivateKey"
               placeholder="bip39 12 words"
             />
@@ -158,7 +173,7 @@
               type="text"
               readonly
               :value="accountImport.address"
-              class="form-control"
+              class="form-control form-control-sm"
               id="importPublicAddress"
               placeholder=""
             />
@@ -172,6 +187,19 @@
                   <option value="rabbit">Rabbit</option>
                 </select>
               </div>
+              <div class="col-md-4">
+                <label class="form-label" for="importLabel"
+                >Label</label
+                >
+                <input
+                  type="text"
+                  :value="accountImport.label"
+                  class="form-control form-control-sm"
+                  id="importLabel"
+                  placeholder="label"
+                />
+              </div>
+
             </div>
           </div>
           <div class="mb-3">
@@ -251,10 +279,12 @@ export default {
       account: {
         address: "",
         secret: "",
+        label: "",
       },
       accountImport: {
         address: "",
         secret: "",
+        label: ""
       },
     };
   },
@@ -264,8 +294,12 @@ export default {
     },
   },
   methods: {
-    async copyAddress(address) {
-      navigator.clipboard.writeText(address);
+    async copyJson(data) {
+      navigator.clipboard.writeText(JSON.stringify(data));
+      this.showToast(event, 'toast-1', 'Copied to clipboard!')
+    },
+    async copyAddress(data) {
+      navigator.clipboard.writeText(data);
       this.showToast(event, 'toast-1', 'Copied to clipboard!')
     },
     async decryptSecret(address) {

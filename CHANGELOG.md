@@ -7,7 +7,9 @@ v1.1.1
 - address book
 - operation component
 - notifications
-- clipboard copy 
+- clipboard copy
+- label in import address
+- clipboard copy address data after create new
 
 v1.1.0
 - cross chain support XBTS DEX (BitShares) 
