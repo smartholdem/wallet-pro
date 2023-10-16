@@ -48,7 +48,7 @@
               <div class="col-md-10">
                 <div class="form-group mb-3">
                   <label class="form-label" for="sendRecipient">Recipient</label>
-                  <input v-model="forSend.recipientId" @input="validateAddress" type="text" class="form-control form-control-sm" :class="forSend.addressIsValid && forSend.recipientId !== this.$route.params.address ? 'is-valid' : 'is-invalid'" id="sendRecipient"
+                  <input v-model="forSend.recipientId" @input="validateAddress" type="text" class="form-control form-control-sm" :class="forSend.addressIsValid && forSend.recipientId !== this.address ? 'is-valid' : 'is-invalid'" id="sendRecipient"
                          placeholder="Enter address">
                 </div>
               </div>
@@ -89,7 +89,7 @@
 
             </div>
             <div>
-              <button :disabled="((forSend.amount * 1 + networksTransfer[selectedNetwork].fee) > balanceDecimal) || !forSend.addressIsValid || forSend.amount < 0.001 || !forSend.recipientId || forSend.recipientId === this.$route.params.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND STH</button>
+              <button :disabled="((forSend.amount * 1 + networksTransfer[selectedNetwork].fee) > balanceDecimal) || !forSend.addressIsValid || forSend.amount < 0.001 || !forSend.recipientId || forSend.recipientId === this.address" @click="txSend" type="button" class="btn btn-success btn-sm">SEND STH</button>
             </div>
           </div>
 
@@ -151,9 +151,9 @@
       <div class="modal-dialog">
         <div class="modal-content text-info text-center">
           <h3>Receiving address</h3>
-          <p class="text-center">{{$route.params.address}}</p>
+          <p class="text-center">{{address}}</p>
           <div class="">
-            <qrcode-vue class="m-auto border border-5 border-secondary" :value="$route.params.address" :size="280" level="H" />
+            <qrcode-vue class="m-auto border border-5 border-secondary" :value="address" :size="280" level="H" />
           </div>
         </div>
       </div>
@@ -221,20 +221,53 @@ export default {
     }
   },
   computed: {
+    balanceDecimal() {
+      return this.currentAddress.balance / 10 ** 8;
+    },
     currentAddress() {
       return storeWallet.attributes[this.address];
     },
-    methods: {
-      async sendTabPrepare() {
-        this.txResult = {
-          response: null,
-          tx: null,
-        };
-        this.txErr = 0;
-        this.waitConfirmTx = true;
-        this.operation = 1;
-        this.txSendStep = 0;
-        this.selectedNetwork = 'mainnet';
+  },
+  methods: {
+    async sendTabPrepare() {
+      this.txResult = {
+        response: null,
+        tx: null,
+      };
+      this.txErr = 0;
+      this.waitConfirmTx = true;
+      this.operation = 1;
+      this.txSendStep = 0;
+      this.selectedNetwork = 'mainnet';
+      this.forSend = {
+        network: 'mainnet',
+        addressIsValid: false,
+        sender: this.address,
+        recipientId: "",
+        amount: "",
+        fee: 1,
+        memo: "",
+      };
+    },
+    async validateAddress() {
+      if (this.selectedNetwork === 'mainnet') {
+        this.forSend.memo = '';
+        this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
+      } else {
+        this.forSend.addressIsValid = await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
+        if (this.forSend.addressIsValid) {
+          this.forSend.memo = this.selectedNetwork + ':' + this.forSend.recipientId;
+        }
+      }
+    },
+    async txSend() {
+      this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
+      this.forSend.network = this.selectedNetwork; // net fix
+      this.txResult = await storeWallet.txTransfer(this.forSend);
+      if (this.txResult.response) {
+        this.txErr = this.txResult.response.invalid.length;
+        this.txSendStep = 1;
+        this.selectedNetwork = 'mainnet'
         this.forSend = {
           network: 'mainnet',
           addressIsValid: false,
@@ -244,46 +277,16 @@ export default {
           fee: 1,
           memo: "",
         };
-      },
-      async validateAddress() {
-        if (this.selectedNetwork === 'mainnet') {
-          this.forSend.memo = '';
-          this.forSend.addressIsValid = await storeWallet.validateAddress(this.forSend.recipientId);
-        } else {
-          this.forSend.addressIsValid = await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
-          if (this.forSend.addressIsValid) {
-            this.forSend.memo = this.selectedNetwork + ':' + this.forSend.recipientId;
-          }
-        }
-      },
-      async txSend() {
-        this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
-        this.forSend.network = this.selectedNetwork; // net fix
-        this.txResult = await storeWallet.txTransfer(this.forSend);
-        if (this.txResult.response) {
-          this.txErr = this.txResult.response.invalid.length;
-          this.txSendStep = 1;
-          this.selectedNetwork = 'mainnet'
-          this.forSend = {
-            network: 'mainnet',
-            addressIsValid: false,
-            sender: this.address,
-            recipientId: "",
-            amount: "",
-            fee: 1,
-            memo: "",
-          };
-          setTimeout(async () => {
-            this.waitConfirmTx = false;
-            await this.accountUpdate();
-            await this.sendTabPrepare();
-          }, 9200);
-        }
-      },
-      async decryptSecret() {
-        this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
-      },
-    }
+        setTimeout(async () => {
+          this.waitConfirmTx = false;
+          await this.accountUpdate();
+          await this.sendTabPrepare();
+        }, 9200);
+      }
+    },
+    async decryptSecret() {
+      this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
+    },
   }
 };
 </script>

@@ -228,16 +228,14 @@
 </template>
 
 <script>
-import QrcodeVue from 'qrcode.vue';
+import QrcodeVue from "qrcode.vue";
 import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
 import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
 const { accounts } = storeToRefs(storeWallet);
-import moment from "moment";
 import Txs from "./Transactions.vue";
-
 
 export default {
   name: "AddressPage",
