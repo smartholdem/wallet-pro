@@ -62,13 +62,13 @@
                     <i class="fa fa-key" aria-hidden="true"></i>
                   </button>
 
-                  <button v-if="!isMobile && item.label" type="button" class="btn btn-outline-secondary">
+                  <button v-if="!isMobile && item.label" type="button" class="btn btn-outline-secondary" style="width:200px;">
                     <i class="fas fa-tag"></i> <span v-show="item.label">{{item.label}}</span>
                   </button>
-
                 </div>
 
               </td>
+
             </tr>
             </thead>
           </table>

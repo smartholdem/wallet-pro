@@ -80,3 +80,58 @@ document.querySelector("body").classList.add("app-init");
     <app-theme-panel />
   </div>
 </template>
+
+<style>
+.pointer {
+  cursor: pointer;
+}
+
+.hover-info:hover {
+  color: #009be3;
+  cursor: pointer;
+}
+
+.ico-telegram {
+  background-image:url('/images/telegram.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-heco {
+  background-image:url('/images/heco.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-mainnet {
+  background-image:url('/images/logo-green32.png');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-bsc {
+  background-image:url('/images/bsc.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+.ico-eth {
+  background-image:url('/images/eth.svg');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+.ico-xbts {
+  background-image:url('/images/xbts32.png');
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-mainnet-18, .ico-heco-18, .ico-bsc-18, .ico-eth-18 {
+  background-size: 18px;
+}
+</style>
