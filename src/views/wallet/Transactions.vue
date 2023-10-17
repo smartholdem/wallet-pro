@@ -7,6 +7,7 @@
         <table class="table table-hover" >
           <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col">id</th>
             <th scope="col">Time</th>
             <th scope="col">Amount</th>
@@ -30,7 +31,10 @@
             <td class="text-secondary">{{newTx.vendorField ? newTx.vendorField : ''}}</td>
           </tr>
 
-          <tr v-for="item in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
+          <tr v-for="(item, index) in transactions.data" :key="item.id" :class="item.confirmations < 8 ? 'table-dark' : ''">
+            <td>
+              {{index+1 + ((tbPage - 1)*10) }}
+            </td>
             <td :title="item.id">
                   <span v-if="item.vendorField">
                      <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
@@ -92,6 +96,19 @@
           </tbody>
         </table>
         <div>
+
+<!--
+          <div class="btn-toolbar">
+            <div class="btn-group me-2">
+              <button :disabled="tbPage === 1" @click="txsPageSelect(1)" type="button" class="btn btn-outline-secondary"><i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i></button>
+              <button :disabled="tbPage === 1" @click="txsPageSelect(tbPage - 1)" type="button" class="btn btn-outline-secondary"><i class="fas fa-lg fa-fw me-2 fa-angle-left"></i></button>
+              <button @click="txsPageSelect(tbPage)" type="button" :class="tbPage === 1 ? 'btn  btn-success' : 'btn btn-outline-secondary'">{{tbPage}}</button>
+              <button :disabled="transactions.data.length < 10" @click="txsPageSelect(tbPage+1)" type="button" :class="tbPage === 2 ? 'btn  btn-success' : 'btn btn-outline-secondary'">{{tbPage+1}}</button>
+              <button :disabled="transactions.data.length < 10" @click="txsPageSelect(tbPage + 1)" type="button" class="btn btn-outline-secondary"><i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i></button>
+              <button :disabled="transactions.data.length < 10" @click="txsPageSelect(tbPage + 1)" type="button" class="btn btn-outline-secondary"><i class="fas fa-lg fa-fw me-2 fa-angle-right"></i></button>
+            </div>
+          </div>
+-->
 
         </div>
       </card-body>
@@ -230,7 +247,12 @@
     </div>
 
     <div v-if="!transactions">No transactions</div>
+
+
+
   </div>
+
+
 </template>
 
 <script>
@@ -248,7 +270,9 @@ export default {
     address: String,
     newTx: {},
   },
+
   data() {
+    // Table config
     return {
       hideNewTx: true,
       isMobile: appOption.isMobile,
@@ -259,6 +283,7 @@ export default {
         heco: true,
         eth: true,
       },
+      tbPage: 1,
     }
   },
   computed: {
@@ -267,6 +292,14 @@ export default {
     }
   },
   methods: {
+    async txsPageSelect(page) {
+      if (page < 1) {
+        this.tbPage = 1;
+      } else {
+        this.tbPage = page;
+        await storeWallet.getTransactions(this.address, 10, this.tbPage);
+      }
+    },
     tmFormat(tm, format = "MM/DD/YYYY") {
       moment.locale('pt-br');
       return moment.unix(tm).format(format);

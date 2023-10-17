@@ -154,7 +154,7 @@ export default {
     async accountUpdate() {
       if (this.$route.params.address) {
         await storeWallet.getAttributes(this.$route.params.address);
-        await storeWallet.getTransactions(this.$route.params.address, 20);
+        await storeWallet.getTransactions(this.$route.params.address, 10);
       } else {
         console.log('accountUpdate err', this.$route.params.address);
       }

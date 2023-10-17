@@ -45,6 +45,7 @@ router.beforeEach(async (to, from) => {
   targetElm.map(function(elm) {
     elm.style.display = "";
   });
+  appOption.isMobile = window.innerWidth < 768;
 });
 router.afterEach(async (to, from) => {
   progresses.pop()?.finish();

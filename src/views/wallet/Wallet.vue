@@ -349,11 +349,11 @@ export default {
   },
   methods: {
     async copyJson(data) {
-      await navigator.clipboard.writeText(JSON.stringify(data));
+      navigator.clipboard.writeText(JSON.stringify(data));
       this.showToast(event, "toast-1", "Copied to clipboard!");
     },
     async copyAddress(data) {
-      await navigator.clipboard.writeText(data);
+      navigator.clipboard.writeText(data);
       this.showToast(event, "toast-1", "Copied to clipboard!");
     },
     async decryptSecret(address) {
