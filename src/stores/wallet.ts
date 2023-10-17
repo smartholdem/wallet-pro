@@ -27,7 +27,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     nodeConfig: {},
     blockchain: {},
     smartHolder: {},
-    addressBook: {},
+    addressBook: {}
   }),
   actions: {
     /**
@@ -136,14 +136,14 @@ export const useStoreWallet = defineStore("walletStorage", {
         network: payload.network
       };
     },
-    async getTransactions(address, limit = 10) {
+    async getTransactions(address, limit = 10, page = 1) {
       if (!address) {
         return;
       }
       const result = {};
       result[address] = {};
       try {
-        result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=" + limit)).data;
+        result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=" + page + "&limit=" + limit)).data;
         this.transactions = {
           ...this.transactions,
           ...result
@@ -182,7 +182,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       };
     },
     async addressSave(payload: object) {
-      console.log(payload)
+      console.log(payload);
       this.accounts = {
         ...this.accounts,
         ...payload
