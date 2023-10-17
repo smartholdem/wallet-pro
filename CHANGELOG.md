@@ -11,6 +11,7 @@ v1.1.1
 - label in address new & import
 - copy new address data to clipboard
 - telegram airdrop icon in tx
+- move transfer in modal window
 
 v1.1.0
 - cross chain support XBTS DEX (BitShares) 
