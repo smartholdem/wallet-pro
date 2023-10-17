@@ -17,16 +17,17 @@ export const useStoreSettings = defineStore('appSettings', {
     nodes: [
       "node0.smartholdem.io",
       "node1.smartholdem.io",
+      "node2.smartholdem.io",
     ],
     activeNode: "node1.smartholdem.io",
   }),
   actions: {
     async updateNodes() {
       //setTimeout(async () => {
-        for (let i=0; i < this.nodes; i++) {
+        for (let i=0; i < this.nodes.length; i++) {
           let nodeStatus = null;
           try {
-            nodeStatus = (await axios.get('https://' + this.nodes[i] + '/api/node/status')).data.data;
+            nodeStatus = (await axios.get('https://' + this.nodes[i] + '/api/node/status')).data;
             if (nodeStatus.synced) {
               this.activeNode = this.nodes[i];
             }
