@@ -54,6 +54,9 @@
           <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
             VOTE
           </button>
+          <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
+            mSIG
+          </button>
 
         </div>
 
