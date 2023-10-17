@@ -82,10 +82,12 @@ document.querySelector("body").classList.add("app-init");
 </template>
 
 <style>
+/**
 @font-face {
   font-family: BankGothic;
   src: url("/assets/bankgothicmdbt_medium.otf") format("opentype");
 }
+ **/
 
 @font-face {
   font-family: 'Chakra Petch';
@@ -101,10 +103,12 @@ document.querySelector("body").classList.add("app-init");
   font-style: normal;
 }
 
-
+/*
 h1 {
   font-family: "BankGothic";
 }
+
+ */
 
 .pointer {
   cursor: pointer;
