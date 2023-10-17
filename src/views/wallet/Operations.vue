@@ -19,12 +19,6 @@
 
         <div v-if="currentAddress" class="btn-group mb-3">
 
-          <!--
-          <button @click="sendTabPrepare" type="button" class="btn btn-outline-theme">
-            SEND
-          </button>
-          -->
-
           <button @click="sendTabPrepare" data-bs-toggle="modal" data-bs-target="#modalTransfer" type="button" class="btn btn-outline-theme">
             SEND
           </button>
