@@ -1,4 +1,4 @@
-v1.1.3
+v1.2.0
 - wait transaction with 0 confirmations
 - status transaction Success or Error
 - mobile view transactions list
