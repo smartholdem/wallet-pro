@@ -278,8 +278,11 @@
               <td>
                 SmartHolder Lock
               </td>
-              <td>
+              <td v-if="smartHolder.total">
                 {{ (smartHolder.total.realAmount * 1).toFixed(0) }} STH <span class="small text-info">{{(smartHolder.total.realAmount / (blockchain.supply / 1e8 - 92068) * 100).toFixed(0)}}%</span>
+              </td>
+              <td v-if="!smartHolder.total">
+                Loading...
               </td>
             </tr>
 
@@ -288,7 +291,7 @@
                 Version
               </td>
               <td>
-                {{ nodeConfig.version }}
+                {{ nodeConfig.version }} <span class="">[0x{{(nodeConfig.version * 1).toString(16)}}]</span>
               </td>
             </tr>
             <tr>
@@ -296,7 +299,7 @@
                 Slip44
               </td>
               <td>
-                {{ nodeConfig.slip44 }}
+                {{ (nodeConfig.slip44) }} <span class="">[0x{{(nodeConfig.slip44 * 1).toString(16)}}]</span>
               </td>
             </tr>
             <tr>
@@ -304,7 +307,7 @@
                 WIF
               </td>
               <td>
-                {{ nodeConfig.wif }}
+                {{ nodeConfig.wif }} <span class="">[0x{{(nodeConfig.wif * 1).toString(16)}}]</span>
               </td>
             </tr>
             <tr>
@@ -316,12 +319,8 @@
               </td>
             </tr>
             <tr>
-              <td>
-                Block Time
-              </td>
-              <td>
-                {{ nodeConfig.constants.blocktime }}
-              </td>
+              <td>Block Time</td>
+              <td>{{ nodeConfig.constants.blocktime }}s</td>
             </tr>
             <tr>
               <td>

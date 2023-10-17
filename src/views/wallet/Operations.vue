@@ -6,7 +6,7 @@
         OPERATIONS
       </card-header>
       <card-body>
-        <div v-if="!currentAddress" class="btn-group mb-3">
+        <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
           <button data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
             <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
           </button>
@@ -16,7 +16,7 @@
           </button>
         </div>
 
-        <div v-if="currentAddress" class="btn-group mb-3">
+        <div v-if="currentAddress" class="btn-group mb-3 me-2">
 
           <button :disabled="balanceDecimal < 1" @click="sendTabPrepare" data-bs-toggle="modal" data-bs-target="#modalTransfer" type="button" class="btn btn-outline-theme">
             SEND
@@ -29,6 +29,20 @@
                   class="btn btn-outline-theme">
             <i class="fa fa-key" aria-hidden="true"></i>
           </button>
+
+          <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+            mPays
+          </button>
+          <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+            HTLC
+          </button>
+          <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
+            SIG
+          </button>
+
+        </div>
+
+        <div v-if="currentAddress" class="btn-group mb-3">
           <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
             2nd PWD
           </button>
@@ -40,6 +54,7 @@
           <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
             VOTE
           </button>
+
         </div>
 
       </card-body>
