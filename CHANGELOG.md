@@ -12,6 +12,7 @@ v1.1.3
 - copy new address data to clipboard
 - telegram airdrop icon in tx
 - move transfer in modal window
+- fix fonts
 
 v1.1.0
 - cross chain support XBTS DEX (BitShares) 

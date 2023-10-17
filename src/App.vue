@@ -82,6 +82,30 @@ document.querySelector("body").classList.add("app-init");
 </template>
 
 <style>
+@font-face {
+  font-family: BankGothic;
+  src: url("/assets/bankgothicmdbt_medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: 'Chakra Petch';
+  src: local('Chakra Petch Regular'), local('ChakraPetch-Regular'), url('/assets/Chakrapetchregular.woff2') format('woff2'), url('/assets/Chakrapetchregular.woff') format('woff'), url('/assets/Chakrapetchregular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Chakra Petch Light';
+  src: local('Chakra Petch Light'), local('ChakraPetch-Light'), url('/assets/Chakrapetchlight.woff2') format('woff2'), url('/assets/Chakrapetchlight.woff') format('woff'), url('/assets/Chakrapetchlight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+h1 {
+  font-family: "BankGothic";
+}
+
 .pointer {
   cursor: pointer;
 }

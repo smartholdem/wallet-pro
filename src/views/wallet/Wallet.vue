@@ -48,8 +48,8 @@
                         ? item.label
                         : item.label.slice(0, 11) + ".."
                     }}</span></button
-                  >&nbsp;
-                  <div class="btn-group mb-2">
+                  >
+                  <div class="mx-2 btn-group mb-2">
                     <button
                       @click="copyAddress(item.address)"
                       type="button"
@@ -81,7 +81,7 @@
                       class="btn btn-outline-secondary"
                       style="width: 200px"
                     >
-                      <i class="fas fa-tag"></i>&nbsp;<span v-show="item.label">{{ item.label }}</span>
+                      <i class="fas fa-tag mr-1"></i> <span v-show="item.label">{{ item.label }}</span>
                     </button>
                   </div>
                 </td>
