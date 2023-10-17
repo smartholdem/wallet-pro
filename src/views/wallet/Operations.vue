@@ -1,7 +1,7 @@
 <template>
   <div class="h-100">
 
-    <card class="h-100">
+    <card class="h-100 overflow-hidden">
       <card-header class="card-header fw-bold small">
         OPERATIONS
       </card-header>
