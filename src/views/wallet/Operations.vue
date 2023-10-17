@@ -1,7 +1,6 @@
 <template>
   <div class="h-100">
 
-
     <card class="h-100">
       <card-header class="card-header fw-bold small">
         OPERATIONS
@@ -19,10 +18,9 @@
 
         <div v-if="currentAddress" class="btn-group mb-3">
 
-          <button @click="sendTabPrepare" data-bs-toggle="modal" data-bs-target="#modalTransfer" type="button" class="btn btn-outline-theme">
+          <button :disabled="balanceDecimal < 1" @click="sendTabPrepare" data-bs-toggle="modal" data-bs-target="#modalTransfer" type="button" class="btn btn-outline-theme">
             SEND
           </button>
-
 
           <button data-bs-toggle="modal" data-bs-target="#modalQr" type="button" class="btn btn-outline-theme">
             <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
