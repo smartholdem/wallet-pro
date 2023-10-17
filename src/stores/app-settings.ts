@@ -34,7 +34,6 @@ export const useStoreSettings = defineStore('appSettings', {
          } catch (e) {
            console.log('node err', this.nodes[i]);
           }
-          console.log(nodeStatus)
         }
         console.log("activeNode", this.activeNode);
      // }, 120);
