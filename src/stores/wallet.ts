@@ -136,14 +136,14 @@ export const useStoreWallet = defineStore("walletStorage", {
         network: payload.network
       };
     },
-    async getTransactions(address) {
+    async getTransactions(address, limit = 10) {
       if (!address) {
         return;
       }
       const result = {};
       result[address] = {};
       try {
-        result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=10")).data;
+        result[address] = (await axios.get(activeNode + "/wallets/" + address + "/transactions?page=1&limit=" + limit)).data;
         this.transactions = {
           ...this.transactions,
           ...result

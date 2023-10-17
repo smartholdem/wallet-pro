@@ -352,7 +352,7 @@ export default {
     async accountUpdate() {
       if (this.address) {
         await storeWallet.getAttributes(this.address);
-        await storeWallet.getTransactions(this.address);
+        await storeWallet.getTransactions(this.address, 20);
       } else {
         console.log('accountUpdate err', this.address);
       }
