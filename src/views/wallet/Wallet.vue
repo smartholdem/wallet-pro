@@ -81,8 +81,7 @@
                       class="btn btn-outline-secondary"
                       style="width: 200px"
                     >
-                      <i class="fas fa-tag"></i>
-                      <span v-show="item.label">{{ item.label }}</span>
+                      <i class="fas fa-tag"></i>&nbsp;<span v-show="item.label">{{ item.label }}</span>
                     </button>
                   </div>
                 </td>
