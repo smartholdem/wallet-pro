@@ -12,7 +12,7 @@
           DELEGATE LIST
         </card-header>
         <card-body style="overflow-x: hidden; overflow-y: auto;">
-          <table class="table table-hover">
+          <table class="table table-hover table-responsive">
             <thead>
             <tr class="text-uppercase">
               <th scope="col">Rank</th>
