@@ -96,6 +96,10 @@ export const useStoreWallet = defineStore("walletStorage", {
         console.log("err: get delegates");
       }
     },
+    async txDelegateRegister(payload: object) {
+      const secretDecrypted = await this.decryptByAddress(payload.sender);
+
+    },
     async txTransfer(payload: object) {
       //console.log(payload)
       const txs = [];
