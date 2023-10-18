@@ -96,16 +96,47 @@ export const useStoreWallet = defineStore("walletStorage", {
         console.log("err: get delegates");
       }
     },
-    async txDelegateRegister(payload: object) {
+    /**
+     * Delegate Registration
+     * @param payload
+     */
+    async txDelegateRegistration(payload: object) {
       const secretDecrypted = await this.decryptByAddress(payload.sender);
+      // Step 1: Retrieve the incremental nonce of the sender wallet
+      const senderWallet = await client.api("wallets").get(payload.sender);
+      const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+      // Step 2: Create the transaction
+      const transaction = Transactions.BuilderFactory.delegateRegistration()
+        .version(2)
+        .nonce(senderNonce.toFixed())
+        .usernameAsset(payload.username)
+        .sign(secretDecrypted);
+      // Step 4: Broadcast the transaction
+      let broadcastResponse = {};
+      try {
+        broadcastResponse = await client.api("transactions").create({ transactions: [transaction.build().toJson()] });
+      } catch (e) {
+        console.log("err: tx send");
+      }
+      return {
+        response: broadcastResponse,
+        tx: transaction,
+        network: "mainnet",
+      };
 
     },
+    /**
+     * Transfer coins
+     * @param payload
+     */
     async txTransfer(payload: object) {
       //console.log(payload)
       const txs = [];
       const secretDecrypted = await this.decryptByAddress(payload.sender);
+      // Step 1: Retrieve the incremental nonce of the sender wallet
       const senderWallet = await client.api("wallets").get(payload.sender);
       const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+
 
       if (payload.network == "mainnet") {
         const transaction = Transactions.BuilderFactory.transfer()
