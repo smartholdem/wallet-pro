@@ -116,6 +116,7 @@ export const useStoreWallet = defineStore("walletStorage", {
         delegatePublicKey: payload.delegatePublicKey,
         secretDecrypted: secretDecrypted,
       });
+
       txs.push(transactionVote.build().toJson())
       // Step 4: Broadcast the transaction
       let broadcastResponse = {};
