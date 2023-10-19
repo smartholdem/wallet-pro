@@ -96,6 +96,9 @@ export const useStoreWallet = defineStore("walletStorage", {
         console.log("err: get delegates");
       }
     },
+    async txVote(payload: object) {
+
+    },
     /**
      * Delegate Registration
      * @param payload
