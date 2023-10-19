@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Delegate Vote</h5>
+          <h5 class="modal-title">Vote for Delegate</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div v-if="currentAddress" class="modal-body">
@@ -13,7 +13,14 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group mb-3">
-                    <label class="form-label" for="sendDelegateName">Delegate Name <i class="fa fa-address-book hover-info"></i></label>
+                    <label class="form-label w-100" for="sendDelegateName">Delegate Name
+                      <i class="fa fa-address-book hover-info"></i>
+                      <i @click="searchClear" title="clear search" class="ms-2 fas fa-lg fa-fw me-2 fa-window-close text-danger hover-info float-right pointer"></i>
+                    </label>
+                    <span class="">
+
+                      </span>
+
                     <input v-model="forSend.userName" @input="validateDelegate" type="text" class="form-control form-control-sm" :class="foundDelegate ? 'is-valid' : 'is-invalid'" id="sendDelegateName"
                            placeholder="enter delegate name">
                   </div>
@@ -92,6 +99,11 @@ export default {
     },
   },
   methods: {
+    searchClear() {
+      this.foundDelegate = null;
+      this.forSend.userName = '';
+      this.voteResult = null;
+    },
     async voteForDelegate() {
       this.voteResult = await storeWallet.voteForDelegate({
         sender: this.address,
@@ -99,9 +111,9 @@ export default {
       });
     },
     async validateDelegate() {
-      this.foundDelegate = null;
       clearTimeout(this.timerDelegateSearch);
       this.timerDelegateSearch = setTimeout(async () => {
+        this.voteResult = null;
         this.foundDelegate = await storeWallet.getDelegate(this.forSend.userName);
       }, 800);
     },

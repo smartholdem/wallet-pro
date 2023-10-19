@@ -116,7 +116,7 @@ h1 {
 }
 
 .hover-info:hover {
-  color: #009be3;
+  color: #009be3 !important;
   cursor: pointer;
 }
 
