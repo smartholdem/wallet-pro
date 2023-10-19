@@ -58,6 +58,8 @@
             </div>
           </div>
 
+          {{currentAddress.attributes}}
+
           <div v-if="voteResult">
             <card>
               <card-header class="card-header">
@@ -101,11 +103,7 @@ export default {
   },
   computed: {
     balanceDecimal() {
-      if (this.currentAddress) {
-        return this.currentAddress.balance / 10 ** 8;
-      } else {
-        return null;
-      }
+      return this.currentAddress.balance / 10 ** 8;
     },
     currentAddress() {
       return storeWallet.attributes[this.address];
@@ -118,10 +116,10 @@ export default {
       this.voteResult = null;
     },
     async voteForDelegate() {
-      this.voteResult = await storeWallet.voteForDelegate({
+      this.voteResult = await storeWallet.txVote({
         sender: this.address,
         delegatePublicKey: this.foundDelegate.publicKey,
-
+        lastVote: this.currentAddress.attributes.vote || null,
       });
     },
     async validateDelegate() {
