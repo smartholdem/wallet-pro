@@ -30,31 +30,31 @@
             <i class="fa fa-key" aria-hidden="true"></i>
           </button>
 
-          <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+          <button disabled="true" type="button" class="btn btn-outline-theme">
             mPays
           </button>
-          <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+          <button disabled="true" type="button" class="btn btn-outline-theme">
             HTLC
           </button>
-          <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
+          <button disabled="true" type="button" class="btn btn-outline-theme">
             SIG
           </button>
 
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3">
-          <button disabled="true" @click="operation = 2" type="button" class="btn btn-outline-theme">
+          <button disabled="true" type="button" class="btn btn-outline-theme">
             2nd PWD
           </button>
 
-          <button v-if="!currentAddress.attributes.delegate" disabled="true" @click="operation = 3" type="button" class="btn btn-outline-theme">
+          <button v-if="!currentAddress.attributes.delegate" disabled="true" type="button" class="btn btn-outline-theme">
             DELEGATE REG
           </button>
 
-          <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
+          <button type="button" class="btn btn-outline-theme">
             VOTE
           </button>
-          <button disabled="true" @click="operation = 4" type="button" class="btn btn-outline-theme">
+          <button disabled="true" type="button" class="btn btn-outline-theme">
             mSIG
           </button>
 
@@ -73,8 +73,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <div v-if="operation === 1" class="w-100">
-
+            <div class="w-100">
               <div v-if="txSendStep === 0">
                 <div class="row">
                   <div class="col-md-10">
@@ -131,7 +130,6 @@
                   </button>
                 </div>
               </div>
-
               <div v-if="txSendStep === 1" class="overflow-hidden overflow-x-auto">
                 <div class="mb-3">
                   <table class="table">
@@ -267,7 +265,6 @@ export default {
         memo: "",
       },
       selectedNetwork: "mainnet",
-      operation: 0,
       txErr: 0,
     }
   },
@@ -301,7 +298,6 @@ export default {
       };
       this.txErr = 0;
       this.waitConfirmTx = true;
-      this.operation = 1;
       this.txSendStep = 0;
       this.selectedNetwork = 'mainnet';
       this.forSend = {
