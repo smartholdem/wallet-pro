@@ -7,7 +7,7 @@
           <h5 class="modal-title">Delegate Vote</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body">
+        <div v-if="currentAddress" class="modal-body">
           <div class="w-100">
             <div v-if="txSendStep === 0">
               <div class="row">
@@ -50,6 +50,7 @@
               </div>
             </div>
           </div>
+          The power of my vote {{balanceDecimal}} STH
         </div>
 
       </div>
@@ -74,12 +75,17 @@ export default {
       nameIsValid: false,
       forSend: {
         userName: '',
-      }
+      },
+      voteResult: null,
     }
   },
   computed: {
     balanceDecimal() {
-      return this.currentAddress.balance / 10 ** 8;
+      if (this.currentAddress) {
+        return this.currentAddress.balance / 10 ** 8;
+      } else {
+        return null;
+      }
     },
     currentAddress() {
       return storeWallet.attributes[this.address];
@@ -87,7 +93,10 @@ export default {
   },
   methods: {
     async voteForDelegate() {
+      this.voteResult = await storeWallet.voteForDelegate({
+        sender: this.address,
 
+      });
     },
     async validateDelegate() {
       this.foundDelegate = null;

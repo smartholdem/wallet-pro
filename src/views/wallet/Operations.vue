@@ -173,7 +173,7 @@
       </div>
     </div>
 
-    <ModalVote/>
+    <ModalVote :address="address"/>
 
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
