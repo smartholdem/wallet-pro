@@ -15,13 +15,13 @@
                   <div class="form-group mb-3">
                     <label class="form-label w-100" for="sendDelegateName">Delegate Name
                       <i class="fa fa-address-book hover-info"></i>
-                      <i @click="searchClear" title="clear search" class="ms-2 fas fa-lg fa-fw me-2 fa-window-close text-danger hover-info float-right pointer"></i>
+                      <i @click="searchClear" title="clear search" class="ms-2 fas fa-lg fa-fw me-2 fa-window-close text-secondary hover-info float-right pointer"></i>
                     </label>
                     <span class="">
 
                       </span>
 
-                    <input v-model="forSend.userName" @input="validateDelegate" type="text" class="form-control form-control-sm" :class="foundDelegate ? 'is-valid' : 'is-invalid'" id="sendDelegateName"
+                    <input v-model="forSend.userName" @input="validateDelegate" type="text" class="form-control form-control" :class="foundDelegate ? 'is-valid' : 'is-invalid'" id="sendDelegateName"
                            placeholder="enter delegate name">
                   </div>
                   {{foundDelegate}}
@@ -56,6 +56,19 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div v-if="voteResult">
+            <card>
+              <card-header class="card-header">
+                Vote Result
+              </card-header>
+              <card-body>
+                {{voteResult}}
+              </card-body>
+
+            </card>
+
           </div>
           The power of my vote {{balanceDecimal}} STH
         </div>
@@ -107,6 +120,7 @@ export default {
     async voteForDelegate() {
       this.voteResult = await storeWallet.voteForDelegate({
         sender: this.address,
+        delegatePublicKey: this.foundDelegate.publicKey,
 
       });
     },
