@@ -51,7 +51,7 @@
             DELEGATE REG
           </button>
 
-          <button type="button" class="btn btn-outline-theme">
+          <button data-bs-toggle="modal" data-bs-target="#modalVote" type="button" class="btn btn-outline-theme">
             VOTE
           </button>
           <button disabled="true" type="button" class="btn btn-outline-theme">
@@ -173,6 +173,8 @@
       </div>
     </div>
 
+    <ModalVote/>
+
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
       <div class="modal-dialog">
@@ -215,10 +217,13 @@ const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet.ts";
 const storeWallet = useStoreWallet();
 
+import ModalVote from "@/components/wallet/ModalVote.vue";
+
 export default {
   name: "OperationsComponent",
   components: {
     QrcodeVue,
+    ModalVote,
   },
   props: {
     address: String,
