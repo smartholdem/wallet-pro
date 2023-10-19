@@ -118,6 +118,18 @@ export const useStoreWallet = defineStore("walletStorage", {
       // Step 1: Retrieve the incremental nonce of the sender wallet
       const senderWallet = await client.api("wallets").get(payload.sender);
       const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+
+      if (payload.lastVote) {
+        // Step 2: Create the transaction
+        const transactionUnVote = await this.txVotePrepare({
+          vote: "-",
+          senderNonce: senderNonce,
+          delegatePublicKey: payload.lastVote,
+          secretDecrypted: secretDecrypted,
+        });
+        txs.push(transactionUnVote.build().toJson())
+      }
+
       // Step 2: Create the transaction
       const transactionVote = await this.txVotePrepare({
         vote: "+",
