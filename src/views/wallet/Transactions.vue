@@ -36,6 +36,10 @@
               {{index+1 + ((tbPage - 1)*10) }}
             </td>
             <td :title="item.id">
+              <span v-if="item.type === 3">
+                  <i title="Vote+" class="text-success fas fa-fw me-2 fa-plus-circle"></i>
+              </span>
+
                   <span v-if="item.vendorField">
                      <span v-if="networksTransfer[item.vendorField.split(':')[0]]" :class="'ico-'+item.vendorField.split(':')[0]" style="padding:3px; padding-right:16px">&nbsp;</span>
                   </span>
@@ -90,7 +94,11 @@
                     :class="item.confirmations > 7 ? 'text-default' : 'text-warning'">{{ (item.confirmations )
                 }}</span>
             </td>
-            <td><span>{{item.vendorField}}</span>
+            <td>
+              <span v-if="item.type === 3">
+              Vote+
+              </span>
+              <span>{{item.vendorField}}</span>
             </td>
           </tr>
           </tbody>
