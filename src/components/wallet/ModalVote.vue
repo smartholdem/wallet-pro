@@ -18,6 +18,34 @@
                            placeholder="enter delegate name">
                   </div>
                   {{foundDelegate}}
+
+                  <div v-if="foundDelegate">
+                    <card >
+                      <card-header class="card-header fw-bold">
+                        <i class="fas fa-lg fa-fw me-1 fa-university"></i>DELEGATE <span class="text-info">{{ foundDelegate.username }}</span>
+                      </card-header>
+                      <card-body>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Rank <span class="text-info">{{ foundDelegate.rank }}</span></li>
+                          <li class="list-group-item">
+                            Votes <span class="text-info">{{ (foundDelegate.votes / 10 ** 8).toFixed(8) }}</span> STH
+                          </li>
+                          <li class="list-group-item">Forged fees
+                            <span class="text-info">{{ (foundDelegate.forged.total / 10 ** 8).toFixed(8) }}</span> STH
+                          </li>
+                          <li class="list-group-item">Produced blocks <span class="text-info">{{ foundDelegate.blocks.produced }}</span>
+                          </li>
+                        </ul>
+                        <button :disabled="!foundDelegate"
+                                @click="voteForDelegate"
+                                type="button"
+                                class="btn btn-sm text-uppercase"
+                                :class="!foundDelegate ? 'btn-secondary' : 'btn-success'">
+                          Vote For Delegate {{foundDelegate ? foundDelegate.username : ''}}
+                        </button>
+                      </card-body>
+                    </card>
+                  </div>
                 </div>
               </div>
             </div>
@@ -30,7 +58,6 @@
 </template>
 
 <script>
-import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet.ts";
 const storeWallet = useStoreWallet();
 
@@ -59,13 +86,15 @@ export default {
     },
   },
   methods: {
+    async voteForDelegate() {
+
+    },
     async validateDelegate() {
       this.foundDelegate = null;
       clearTimeout(this.timerDelegateSearch);
-      console.log('this.forSend.userName', this.forSend.userName)
       this.timerDelegateSearch = setTimeout(async () => {
         this.foundDelegate = await storeWallet.getDelegate(this.forSend.userName);
-      }, 1000);
+      }, 800);
     },
   }
 };
