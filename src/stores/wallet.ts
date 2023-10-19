@@ -84,6 +84,15 @@ export const useStoreWallet = defineStore("walletStorage", {
         console.log("err: get node config");
       }
     },
+    async getDelegate(userName: string) {
+      let result = null;
+      try {
+        result = (await axios.get(activeNode + "/delegates/" + userName)).data.data;
+      } catch (e) {
+        console.log("err: get delegate " + userName);
+      }
+      return result;
+    },
     async getDelegates() {
       let result = {};
       try {
