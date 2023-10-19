@@ -18,6 +18,7 @@ export const useStoreSettings = defineStore('appSettings', {
       "node0.smartholdem.io",
       "node1.smartholdem.io",
       "node2.smartholdem.io",
+      "node4.smartholdem.io",
     ],
     activeNode: "node1.smartholdem.io",
   }),
