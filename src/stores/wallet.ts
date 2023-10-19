@@ -96,8 +96,39 @@ export const useStoreWallet = defineStore("walletStorage", {
         console.log("err: get delegates");
       }
     },
+    async txVotePrepare(payload: object) {
+      return Transactions.BuilderFactory.vote()
+        .version(2)
+        .nonce(payload.senderNonce.toFixed())
+        .votesAsset([payload.vote + payload.delegatePublicKey])
+        .sign(payload.secretDecrypted);
+    },
     async txVote(payload: object) {
-
+      const txs = [];
+      const secretDecrypted = await this.decryptByAddress(payload.sender);
+      // Step 1: Retrieve the incremental nonce of the sender wallet
+      const senderWallet = await client.api("wallets").get(payload.sender);
+      const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+      // Step 2: Create the transaction
+      const transactionVote = await this.txVotePrepare({
+        vote: "+",
+        senderNonce: senderNonce,
+        delegatePublicKey: payload.delegatePublicKey,
+        secretDecrypted: secretDecrypted,
+      });
+      txs.push(transactionVote.build().toJson())
+      // Step 4: Broadcast the transaction
+      let broadcastResponse = {};
+      try {
+        broadcastResponse = await client.api("transactions").create({ transactions: txs });
+      } catch (e) {
+        console.log("err: tx vote");
+      }
+      return {
+        response: broadcastResponse,
+        tx: txs,
+        network: "mainnet"
+      };
     },
     /**
      * Delegate Registration
@@ -115,16 +146,17 @@ export const useStoreWallet = defineStore("walletStorage", {
         .usernameAsset(payload.username)
         .sign(secretDecrypted);
       // Step 4: Broadcast the transaction
+      const tx = transaction.build().toJson();
       let broadcastResponse = {};
       try {
-        broadcastResponse = await client.api("transactions").create({ transactions: [transaction.build().toJson()] });
+        broadcastResponse = await client.api("transactions").create({ transactions: [tx] });
       } catch (e) {
-        console.log("err: tx send");
+        console.log("err: tx delegate");
       }
       return {
         response: broadcastResponse,
-        tx: transaction,
-        network: "mainnet",
+        tx: [tx],
+        network: "mainnet"
       };
 
     },
