@@ -109,7 +109,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       return Transactions.BuilderFactory.vote()
         .version(2)
         .nonce(payload.senderNonce.toFixed())
-        .votesAsset([payload.vote + payload.delegatePublicKey])
+        .votesAsset(payload.votes)
         .sign(payload.secretDecrypted);
     },
     async txVote(payload: object) {
@@ -118,23 +118,18 @@ export const useStoreWallet = defineStore("walletStorage", {
       // Step 1: Retrieve the incremental nonce of the sender wallet
       const senderWallet = await client.api("wallets").get(payload.sender);
       const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+      const votes = [];
 
       if (payload.lastVote) {
-        // Step 2: Create the transaction
-        const transactionUnVote = await this.txVotePrepare({
-          vote: "-",
-          senderNonce: senderNonce,
-          delegatePublicKey: payload.lastVote,
-          secretDecrypted: secretDecrypted,
-        });
-        txs.push(transactionUnVote.build().toJson())
+        votes.push("-" + payload.lastVote);
       }
+
+      votes.push("+" + payload.delegatePublicKey);
 
       // Step 2: Create the transaction
       const transactionVote = await this.txVotePrepare({
-        vote: "+",
+        votes: votes,
         senderNonce: senderNonce,
-        delegatePublicKey: payload.delegatePublicKey,
         secretDecrypted: secretDecrypted,
       });
 
