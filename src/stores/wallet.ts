@@ -248,13 +248,18 @@ export const useStoreWallet = defineStore("walletStorage", {
       result[address] = {};
       try {
         result[address] = (await axios.get(activeNode + "/wallets/" + address)).data.data;
+        if (result[address].attributes.vote) {
+          result[address].voteFor = (await axios.get(activeNode + "/delegates/" + result[address].attributes.vote)).data.data;
+        }
+
         this.attributes = {
           ...this.attributes,
           ...result
         };
       } catch (e) {
         result[address] = {
-          publicKey: false
+          publicKey: false,
+          voteFor: null,
         };
         console.log("err: address not stored in blockchain");
       }
@@ -269,7 +274,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       };
     },
     async addressSave(payload: object) {
-      console.log(payload);
+      //console.log(payload);
       this.accounts = {
         ...this.accounts,
         ...payload

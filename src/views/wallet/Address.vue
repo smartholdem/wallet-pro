@@ -25,7 +25,6 @@
             <img src="/images/logo-green32.png"/> <span class="text-success">{{ (balanceDecimal).toFixed(8)}}</span> STH
           </h5>
           <div v-if="currentAddress.publicKey">
-
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
                 <card-header class="card-header fw-bold">
@@ -45,6 +44,11 @@
                   </ul>
                 </card-body>
               </card>
+
+              <div v-if="currentAddress.voteFor">
+                Vote for <span class="text-info">{{currentAddress.voteFor.username}}</span>
+              </div>
+
             </div>
           </div>
         </card-body>

@@ -24,7 +24,6 @@
                     <input v-model="forSend.userName" @input="validateDelegate" type="text" class="form-control form-control" :class="foundDelegate ? 'is-valid' : 'is-invalid'" id="sendDelegateName"
                            placeholder="enter delegate name">
                   </div>
-                  {{foundDelegate}}
 
                   <div v-if="foundDelegate">
                     <card >
@@ -58,15 +57,14 @@
             </div>
           </div>
 
-          {{currentAddress.attributes}}
-
           <div v-if="voteResult">
             <card>
               <card-header class="card-header">
                 Vote Result
               </card-header>
               <card-body>
-                {{voteResult}}
+                <!--{{voteResult}}-->
+                <span class="text-success">Success!</span>
               </card-body>
 
             </card>
@@ -108,6 +106,9 @@ export default {
     currentAddress() {
       return storeWallet.attributes[this.address];
     },
+  },
+  mounted() {
+    this.searchClear();
   },
   methods: {
     searchClear() {
