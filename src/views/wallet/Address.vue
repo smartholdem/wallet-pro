@@ -46,7 +46,7 @@
               </card>
 
               <div v-if="currentAddress.voteFor">
-                Vote for <span class="text-info">{{currentAddress.voteFor.username}}</span>
+                Voting for <span class="text-info">{{currentAddress.voteFor.username}}</span>
               </div>
 
             </div>
