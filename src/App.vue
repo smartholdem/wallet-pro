@@ -83,6 +83,22 @@ document.querySelector("body").classList.add("app-init");
 </template>
 
 <style>
+
+-moz-scrollbar, ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+
+::-webkit-scrollbar {
+  background-color: #fefdf9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bs-theme) ; /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70);**/
+  border: 1px solid #434a52;
+}
+
 /**
 @font-face {
   font-family: BankGothic;

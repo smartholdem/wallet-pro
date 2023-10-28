@@ -1,6 +1,12 @@
+v1.2.1
+- move transfer in modal window
+- fix fonts
+- change scroll bars color
+- voting
+
 v1.2.0
 - wait transaction with 0 confirmations
-- status transaction Success or Error
+- status transaction success or error
 - mobile view transactions list
 - component list transactions
 - explorer onclick txId, address
@@ -11,8 +17,6 @@ v1.2.0
 - label in address new & import
 - copy new address data to clipboard
 - telegram airdrop icon in tx
-- move transfer in modal window
-- fix fonts
 
 v1.1.0
 - cross chain support XBTS DEX (BitShares) 

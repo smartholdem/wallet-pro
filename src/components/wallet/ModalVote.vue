@@ -127,7 +127,7 @@ export default {
       clearTimeout(this.timerDelegateSearch);
       this.timerDelegateSearch = setTimeout(async () => {
         this.voteResult = null;
-        this.foundDelegate = await storeWallet.getDelegate(this.forSend.userName);
+        this.foundDelegate = await storeWallet.getDelegate(this.forSend.userName.toLowerCase());
       }, 800);
     },
   }
