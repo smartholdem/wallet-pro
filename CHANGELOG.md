@@ -1,3 +1,6 @@
+v1.2.2
+- delegate register
+
 v1.2.1
 - move transfer in modal window
 - fix fonts
