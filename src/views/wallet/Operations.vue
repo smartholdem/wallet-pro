@@ -47,7 +47,7 @@
             2nd PWD
           </button>
 
-          <button v-if="!currentAddress.attributes.delegate" data-bs-toggle="modal" data-bs-target="#modalDelegateReg"  type="button" class="btn btn-outline-theme">
+          <button v-if="!currentAddress.attributes.delegate" data-bs-toggle="modal" data-bs-target="#modalDelegateReg" type="button" class="btn btn-outline-theme">
             DELEGATE REG
           </button>
 
