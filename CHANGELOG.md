@@ -1,11 +1,11 @@
 v1.2.2
 - delegate register
+- voting
 
 v1.2.1
 - move transfer in modal window
 - fix fonts
 - change scroll bars color
-- voting
 
 v1.2.0
 - wait transaction with 0 confirmations
