@@ -47,7 +47,7 @@
             2nd PWD
           </button>
 
-          <button v-if="!currentAddress.attributes.delegate" disabled="true" type="button" class="btn btn-outline-theme">
+          <button v-if="!currentAddress.attributes.delegate" data-bs-toggle="modal" data-bs-target="#modalDelegateReg"  type="button" class="btn btn-outline-theme">
             DELEGATE REG
           </button>
 
@@ -175,6 +175,8 @@
 
     <ModalVote :address="address"/>
 
+    <ModalDelegateReg :address="address"/>
+
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
       <div class="modal-dialog">
@@ -218,12 +220,14 @@ import { useStoreWallet } from "@/stores/wallet.ts";
 const storeWallet = useStoreWallet();
 
 import ModalVote from "@/components/wallet/ModalVote.vue";
+import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
 
 export default {
   name: "OperationsComponent",
   components: {
     QrcodeVue,
     ModalVote,
+    ModalDelegateReg,
   },
   props: {
     address: String,

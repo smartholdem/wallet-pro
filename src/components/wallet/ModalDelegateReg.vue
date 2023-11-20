@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Vote for Delegate</h5>
+          <h5 class="modal-title">New Delegate Registration</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div v-if="currentAddress" class="modal-body">
