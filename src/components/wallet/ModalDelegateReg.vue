@@ -23,12 +23,41 @@ export default {
   props: {
     address: String,
   },
+  data() {
+    return {
+      txSendStep: 0,
+      timerDelegateSearch: null,
+      foundDelegate: null,
+      nameIsValid: false,
+      forSend: {
+        userName: '',
+      },
+      txResult: null,
+    }
+  },
+  mounted() {
+    this.searchClear();
+  },
   computed: {
     balanceDecimal() {
       return this.currentAddress.balance / 10 ** 8;
     },
     currentAddress() {
       return storeWallet.attributes[this.address];
+    },
+  },
+  methods: {
+    searchClear() {
+      this.foundDelegate = null;
+      this.forSend.userName = '';
+      this.txResult = null;
+    },
+    async validateDelegate() {
+      clearTimeout(this.timerDelegateSearch);
+      this.timerDelegateSearch = setTimeout(async () => {
+        this.voteResult = null;
+        this.foundDelegate = await storeWallet.getDelegate(this.forSend.userName.toLowerCase());
+      }, 800);
     },
   },
 
