@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { generateMnemonic, validateMnemonic } from "bip39";
-import { Transactions, Managers, Utils, Identities } from "@smartholdem/crypto";
+import { Crypto, Transactions, Managers, Utils, Identities } from "@smartholdem/crypto";
 import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
@@ -8,6 +8,7 @@ import web3 from "web3";
 
 import { storeToRefs } from "pinia";
 import { useStoreSettings } from "@/stores/app-settings.ts";
+import crypto from "crypto";
 
 const storeSettings = useStoreSettings();
 
@@ -30,6 +31,19 @@ export const useStoreWallet = defineStore("walletStorage", {
     addressBook: {}
   }),
   actions: {
+    async signMessageSchnorr(payload: object) {
+      const message = payload.message;
+      const secretDecrypted = await this.decryptByAddress(payload.address);
+      const privateKey = Identities.PrivateKey.fromPassphrase(secretDecrypted);
+      const hash = Crypto.HashAlgorithms.sha256(message);
+      const signature = Crypto.Hash.signSchnorr( hash, { "privateKey": privateKey});
+      //const signature = Crypto.Hash.signECDSA( hash, { "privateKey": privateKey});
+      const signed = {
+        message,
+        signature
+      };
+      return signed;
+    },
     /**
      *
      * @param options

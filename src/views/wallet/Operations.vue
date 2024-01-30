@@ -36,7 +36,7 @@
           <button disabled="true" type="button" class="btn btn-outline-theme">
             HTLC
           </button>
-          <button disabled="true" type="button" class="btn btn-outline-theme">
+          <button data-bs-toggle="modal" data-bs-target="#modalSignMessage" type="button" class="btn btn-outline-theme">
             SIG
           </button>
 
@@ -177,6 +177,8 @@
 
     <ModalDelegateReg :address="address"/>
 
+    <ModalSignMessage :address="address"/>
+
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
       <div class="modal-dialog">
@@ -221,6 +223,7 @@ const storeWallet = useStoreWallet();
 
 import ModalVote from "@/components/wallet/ModalVote.vue";
 import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
+import ModalSignMessage from "@/components/wallet/ModalSignMessage.vue";
 
 export default {
   name: "OperationsComponent",
@@ -228,6 +231,7 @@ export default {
     QrcodeVue,
     ModalVote,
     ModalDelegateReg,
+    ModalSignMessage,
   },
   props: {
     address: String,
