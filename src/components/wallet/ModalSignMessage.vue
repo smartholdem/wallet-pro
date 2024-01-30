@@ -55,7 +55,11 @@
                 rows="3"
               ></textarea>
               <button @click="validateSig" class="btn btn-outline-success form-control w-100 mt-2">Validate signature</button>
-              <p>{{isValid}}</p>
+              <p class="text-center mt-2">
+                <span v-if="isValid" class="text-uppercase text-success">Signature is Valid</span>
+                <span v-else class="text-uppercase text-danger">Not Valid</span>
+              </p>
+
             </div>
           </div>
         </div>
