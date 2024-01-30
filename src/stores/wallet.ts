@@ -31,6 +31,17 @@ export const useStoreWallet = defineStore("walletStorage", {
     addressBook: {}
   }),
   actions: {
+    async validateSigSchnorr(payload: object) {
+      const secretDecrypted = await this.decryptByAddress(payload.address);
+      const publicKey = Identities.PublicKey.fromPassphrase(secretDecrypted);
+      const hash = Crypto.HashAlgorithms.sha256(payload.message);
+      const result = Crypto.Hash.verifySchnorr(
+        hash,
+        payload.signature,
+        publicKey
+      );
+      return result
+    },
     async signMessageSchnorr(payload: object) {
       const message = payload.message;
       const secretDecrypted = await this.decryptByAddress(payload.address);

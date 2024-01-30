@@ -1,3 +1,7 @@
+v1.2.3
+- Create crypto signature message with Schnorr
+- Validate crypto signature message with Schnorr
+
 v1.2.2
 - delegate register
 - voting
