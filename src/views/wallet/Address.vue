@@ -24,6 +24,9 @@
           <h5 v-if="currentAddress.balance" class="card-title">
             <img src="/images/logo-green32.png"/> <span class="text-success">{{ (balanceDecimal).toFixed(8)}}</span> STH
           </h5>
+          <!--
+          <button @click="sendMessage" class="btn btn-info">Connect APP</button>
+          -->
           <div v-if="currentAddress.publicKey">
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
@@ -140,6 +143,25 @@ export default {
     };
   },
   methods: {
+    async sendMessage() {
+      /*
+      const BROWSERAPPID = 'cbdcaicgjadjamdlpgnlnohgbjajople' //'lkmfbpkdhgdohmgdapmhbigjbdioljch';
+      const OBJECT_TO_SEND = { type: "appLink", message: this.$route.params.address };
+      const checkApp = function() {
+        return new Promise( function(resolve, reject) {
+          chrome.runtime.sendMessage(BROWSERAPPID, OBJECT_TO_SEND, null, function(response) {
+            if (response && response.installed === true) {
+              resolve(response);
+            } else {
+              reject({ reason: "APP_NOT_FOUND" })
+            }
+          });
+        });
+      }
+      await checkApp();
+
+       */
+    },
     showToast(event, target, msg, style = 'success') {
       event.preventDefault();
       this.notifyMsg = msg;
@@ -190,12 +212,14 @@ export default {
   async mounted() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     var self = this;
-    document.body.onfocus = async function(e){
+    document.body.onfocus = async function(e) {
       //console.info(e.type);
       await self.accountUpdate();
       await self.startUpdateByTimer();
     }
     await this.startUpdateByTimer();
+
+
   },
   computed: {
     balanceDecimal() {
