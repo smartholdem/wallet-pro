@@ -112,7 +112,6 @@
                       <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm" id="sendNetwork">
                         <option selected value="mainnet">MainNet</option>
                         <option value="bsc">BSC</option>
-                        <option value="heco">HECO</option>
                         <option disabled value="eth">Ethereum</option>
                       </select>
 

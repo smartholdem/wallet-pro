@@ -1,6 +1,7 @@
 v1.2.3
 - Create crypto signature message with Schnorr
 - Validate crypto signature message with Schnorr
+- Remove HECO network from wallet
 
 v1.2.2
 - delegate register
