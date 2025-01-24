@@ -223,7 +223,7 @@ export default {
   },
   computed: {
     balanceDecimal() {
-      return this.currentAddress.balance / 10 ** 8;
+      return this.currentAddress.balance / 10 ** 8 || 0;
     },
     page() {
       return appOption.currentPage;

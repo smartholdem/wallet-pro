@@ -17,7 +17,7 @@ const activeNode = "https://" + storeSettings.activeNode + "/api";
 
 const client = new Connection(activeNode);
 Managers.configManager.setFromPreset("mainnet");
-Managers.configManager.setHeight(596000);
+Managers.configManager.setHeight(2000000);
 
 export const useStoreWallet = defineStore("walletStorage", {
   state: () => ({

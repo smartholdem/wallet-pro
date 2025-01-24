@@ -279,7 +279,7 @@
                 SmartHolder Lock
               </td>
               <td v-if="smartHolder.total">
-                {{ (smartHolder.total.realAmount * 1).toFixed(0) }} STH <span class="small text-info">{{(smartHolder.total.realAmount / (blockchain.supply / 1e8 - 92068) * 100).toFixed(0)}}%</span>
+                {{ (smartHolder.total['realAmount'] * 1).toFixed(0) }} STH <span class="small text-info">{{(smartHolder.total['realAmount'] / (blockchain['supply'] / 1e8 - 92068) * 100).toFixed(0)}}%</span>
               </td>
               <td v-if="!smartHolder.total">
                 Loading...
