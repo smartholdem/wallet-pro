@@ -1,5 +1,9 @@
 <template>
-  <span>{{isMobile ? this.address.slice(0, 5) + '..' +  this.address.slice(-5) : this.address }}</span>
+  <span>{{
+    isMobile
+      ? this.address.slice(0, 5) + ".." + this.address.slice(-5)
+      : this.address
+  }}</span>
 </template>
 
 <script>
@@ -11,7 +15,7 @@ export default {
   computed: {
     isMobile() {
       return window.innerWidth < 768;
-    }
+    },
   }
 
 };

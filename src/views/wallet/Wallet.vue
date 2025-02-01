@@ -203,7 +203,7 @@
               @input="accountImportFromPassword()"
               class="form-control form-control-sm"
               id="importPrivateKey"
-              placeholder="bip39 12 words"
+              placeholder="bip39 12 or 24 words"
             />
           </div>
           <div class="form-group mb-3">

@@ -11,7 +11,7 @@ export const useStoreSettings = defineStore("appSettings", {
       language: "",
       currency: "USDT",
       lockScreen: 600,
-      pinCode: ""
+      pinCode: "",
     },
     tmpPin: "",
     nodes: [
