@@ -125,7 +125,9 @@
                   <div class="col-md-3">
                     <div class="form-group mb-3">
                       <label class="form-label px-4" :class="'ico-' + selectedNetwork" for="sendNetwork">Network</label>
-                      <select v-model="selectedNetwork" @change="validateAddress" class="form-select form-select-sm"
+                      <select v-model="selectedNetwork"
+                              @change="validateAddress"
+                              class="form-select form-select-sm"
                               id="sendNetwork">
                         <option selected value="mainnet">MainNet</option>
                         <option value="bsc">BSC</option>
@@ -198,12 +200,12 @@
       <div class="toast fade hide mb-3" data-autohide="false" id="toast-transfer" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header" :class="'text-' + toastStyle">
           <i class="far fa-bell me-2"/>
-          <strong class="me-auto">{{toastStyle}}</strong>
-          <small class="text-success-emphasis">{{notifyOp}}</small>
+          <strong class="me-auto">{{ toastStyle }}</strong>
+          <small class="text-success-emphasis">{{ notifyOp }}</small>
           <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
         </div>
         <div class="toast-body small">
-          {{notifyMsg}}
+          {{ notifyMsg }}
         </div>
       </div>
     </div>
@@ -288,10 +290,6 @@ export default {
         },
         bsc: {
           fee: 30,
-          minAmount: 100
-        },
-        heco: {
-          fee: 10,
           minAmount: 100
         },
         eth: {
