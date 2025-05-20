@@ -1,7 +1,7 @@
 <template>
   <div class="h-100">
     <card class="h-100 overflow-hidden">
-      <card-header class="card-header fw-bold small"> OPERATIONS </card-header>
+      <card-header class="card-header fw-bold small"> OPERATIONS</card-header>
       <card-body>
         <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
           <button
@@ -118,7 +118,7 @@
                   <div class="col-md-10">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendRecipient"
-                        >Recipient <i class="fa fa-address-book hover-info"></i
+                      >Recipient <i class="fa fa-address-book hover-info"></i
                       ></label>
                       <input
                         v-model="forSend.recipientId"
@@ -160,7 +160,7 @@
                         "
                         class="form-label"
                         for="sendAmount"
-                        >Amount
+                      >Amount
                         <span class="badge text-info">[max]</span></label
                       >
                       <input
@@ -198,7 +198,7 @@
                         class="form-label px-4"
                         :class="'ico-' + selectedNetwork"
                         for="sendNetwork"
-                        >Network</label
+                      >Network</label
                       >
                       <select
                         v-model="selectedNetwork"
@@ -250,50 +250,50 @@
                 <div class="mb-3">
                   <table class="table">
                     <tbody>
-                      <tr>
-                        <td v-if="txErr === 0">Success txId</td>
-                        <td v-if="txErr > 0" class="text-danger">Error txId</td>
-                        <td>
+                    <tr>
+                      <td v-if="txErr === 0">Success txId</td>
+                      <td v-if="txErr > 0" class="text-danger">Error txId</td>
+                      <td>
                           <span class="text-primary"
-                            >{{ txResult.tx.id.substring(0, 10) }}..{{
+                          >{{ txResult.tx.id.substring(0, 10) }}..{{
                               txResult.tx.id.substr(-10)
                             }}</span
                           >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Amount</td>
-                        <td>{{ (txResult.tx.amount / 1e8).toFixed(8) }} STH</td>
-                      </tr>
-                      <tr>
-                        <td>Fee</td>
-                        <td>{{ (txResult.tx.fee / 1e8).toFixed(8) }} STH</td>
-                      </tr>
-                      <tr>
-                        <td>Recipient</td>
-                        <td>
-                          {{ txResult.tx.recipientId.substring(0, 10) }}..{{
-                            txResult.tx.recipientId.substr(-10)
-                          }}
-                        </td>
-                      </tr>
-                      <tr v-if="txResult.tx.vendorField">
-                        <td>Memo</td>
-                        <td>{{ txResult.tx.vendorField }}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Network&nbsp;<i
-                            class="px-3 py-1"
-                            :class="'ico-' + txResult.network"
-                          ></i>
-                        </td>
-                        <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Amount</td>
+                      <td>{{ (txResult.tx.amount / 1e8).toFixed(8) }} STH</td>
+                    </tr>
+                    <tr>
+                      <td>Fee</td>
+                      <td>{{ (txResult.tx.fee / 1e8).toFixed(8) }} STH</td>
+                    </tr>
+                    <tr>
+                      <td>Recipient</td>
+                      <td>
+                        {{ txResult.tx.recipientId.substring(0, 10) }}..{{
+                          txResult.tx.recipientId.substr(-10)
+                        }}
+                      </td>
+                    </tr>
+                    <tr v-if="txResult.tx.vendorField">
+                      <td>Memo</td>
+                      <td>{{ txResult.tx.vendorField }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Network&nbsp;<i
+                        class="px-3 py-1"
+                        :class="'ico-' + txResult.network"
+                      ></i>
+                      </td>
+                      <td>
                           <span class="text-uppercase text-info">{{
-                            txResult.network
-                          }}</span>
-                        </td>
-                      </tr>
+                              txResult.network
+                            }}</span>
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -305,10 +305,16 @@
                     class="btn btn-sm"
                     :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
                   >
-                    CONTINUE</button
-                  >&nbsp;<span v-show="waitConfirmTx"
-                    >Please wait confirmation..</span
-                  >
+                    CONTINUE
+                  </button
+                  >&nbsp;<span
+                    v-show="
+                      waitConfirmTx &&
+                      timerConfirmation > 0 &&
+                      timerConfirmation < 8
+                    "
+                >Please wait confirmation.. {{ timerConfirmation }}</span
+                >
                 </p>
               </div>
             </div>
@@ -398,8 +404,10 @@
 import QrcodeVue from "qrcode.vue";
 import { storeToRefs } from "pinia";
 import { useAppOptionStore } from "@/stores/app-option.ts";
+
 const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet.ts";
+
 const storeWallet = useStoreWallet();
 import ModalVote from "@/components/wallet/ModalVote.vue";
 import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
@@ -412,13 +420,14 @@ export default {
     QrcodeVue,
     ModalVote,
     ModalDelegateReg,
-    ModalSignMessage,
+    ModalSignMessage
   },
   props: {
-    address: String,
+    address: String
   },
   data() {
     return {
+      timerConfirmation: 8,
       notifyOp: "operation",
       toastStyle: "success",
       notifyMsg: "",
@@ -427,26 +436,26 @@ export default {
       networksTransfer: {
         mainnet: {
           fee: 0.25,
-          minAmount: 0.00001,
+          minAmount: 0.00001
         },
         bsc: {
           fee: 25,
-          minAmount: 100,
+          minAmount: 100
         },
         eth: {
           fee: 200,
-          minAmount: 100,
-        },
+          minAmount: 100
+        }
       },
       invoice: {
         amount: "",
-        memo: "",
+        memo: ""
       },
       isMobile: appOption.isMobile,
       txSendStep: 0,
       txResult: {
         response: null,
-        tx: null,
+        tx: null
       },
       forSend: {
         network: "mainnet",
@@ -455,10 +464,10 @@ export default {
         recipientId: "",
         amount: "",
         fee: 0.25,
-        memo: "",
+        memo: ""
       },
       selectedNetwork: "mainnet",
-      txErr: 0,
+      txErr: 0
     };
   },
   computed: {
@@ -470,15 +479,15 @@ export default {
     },
     currentAddress() {
       return storeWallet.attributes[this.address];
-    },
+    }
   },
   watch: {
     txResult: {
-      handler: function () {
+      handler: function() {
         this.$emit("txResultData", this.txResult);
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   methods: {
     showToast(target, msg, style = "success") {
@@ -494,7 +503,7 @@ export default {
     async sendTabPrepare() {
       this.txResult = {
         response: null,
-        tx: null,
+        tx: null
       };
       this.txErr = 0;
       this.waitConfirmTx = true;
@@ -507,7 +516,7 @@ export default {
         recipientId: "",
         amount: "",
         fee: 0.25,
-        memo: "",
+        memo: ""
       };
     },
     async validateAddress() {
@@ -540,8 +549,21 @@ export default {
           recipientId: "",
           amount: "",
           fee: 0.25,
-          memo: "",
+          memo: ""
         };
+
+        if (this.waitConfirmTx) {
+          let tmConfirm = null;
+          tmConfirm = setInterval(() => {
+            this.timerConfirmation--;
+            if (this.timerConfirmation < 0) {
+              this.timerConfirmation = 8;
+              clearInterval(tmConfirm);
+            }
+          }, 1000);
+        }
+
+
         setTimeout(async () => {
           this.waitConfirmTx = false;
           await this.accountUpdate();
@@ -561,8 +583,8 @@ export default {
       } else {
         console.log("accountUpdate err", this.address);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
