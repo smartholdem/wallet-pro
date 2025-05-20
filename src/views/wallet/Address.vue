@@ -77,12 +77,23 @@
 
     <!-- toasts-container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div class="toast fade hide mb-3" data-autohide="false" id="toast-address" role="alert" aria-live="assertive" aria-atomic="true">
+      <div
+        class="toast fade hide mb-3"
+        data-autohide="false"
+        id="toast-address"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
         <div class="toast-header" :class="'text-' + toastStyle">
           <i class="far fa-bell me-2"/>
-          <strong class="me-auto">{{toastStyle}}</strong>
-          <small class="text-success-emphasis">{{notifyOp}}</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+          <strong class="me-auto">{{ toastStyle }}</strong>
+          <small class="text-success-emphasis">{{ notifyOp }}</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+          ></button>
         </div>
         <div class="toast-body small">
           {{notifyMsg}}
@@ -94,12 +105,12 @@
 </template>
 
 <script>
+//import { storeToRefs } from "pinia";
 import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
-import { storeToRefs } from "pinia";
 import { useStoreWallet } from "@/stores/wallet";
 const storeWallet = useStoreWallet();
-const { accounts } = storeToRefs(storeWallet);
+//const { accounts } = storeToRefs(storeWallet);
 import Txs from "./Transactions.vue";
 import Ops from "./Operations.vue";
 import { Toast } from "bootstrap";
@@ -170,11 +181,11 @@ export default {
       toast.show();
     },
     async copyText(text) {
-      navigator.clipboard.writeText(text);
-      this.notifyOp = 'operation';
-      this.showToast(event, 'toast-address', 'Copied to clipboard!', 'success')
+      await navigator.clipboard.writeText(text);
+      this.notifyOp = "operation";
+      this.showToast(event, "toast-address", "Copied to clipboard!", "success");
     },
-    handleData: function(e) {
+    handleData: function (e) {
       this.txResult = e;
     },
     async accountUpdate() {
@@ -182,7 +193,7 @@ export default {
         await storeWallet.getAttributes(this.$route.params.address);
         await storeWallet.getTransactions(this.$route.params.address, 10);
       } else {
-        console.log('accountUpdate err', this.$route.params.address);
+        console.log("accountUpdate err", this.$route.params.address);
       }
 
     },
@@ -190,7 +201,7 @@ export default {
       if (this.currentAddress) {
         clearTimeout(this.timerTx);
         // eslint-disable-next-line @typescript-eslint/no-this-alias
-        var self = this;
+        const self = this;
         this.timerTx = setTimeout(async function tick() {
           if (self.page === "/address/" + self.$route.params.address) {
             await self.accountUpdate();
@@ -204,18 +215,18 @@ export default {
   },
   async beforeCreate() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    var self = this;
+    const _self = this;
     setTimeout(async () => {
-      await this.accountUpdate();
+      await _self.accountUpdate();
     }, 120);
   },
   async mounted() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    var self = this;
+    const _self = this;
     document.body.onfocus = async function(e) {
       //console.info(e.type);
-      await self.accountUpdate();
-      await self.startUpdateByTimer();
+      await _self.accountUpdate();
+      await _self.startUpdateByTimer();
     }
     await this.startUpdateByTimer();
 

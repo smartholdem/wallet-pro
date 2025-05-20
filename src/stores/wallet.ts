@@ -1,14 +1,11 @@
 import { defineStore } from "pinia";
 import { generateMnemonic, validateMnemonic } from "bip39";
-import { Crypto, Transactions, Managers, Utils, Identities } from "@smartholdem/crypto";
+import { Crypto, Identities, Managers, Transactions, Utils } from "@smartholdem/crypto";
 import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import web3 from "web3";
-
-import { storeToRefs } from "pinia";
 import { useStoreSettings } from "@/stores/app-settings.ts";
-import crypto from "crypto";
 
 const storeSettings = useStoreSettings();
 
@@ -47,13 +44,14 @@ export const useStoreWallet = defineStore("walletStorage", {
       const secretDecrypted = await this.decryptByAddress(payload.address);
       const privateKey = Identities.PrivateKey.fromPassphrase(secretDecrypted);
       const hash = Crypto.HashAlgorithms.sha256(message);
-      const signature = Crypto.Hash.signSchnorr( hash, { "privateKey": privateKey});
+      const signature = Crypto.Hash.signSchnorr(hash, {
+        privateKey: privateKey,
+      });
       //const signature = Crypto.Hash.signECDSA( hash, { "privateKey": privateKey});
-      const signed = {
+      return {
         message,
         signature
       };
-      return signed;
     },
     /**
      *
@@ -73,7 +71,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     async validateAddressCrossChain(address: string) {
       let result = false;
       try {
-        result = await web3.utils.isAddress(address);
+        result = web3.utils.isAddress(address);
       } catch (e) {
         console.log("err validator");
       }
@@ -82,7 +80,9 @@ export const useStoreWallet = defineStore("walletStorage", {
     async getSmartHolder() {
       let result = {};
       try {
-        result = (await axios.get("https://smartholder.xbts.io/api/public/percents")).data;
+        result = (
+          await axios.get("https://smartholder.xbts.io/api/public/percents")
+        ).data;
         this.smartHolder = result;
       } catch (e) {
         console.log("err: get smartHolder");

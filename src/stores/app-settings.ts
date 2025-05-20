@@ -47,7 +47,7 @@ export const useStoreSettings = defineStore("appSettings", {
     updateSettings(partialSettings: object) {
       this.settings = {
         ...this.settings,
-        ...partialSettings
+        ...partialSettings,
       };
       //localStorage.setItem('appSettings', JSON.stringify(this.settings))
     },
@@ -58,7 +58,7 @@ export const useStoreSettings = defineStore("appSettings", {
     validatePinCode(password: string) {
       const pinSha384 = CryptoJS.SHA384(password).toString();
       return pinSha384 === this.settings.pinCode;
-    }
+    },
   },
-  persist: true
+  persist: true,
 });
