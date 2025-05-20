@@ -430,7 +430,7 @@ export default {
           minAmount: 0.00001,
         },
         bsc: {
-          fee: 30,
+          fee: 25,
           minAmount: 100,
         },
         eth: {
