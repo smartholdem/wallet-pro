@@ -140,6 +140,10 @@ export default {
           fee: 30,
           minAmount: 100,
         },
+        ton: {
+          fee: 30,
+          minAmount: 100,
+        },
         heco: {
           fee: 10,
           minAmount: 100,
@@ -263,6 +267,12 @@ export default {
 
 .ico-bsc {
   background-image:url('/images/bsc.svg');
+  background-position: 0 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+.ico-ton {
+  background-image:url('/images/ton.svg');
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;

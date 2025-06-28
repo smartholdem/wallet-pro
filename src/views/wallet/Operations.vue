@@ -160,8 +160,8 @@
                         "
                         class="form-label"
                         for="sendAmount"
-                      >Amount
-                        <span class="badge text-info">[max]</span></label
+                      >
+                        Amount <span class="badge text-info">[max]</span></label
                       >
                       <input
                         :placeholder="
@@ -187,8 +187,21 @@
                         v-model="forSend.memo"
                         type="text"
                         class="form-control form-control-sm"
+                        :class="selectedNetwork === 'ton' ? 'hide' : ''"
                         id="sendMemo"
                         placeholder="Public Description max 250"
+                      />
+
+                      <input
+                        v-if="selectedNetwork === 'ton'"
+                        v-model="forSend.memo2"
+                        @change="addMemo2"
+                        @input="addMemo2"
+                        type="text"
+                        class="form-control form-control-sm"
+                        :class="selectedNetwork !== 'ton' ? 'hide' : ''"
+                        id="sendMemo2"
+                        placeholder="memo max 100"
                       />
                     </div>
                   </div>
@@ -208,7 +221,8 @@
                       >
                         <option selected value="mainnet">MainNet</option>
                         <option value="bsc">BSC</option>
-                        <option disabled value="eth">Ethereum</option>
+                        <option value="ton">TON</option>
+                        <!--<option disabled value="eth">Ethereum</option>-->
                       </select>
                     </div>
                   </div>
@@ -289,9 +303,7 @@
                       ></i>
                       </td>
                       <td>
-                          <span class="text-uppercase text-info">{{
-                              txResult.network
-                            }}</span>
+                          <span class="text-uppercase text-info">{{txResult.network}}</span>
                       </td>
                     </tr>
                     </tbody>
@@ -436,26 +448,30 @@ export default {
       networksTransfer: {
         mainnet: {
           fee: 0.25,
-          minAmount: 0.00001
+          minAmount: 0.00001,
         },
         bsc: {
           fee: 25,
-          minAmount: 100
+          minAmount: 100,
+        },
+        ton: {
+          fee: 25,
+          minAmount: 100,
         },
         eth: {
           fee: 200,
-          minAmount: 100
-        }
+          minAmount: 100,
+        },
       },
       invoice: {
         amount: "",
-        memo: ""
+        memo: "",
       },
       isMobile: appOption.isMobile,
       txSendStep: 0,
       txResult: {
         response: null,
-        tx: null
+        tx: null,
       },
       forSend: {
         network: "mainnet",
@@ -464,10 +480,11 @@ export default {
         recipientId: "",
         amount: "",
         fee: 0.25,
-        memo: ""
+        memo: "",
+        memo2: "",
       },
       selectedNetwork: "mainnet",
-      txErr: 0
+      txErr: 0,
     };
   },
   computed: {
@@ -516,7 +533,7 @@ export default {
         recipientId: "",
         amount: "",
         fee: 0.25,
-        memo: ""
+        memo: "",
       };
     },
     async validateAddress() {
@@ -525,13 +542,38 @@ export default {
         this.forSend.addressIsValid = await storeWallet.validateAddress(
           this.forSend.recipientId
         );
-      } else {
+      }
+      if (this.selectedNetwork === "bsc" || this.selectedNetwork === "eth") {
         this.forSend.addressIsValid =
           await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
         if (this.forSend.addressIsValid) {
           this.forSend.memo =
             this.selectedNetwork + ":" + this.forSend.recipientId;
         }
+      }
+
+      if (this.selectedNetwork === "ton") {
+        this.forSend.addressIsValid =
+          this.forSend.recipientId[0] === "U" ||
+          this.forSend.recipientId[0] === "E";
+        if (this.forSend.addressIsValid) {
+          this.forSend.memo =
+            this.selectedNetwork +
+            ":" +
+            this.forSend.recipientId +
+            ":" +
+            (this.forSend.memo2 || "");
+        }
+      }
+    },
+    async addMemo2() {
+      if (this.forSend.memo2) {
+        this.forSend.memo =
+          this.selectedNetwork +
+          ":" +
+          this.forSend.recipientId +
+          ":" +
+          (this.forSend.memo2 || "");
       }
     },
     async txSend() {
@@ -591,5 +633,16 @@ export default {
 <style scoped>
 .modal-transfer {
   --bs-modal-width: 700px;
+
+}
+.ico-ton {
+  background-image:url('/images/ton.svg');
+  background-position: 0 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.hide {
+  display: none;
 }
 </style>

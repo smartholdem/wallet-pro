@@ -461,8 +461,9 @@ export default {
       timerTx: null,
       networksTransfer: {
         mainnet: true,
+        ton: true,
         bsc: true,
-        eth: true
+        eth: true,
       },
       tbPage: 1
     };
@@ -496,4 +497,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.ico-ton {
+  background-image:url('/images/ton.svg');
+  background-position: 0 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+</style>
