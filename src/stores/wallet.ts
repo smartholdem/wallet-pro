@@ -6,15 +6,11 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import web3 from "web3";
 import { useStoreSettings } from "@/stores/app-settings.ts";
-
 const storeSettings = useStoreSettings();
-
 const activeNode = "https://" + storeSettings.activeNode + "/api";
-
-
 const client = new Connection(activeNode);
 Managers.configManager.setFromPreset("mainnet");
-Managers.configManager.setHeight(2000000);
+Managers.configManager.setHeight(5000000);
 
 export const useStoreWallet = defineStore("walletStorage", {
   state: () => ({
