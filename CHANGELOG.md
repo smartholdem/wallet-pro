@@ -1,3 +1,6 @@
+v1.2.12
+- ADD TON Cross-Chain transfers for SmartHoldem STH
+
 v1.2.3
 - Create crypto signature message with Schnorr
 - Validate crypto signature message with Schnorr

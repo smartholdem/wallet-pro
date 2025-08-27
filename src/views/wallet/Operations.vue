@@ -492,7 +492,7 @@ export default {
       return storeWallet.addressBook;
     },
     balanceDecimal() {
-      return this.currentAddress.balance / 10 ** 8;
+      return this.currentAddress.balance / 10 ** 8 || 0;
     },
     currentAddress() {
       return storeWallet.attributes[this.address];

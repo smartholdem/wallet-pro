@@ -15,18 +15,17 @@ export const useStoreSettings = defineStore("appSettings", {
     },
     tmpPin: "",
     nodes: [
+      "node0.smartholdem.io",
+      "node1.smartholdem.io",
       "node0.sth.cx",
       "node4.smartholdem.io",
       "node5.smartholdem.io",
-      "node2.smartholdem.io",
-      "node0.smartholdem.io",
-      "node1.smartholdem.io",
     ],
-    activeNode: "node2.smartholdem.io",
+    activeNode: "node0.smartholdem.io",
   }),
   actions: {
     async updateNodes() {
-      this.activeNode = "node2.smartholdem.io";
+      this.activeNode = "node0.smartholdem.io";
       //setTimeout(async () => {
       for (let i = 0; i < this.nodes.length; i++) {
         let nodeStatus = null;
