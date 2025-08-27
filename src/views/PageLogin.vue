@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     async resetAll() {
-      getActivePinia()._s.forEach(store => store.$reset());
+      getActivePinia()._s.forEach((store) => store.$reset());
       this.$router.push("/register");
     },
     pinValidator() {

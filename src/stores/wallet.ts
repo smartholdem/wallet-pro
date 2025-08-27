@@ -5,7 +5,7 @@ import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import web3 from "web3";
-import { useStoreSettings } from "@/stores/app-settings.ts";
+import { useStoreSettings } from "@/stores/app-settings";
 const storeSettings = useStoreSettings();
 const activeNode = "https://" + storeSettings.activeNode + "/api";
 const client = new Connection(activeNode);
@@ -327,13 +327,13 @@ export const useStoreWallet = defineStore("walletStorage", {
       const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
       let result = "";
       if (this.accounts[address].encrypt == "rabbit") {
-        const accountBytes = await CryptoJS.Rabbit.decrypt(
+        const accountBytes = CryptoJS.Rabbit.decrypt(
           this.accounts[address].secret,
           storeSettings.tmpPin + hash
         );
         result = accountBytes.toString(CryptoJS.enc.Utf8); //
       } else {
-        const accountBytes = await CryptoJS.AES.decrypt(
+        const accountBytes = CryptoJS.AES.decrypt(
           this.accounts[address].secret,
           storeSettings.tmpPin + hash
         );
