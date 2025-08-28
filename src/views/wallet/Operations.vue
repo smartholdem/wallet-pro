@@ -864,7 +864,7 @@ export default {
     },
     // Подготовка формы отправки
     async sendTabPrepare() {
-      // Сбро�� результата предыдущей транзакции
+      // Сброс результата предыдущей транзакции
       this.txResult = {
         response: null,
         tx: null,
