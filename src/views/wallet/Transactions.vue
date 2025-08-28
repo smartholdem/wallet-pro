@@ -24,18 +24,13 @@
           </tr>
           </thead>
           <tbody>
-          <tr
-            v-if="newTx && transactions.data[0].id !== newTx.id"
-            class="text-secondary"
-          >
+          <tr v-if="newTx && transactions.data[0].id !== newTx.id" class="text-secondary">
             <td class="text-secondary">
               {{ newTx.id.slice(0, 5) }} .. {{ newTx.id.slice(-5) }}
             </td>
             <td class="text-secondary">Now</td>
             <td class="text-secondary">
-              <i
-                class="text-secondary fas fa-sm fa-fw me-2 fa-angle-double-up"
-              ></i>
+              <i class="text-secondary fas fa-sm fa-fw me-2 fa-angle-double-up"></i>
               {{ (newTx.amount / 1e8).toFixed(8) }}
             </td>
             <td class="text-secondary">
@@ -76,9 +71,7 @@
                     :class="'ico-' + item.vendorField.split(':')[0]"
                     style="padding: 3px 16px 3px 3px;">&nbsp;</span>
                 </span>
-              <span
-                v-if="item.sender === 'SR1W4qS8DCPN65oV9Jd8JSLbfU5vhmEEky'"
-              >
+              <span v-if="item.sender === 'SR1W4qS8DCPN65oV9Jd8JSLbfU5vhmEEky'">
                   <span
                     :class="'ico-telegram'"
                     style="padding: 3px 16px 3px 3px;">&nbsp;</span>
@@ -120,8 +113,8 @@
             </td>
             <td>
               <i
-                  :class="
-                    item.recipient === this.address
+                :class="
+                    item.recipient === this.address && item.amount > 0
                       ? 'text-warning fas fa-sm fa-fw me-2 fa-angle-double-down'
                       : 'text-info fas fa-sm fa-fw me-2 fa-angle-double-up'
                   "
@@ -129,10 +122,12 @@
               <span
                 :class="item.recipient === this.address || item.type === 6 ? 'text-success' : ''"
               >
-                  {{ item.type === 6 ? "MultiPay (" + item["asset"].payments.length + ")" : (item.amount / 1e8).toFixed(8) }}
+                  {{ item.type === 6 ? "MultiPay (" + item["asset"].payments.length + ")" : (item.amount / 1e8).toFixed(8)
+                }}
                 </span>
               <div v-if="item.type === 6">
-                <div v-for="itm in item.asset.payments" v-show="itm.recipientId === this.address" v-bind:key="itm.recipientId">
+                <div v-for="itm in item.asset.payments" v-show="itm.recipientId === this.address"
+                     v-bind:key="itm.recipientId">
                   {{ itm.amount / 1e8 }}
                 </div>
               </div>
@@ -349,10 +344,12 @@
                   <span
                     :class="item.recipient === this.address || item.type === 6 ? 'text-success' : ''"
                   >
-                  {{ item.type === 6 ? "MultiPay (" + item["asset"].payments.length + ")" : (item.amount / 1e8).toFixed(8) }}
+                  {{ item.type === 6 ? "MultiPay (" + item["asset"].payments.length + ")" : (item.amount / 1e8).toFixed(8)
+                    }}
                 </span>
                 <div v-if="item.type === 6">
-                  <div v-for="itm in item.asset.payments" v-show="itm.recipientId === this.address" v-bind:key="itm.recipientId">
+                  <div v-for="itm in item.asset.payments" v-show="itm.recipientId === this.address"
+                       v-bind:key="itm.recipientId">
                     +{{ itm.amount / 1e8 }} STH
                   </div>
                 </div>
@@ -463,7 +460,7 @@ export default {
         mainnet: true,
         ton: true,
         bsc: true,
-        eth: true,
+        eth: true
       },
       tbPage: 1
     };
@@ -499,7 +496,7 @@ export default {
 
 <style scoped>
 .ico-ton {
-  background-image:url('/images/ton.svg');
+  background-image: url('/images/ton.svg');
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;

@@ -34,7 +34,6 @@
           >
             SEND
           </button>
-
           <button
             data-bs-toggle="modal"
             data-bs-target="#modalQr"
@@ -53,10 +52,16 @@
             <i class="fa fa-key" aria-hidden="true"></i>
           </button>
 
-          <button disabled="true" type="button" class="btn btn-outline-theme">
+          <button
+            :disabled="false"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#modalMPayTransfer"
+            class="btn btn-outline-theme"
+          >
             mPays
           </button>
-          <button disabled="true" type="button" class="btn btn-outline-theme">
+          <button :disabled="true" type="button" class="btn btn-outline-theme">
             HTLC
           </button>
           <button
@@ -99,6 +104,314 @@
       </card-body>
     </card>
 
+    <!-- modal мультиплатежи transfer до 150 платежей в 1 транзакции-->
+    <div class="modal fade modal-transfer" id="modalMPayTransfer">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Multi Payments</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="w-100">
+              <div v-if="txSendStep === 0">
+                <!-- CSV Upload Section -->
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Upload CSV-file</label>
+                    <input
+                      ref="csvFileInput"
+                      @change="handleCsvUpload"
+                      type="file"
+                      accept=".csv"
+                      class="form-control form-control-sm"
+                    />
+                    <small class="text-muted">Format: address,amount</small>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Operations</label>
+                    <div class="d-flex gap-2">
+                      <button
+                        @click="clearMultiPayList"
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        Clear
+                      </button>
+                      <button
+                        @click="downloadTemplate"
+                        type="button"
+                        class="btn btn-sm btn-outline-info"
+                      >
+                        Download template
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Manual Add Section -->
+                <div class="row mb-3">
+                  <div class="col-md-8">
+                    <label class="form-label">Add recipient</label>
+                    <input
+                      v-model="newRecipient.address"
+                      @input="validateNewRecipientAddress"
+                      type="text"
+                      class="form-control form-control-sm"
+                      :class="
+                        newRecipient.addressIsValid &&
+                        newRecipient.address !== this.address
+                          ? 'is-valid'
+                          : 'is-invalid'
+                      "
+                      placeholder="Enter address"
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">Amount</label>
+                    <input
+                      v-model="newRecipient.amount"
+                      type="number"
+                      step="0.00000001"
+                      class="form-control form-control-sm"
+                      :class="
+                        newRecipient.amount > 0 ? 'is-valid' : 'is-invalid'
+                      "
+                      placeholder="0.00000000"
+                    />
+                  </div>
+                  <div class="col-md-1 d-flex align-items-end">
+                    <button
+                      @click="addRecipient"
+                      :disabled="
+                        !newRecipient.addressIsValid ||
+                        newRecipient.amount <= 0 ||
+                        newRecipient.address === this.address
+                      "
+                      type="button"
+                      class="btn btn-sm btn-success"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Recipients List -->
+                <div v-if="multiPayRecipients.length > 0" class="mb-3">
+                  <label class="form-label"
+                    >List recipients ({{ multiPayRecipients.length }})</label
+                  >
+                  <div
+                    class="table-responsive"
+                    style="max-height: 300px; overflow-y: auto"
+                  >
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Address</th>
+                          <th>Amount</th>
+                          <th>Operation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(recipient, index) in multiPayRecipients"
+                          :key="index"
+                        >
+                          <td>{{ index + 1 }}</td>
+                          <td
+                            class="text-truncate"
+                            style="max-width: 200px"
+                            :title="recipient.address"
+                          >
+                            {{ recipient.address.substring(0, 20) }}...{{
+                              recipient.address.substr(-10)
+                            }}
+                          </td>
+                          <td>
+                            {{ parseFloat(recipient.amount).toFixed(8) }} STH
+                          </td>
+                          <td>
+                            <button
+                              @click="removeRecipient(index)"
+                              type="button"
+                              class="btn btn-sm btn-outline-danger"
+                            >
+                              ×
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr class="table-info">
+                          <td colspan="2"><strong>Итого:</strong></td>
+                          <td>
+                            <strong>{{ totalAmount.toFixed(8) }} STH</strong>
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr class="table-warning">
+                          <td colspan="2"><strong>Комиссия:</strong></td>
+                          <td>
+                            <strong
+                              >{{
+                                networksTransfer[
+                                  selectedNetwork
+                                ].multiPayFee.toFixed(8)
+                              }}
+                              STH</strong
+                            >
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr class="table-success">
+                          <td colspan="2"><strong>Общая сумма:</strong></td>
+                          <td>
+                            <strong
+                              >{{
+                                (
+                                  totalAmount +
+                                  totalMultiPayFees
+                                ).toFixed(8)
+                              }}
+                              STH</strong
+                            >
+                          </td>
+                          <td></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Network Selection -->
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <label
+                      class="form-label px-4"
+                      :class="'ico-' + selectedNetwork"
+                      >Network</label
+                    >
+                    <select
+                      v-model="selectedNetwork"
+                      class="form-select form-select-sm"
+                    >
+                      <option value="mainnet">MainNet</option>
+                      <!--
+                      <option value="bsc">BSC</option>
+                      <option value="ton">TON</option>
+                      -->
+                    </select>
+                  </div>
+                  <div class="col-md-8 d-flex align-items-end">
+                    <button
+                      @click="executeMultiPay"
+                      :disabled="
+                        multiPayRecipients.length === 0 ||
+                        totalAmount + totalMultiPayFees > balanceDecimal
+                      "
+                      type="button"
+                      class="btn btn-success"
+                    >
+                      Send {{ multiPayRecipients.length }} transactions
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Error Messages -->
+                <div v-if="csvErrors.length > 0" class="alert alert-warning">
+                  <strong>Ошибки в CSV:</strong>
+                  <ul class="mb-0">
+                    <li v-for="error in csvErrors" :key="error">{{ error }}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Transaction Results -->
+              <div
+                v-if="txSendStep === 1"
+                class="overflow-hidden overflow-x-auto"
+              >
+                <div class="mb-3">
+                  <h6>
+                    Результаты выполнения
+                    {{ multiPayResults.length }} транзакций:
+                  </h6>
+                  <div
+                    class="table-responsive"
+                    style="max-height: 400px; overflow-y: auto"
+                  >
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Recipient</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                          <th>Transaction ID</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="(result, index) in multiPayResults"
+                          :key="index"
+                        >
+                          <td>{{ index + 1 }}</td>
+                          <td class="text-truncate" style="max-width: 150px">
+                            {{ result.recipient.substring(0, 15) }}...{{
+                              result.recipient.substr(-10)
+                            }}
+                          </td>
+                          <td>
+                            {{ parseFloat(result.amount).toFixed(8) }} STH
+                          </td>
+                          <td>
+                            <span
+                              class="badge"
+                              :class="
+                                result.success ? 'bg-success' : 'bg-danger'
+                              "
+                            >
+                              {{ result.success ? "Success" : "Error" }}
+                            </span>
+                          </td>
+                          <td class="text-truncate" style="max-width: 150px">
+                            <span v-if="result.txId" class="text-primary">
+                              {{ result.txId.substring(0, 10) }}...{{
+                                result.txId.substr(-10)
+                              }}
+                            </span>
+                            <span v-else class="text-danger">{{
+                              result.error
+                            }}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <p>
+                  <button
+                    data-bs-dismiss="modal"
+                    @click="resetMultiPay"
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                  >
+                    Закрыть
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- modal transfer -->
     <div class="modal fade modal-transfer" id="modalTransfer">
       <div class="modal-dialog">
@@ -118,7 +431,7 @@
                   <div class="col-md-10">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendRecipient"
-                      >Recipient <i class="fa fa-address-book hover-info"></i
+                        >Recipient <i class="fa fa-address-book hover-info"></i
                       ></label>
                       <input
                         v-model="forSend.recipientId"
@@ -161,8 +474,7 @@
                         class="form-label"
                         for="sendAmount"
                       >
-                        Amount <span class="badge text-info">[max]</span></label
-                      >
+                        Amount <span class="badge text-info">[max]</span></label>
                       <input
                         :placeholder="
                           'min ' + networksTransfer[selectedNetwork].minAmount
@@ -211,7 +523,7 @@
                         class="form-label px-4"
                         :class="'ico-' + selectedNetwork"
                         for="sendNetwork"
-                      >Network</label
+                        >Network</label
                       >
                       <select
                         v-model="selectedNetwork"
@@ -264,48 +576,50 @@
                 <div class="mb-3">
                   <table class="table">
                     <tbody>
-                    <tr>
-                      <td v-if="txErr === 0">Success txId</td>
-                      <td v-if="txErr > 0" class="text-danger">Error txId</td>
-                      <td>
+                      <tr>
+                        <td v-if="txErr === 0">Success txId</td>
+                        <td v-if="txErr > 0" class="text-danger">Error txId</td>
+                        <td>
                           <span class="text-primary"
-                          >{{ txResult.tx.id.substring(0, 10) }}..{{
+                            >{{ txResult.tx.id.substring(0, 10) }}..{{
                               txResult.tx.id.substr(-10)
                             }}</span
                           >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Amount</td>
-                      <td>{{ (txResult.tx.amount / 1e8).toFixed(8) }} STH</td>
-                    </tr>
-                    <tr>
-                      <td>Fee</td>
-                      <td>{{ (txResult.tx.fee / 1e8).toFixed(8) }} STH</td>
-                    </tr>
-                    <tr>
-                      <td>Recipient</td>
-                      <td>
-                        {{ txResult.tx.recipientId.substring(0, 10) }}..{{
-                          txResult.tx.recipientId.substr(-10)
-                        }}
-                      </td>
-                    </tr>
-                    <tr v-if="txResult.tx.vendorField">
-                      <td>Memo</td>
-                      <td>{{ txResult.tx.vendorField }}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Network&nbsp;<i
-                        class="px-3 py-1"
-                        :class="'ico-' + txResult.network"
-                      ></i>
-                      </td>
-                      <td>
-                          <span class="text-uppercase text-info">{{txResult.network}}</span>
-                      </td>
-                    </tr>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Amount</td>
+                        <td>{{ (txResult.tx.amount / 1e8).toFixed(8) }} STH</td>
+                      </tr>
+                      <tr>
+                        <td>Fee</td>
+                        <td>{{ (txResult.tx.fee / 1e8).toFixed(8) }} STH</td>
+                      </tr>
+                      <tr>
+                        <td>Recipient</td>
+                        <td>
+                          {{ txResult.tx.recipientId.substring(0, 10) }}..{{
+                            txResult.tx.recipientId.substr(-10)
+                          }}
+                        </td>
+                      </tr>
+                      <tr v-if="txResult.tx.vendorField">
+                        <td>Memo</td>
+                        <td>{{ txResult.tx.vendorField }}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Network&nbsp;<i
+                            class="px-3 py-1"
+                            :class="'ico-' + txResult.network"
+                          ></i>
+                        </td>
+                        <td>
+                          <span class="text-uppercase text-info">{{
+                            txResult.network
+                          }}</span>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -317,16 +631,15 @@
                     class="btn btn-sm"
                     :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
                   >
-                    CONTINUE
-                  </button
+                    CONTINUE</button
                   >&nbsp;<span
                     v-show="
                       waitConfirmTx &&
                       timerConfirmation > 0 &&
                       timerConfirmation < 8
                     "
-                >Please wait confirmation.. {{ timerConfirmation }}</span
-                >
+                    >Please wait confirmation.. {{ timerConfirmation }}</span
+                  >
                 </p>
               </div>
             </div>
@@ -416,9 +729,9 @@
 import QrcodeVue from "qrcode.vue";
 import { storeToRefs } from "pinia";
 import { useAppOptionStore } from "@/stores/app-option.ts";
-
 const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet.ts";
+import { Identities } from "@smartholdem/crypto";
 
 const storeWallet = useStoreWallet();
 import ModalVote from "@/components/wallet/ModalVote.vue";
@@ -432,10 +745,10 @@ export default {
     QrcodeVue,
     ModalVote,
     ModalDelegateReg,
-    ModalSignMessage
+    ModalSignMessage,
   },
   props: {
-    address: String
+    address: String,
   },
   data() {
     return {
@@ -445,9 +758,12 @@ export default {
       notifyMsg: "",
       decryptedSecret: "",
       waitConfirmTx: true,
+      // Конфигурация сетей для переводов
       networksTransfer: {
         mainnet: {
           fee: 0.25,
+          multiPayFee: 1,
+          multiPayMaxAddresses: 150,
           minAmount: 0.00001,
         },
         bsc: {
@@ -463,16 +779,19 @@ export default {
           minAmount: 100,
         },
       },
+      // Данные для инвойса
       invoice: {
         amount: "",
         memo: "",
       },
       isMobile: appOption.isMobile,
       txSendStep: 0,
+      // Результат транзакции
       txResult: {
         response: null,
         tx: null,
       },
+      // Данные для отправки
       forSend: {
         network: "mainnet",
         addressIsValid: false,
@@ -485,47 +804,76 @@ export default {
       },
       selectedNetwork: "mainnet",
       txErr: 0,
+      // Multi-pay данные
+      multiPayRecipients: [],
+      newRecipient: {
+        address: "",
+        amount: "",
+        addressIsValid: false,
+        fee: 1,
+      },
+      csvErrors: [],
+      multiPayResults: [],
+      totalMultiPayFees: 1,
     };
   },
   computed: {
+    // Адресная книга
     book() {
       return storeWallet.addressBook;
     },
+    // Безопасное получение баланса в десятичном формате
     balanceDecimal() {
-      return this.currentAddress.balance / 10 ** 8 || 0;
+      // Получаем атрибуты текущего адреса из стора
+      const attrs = storeWallet.attributes[this.address];
+      // Безопасно извлекаем баланс и конвертируем в десятичный формат
+      const balance = Number(attrs?.balance ?? 0);
+      return balance / 1e8; // Конвертируем из сатоши в STH
     },
+    // Текущий адрес кошелька
     currentAddress() {
       return storeWallet.attributes[this.address];
-    }
+    },
+    totalAmount() {
+      return this.multiPayRecipients.reduce(
+        (sum, recipient) => sum + parseFloat(recipient.amount || 0),
+        0
+      );
+    },
   },
   watch: {
+    // Отслеживание изменений результата транзакции
     txResult: {
-      handler: function() {
+      handler: function () {
         this.$emit("txResultData", this.txResult);
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
+    // Показать всплывающее уведомление
     showToast(target, msg, style = "success") {
-      //this.$event.preventDefault();
       this.notifyMsg = msg;
       this.toastStyle = style;
       const toast = new Toast(document.getElementById(target));
       toast.show();
     },
+    // Копировать текст в буфер обмена
     async copyText(text) {
       navigator.clipboard.writeText(text);
     },
+    // Подготовка формы отправки
     async sendTabPrepare() {
+      // Сбро�� результата предыдущей транзакции
       this.txResult = {
         response: null,
-        tx: null
+        tx: null,
       };
       this.txErr = 0;
       this.waitConfirmTx = true;
       this.txSendStep = 0;
       this.selectedNetwork = "mainnet";
+      // Инициализация данных для отправки
       this.forSend = {
         network: "mainnet",
         addressIsValid: false,
@@ -536,6 +884,7 @@ export default {
         memo: "",
       };
     },
+    // Валидация адреса получателя в зависимости от сети
     async validateAddress() {
       if (this.selectedNetwork === "mainnet") {
         this.forSend.memo = "";
@@ -543,6 +892,7 @@ export default {
           this.forSend.recipientId
         );
       }
+      // Валидация для BSC и Ethereum
       if (this.selectedNetwork === "bsc" || this.selectedNetwork === "eth") {
         this.forSend.addressIsValid =
           await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
@@ -551,7 +901,7 @@ export default {
             this.selectedNetwork + ":" + this.forSend.recipientId;
         }
       }
-
+      // Валидация для TON
       if (this.selectedNetwork === "ton") {
         this.forSend.addressIsValid =
           this.forSend.recipientId[0] === "U" ||
@@ -566,6 +916,7 @@ export default {
         }
       }
     },
+    // Добавление дополнительного memo для TON
     async addMemo2() {
       if (this.forSend.memo2) {
         this.forSend.memo =
@@ -576,14 +927,22 @@ export default {
           (this.forSend.memo2 || "");
       }
     },
+    // Отправка транзакции
     async txSend() {
+      // Установка комиссии для выбранной сети
       this.forSend.fee = this.networksTransfer[this.selectedNetwork].fee;
-      this.forSend.network = this.selectedNetwork; // net fix
+      this.forSend.network = this.selectedNetwork;
+
+      // Выполнение перевода через стор
       this.txResult = await storeWallet.txTransfer(this.forSend);
+
       if (this.txResult.response) {
+        // Проверка на ошибки в ответе
         this.txErr = this.txResult.response.invalid.length;
         this.txSendStep = 1;
         this.selectedNetwork = "mainnet";
+
+        // Сброс формы после отправки
         this.forSend = {
           network: "mainnet",
           addressIsValid: false,
@@ -591,9 +950,10 @@ export default {
           recipientId: "",
           amount: "",
           fee: 0.25,
-          memo: ""
+          memo: "",
         };
 
+        // Таймер подтверждения транзакции
         if (this.waitConfirmTx) {
           let tmConfirm = null;
           tmConfirm = setInterval(() => {
@@ -605,7 +965,7 @@ export default {
           }, 1000);
         }
 
-
+        // Обновление данных аккаунта после подтверждения
         setTimeout(async () => {
           this.waitConfirmTx = false;
           await this.accountUpdate();
@@ -615,9 +975,11 @@ export default {
         this.showToast("toast-transfer", "Tx Transfer success!", "success");
       }
     },
+    // Расшифровка приватного ключа
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
     },
+    // Обновление данных аккаунта
     async accountUpdate() {
       if (this.address) {
         await storeWallet.getAttributes(this.address);
@@ -625,18 +987,221 @@ export default {
       } else {
         console.log("accountUpdate err", this.address);
       }
-    }
-  }
+    },
+
+    // CSV обработка
+    async handleCsvUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        await this.parseCsvData(e.target.result);
+      };
+      reader.readAsText(file);
+    },
+
+    async calculateMultiPayFees(recipients) {
+      const txQue = Math.trunc(recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax платежей на разные адреса
+      const txPlus = (recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses) > 0 ? 1: 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
+      console.log(txQue, txPlus)
+      this.totalMultiPayFees = (txQue + txPlus);
+      return this.totalMultiPayFees;
+    },
+
+    async parseCsvData(csvText) {
+      this.csvErrors = [];
+      const lines = csvText.split("\n").filter((line) => line.trim());
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        const [address, amount] = line.split(",").map((item) => item.trim());
+
+        if (!address || !amount) {
+          this.csvErrors.push(
+            `Строка ${i + 1}: Неверный формат (ожидается: address,amount)`
+          );
+          continue;
+        }
+
+        const isValidAddress = await this.validateAddressAsync(address);
+        const numAmount = parseFloat(amount);
+
+        if (!isValidAddress) {
+          this.csvErrors.push(`Строка ${i + 1}: Неверный адрес ${address}`);
+          continue;
+        }
+
+        if (isNaN(numAmount) || numAmount <= 0) {
+          this.csvErrors.push(`Строка ${i + 1}: Неверная сумма ${amount}`);
+          continue;
+        }
+
+        if (address === this.address) {
+          this.csvErrors.push(
+            `Строка ${i + 1}: Нельзя отправить на свой адрес`
+          );
+          continue;
+        }
+
+        // Проверяем дубликаты
+        const exists = this.multiPayRecipients.find(
+          (r) => r.address === address
+        );
+        if (exists) {
+          this.csvErrors.push(`Строка ${i + 1}: Адрес ${address} уже добавлен`);
+          continue;
+        }
+
+        this.multiPayRecipients.push({
+          address: address,
+          amount: numAmount.toString(),
+        });
+      }
+
+      await this.calculateMultiPayFees(this.multiPayRecipients);
+
+      // Очищаем input
+      this.$refs.csvFileInput.value = "";
+    },
+
+    async validateAddressAsync(address) {
+      // Асинхронная валидация адреса для CSV в зависимости от выбранной сети
+      if (this.selectedNetwork === "mainnet") {
+        return await storeWallet.validateAddress(address);
+      } else {
+        return await storeWallet.validateAddressCrossChain(address);
+      }
+    },
+
+    // Ручное добавление получателя
+    async validateNewRecipientAddress() {
+      if (this.selectedNetwork === "mainnet") {
+        this.newRecipient.addressIsValid = await storeWallet.validateAddress(
+          this.newRecipient.address
+        );
+      } else {
+        this.newRecipient.addressIsValid =
+          await storeWallet.validateAddressCrossChain(
+            this.newRecipient.address
+          );
+      }
+    },
+
+    addRecipient() {
+      if (!this.newRecipient.addressIsValid || this.newRecipient.amount <= 0)
+        return;
+
+      // Проверяем дубликаты
+      const exists = this.multiPayRecipients.find(
+        (r) => r.address === this.newRecipient.address
+      );
+      if (exists) {
+        this.showToast(
+          "toast-transfer",
+          "Адрес уже добавлен в список",
+          "warning"
+        );
+        return;
+      }
+
+      this.multiPayRecipients.push({
+        address: this.newRecipient.address,
+        amount: this.newRecipient.amount,
+      });
+
+      this.calculateMultiPayFees(this.multiPayRecipients);
+
+      // Очищаем форму
+      this.newRecipient = {
+        address: "",
+        amount: "",
+        addressIsValid: false,
+      };
+    },
+
+    removeRecipient(index) {
+      this.multiPayRecipients.splice(index, 1);
+    },
+
+    clearMultiPayList() {
+      this.multiPayRecipients = [];
+      this.csvErrors = [];
+    },
+
+    downloadTemplate() {
+      const csvContent = "address,amount\nSTQnKW8JQ6cMKwLrcfdfMwhChyHUysccts,1.00000000\nSTBuvjHvKjKa2BkpKLxJvhztGAfvpbzeDr,2.50000000";
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "sth_multi_pay_template.csv";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+
+    // Выполнение мульти-платежей
+    async executeMultiPay() {
+      if (this.multiPayRecipients.length === 0) return;
+
+      this.multiPayResults = [];
+      this.txSendStep = 1;
+
+      const recipients = [];
+      for (let i = 0; i < this.multiPayRecipients.length; i++) {
+        recipients.push(this.multiPayRecipients[i]);
+      }
+
+      const transferPayload = {
+        sender: this.address,
+        txMax: 150,
+        fee: this.networksTransfer[this.selectedNetwork].multiPayFee,
+        network: this.selectedNetwork,
+        recipients: recipients,
+        memo: "",
+      };
+
+      const result = await storeWallet.txTransferMulti(transferPayload);
+
+      // Обновляем баланс после выполнения всех транзакций
+      setTimeout(async () => {
+        await this.accountUpdate();
+      }, 5000);
+
+      const successCount = this.multiPayResults.filter((r) => r.success).length;
+      this.showToast(
+        "toast-transfer",
+        `Выполнено ${successCount} из ${this.multiPayResults.length} транзакций`,
+        successCount === this.multiPayResults.length ? "success" : "warning"
+      );
+    },
+
+    resetMultiPay() {
+      this.multiPayRecipients = [];
+      this.multiPayResults = [];
+      this.csvErrors = [];
+      this.newRecipient = {
+        address: "",
+        amount: "",
+        addressIsValid: false,
+      };
+      this.txSendStep = 0;
+      this.selectedNetwork = "mainnet";
+    },
+
+    // ...existing code...
+  },
 };
 </script>
 
 <style scoped>
 .modal-transfer {
-  --bs-modal-width: 700px;
-
+  --bs-modal-width: 900px;
 }
 .ico-ton {
-  background-image:url('/images/ton.svg');
+  background-image: url("/images/ton.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
