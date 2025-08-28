@@ -2,6 +2,7 @@ v1.2.15
 - Fix decrypt/encrypt private keys
 - Update storage logic
 - Add multi payments transactions & ui
+- Init Telegram API
 
 v1.2.12
 - ADD TON Cross-Chain transfers for SmartHoldem STH

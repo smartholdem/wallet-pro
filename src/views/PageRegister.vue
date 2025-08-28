@@ -66,7 +66,6 @@ export default {
         <div class="mb-3">
           <label class="form-label" for="regPassword2">Confirm pin code <span class="text-danger">*</span></label>
           <input style="-webkit-text-security:disc;text-security:disc;" type="text"
-                 autofocus
                  inputmode="numeric"
                  pattern="[0-9]*"
                  enterkeyhint="done"
