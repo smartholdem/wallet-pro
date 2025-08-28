@@ -52,11 +52,27 @@ export default {
         <p class="text-inverse text-opacity-50 text-center">Set Wallet Pin Code</p>
         <div class="mb-3">
           <label class="form-label" for="regPassword1">Pin code <span class="text-danger">*</span></label>
-          <input style="-webkit-text-security:disc;text-security:disc;" type="text" id="regPassword1" autocomplete="off" v-model="pinOne" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <input style="-webkit-text-security:disc;text-security:disc;" type="text"
+                 autofocus
+                 inputmode="numeric"
+                 pattern="[0-9]*"
+                 maxlength="16"
+                 id="regPassword1"
+                 autocomplete="off"
+                 v-model="pinOne"
+                 @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)"
+                 class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
         <div class="mb-3">
           <label class="form-label" for="regPassword2">Confirm pin code <span class="text-danger">*</span></label>
-          <input style="-webkit-text-security:disc;text-security:disc;" type="text" id="regPassword2" autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
+          <input style="-webkit-text-security:disc;text-security:disc;" type="text"
+                 autofocus
+                 inputmode="numeric"
+                 pattern="[0-9]*"
+                 enterkeyhint="done"
+                 maxlength="16"
+                 id="regPassword2"
+                 autocomplete="off" v-model="pinTwo" @input="pinIsInValid = pinOne !== pinTwo || (pinOne.length < 4 || pinTwo.length < 4)" class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
 
         <div class="mb-3">

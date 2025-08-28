@@ -203,7 +203,7 @@
                 <!-- Recipients List -->
                 <div v-if="multiPayRecipients.length > 0" class="mb-3">
                   <label class="form-label"
-                    >List recipients ({{ multiPayRecipients.length }})</label
+                  >List recipients ({{ multiPayRecipients.length }})</label
                   >
                   <div
                     class="table-responsive"
@@ -211,79 +211,79 @@
                   >
                     <table class="table table-sm">
                       <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Address</th>
-                          <th>Amount</th>
-                          <th>Operation</th>
-                        </tr>
+                      <tr>
+                        <th>#</th>
+                        <th>Address</th>
+                        <th>Amount</th>
+                        <th>Operation</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(recipient, index) in multiPayRecipients"
-                          :key="index"
+                      <tr
+                        v-for="(recipient, index) in multiPayRecipients"
+                        :key="index"
+                      >
+                        <td>{{ index + 1 }}</td>
+                        <td
+                          class="text-truncate"
+                          style="max-width: 200px"
+                          :title="recipient.address"
                         >
-                          <td>{{ index + 1 }}</td>
-                          <td
-                            class="text-truncate"
-                            style="max-width: 200px"
-                            :title="recipient.address"
+                          {{ recipient.address.substring(0, 20) }}...{{
+                            recipient.address.substr(-10)
+                          }}
+                        </td>
+                        <td>
+                          {{ parseFloat(recipient.amount).toFixed(8) }} STH
+                        </td>
+                        <td>
+                          <button
+                            @click="removeRecipient(index)"
+                            type="button"
+                            class="btn btn-sm btn-outline-danger"
                           >
-                            {{ recipient.address.substring(0, 20) }}...{{
-                              recipient.address.substr(-10)
-                            }}
-                          </td>
-                          <td>
-                            {{ parseFloat(recipient.amount).toFixed(8) }} STH
-                          </td>
-                          <td>
-                            <button
-                              @click="removeRecipient(index)"
-                              type="button"
-                              class="btn btn-sm btn-outline-danger"
-                            >
-                              ×
-                            </button>
-                          </td>
-                        </tr>
+                            ×
+                          </button>
+                        </td>
+                      </tr>
                       </tbody>
                       <tfoot>
-                        <tr class="table-info">
-                          <td colspan="2"><strong>Итого:</strong></td>
-                          <td>
-                            <strong>{{ totalAmount.toFixed(8) }} STH</strong>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr class="table-warning">
-                          <td colspan="2"><strong>Комиссия:</strong></td>
-                          <td>
-                            <strong
-                              >{{
-                                networksTransfer[
-                                  selectedNetwork
+                      <tr class="table-info">
+                        <td colspan="2"><strong>Итого:</strong></td>
+                        <td>
+                          <strong>{{ totalAmount.toFixed(8) }} STH</strong>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr class="table-warning">
+                        <td colspan="2"><strong>Комиссия:</strong></td>
+                        <td>
+                          <strong
+                          >{{
+                              networksTransfer[
+                                selectedNetwork
                                 ].multiPayFee.toFixed(8)
-                              }}
-                              STH</strong
-                            >
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr class="table-success">
-                          <td colspan="2"><strong>Общая сумма:</strong></td>
-                          <td>
-                            <strong
-                              >{{
-                                (
-                                  totalAmount +
-                                  totalMultiPayFees
-                                ).toFixed(8)
-                              }}
-                              STH</strong
-                            >
-                          </td>
-                          <td></td>
-                        </tr>
+                            }}
+                            STH</strong
+                          >
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr class="table-success">
+                        <td colspan="2"><strong>Общая сумма:</strong></td>
+                        <td>
+                          <strong
+                          >{{
+                              (
+                                totalAmount +
+                                totalMultiPayFees
+                              ).toFixed(8)
+                            }}
+                            STH</strong
+                          >
+                        </td>
+                        <td></td>
+                      </tr>
                       </tfoot>
                     </table>
                   </div>
@@ -295,7 +295,7 @@
                     <label
                       class="form-label px-4"
                       :class="'ico-' + selectedNetwork"
-                      >Network</label
+                    >Network</label
                     >
                     <select
                       v-model="selectedNetwork"
@@ -339,34 +339,34 @@
                   <div class="table-responsive" style="max-height: 400px; overflow-y: auto">
                     <table class="table table-sm">
                       <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Tx ID</th>
-                          <th>Payments in tx</th>
-                          <th>Status</th>
-                          <th>Error</th>
-                        </tr>
+                      <tr>
+                        <th>#</th>
+                        <th>Tx ID</th>
+                        <th>Payments in tx</th>
+                        <th>Status</th>
+                        <th>Error</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(r, idx) in multiPayResults" :key="r.txId || idx">
-                          <td>{{ idx + 1 }}</td>
-                          <td class="text-truncate" style="max-width: 220px">
+                      <tr v-for="(r, idx) in multiPayResults" :key="r.txId || idx">
+                        <td>{{ idx + 1 }}</td>
+                        <td class="text-truncate" style="max-width: 220px">
                             <span v-if="r.txId" class="text-primary">
                               {{ r.txId.substring(0, 12) }}...{{ r.txId.substr(-12) }}
                             </span>
-                            <span v-else class="text-muted">no id</span>
-                          </td>
-                          <td>{{ r.paymentsCount ?? '-' }}</td>
-                          <td>
+                          <span v-else class="text-muted">no id</span>
+                        </td>
+                        <td>{{ r.paymentsCount ?? "-" }}</td>
+                        <td>
                             <span class="badge" :class="r.success ? 'bg-success' : 'bg-danger'">
-                              {{ r.success ? 'Success' : 'Error' }}
+                              {{ r.success ? "Success" : "Error" }}
                             </span>
-                          </td>
-                          <td>
-                            <span class="text-danger" v-if="r.error">{{ r.error }}</span>
-                            <span class="text-muted" v-else>-</span>
-                          </td>
-                        </tr>
+                        </td>
+                        <td>
+                          <span class="text-danger" v-if="r.error">{{ r.error }}</span>
+                          <span class="text-muted" v-else>-</span>
+                        </td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
@@ -407,7 +407,7 @@
                   <div class="col-md-10">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendRecipient"
-                        >Recipient <i class="fa fa-address-book hover-info"></i
+                      >Recipient <i class="fa fa-address-book hover-info"></i
                       ></label>
                       <input
                         v-model="forSend.recipientId"
@@ -499,7 +499,7 @@
                         class="form-label px-4"
                         :class="'ico-' + selectedNetwork"
                         for="sendNetwork"
-                        >Network</label
+                      >Network</label
                       >
                       <select
                         v-model="selectedNetwork"
@@ -552,69 +552,69 @@
                 <div class="mb-3">
                   <table class="table">
                     <tbody>
-                      <tr>
-                        <td v-if="txErr === 0">Success txId</td>
-                        <td v-if="txErr > 0" class="text-danger">Error txId</td>
-                        <td>
-                          <!-- безопасный вывод txId одиночной транзакции -->
-                          <span
-                            class="text-primary"
-                            v-if="txResult && txResult.tx && txResult.tx.id"
-                          >
+                    <tr>
+                      <td v-if="txErr === 0">Success txId</td>
+                      <td v-if="txErr > 0" class="text-danger">Error txId</td>
+                      <td>
+                        <!-- безопасный вывод txId одиночной транзакции -->
+                        <span
+                          class="text-primary"
+                          v-if="txResult && txResult.tx && txResult.tx.id"
+                        >
                             {{ txResult.tx.id.substring(0, 10) }}..{{
-                              txResult.tx.id.substr(-10)
-                            }}
+                            txResult.tx.id.substr(-10)
+                          }}
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Amount</td>
-                        <td>
-                          <!-- защита от null -->
-                          <span v-if="txResult && txResult.tx">
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Amount</td>
+                      <td>
+                        <!-- защита от null -->
+                        <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.amount / 1e8).toFixed(8) }} STH
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Fee</td>
-                        <td>
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Fee</td>
+                      <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.fee / 1e8).toFixed(8) }} STH
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Recipient</td>
-                        <td>
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Recipient</td>
+                      <td>
                           <span v-if="txResult && txResult.tx && txResult.tx.recipientId">
                             {{ txResult.tx.recipientId.substring(0, 10) }}..{{
                               txResult.tx.recipientId.substr(-10)
                             }}
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr v-if="txResult && txResult.tx && txResult.tx.vendorField">
-                        <td>Memo</td>
-                        <td>{{ txResult.tx.vendorField }}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Network&nbsp;<i
-                            class="px-3 py-1"
-                            :class="'ico-' + (txResult?.network || selectedNetwork)"
-                          ></i>
-                        </td>
-                        <td>
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr v-if="txResult && txResult.tx && txResult.tx.vendorField">
+                      <td>Memo</td>
+                      <td>{{ txResult.tx.vendorField }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Network&nbsp;<i
+                        class="px-3 py-1"
+                        :class="'ico-' + (txResult?.network || selectedNetwork)"
+                      ></i>
+                      </td>
+                      <td>
                           <span class="text-uppercase text-info">{{
-                            (txResult?.network || selectedNetwork)
-                          }}</span>
-                        </td>
-                      </tr>
+                              (txResult?.network || selectedNetwork)
+                            }}</span>
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -626,15 +626,16 @@
                     class="btn btn-sm"
                     :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
                   >
-                    CONTINUE</button
+                    CONTINUE
+                  </button
                   >&nbsp;<span
-                    v-show="
+                  v-show="
                       waitConfirmTx &&
                       timerConfirmation > 0 &&
                       timerConfirmation < 8
                     "
-                    >Please wait confirmation.. {{ timerConfirmation }}</span
-                  >
+                >Please wait confirmation.. {{ timerConfirmation }}</span
+                >
                 </p>
               </div>
             </div>
@@ -724,6 +725,7 @@
 import QrcodeVue from "qrcode.vue";
 import { storeToRefs } from "pinia";
 import { useAppOptionStore } from "@/stores/app-option.ts";
+
 const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet.ts";
 import { Identities } from "@smartholdem/crypto";
@@ -740,10 +742,10 @@ export default {
     QrcodeVue,
     ModalVote,
     ModalDelegateReg,
-    ModalSignMessage,
+    ModalSignMessage
   },
   props: {
-    address: String,
+    address: String
   },
   data() {
     return {
@@ -759,32 +761,32 @@ export default {
           fee: 0.25,
           multiPayFee: 1,
           multiPayMaxAddresses: 150,
-          minAmount: 0.00001,
+          minAmount: 0.00001
         },
         bsc: {
           fee: 25,
-          minAmount: 100,
+          minAmount: 100
         },
         ton: {
           fee: 25,
-          minAmount: 100,
+          minAmount: 100
         },
         eth: {
           fee: 200,
-          minAmount: 100,
-        },
+          minAmount: 100
+        }
       },
       // Данные для инвойса
       invoice: {
         amount: "",
-        memo: "",
+        memo: ""
       },
       isMobile: appOption.isMobile,
       txSendStep: 0,
       // Результат транзакции
       txResult: {
         response: null,
-        tx: null,
+        tx: null
       },
       // Данные для отправки
       forSend: {
@@ -795,7 +797,7 @@ export default {
         amount: "",
         fee: 0.25,
         memo: "",
-        memo2: "",
+        memo2: ""
       },
       selectedNetwork: "mainnet",
       txErr: 0,
@@ -805,11 +807,11 @@ export default {
         address: "",
         amount: "",
         addressIsValid: false,
-        fee: 1,
+        fee: 1
       },
       csvErrors: [],
       multiPayResults: [],
-      totalMultiPayFees: 1,
+      totalMultiPayFees: 1
     };
   },
   computed: {
@@ -834,16 +836,16 @@ export default {
         (sum, recipient) => sum + parseFloat(recipient.amount || 0),
         0
       );
-    },
+    }
   },
   watch: {
     // Отслеживание изменений результата транзакции
     txResult: {
-      handler: function () {
+      handler: function() {
         this.$emit("txResultData", this.txResult);
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   methods: {
     // Показать всплывающее уведомление
@@ -862,7 +864,7 @@ export default {
       // Сброс результата предыдущей транзакции
       this.txResult = {
         response: null,
-        tx: null,
+        tx: null
       };
       this.txErr = 0;
       this.waitConfirmTx = true;
@@ -876,7 +878,7 @@ export default {
         recipientId: "",
         amount: "",
         fee: 0.25,
-        memo: "",
+        memo: ""
       };
     },
     // Валидация адреса получателя в зависимости от сети
@@ -945,7 +947,7 @@ export default {
           recipientId: "",
           amount: "",
           fee: 0.25,
-          memo: "",
+          memo: ""
         };
 
         // Таймер подтверждения транзакции
@@ -998,8 +1000,8 @@ export default {
 
     async calculateMultiPayFees(recipients) {
       const txQue = Math.trunc(recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax платежей на разные адреса
-      const txPlus = (recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses) > 0 ? 1: 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
-      console.log(txQue, txPlus)
+      const txPlus = (recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses) > 0 ? 1 : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
+      console.log(txQue, txPlus);
       this.totalMultiPayFees = (txQue + txPlus);
       return this.totalMultiPayFees;
     },
@@ -1052,7 +1054,7 @@ export default {
 
         this.multiPayRecipients.push({
           address: address,
-          amount: numAmount.toString(),
+          amount: numAmount.toString()
         });
       }
 
@@ -1104,7 +1106,7 @@ export default {
 
       this.multiPayRecipients.push({
         address: this.newRecipient.address,
-        amount: this.newRecipient.amount,
+        amount: this.newRecipient.amount
       });
 
       this.calculateMultiPayFees(this.multiPayRecipients);
@@ -1113,7 +1115,7 @@ export default {
       this.newRecipient = {
         address: "",
         amount: "",
-        addressIsValid: false,
+        addressIsValid: false
       };
     },
 
@@ -1246,14 +1248,14 @@ export default {
       this.newRecipient = {
         address: "",
         amount: "",
-        addressIsValid: false,
+        addressIsValid: false
       };
       this.txSendStep = 0;
       this.selectedNetwork = "mainnet";
-    },
+    }
 
     // ...existing code...
-  },
+  }
 };
 </script>
 
@@ -1261,6 +1263,7 @@ export default {
 .modal-transfer {
   --bs-modal-width: 900px;
 }
+
 .ico-ton {
   background-image: url("/images/ton.svg");
   background-position: 0 2px;

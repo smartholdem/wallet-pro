@@ -85,8 +85,16 @@ export default {
             <label class="form-label" for="loginPassword">Pin code <span class="text-danger">*</span></label>
             <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">Reset all data?</a>
           </div>
-          <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;" autofocus type="text"
-                 autocomplete="off" v-model="password" @input="pinValidator"
+          <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;"
+                 autofocus
+                 type="text"
+                 autocomplete="off"
+                 v-model="password"
+                 @input="pinValidator"
+                 inputmode="numeric"
+                 pattern="[0-9]*"
+                 enterkeyhint="login"
+                 maxlength="16"
                  class="form-control form-control-lg bg-white bg-opacity-5" :class="pinIsValid ? 'is-valid' : ''" placeholder="" />
         </div>
         <!--
