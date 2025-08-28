@@ -333,62 +333,38 @@
               </div>
 
               <!-- Transaction Results -->
-              <div
-                v-if="txSendStep === 1"
-                class="overflow-hidden overflow-x-auto"
-              >
+              <div v-if="txSendStep === 1" class="overflow-hidden overflow-x-auto">
                 <div class="mb-3">
-                  <h6>
-                    Результаты выполнения
-                    {{ multiPayResults.length }} транзакций:
-                  </h6>
-                  <div
-                    class="table-responsive"
-                    style="max-height: 400px; overflow-y: auto"
-                  >
+                  <h6>Transaction results ({{ multiPayResults.length }}):</h6>
+                  <div class="table-responsive" style="max-height: 400px; overflow-y: auto">
                     <table class="table table-sm">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Recipient</th>
-                          <th>Amount</th>
+                          <th>Tx ID</th>
+                          <th>Payments in tx</th>
                           <th>Status</th>
-                          <th>Transaction ID</th>
+                          <th>Error</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(result, index) in multiPayResults"
-                          :key="index"
-                        >
-                          <td>{{ index + 1 }}</td>
-                          <td class="text-truncate" style="max-width: 150px">
-                            {{ result.recipient.substring(0, 15) }}...{{
-                              result.recipient.substr(-10)
-                            }}
+                        <tr v-for="(r, idx) in multiPayResults" :key="r.txId || idx">
+                          <td>{{ idx + 1 }}</td>
+                          <td class="text-truncate" style="max-width: 220px">
+                            <span v-if="r.txId" class="text-primary">
+                              {{ r.txId.substring(0, 12) }}...{{ r.txId.substr(-12) }}
+                            </span>
+                            <span v-else class="text-muted">no id</span>
                           </td>
+                          <td>{{ r.paymentsCount ?? '-' }}</td>
                           <td>
-                            {{ parseFloat(result.amount).toFixed(8) }} STH
-                          </td>
-                          <td>
-                            <span
-                              class="badge"
-                              :class="
-                                result.success ? 'bg-success' : 'bg-danger'
-                              "
-                            >
-                              {{ result.success ? "Success" : "Error" }}
+                            <span class="badge" :class="r.success ? 'bg-success' : 'bg-danger'">
+                              {{ r.success ? 'Success' : 'Error' }}
                             </span>
                           </td>
-                          <td class="text-truncate" style="max-width: 150px">
-                            <span v-if="result.txId" class="text-primary">
-                              {{ result.txId.substring(0, 10) }}...{{
-                                result.txId.substr(-10)
-                              }}
-                            </span>
-                            <span v-else class="text-danger">{{
-                              result.error
-                            }}</span>
+                          <td>
+                            <span class="text-danger" v-if="r.error">{{ r.error }}</span>
+                            <span class="text-muted" v-else>-</span>
                           </td>
                         </tr>
                       </tbody>
@@ -580,30 +556,49 @@
                         <td v-if="txErr === 0">Success txId</td>
                         <td v-if="txErr > 0" class="text-danger">Error txId</td>
                         <td>
-                          <span class="text-primary"
-                            >{{ txResult.tx.id.substring(0, 10) }}..{{
-                              txResult.tx.id.substr(-10)
-                            }}</span
+                          <!-- безопасный вывод txId одиночной транзакции -->
+                          <span
+                            class="text-primary"
+                            v-if="txResult && txResult.tx && txResult.tx.id"
                           >
+                            {{ txResult.tx.id.substring(0, 10) }}..{{
+                              txResult.tx.id.substr(-10)
+                            }}
+                          </span>
+                          <span v-else class="text-muted">-</span>
                         </td>
                       </tr>
                       <tr>
                         <td>Amount</td>
-                        <td>{{ (txResult.tx.amount / 1e8).toFixed(8) }} STH</td>
+                        <td>
+                          <!-- защита от null -->
+                          <span v-if="txResult && txResult.tx">
+                            {{ (txResult.tx.amount / 1e8).toFixed(8) }} STH
+                          </span>
+                          <span v-else class="text-muted">-</span>
+                        </td>
                       </tr>
                       <tr>
                         <td>Fee</td>
-                        <td>{{ (txResult.tx.fee / 1e8).toFixed(8) }} STH</td>
+                        <td>
+                          <span v-if="txResult && txResult.tx">
+                            {{ (txResult.tx.fee / 1e8).toFixed(8) }} STH
+                          </span>
+                          <span v-else class="text-muted">-</span>
+                        </td>
                       </tr>
                       <tr>
                         <td>Recipient</td>
                         <td>
-                          {{ txResult.tx.recipientId.substring(0, 10) }}..{{
-                            txResult.tx.recipientId.substr(-10)
-                          }}
+                          <span v-if="txResult && txResult.tx && txResult.tx.recipientId">
+                            {{ txResult.tx.recipientId.substring(0, 10) }}..{{
+                              txResult.tx.recipientId.substr(-10)
+                            }}
+                          </span>
+                          <span v-else class="text-muted">-</span>
                         </td>
                       </tr>
-                      <tr v-if="txResult.tx.vendorField">
+                      <tr v-if="txResult && txResult.tx && txResult.tx.vendorField">
                         <td>Memo</td>
                         <td>{{ txResult.tx.vendorField }}</td>
                       </tr>
@@ -611,12 +606,12 @@
                         <td>
                           Network&nbsp;<i
                             class="px-3 py-1"
-                            :class="'ico-' + txResult.network"
+                            :class="'ico-' + (txResult?.network || selectedNetwork)"
                           ></i>
                         </td>
                         <td>
                           <span class="text-uppercase text-info">{{
-                            txResult.network
+                            (txResult?.network || selectedNetwork)
                           }}</span>
                         </td>
                       </tr>
@@ -830,7 +825,7 @@ export default {
       const balance = Number(attrs?.balance ?? 0);
       return balance / 1e8; // Конвертируем из сатоши в STH
     },
-    // Текущий адрес кошелька
+    // Текущий адр��с кошелька
     currentAddress() {
       return storeWallet.attributes[this.address];
     },
@@ -873,7 +868,7 @@ export default {
       this.waitConfirmTx = true;
       this.txSendStep = 0;
       this.selectedNetwork = "mainnet";
-      // Инициализация данных для отправки
+      // Ини��иализация данных для отправки
       this.forSend = {
         network: "mainnet",
         addressIsValid: false,
@@ -975,7 +970,7 @@ export default {
         this.showToast("toast-transfer", "Tx Transfer success!", "success");
       }
     },
-    // Расшифровка приватного ключа
+    // Расшифров��а приватного ключа
     async decryptSecret() {
       this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
     },
@@ -1124,6 +1119,8 @@ export default {
 
     removeRecipient(index) {
       this.multiPayRecipients.splice(index, 1);
+      // пересчитать комиссии multipay после удаления
+      this.calculateMultiPayFees(this.multiPayRecipients);
     },
 
     clearMultiPayList() {
@@ -1149,6 +1146,7 @@ export default {
       this.multiPayResults = [];
       this.txSendStep = 1;
 
+      // Подготовка пакета получателей
       const recipients = [];
       for (let i = 0; i < this.multiPayRecipients.length; i++) {
         recipients.push(this.multiPayRecipients[i]);
@@ -1156,26 +1154,89 @@ export default {
 
       const transferPayload = {
         sender: this.address,
-        txMax: 150,
+        txMax: 150, // максимум платежей в одной multipayment-транзакции
         fee: this.networksTransfer[this.selectedNetwork].multiPayFee,
         network: this.selectedNetwork,
-        recipients: recipients,
-        memo: "",
+        recipients,
+        memo: "" // можно поставить пометку, например "airdrop"
       };
 
+      // Выполняем мультиплатежи
       const result = await storeWallet.txTransferMulti(transferPayload);
 
-      // Обновляем баланс после выполнения всех транзакций
+      // Разбор резу��ьтата и подготовка данных для UI
+      // result.tx — массив сформированных multipayment-транзакций
+      // result.response — ответ API с данными accept/broadcast/invalid/errors
+      const txList = Array.isArray(result?.tx) ? result.tx : (result?.tx ? [result.tx] : []);
+      const resp = result?.response || {};
+      const accepted = Array.isArray(resp.accept) ? resp.accept : [];
+      const invalidArr = Array.isArray(resp.invalid) ? resp.invalid : [];
+      const errorsMap = resp.errors || {}; // объект ошибок по txId, если есть
+
+      // Строим список результатов по каждой транзакции
+      this.multiPayResults = txList.map((tx) => {
+        // безопасно получаем id транзакции
+        const txId = tx?.id || tx?.data?.id || null;
+        // количество платежей в данной транзакции
+        const paymentsCount = tx?.asset?.payments?.length ?? null;
+        const success = !!(txId && accepted.includes(txId));
+        // Получаем текст ошибки, если есть
+        let errorText = "";
+        if (!success && txId && errorsMap[txId]) {
+          // errorsMap[txId] может быть строкой/объектом/массивом
+          const err = errorsMap[txId];
+          if (typeof err === "string") errorText = err;
+          else if (err?.message) errorText = err.message;
+          else errorText = JSON.stringify(err);
+        } else if (!success && txId && invalidArr.includes(txId)) {
+          errorText = "Rejected by node";
+        } else if (!success && !txId) {
+          errorText = "Unknown error";
+        }
+        return { txId, paymentsCount, success, error: errorText || null };
+      });
+
+      // Подсчёт успешных транзакций и суммарно обработанных платежей
+      const totalTx = this.multiPayResults.length;
+      const successTxs = this.multiPayResults.filter((r) => r.success);
+      const successCount = successTxs.length;
+      const processedPayments = successTxs.reduce(
+        (sum, r) => sum + (r.paymentsCount || 0),
+        0
+      );
+
+      // Показать тост с дета��ями успеха:
+      // - если одна успешна�� транзакция — выводим её txId и число платежей
+      // - если несколько — суммарная статистика
+      if (successCount > 0) {
+        if (successCount === 1 && successTxs[0].txId) {
+          const id = successTxs[0].txId;
+          this.showToast(
+            "toast-transfer",
+            // комментарий: показываем короткий txId и число платежей
+            `Multipay success: txId ${id.substring(0, 10)}..${id.substr(-10)}, payments ${successTxs[0].paymentsCount}`,
+            "success"
+          );
+        } else {
+          this.showToast(
+            "toast-transfer",
+            `Multipay success: ${successCount}/${totalTx} tx, payments ${processedPayments}`,
+            "success"
+          );
+        }
+      } else {
+        // Неуспех — показываем ошибочный тост
+        this.showToast(
+          "toast-transfer",
+          "Multipay failed: 0 accepted",
+          "danger"
+        );
+      }
+
+      // Обновляем данные аккаунта спустя небольшую паузу
       setTimeout(async () => {
         await this.accountUpdate();
       }, 5000);
-
-      const successCount = this.multiPayResults.filter((r) => r.success).length;
-      this.showToast(
-        "toast-transfer",
-        `Выполнено ${successCount} из ${this.multiPayResults.length} транзакций`,
-        successCount === this.multiPayResults.length ? "success" : "warning"
-      );
     },
 
     resetMultiPay() {
