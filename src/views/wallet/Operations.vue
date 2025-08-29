@@ -249,14 +249,14 @@
                       </tbody>
                       <tfoot>
                       <tr class="table-info">
-                        <td colspan="2"><strong>Итого:</strong></td>
+                        <td colspan="2"><strong>Total:</strong></td>
                         <td>
                           <strong>{{ totalAmount.toFixed(8) }} STH</strong>
                         </td>
                         <td></td>
                       </tr>
                       <tr class="table-warning">
-                        <td colspan="2"><strong>Комиссия:</strong></td>
+                        <td colspan="2"><strong>Fees:</strong></td>
                         <td>
                           <strong
                           >{{
@@ -270,7 +270,7 @@
                         <td></td>
                       </tr>
                       <tr class="table-success">
-                        <td colspan="2"><strong>Общая сумма:</strong></td>
+                        <td colspan="2"><strong>Total amount:</strong></td>
                         <td>
                           <strong
                           >{{
@@ -325,7 +325,7 @@
 
                 <!-- Error Messages -->
                 <div v-if="csvErrors.length > 0" class="alert alert-warning">
-                  <strong>Ошибки в CSV:</strong>
+                  <strong>Errors in CSV:</strong>
                   <ul class="mb-0">
                     <li v-for="error in csvErrors" :key="error">{{ error }}</li>
                   </ul>
@@ -378,7 +378,7 @@
                     type="button"
                     class="btn btn-sm btn-primary"
                   >
-                    Закрыть
+                    Close
                   </button>
                 </p>
               </div>
@@ -1018,7 +1018,7 @@ export default {
 
         if (!address || !amount) {
           this.csvErrors.push(
-            `Строка ${i + 1}: Неверный формат (ожидается: address,amount)`
+            `Line ${i + 1}: Invalid format (expected: address,amount)`
           );
           continue;
         }
@@ -1027,18 +1027,18 @@ export default {
         const numAmount = parseFloat(amount);
 
         if (!isValidAddress) {
-          this.csvErrors.push(`Строка ${i + 1}: Неверный адрес ${address}`);
+          this.csvErrors.push(`Line ${i + 1}: Invalid address ${address}`);
           continue;
         }
 
         if (isNaN(numAmount) || numAmount <= 0) {
-          this.csvErrors.push(`Строка ${i + 1}: Неверная сумма ${amount}`);
+          this.csvErrors.push(`Line ${i + 1}: Invalid amount ${amount}`);
           continue;
         }
 
         if (address === this.address) {
           this.csvErrors.push(
-            `Строка ${i + 1}: Нельзя отправить на свой адрес`
+            `Line ${i + 1}: Cannot send to your address`
           );
           continue;
         }
@@ -1048,7 +1048,7 @@ export default {
           (r) => r.address === address
         );
         if (exists) {
-          this.csvErrors.push(`Строка ${i + 1}: Адрес ${address} уже добавлен`);
+          this.csvErrors.push(`Line ${i + 1}: Address ${address} already added`);
           continue;
         }
 
