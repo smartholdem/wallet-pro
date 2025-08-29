@@ -1001,7 +1001,6 @@ export default {
     async calculateMultiPayFees(recipients) {
       const txQue = Math.trunc(recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax платежей на разные адреса
       const txPlus = (recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses) > 0 ? 1 : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
-      console.log(txQue, txPlus);
       this.totalMultiPayFees = (txQue + txPlus);
       return this.totalMultiPayFees;
     },

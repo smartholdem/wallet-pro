@@ -218,8 +218,6 @@ export const useStoreWallet = defineStore("walletStorage", {
     
     // отправка мультиплатежей с smartholdem blockchain api txType = 6
     async txTransferMulti(payload: TxTransferPayload) {
-      console.log(payload);
-
       const paymentsCountAll = payload.recipients.length
       const txMax = payload.txMax || 150; // число мультиплатежей в одной multipayment транзакции, если > 150 разбить на несколько транзакций, default = 150
       const txPlus = paymentsCountAll % txMax; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
@@ -279,7 +277,6 @@ export const useStoreWallet = defineStore("walletStorage", {
         broadcastResponse = await client
           .api("transactions")
           .create({ transactions: allPayments });
-        console.log(broadcastResponse.body.data);
       }
 
       return broadcastResponse.body.data
@@ -396,7 +393,10 @@ export const useStoreWallet = defineStore("walletStorage", {
       }
       const settings = useStoreSettings();
       const hash = CryptoJS.SHA384(settings.tmpPin).toString();
-      const accountBytes = CryptoJS.AES.decrypt(secret.toString(), settings.tmpPin + hash);
+      const accountBytes = CryptoJS.AES.decrypt(
+        secret.toString(),
+        settings.tmpPin + hash
+      );
       return accountBytes.toString(CryptoJS.enc.Utf8);
     },
 
