@@ -10,8 +10,8 @@ const appVariable = useAppVariableStore();
 const emitter = useEmitter();
 
 var modeList = [
- { name: 'Dark', img: '/assets/img/mode/dark.jpg', value: 'dark' },
- { name: 'Light', img: '/assets/img/mode/light.jpg', value: 'light' },
+ { name: 'Dark', img: 'assets/img/mode/dark.jpg', value: 'dark' },
+ { name: 'Light', img: 'assets/img/mode/light.jpg', value: 'light' },
 ];
 
 var themeList = [
@@ -30,15 +30,15 @@ var themeList = [
 ];
 
 var coverList = [
-	{ name: 'Default', coverThumbImage: '/assets/img/cover/cover-thumb-1.jpg', coverClass: 'bg-cover-1'},
-	{ name: 'Cover 2', coverThumbImage: '/assets/img/cover/cover-thumb-2.jpg', coverClass: 'bg-cover-2'},
-	{ name: 'Cover 3', coverThumbImage: '/assets/img/cover/cover-thumb-3.jpg', coverClass: 'bg-cover-3'},
-	{ name: 'Cover 4', coverThumbImage: '/assets/img/cover/cover-thumb-4.jpg', coverClass: 'bg-cover-4'},
-	{ name: 'Cover 5', coverThumbImage: '/assets/img/cover/cover-thumb-5.jpg', coverClass: 'bg-cover-5'},
-	{ name: 'Cover 6', coverThumbImage: '/assets/img/cover/cover-thumb-6.jpg', coverClass: 'bg-cover-6'},
-	{ name: 'Cover 7', coverThumbImage: '/assets/img/cover/cover-thumb-7.jpg', coverClass: 'bg-cover-7'},
-	{ name: 'Cover 8', coverThumbImage: '/assets/img/cover/cover-thumb-8.jpg', coverClass: 'bg-cover-8'},
-	{ name: 'Cover 9', coverThumbImage: '/assets/img/cover/cover-thumb-9.jpg', coverClass: 'bg-cover-9'}
+	{ name: 'Default', coverThumbImage: 'assets/img/cover/cover-thumb-1.jpg', coverClass: 'bg-cover-1'},
+	{ name: 'Cover 2', coverThumbImage: 'assets/img/cover/cover-thumb-2.jpg', coverClass: 'bg-cover-2'},
+	{ name: 'Cover 3', coverThumbImage: 'assets/img/cover/cover-thumb-3.jpg', coverClass: 'bg-cover-3'},
+	{ name: 'Cover 4', coverThumbImage: 'assets/img/cover/cover-thumb-4.jpg', coverClass: 'bg-cover-4'},
+	{ name: 'Cover 5', coverThumbImage: 'assets/img/cover/cover-thumb-5.jpg', coverClass: 'bg-cover-5'},
+	{ name: 'Cover 6', coverThumbImage: 'assets/img/cover/cover-thumb-6.jpg', coverClass: 'bg-cover-6'},
+	{ name: 'Cover 7', coverThumbImage: 'assets/img/cover/cover-thumb-7.jpg', coverClass: 'bg-cover-7'},
+	{ name: 'Cover 8', coverThumbImage: 'assets/img/cover/cover-thumb-8.jpg', coverClass: 'bg-cover-8'},
+	{ name: 'Cover 9', coverThumbImage: 'assets/img/cover/cover-thumb-9.jpg', coverClass: 'bg-cover-9'}
 ]
 
 function appThemePanelToggled(event) {
