@@ -17,5 +17,14 @@ module.exports = {
       files: ["cypress/integration/**.spec.{js,ts,jsx,tsx}"],
       extends: ["plugin:cypress/recommended"],
     },
+    {
+      files: ["electron/**/*.js"],
+      env: { node: true, es2021: true },
+      parserOptions: { sourceType: "script" },
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+      },
+    },
   ],
 };
