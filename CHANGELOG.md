@@ -1,3 +1,8 @@
+v1.2.16
+- Add desktop app (Electron)
+- Fix bugs
+- Update dependencies
+
 v1.2.15
 - Fix decrypt/encrypt private keys
 - Update storage logic
