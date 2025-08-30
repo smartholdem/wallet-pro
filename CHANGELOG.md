@@ -2,6 +2,8 @@ v1.2.16
 - Add desktop app (Electron)
 - Fix bugs
 - Update dependencies
+- Add 24 words support BIP39 
+- Update theme thumbs
 
 v1.2.15
 - Fix decrypt/encrypt private keys

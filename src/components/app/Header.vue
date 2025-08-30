@@ -236,12 +236,11 @@ function fullScreen() {
 -->
      <!--  -->
       <div class="menu-item">
-        <a href="#" v-on:click="walletLock" class="menu-link">
-
+        <div v-on:click="walletLock" class="menu-link">
           <div class="menu-icon">
             <span class=""> <i class="fas fa-lock text-success-emphasis"></i></span>
           </div>
-        </a>
+        </div>
       </div>
 		</div>
 		<!-- END menu -->

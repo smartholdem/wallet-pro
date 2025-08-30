@@ -1,6 +1,8 @@
 {
   "name": "smartholdem-wallet-pro",
   "version": "1.2.16",
+  "description": "SmartHoldem Wallet Pro — десктопный кошелёк (Electron) для сети SmartHoldem с кросс-чейном и расширенными функциями.",
+  "author": "SmartHoldem Team",
   "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
@@ -13,7 +15,9 @@
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "electron:dev": "concurrently -k \"vite --port 5173\" \"wait-on http://127.0.0.1:5173 && electron .\"",
-    "electron:build": "vite build && electron-builder -w"
+    "electron:build": "vite build && electron-builder -w",
+    "electron:build:linux": "vite build && electron-builder -l",
+    "electron:build:mac": "vite build && electron-builder -m"
   },
   "dependencies": {
     "@caohenghu/vue-colorpicker": "^1.2.4",
@@ -115,7 +119,7 @@
     "wait-on": "^7.2.0"
   },
   "build": {
-    "appId": "io.smartholdem.wallet",
+    "appId": "com.smartholdem.walletpro",
     "productName": "SmartHoldem Wallet Pro",
     "directories": {
       "output": "release",
@@ -137,6 +141,20 @@
         }
       ],
       "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "snap"],
+      "category": "Finance",
+      "icon": "build/icons"
+    },
+    "snap": {
+      "grade": "stable",
+      "confinement": "strict"
+    },
+    "mac": {
+      "target": ["dmg", "zip"],
+      "category": "public.app-category.finance",
+      "icon": "build/icon.icns"
     },
     "extraMetadata": {
       "main": "electron/main.js"

@@ -12,7 +12,7 @@
     <div class="col-xl-5 mb-3">
       <card class="h-100" v-if="nodeConfig">
         <card-header class="card-header fw-bold small text-uppercase">Static Fees</card-header>
-        <card-body>
+        <card-body class="overflow-hidden">
           <table class="table table-striped">
             <thead>
             <tr>
@@ -26,7 +26,7 @@
                 Transfer
               </td>
               <td>
-                {{ (nodeConfig.constants.fees.staticFees.transfer / 1e8).toFixed(0) }}
+                0.25 - {{ (nodeConfig.constants.fees.staticFees.transfer / 1e8).toFixed(2) }}
               </td>
             </tr>
             <tr>
@@ -232,7 +232,7 @@
     <div class="col-xl-7 mb-3">
       <card class="h-100" v-if="nodeConfig && blockchain">
         <card-header class="card-header fw-bold small text-uppercase">Blockchain</card-header>
-        <card-body>
+        <card-body class="overflow-hidden">
           <table class="table table-striped">
             <thead>
             <tr>

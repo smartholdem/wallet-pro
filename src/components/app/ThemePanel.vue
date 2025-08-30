@@ -10,8 +10,8 @@ const appVariable = useAppVariableStore();
 const emitter = useEmitter();
 
 var modeList = [
- { name: 'Dark', img: 'assets/img/mode/dark.jpg', value: 'dark' },
- { name: 'Light', img: 'assets/img/mode/light.jpg', value: 'light' },
+ { name: 'Dark', img: 'assets/img/mode/dark.png', value: 'dark' },
+ { name: 'Light', img: 'assets/img/mode/light.png', value: 'light' },
 ];
 
 var themeList = [
@@ -52,8 +52,8 @@ function appThemePanelToggled(event) {
 }
 
 function reloadVariable() {
-	var newVariables = generateVariables();
-	appVariable.font = newVariables.font;
+  const newVariables = generateVariables();
+  appVariable.font = newVariables.font;
 	appVariable.color = newVariables.color;
 }
 
