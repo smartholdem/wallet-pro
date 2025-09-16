@@ -72,6 +72,14 @@
           >
             SIG
           </button>
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#modalExchange"
+            type="button"
+            class="btn btn-outline-theme"
+          >
+            Exchange
+          </button>
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3">
@@ -676,6 +684,8 @@
 
     <ModalSignMessage :address="address" />
 
+    <ExchangeModal :balance="balanceDecimal" />
+
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
       <div class="modal-dialog">
@@ -734,6 +744,7 @@ const storeWallet = useStoreWallet();
 import ModalVote from "@/components/wallet/ModalVote.vue";
 import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
 import ModalSignMessage from "@/components/wallet/ModalSignMessage.vue";
+import ExchangeModal from "@/components/wallet/ExchangeModal.vue";
 import { Toast } from "bootstrap";
 
 export default {
@@ -742,7 +753,8 @@ export default {
     QrcodeVue,
     ModalVote,
     ModalDelegateReg,
-    ModalSignMessage
+    ModalSignMessage,
+    ExchangeModal
   },
   props: {
     address: String
