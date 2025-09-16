@@ -27,6 +27,19 @@ type AccountRecord = {
   encrypt: "rabbit" | "aes" | string;
 };
 
+interface ApiResponse<T> {
+  body: T;
+}
+
+interface CreateTransactionApiResponse {
+  data: any;
+}
+
+interface Recipient {
+  address: string;
+  amount: number;
+}
+
 interface SchnorrVerifyPayload {
   address: string;
   message: string;
@@ -60,6 +73,8 @@ interface TxTransferPayload {
   fee: number;
   network: string;
   recipientId?: string;
+  recipients?: Recipient[];
+  txMax?: number;
   amount: number;
   memo?: string;
 }
@@ -218,6 +233,10 @@ export const useStoreWallet = defineStore("walletStorage", {
     
     // отправка мультиплатежей с smartholdem blockchain api txType = 6
     async txTransferMulti(payload: TxTransferPayload) {
+      if (!payload.recipients || payload.recipients.length === 0) {
+        throw new Error('Recipients array is required and cannot be empty');
+      }
+
       const paymentsCountAll = payload.recipients.length
       const txMax = payload.txMax || 150; // число мультиплатежей в одной multipayment транзакции, если > 150 разбить на несколько транзакций, default = 150
       const txPlus = paymentsCountAll % txMax; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
@@ -272,14 +291,14 @@ export const useStoreWallet = defineStore("walletStorage", {
       }
 
 
-      let broadcastResponse: ApiResponse<CreateTransactionApiResponse> & { errors?: any } = [];
+      let broadcastResponse: any = {};
       if (allPayments.length > 0) {
         broadcastResponse = await client
           .api("transactions")
           .create({ transactions: allPayments });
       }
 
-      return broadcastResponse.body.data
+      return broadcastResponse.body?.data
         ? {
             response: broadcastResponse.body.data,
             tx: allPayments,
