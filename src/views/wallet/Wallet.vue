@@ -187,9 +187,7 @@
           id="addressImport"
         >
           <div class="form-group mb-3">
-            <label class="form-label" for="importPrivateKey"
-            >{{ $t('enter_private_key') }}</label
-            >
+            <label class="form-label" for="importPrivateKey">{{ $t('enter_private_key') }}</label>
             <input
               type="text"
               v-model="accountImport.secret"
