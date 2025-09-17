@@ -97,7 +97,7 @@
                     CONTINUE
                   </button>&nbsp;
                   <span v-show="waitConfirmTx && timerConfirmation > 0 && timerConfirmation < 8">
-                    Please wait confirmation.. {{ timerConfirmation }}
+                    {{ $t('please_wait_confirmation') }}.. {{ timerConfirmation }}
                   </span>
                 </p>
               </div>
@@ -223,3 +223,4 @@ export default {
   }
 };
 </script>
+

@@ -26,6 +26,21 @@ import CardGroup from '@/components/bootstrap/CardGroup.vue';
 import CardImgOverlay from '@/components/bootstrap/CardImgOverlay.vue';
 import CardExpandToggler from '@/components/bootstrap/CardExpandToggler.vue';
 
+// i18n
+import { createI18n } from 'vue-i18n';
+import en from './locales/en.json';
+import ru from './locales/ru.json';
+
+const i18n = createI18n({
+  legacy: false,
+  locale: 'ru', // установить локаль
+  fallbackLocale: 'en', // установить резервную локаль
+  messages: {
+    en,
+    ru,
+  },
+});
+
 const emitter = mitt();
 const app = createApp(App);
 
@@ -45,6 +60,7 @@ app.use(pPersist);
 app.use(router);
 app.use(Vue3ProgressPlugin);
 app.use(PerfectScrollbar);
+app.use(i18n);
 
 
 app.config.globalProperties.emitter = emitter;

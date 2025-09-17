@@ -32,7 +32,7 @@
             type="button"
             class="btn btn-outline-theme"
           >
-            SEND
+            {{ $t('send') }}
           </button>
           <button
             data-bs-toggle="modal"

@@ -5,6 +5,9 @@ import { useStoreSettings } from '@/stores/app-settings';
 import { RouterLink } from 'vue-router';
 import router from "@/router";
 import packageJson from '/package.json';
+import { useI18n } from "vue-i18n";
+
+const { locale } = useI18n();
 
 const appOption = useAppOptionStore();
 const appSettings = useStoreSettings();
@@ -17,6 +20,10 @@ const notificationData = [{
 	title: '3 NEW ACCOUNT CREATED',
 	time: '2 MINUTES AGO'
 }];
+
+function setLocale(lang) {
+  locale.value = lang;
+}
 
 function currentVersion() {
   return packageJson.version;
@@ -125,7 +132,15 @@ function fullScreen() {
 
 		<!-- BEGIN menu -->
 		<div class="menu">
-
+      <div class="menu-item dropdown">
+        <a href="#" data-bs-toggle="dropdown" class="menu-link">
+          <div class="menu-icon"><i class="fa fa-language"></i></div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a @click.prevent="setLocale('en')" href="#" class="dropdown-item">English</a>
+          <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item">Русский</a>
+        </div>
+      </div>
 			<div class="menu-item dropdown dropdown-mobile-full">
 				<a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
 					<div class="menu-icon"><i class="bi bi-grid-3x3-gap nav-icon"></i></div>
