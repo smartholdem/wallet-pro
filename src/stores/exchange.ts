@@ -25,12 +25,12 @@ export const useExchangeStore = defineStore("exchange", {
           this.depositAddress = response.data.address;
           this.error = null;
         } else {
-          this.error = "Неверный ответ от сервера";
+          this.error = "exchange_error_invalid_response";
           this.depositAddress = null;
         }
       } catch (e) {
         console.error("Ошибка при получении адреса депозита:", e);
-        this.error = "Не удалось получить адрес для депозита.";
+        this.error = "exchange_error_failed_to_get_deposit_address";
         this.depositAddress = null;
       }
     },
@@ -43,12 +43,12 @@ export const useExchangeStore = defineStore("exchange", {
           this.sellGateAddress = response.data.address;
           this.error = null;
         } else {
-          this.error = "Неверный ответ от сервера";
+          this.error = "exchange_error_invalid_response";
           this.sellGateAddress = null;
         }
       } catch (e) {
         console.error("Ошибка при получении адреса шлюза для продажи:", e);
-        this.error = "Не удалось получить адрес для продажи.";
+        this.error = "exchange_error_failed_to_get_sell_address";
         this.sellGateAddress = null;
       }
     },

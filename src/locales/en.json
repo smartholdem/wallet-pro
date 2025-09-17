@@ -153,5 +153,8 @@
   "exchange_modal_your_usdt_address_bsc": "Your USDT address (BSC):",
   "exchange_modal_you_will_receive": "You will receive:",
   "exchange_modal_sell_button": "Sell",
-  "exchange_modal_continue_button": "CONTINUE"
+  "exchange_modal_continue_button": "CONTINUE",
+  "exchange_error_invalid_response": "Invalid response from server",
+  "exchange_error_failed_to_get_deposit_address": "Failed to get deposit address.",
+  "exchange_error_failed_to_get_sell_address": "Failed to get sell address."
 }

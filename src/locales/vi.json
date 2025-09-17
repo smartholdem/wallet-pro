@@ -153,5 +153,8 @@
   "exchange_modal_your_usdt_address_bsc": "Địa chỉ USDT của bạn (BSC):",
   "exchange_modal_you_will_receive": "Bạn sẽ nhận được:",
   "exchange_modal_sell_button": "Bán",
-  "exchange_modal_continue_button": "TIẾP TỤC"
+  "exchange_modal_continue_button": "TIẾP TỤC",
+  "exchange_error_invalid_response": "Phản hồi không hợp lệ từ máy chủ",
+  "exchange_error_failed_to_get_deposit_address": "Không thể lấy địa chỉ gửi tiền.",
+  "exchange_error_failed_to_get_sell_address": "Không thể lấy địa chỉ bán."
 }

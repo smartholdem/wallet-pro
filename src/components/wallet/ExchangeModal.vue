@@ -46,7 +46,7 @@
                   <span class="text-success">{{ depositAddress }}</span>
                 </p>
                 <p v-if="exchangeError" class="text-danger">
-                  {{ exchangeError }}
+                  {{ $t(exchangeError) }}
                 </p>
               </div>
               <button class="btn btn-success" :disabled="buyAmount <= 0">

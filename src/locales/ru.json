@@ -153,5 +153,8 @@
   "exchange_modal_your_usdt_address_bsc": "Ваш USDT адрес (BSC):",
   "exchange_modal_you_will_receive": "Вы получите:",
   "exchange_modal_sell_button": "Продать",
-  "exchange_modal_continue_button": "ПРОДОЛЖИТЬ"
+  "exchange_modal_continue_button": "ПРОДОЛЖИТЬ",
+  "exchange_error_invalid_response": "Неверный ответ от сервера",
+  "exchange_error_failed_to_get_deposit_address": "Не удалось получить адрес для депозита.",
+  "exchange_error_failed_to_get_sell_address": "Не удалось получить адрес для продажи."
 }
