@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "solde",
   "modal_delegate_reg_register": "ENREGISTRER",
   "modal_delegate_reg_result_title": "Résultat de l'enregistrement du délégué",
-  "modal_delegate_reg_success": "Succès !"
+  "modal_delegate_reg_success": "Succès !",
+  "modal_vote_title": "Voter pour un délégué",
+  "modal_vote_delegate_name": "Nom du délégué",
+  "modal_vote_enter_delegate_name": "entrer le nom du délégué",
+  "modal_vote_delegate": "LE DÉLÉGUÉ",
+  "modal_vote_rank": "Rang",
+  "modal_vote_votes": "Votes",
+  "modal_vote_forged_fees": "Frais forgés",
+  "modal_vote_produced_blocks": "Blocs produits",
+  "modal_vote_button": "Voter pour le délégué",
+  "modal_vote_result_title": "Résultat du vote",
+  "modal_vote_success": "Succès !",
+  "modal_vote_power": "La puissance de mon vote"
 }

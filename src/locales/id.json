@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "saldo",
   "modal_delegate_reg_register": "DAFTAR",
   "modal_delegate_reg_result_title": "Hasil pendaftaran delegasi",
-  "modal_delegate_reg_success": "Berhasil!"
+  "modal_delegate_reg_success": "Berhasil!",
+  "modal_vote_title": "Vote untuk Delegasi",
+  "modal_vote_delegate_name": "Nama Delegasi",
+  "modal_vote_enter_delegate_name": "masukkan nama delegasi",
+  "modal_vote_delegate": "DELEGASI",
+  "modal_vote_rank": "Peringkat",
+  "modal_vote_votes": "Suara",
+  "modal_vote_forged_fees": "Biaya yang ditempa",
+  "modal_vote_produced_blocks": "Blok yang diproduksi",
+  "modal_vote_button": "Vote untuk Delegasi",
+  "modal_vote_result_title": "Hasil Voting",
+  "modal_vote_success": "Berhasil!",
+  "modal_vote_power": "Kekuatan suara saya"
 }

@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "баланс",
   "modal_delegate_reg_register": "ЗАРЕГИСТРИРОВАТЬ",
   "modal_delegate_reg_result_title": "Результат регистрации делегата",
-  "modal_delegate_reg_success": "Успешно!"
+  "modal_delegate_reg_success": "Успешно!",
+  "modal_vote_title": "Голосовать за делегата",
+  "modal_vote_delegate_name": "Имя делегата",
+  "modal_vote_enter_delegate_name": "введите имя делегата",
+  "modal_vote_delegate": "ДЕЛЕГАТ",
+  "modal_vote_rank": "Ранг",
+  "modal_vote_votes": "Голоса",
+  "modal_vote_forged_fees": "Комиссии за форжинг",
+  "modal_vote_produced_blocks": "Произведено блоков",
+  "modal_vote_button": "Голосовать за делегата",
+  "modal_vote_result_title": "Результат голосования",
+  "modal_vote_success": "Успешно!",
+  "modal_vote_power": "Сила моего голоса"
 }

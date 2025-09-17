@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "saldo",
   "modal_delegate_reg_register": "REGISTRAR",
   "modal_delegate_reg_result_title": "Resultado del registro de delegado",
-  "modal_delegate_reg_success": "¡Éxito!"
+  "modal_delegate_reg_success": "¡Éxito!",
+  "modal_vote_title": "Votar por delegado",
+  "modal_vote_delegate_name": "Nombre del delegado",
+  "modal_vote_enter_delegate_name": "ingresar nombre del delegado",
+  "modal_vote_delegate": "DELEGADO",
+  "modal_vote_rank": "Rango",
+  "modal_vote_votes": "Votos",
+  "modal_vote_forged_fees": "Tarifas forjadas",
+  "modal_vote_produced_blocks": "Bloques producidos",
+  "modal_vote_button": "Votar por delegado",
+  "modal_vote_result_title": "Resultado de la votación",
+  "modal_vote_success": "¡Éxito!",
+  "modal_vote_power": "El poder de mi voto"
 }

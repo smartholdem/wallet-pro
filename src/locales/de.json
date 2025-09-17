@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "Guthaben",
   "modal_delegate_reg_register": "REGISTRIEREN",
   "modal_delegate_reg_result_title": "Ergebnis der Delegiertenregistrierung",
-  "modal_delegate_reg_success": "Erfolg!"
+  "modal_delegate_reg_success": "Erfolg!",
+  "modal_vote_title": "Für Delegierten abstimmen",
+  "modal_vote_delegate_name": "Delegiertenname",
+  "modal_vote_enter_delegate_name": "Delegiertenname eingeben",
+  "modal_vote_delegate": "DELEGIERTE",
+  "modal_vote_rank": "Rang",
+  "modal_vote_votes": "Stimmen",
+  "modal_vote_forged_fees": "Geschmiedete Gebühren",
+  "modal_vote_produced_blocks": "Produzierte Blöcke",
+  "modal_vote_button": "Für Delegierten abstimmen",
+  "modal_vote_result_title": "Abstimmungsergebnis",
+  "modal_vote_success": "Erfolg!",
+  "modal_vote_power": "Die Kraft meiner Stimme"
 }

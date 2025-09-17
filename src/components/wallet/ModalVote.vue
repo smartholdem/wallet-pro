@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Vote for Delegate</h5>
+          <h5 class="modal-title">{{ $t("modal_vote_title") }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                   <div class="form-group mb-3">
                     <label class="form-label w-100" for="sendDelegateName"
-                      >Delegate Name
+                      >{{ $t("modal_vote_delegate_name") }}
                       <i class="fa fa-address-book hover-info"></i>
                       <i
                         @click="searchClear"
@@ -35,7 +35,7 @@
                       class="form-control form-control"
                       :class="foundDelegate ? 'is-valid' : 'is-invalid'"
                       id="sendDelegateName"
-                      placeholder="enter delegate name"
+                      :placeholder="$t('modal_vote_enter_delegate_name')"
                     />
                   </div>
 
@@ -43,7 +43,7 @@
                     <card>
                       <card-header class="card-header fw-bold">
                         <i class="fas fa-lg fa-fw me-1 fa-university"></i
-                        >DELEGATE
+                        >{{ $t("modal_vote_delegate") }}
                         <span class="text-info">{{
                           foundDelegate.username
                         }}</span>
@@ -51,27 +51,27 @@
                       <card-body>
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">
-                            Rank
+                            {{ $t("modal_vote_rank") }}
                             <span class="text-info">{{
                               foundDelegate.rank
                             }}</span>
                           </li>
                           <li class="list-group-item">
-                            Votes
+                            {{ $t("modal_vote_votes") }}
                             <span class="text-info">{{
                               (foundDelegate.votes / 10 ** 8).toFixed(8)
                             }}</span>
                             STH
                           </li>
                           <li class="list-group-item">
-                            Forged fees
+                            {{ $t("modal_vote_forged_fees") }}
                             <span class="text-info">{{
                               (foundDelegate.forged.total / 10 ** 8).toFixed(8)
                             }}</span>
                             STH
                           </li>
                           <li class="list-group-item">
-                            Produced blocks
+                            {{ $t("modal_vote_produced_blocks") }}
                             <span class="text-info">{{
                               foundDelegate.blocks.produced
                             }}</span>
@@ -86,7 +86,7 @@
                             !foundDelegate ? 'btn-secondary' : 'btn-success'
                           "
                         >
-                          Vote For Delegate
+                          {{ $t("modal_vote_button") }}
                           {{ foundDelegate ? foundDelegate.username : "" }}
                         </button>
                       </card-body>
@@ -99,14 +99,16 @@
 
           <div v-if="voteResult">
             <card>
-              <card-header class="card-header"> Vote Result </card-header>
+              <card-header class="card-header">
+                {{ $t("modal_vote_result_title") }}
+              </card-header>
               <card-body>
                 <!--{{voteResult}}-->
-                <span class="text-success">Success!</span>
+                <span class="text-success">{{ $t("modal_vote_success") }}</span>
               </card-body>
             </card>
           </div>
-          The power of my vote {{ balanceDecimal }} STH
+          {{ $t("modal_vote_power") }} {{ balanceDecimal }} STH
         </div>
       </div>
     </div>

@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "số dư",
   "modal_delegate_reg_register": "ĐĂNG KÝ",
   "modal_delegate_reg_result_title": "Kết quả đăng ký đại biểu",
-  "modal_delegate_reg_success": "Thành công!"
+  "modal_delegate_reg_success": "Thành công!",
+  "modal_vote_title": "Bỏ phiếu cho Đại biểu",
+  "modal_vote_delegate_name": "Tên Đại biểu",
+  "modal_vote_enter_delegate_name": "nhập tên đại biểu",
+  "modal_vote_delegate": "ĐẠI BIỂU",
+  "modal_vote_rank": "Hạng",
+  "modal_vote_votes": "Phiếu bầu",
+  "modal_vote_forged_fees": "Phí đúc",
+  "modal_vote_produced_blocks": "Khối đã tạo",
+  "modal_vote_button": "Bỏ phiếu cho Đại biểu",
+  "modal_vote_result_title": "Kết quả bỏ phiếu",
+  "modal_vote_success": "Thành công!",
+  "modal_vote_power": "Sức mạnh của phiếu bầu tôi"
 }

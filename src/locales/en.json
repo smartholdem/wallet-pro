@@ -171,5 +171,17 @@
   "modal_delegate_reg_balance": "balance",
   "modal_delegate_reg_register": "REGISTER",
   "modal_delegate_reg_result_title": "Delegate registration result",
-  "modal_delegate_reg_success": "Success!"
+  "modal_delegate_reg_success": "Success!",
+  "modal_vote_title": "Vote for Delegate",
+  "modal_vote_delegate_name": "Delegate Name",
+  "modal_vote_enter_delegate_name": "enter delegate name",
+  "modal_vote_delegate": "DELEGATE",
+  "modal_vote_rank": "Rank",
+  "modal_vote_votes": "Votes",
+  "modal_vote_forged_fees": "Forged fees",
+  "modal_vote_produced_blocks": "Produced blocks",
+  "modal_vote_button": "Vote For Delegate",
+  "modal_vote_result_title": "Vote Result",
+  "modal_vote_success": "Success!",
+  "modal_vote_power": "The power of my vote"
 }
