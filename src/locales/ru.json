@@ -40,7 +40,7 @@
   "accounts": "Аккаунты",
   "new": "Новый",
   "import": "Импорт",
-  "please_select_import_or_get_new_address": "Пожалуйста, выберите, импортируйте или получите новый адрес",
+  "please_select_import_or_get_new_address": "Выберите, импортируйте или получите новый адрес",
   "no_addresses_import_or_create_new_address": "Нет адресов. Импортируйте или создайте новый адрес.",
   "generate_new_address": "Сгенерировать новый адрес",
   "public_address": "Публичный адрес",
