@@ -1,43 +1,46 @@
-<script>
+<script setup lang="ts">
 import { useAppOptionStore } from "@/stores/app-option";
 import { useRouter, RouterLink } from "vue-router";
-const appOption = useAppOptionStore();
-
-import { storeToRefs } from 'pinia';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { useI18n } from "vue-i18n";
 import { useStoreSettings } from '@/stores/app-settings.ts';
+
+const appOption = useAppOptionStore();
+const router = useRouter();
 const storeSettings = useStoreSettings();
-const { settings } = storeToRefs(storeSettings);
+const { locale } = useI18n();
 
+const pinOne = ref('');
+const pinTwo = ref('');
 
-export default {
-  data() {
-    return {
-      pinOne: "",
-      pinTwo: "",
-      pinIsInValid: true,
-    }
-  },
-  mounted() {
-    appOption.appSidebarCollapsed = true;
-    appOption.appSidebarHide = true;
-    appOption.appHeaderHide = true;
-    appOption.appContentClass = "p-0";
-  },
-  beforeUnmount() {
-    appOption.appSidebarCollapsed = false;
-    appOption.appSidebarHide = false;
-    appOption.appHeaderHide = false;
-    appOption.appContentClass = "";
-  },
-  methods: {
-    submitForm: function() {
-      storeSettings.savePinCode(this.pinOne);
-      storeSettings.tmpPin = this.password;
-      this.$router.push("/");
-    },
+const pinIsInValid = computed(() => {
+  return pinOne.value !== pinTwo.value || (pinOne.value.length < 4 || pinTwo.value.length < 4);
+});
 
-  }
-};
+onMounted(() => {
+  appOption.appSidebarCollapsed = true;
+  appOption.appSidebarHide = true;
+  appOption.appHeaderHide = true;
+  appOption.appContentClass = "p-0";
+});
+
+onBeforeUnmount(() => {
+  appOption.appSidebarCollapsed = false;
+  appOption.appSidebarHide = false;
+  appOption.appHeaderHide = false;
+  appOption.appContentClass = "";
+});
+
+function submitForm() {
+  storeSettings.savePinCode(pinOne.value);
+  storeSettings.tmpPin = pinOne.value;
+  router.push("/");
+}
+
+function setLocale(lang: string) {
+  locale.value = lang;
+  storeSettings.updateSettings({ language: lang });
+}
 </script>
 <template>
   <!-- BEGIN register -->
@@ -49,7 +52,7 @@ export default {
           <img class="text-center" src="/logo-green120.png" alt="smartholdem logo green"/>
         </div>
         <h1 class="text-center">Sign Up</h1>
-        <p class="text-inverse text-opacity-50 text-center">Set Wallet Pin Code</p>
+        <p class="text-inverse text-opacity-50 text-center">{{ $t('set_wallet_pin') }}</p>
         <div class="mb-3">
           <label class="form-label" for="regPassword1">Pin code <span class="text-danger">*</span></label>
           <input style="-webkit-text-security:disc;text-security:disc;" type="text"
@@ -64,7 +67,7 @@ export default {
                  class="form-control form-control-lg bg-white bg-opacity-5" />
         </div>
         <div class="mb-3">
-          <label class="form-label" for="regPassword2">Confirm pin code <span class="text-danger">*</span></label>
+          <label class="form-label" for="regPassword2">{{ $t('confirm_pin_code') }} <span class="text-danger">*</span></label>
           <input style="-webkit-text-security:disc;text-security:disc;" type="text"
                  inputmode="numeric"
                  pattern="[0-9]*"
@@ -77,12 +80,26 @@ export default {
         <div class="mb-3">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="customCheck1" />
-            <label class="form-check-label" for="customCheck1">I have read and agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerms">Terms of Use</a>
-              and <a href="#" data-bs-toggle="modal" data-bs-target="#modalLimitations">Privacy Policy</a>.</label>
+            <label class="form-check-label" for="customCheck1">{{ $t('i_have_read_and_agree') }} <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerms">{{ $t('terms_of_use') }}</a>
+              {{ $t('and') }} <a href="#" data-bs-toggle="modal" data-bs-target="#modalLimitations">{{ $t('privacy_policy') }}</a>.</label>
           </div>
         </div>
-        <div class="mb-3">
-          <button :disabled="pinIsInValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100">Sign Up</button>
+        <div class="mb-3 d-flex">
+          <button :disabled="pinIsInValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100">{{ $t('sign_up') }}</button>
+          <div class="ms-2 dropdown">
+            <a href="#" data-bs-toggle="dropdown" class="btn btn-outline-theme btn-lg">
+              <i class="fa fa-language"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a @click.prevent="setLocale('en')" href="#" class="dropdown-item">English</a>
+              <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item">Русский</a>
+              <a @click.prevent="setLocale('es')" href="#" class="dropdown-item">Español</a>
+              <a @click.prevent="setLocale('de')" href="#" class="dropdown-item">Deutsch</a>
+              <a @click.prevent="setLocale('fr')" href="#" class="dropdown-item">Français</a>
+              <a @click.prevent="setLocale('vi')" href="#" class="dropdown-item">Tiếng Việt</a>
+              <a @click.prevent="setLocale('id')" href="#" class="dropdown-item">Bahasa Indonesia</a>
+            </div>
+          </div>
         </div>
         <!--
         <div class="text-inverse text-opacity-50 text-center">
@@ -97,6 +114,7 @@ export default {
     <div class="modal modal-cover fade" id="modalTerms">
       <div class="modal-dialog">
         <div class="modal-content">
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-3" style="z-index: 1060;" data-bs-dismiss="modal" aria-label="Close"></button>
           <card class="card mb-3">
             <card-header class="card-header">
               Terms and Conditions
@@ -155,6 +173,7 @@ export default {
     <div class="modal modal-cover fade" id="modalLimitations">
       <div class="modal-dialog">
         <div class="modal-content">
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-2" style="z-index: 1060;" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="card">
             <div class="card-header">
               Disclaimers and Limitation of Liability
@@ -242,3 +261,4 @@ export default {
   </div>
   <!-- END register -->
 </template>
+ate>

@@ -29,5 +29,12 @@
   "loading": "Wird geladen...",
   "reset_all_data_confirm_q": "Alle Daten zurücksetzen?",
   "reset_all_data_desc": "Alle Daten, Schlüssel, Adresse zurücksetzen.",
-  "confirm_reset_all_data": "Bestätigen Sie das Zurücksetzen aller Daten"
+  "confirm_reset_all_data": "Bestätigen Sie das Zurücksetzen aller Daten",
+  "sign_up": "Anmelden",
+  "set_wallet_pin": "Wallet-Pin-Code festlegen",
+  "confirm_pin_code": "Pin-Code bestätigen",
+  "i_have_read_and_agree": "Ich habe die",
+  "terms_of_use": "Nutzungsbedingungen",
+  "and": "und die",
+  "privacy_policy": "Datenschutzrichtlinie gelesen und stimme ihnen zu"
 }

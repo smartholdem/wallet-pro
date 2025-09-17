@@ -29,5 +29,12 @@
   "loading": "Memuat...",
   "reset_all_data_confirm_q": "Setel ulang semua data?",
   "reset_all_data_desc": "Setel ulang semua data, kunci, alamat.",
-  "confirm_reset_all_data": "Konfirmasi setel ulang semua data"
+  "confirm_reset_all_data": "Konfirmasi setel ulang semua data",
+  "sign_up": "Daftar",
+  "set_wallet_pin": "Atur Kode Pin Dompet",
+  "confirm_pin_code": "Konfirmasi kode Pin",
+  "i_have_read_and_agree": "Saya telah membaca dan menyetujui",
+  "terms_of_use": "Ketentuan Penggunaan",
+  "and": "dan",
+  "privacy_policy": "Kebijakan Privasi"
 }

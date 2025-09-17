@@ -29,5 +29,12 @@
   "loading": "Loading...",
   "reset_all_data_confirm_q": "Reset All Data?",
   "reset_all_data_desc": "Reset all data, keys, address.",
-  "confirm_reset_all_data": "Confirm reset all data"
+  "confirm_reset_all_data": "Confirm reset all data",
+  "sign_up": "Sign Up",
+  "set_wallet_pin": "Set Wallet Pin Code",
+  "confirm_pin_code": "Confirm pin code",
+  "i_have_read_and_agree": "I have read and agree to the",
+  "terms_of_use": "Terms of Use",
+  "and": "and",
+  "privacy_policy": "Privacy Policy"
 }

@@ -29,5 +29,12 @@
   "loading": "Загрузка...",
   "reset_all_data_confirm_q": "Сбросить все данные?",
   "reset_all_data_desc": "Сбросить все данные, ключи, адреса.",
-  "confirm_reset_all_data": "Подтвердить сброс всех данных"
+  "confirm_reset_all_data": "Подтвердить сброс всех данных",
+  "sign_up": "Регистрация",
+  "set_wallet_pin": "Установите пин-код кошелька",
+  "confirm_pin_code": "Подтвердите пин-код",
+  "i_have_read_and_agree": "Я прочитал и согласен с",
+  "terms_of_use": "Условиями использования",
+  "and": "и",
+  "privacy_policy": "Политикой конфиденциальности"
 }

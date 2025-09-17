@@ -29,5 +29,12 @@
   "loading": "Cargando...",
   "reset_all_data_confirm_q": "¿Restablecer todos los datos?",
   "reset_all_data_desc": "Restablecer todos los datos, claves, dirección.",
-  "confirm_reset_all_data": "Confirmar el restablecimiento de todos los datos"
+  "confirm_reset_all_data": "Confirmar el restablecimiento de todos los datos",
+  "sign_up": "Registrarse",
+  "set_wallet_pin": "Establecer el código Pin de la billetera",
+  "confirm_pin_code": "Confirmar código Pin",
+  "i_have_read_and_agree": "He leído y acepto los",
+  "terms_of_use": "Términos de uso",
+  "and": "y",
+  "privacy_policy": "Política de privacidad"
 }

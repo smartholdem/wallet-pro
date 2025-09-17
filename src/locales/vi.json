@@ -29,5 +29,12 @@
   "loading": "Đang tải...",
   "reset_all_data_confirm_q": "Đặt lại tất cả dữ liệu?",
   "reset_all_data_desc": "Đặt lại tất cả dữ liệu, khóa, địa chỉ.",
-  "confirm_reset_all_data": "Xác nhận đặt lại tất cả dữ liệu"
+  "confirm_reset_all_data": "Xác nhận đặt lại tất cả dữ liệu",
+  "sign_up": "Đăng ký",
+  "set_wallet_pin": "Đặt mã Pin cho ví",
+  "confirm_pin_code": "Xác nhận mã Pin",
+  "i_have_read_and_agree": "Tôi đã đọc và đồng ý với",
+  "terms_of_use": "Điều khoản sử dụng",
+  "and": "và",
+  "privacy_policy": "Chính sách bảo mật"
 }
