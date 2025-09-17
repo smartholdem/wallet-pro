@@ -3,21 +3,21 @@
     <div class="col-xl-8 mb-3">
       <ul class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/">WALLET</router-link>
+          <router-link to="/">{{ $t("wallet") }}</router-link>
         </li>
-        <li class="breadcrumb-item active">DELEGATE</li>
+        <li class="breadcrumb-item active">{{ $t("delegate") }}</li>
       </ul>
       <card v-if="delegates">
-        <card-header class="card-header fw-bold"> DELEGATE LIST </card-header>
+        <card-header class="card-header fw-bold"> {{ $t("delegate_list") }} </card-header>
         <card-body style="overflow-x: hidden; overflow-y: auto">
           <table class="table table-hover table-responsive">
             <thead>
               <tr class="text-uppercase">
-                <th scope="col">Rank</th>
-                <th scope="col">Name</th>
-                <th scope="col">Blocks produced</th>
-                <th scope="col">Votes</th>
-                <th scope="col">Forged fees</th>
+                <th scope="col">{{ $t("rank") }}</th>
+                <th scope="col">{{ $t("name") }}</th>
+                <th scope="col">{{ $t("produced_blocks") }}</th>
+                <th scope="col">{{ $t("votes") }}</th>
+                <th scope="col">{{ $t("forged_fees") }}</th>
                 <!--<th scope="col">status</th>-->
               </tr>
             </thead>
