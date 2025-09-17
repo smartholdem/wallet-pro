@@ -10,34 +10,37 @@
 
       <card>
         <card-header class="card-header fw-bold small text-uppercase">
-          <button data-bs-toggle="modal" data-bs-target="#modalAddressBook"
-                  type="button"
-                  class="btn btn-sm btn-light">ADD NEW ADDRESS
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#modalAddressBook"
+            type="button"
+            class="btn btn-sm btn-light"
+          >
+            ADD NEW ADDRESS
           </button>
         </card-header>
         <card-body>
-
           <table class="table table-hover table-stripped">
             <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Label</th>
-              <th scope="col">Address</th>
-            </tr>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Label</th>
+                <th scope="col">Address</th>
+              </tr>
             </thead>
             <tbody>
               <tr v-for="item in book" :key="item.address">
-                <td class="text-uppercase"><span :class="'px-3 py-1 ico-' + item.network"></span> {{item.network}}</td>
-                <td>{{item.label}}</td>
-                <td>{{item.address}}</td>
+                <td class="text-uppercase">
+                  <span :class="'px-3 py-1 ico-' + item.network"></span>
+                  {{ item.network }}
+                </td>
+                <td>{{ item.label }}</td>
+                <td>{{ item.address }}</td>
               </tr>
             </tbody>
           </table>
-
         </card-body>
-
       </card>
-
     </div>
 
     <div class="modal fade" id="modalAddressBook">
@@ -45,29 +48,54 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">ADD NEW ADDRESS</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
           <div class="modal-body">
-
             <div class="form-group mb-3">
               <label class="form-label" for="bookAddress">Address</label>
-              <input v-model="toSave.address" @input="validateAddress" type="text" class="form-control form-control-sm"
-                     :class="isValid ? 'is-valid' : 'is-invalid'" id="bookAddress"
-                     placeholder="enter address">
+              <input
+                v-model="toSave.address"
+                @input="validateAddress"
+                type="text"
+                class="form-control form-control-sm"
+                :class="isValid ? 'is-valid' : 'is-invalid'"
+                id="bookAddress"
+                placeholder="enter address"
+              />
             </div>
 
             <div class="form-group mb-3">
-              <label class="form-label" for="bookLabel"><i class="fas fa-tag"></i> Label</label>
-              <input v-model="toSave.label" type="text" class="form-control form-control-sm"
-                     :class="toSave.label.length > 0 ? 'is-valid' : 'is-invalid'" id="bookLabel"
-                     placeholder="enter label">
+              <label class="form-label" for="bookLabel"
+                ><i class="fas fa-tag"></i> Label</label
+              >
+              <input
+                v-model="toSave.label"
+                type="text"
+                class="form-control form-control-sm"
+                :class="toSave.label.length > 0 ? 'is-valid' : 'is-invalid'"
+                id="bookLabel"
+                placeholder="enter label"
+              />
             </div>
 
             <div class="col-md-3">
               <div class="form-group mb-3">
-                <label class="form-label px-4" :class="'ico-' + toSave.network" for="sendNetwork">Network</label>
-                <select v-model="toSave.network" @change="validateAddress" class="form-select form-select-sm"
-                        id="sendNetwork">
+                <label
+                  class="form-label px-4"
+                  :class="'ico-' + toSave.network"
+                  for="sendNetwork"
+                  >Network</label
+                >
+                <select
+                  v-model="toSave.network"
+                  @change="validateAddress"
+                  class="form-select form-select-sm"
+                  id="sendNetwork"
+                >
                   <option selected value="mainnet">MainNet</option>
                   <option value="bsc">BSC</option>
                   <option value="heco">HECO</option>
@@ -75,20 +103,28 @@
                 </select>
               </div>
             </div>
-
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-            <button @click="saveAddress" type="button" class="btn btn-outline-theme" data-bs-dismiss="modal">Save
-              changes
+            <button
+              type="button"
+              class="btn btn-default"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              @click="saveAddress"
+              type="button"
+              class="btn btn-outline-theme"
+              data-bs-dismiss="modal"
+            >
+              Save changes
             </button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -105,15 +141,15 @@ export default {
       toSave: {
         network: "mainnet",
         label: "",
-        address: ""
+        address: "",
       },
-      isValid: false
+      isValid: false,
     };
   },
   computed: {
     book() {
       return storeWallet.addressBook;
-    }
+    },
   },
   methods: {
     async saveAddress() {
@@ -121,20 +157,20 @@ export default {
       this.toSave = {
         network: "mainnet",
         label: "",
-        address: ""
+        address: "",
       };
     },
     async validateAddress() {
       if (this.toSave.network === "mainnet") {
         this.isValid = await storeWallet.validateAddress(this.toSave.address);
       } else {
-        this.isValid = await storeWallet.validateAddressCrossChain(this.toSave.address);
+        this.isValid = await storeWallet.validateAddressCrossChain(
+          this.toSave.address
+        );
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

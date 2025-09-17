@@ -1,4 +1,3 @@
-
 import { defineStore } from "pinia";
 import axios from "axios";
 
@@ -20,7 +19,9 @@ export const useExchangeStore = defineStore("exchange", {
      */
     async getDepositAddress(network: string, userId: string) {
       try {
-        const response = await axios.get(`${EXCHANGE_API_URL}/exchange-address/${network}/${userId}`);
+        const response = await axios.get(
+          `${EXCHANGE_API_URL}/exchange-address/${network}/${userId}`
+        );
         if (response.data && response.data.address) {
           this.depositAddress = response.data.address;
           this.error = null;
@@ -36,7 +37,9 @@ export const useExchangeStore = defineStore("exchange", {
     },
     async getSellGateAddress() {
       try {
-        const response = await axios.get(`${EXCHANGE_API_URL}/sell-sth-address-gate`);
+        const response = await axios.get(
+          `${EXCHANGE_API_URL}/sell-sth-address-gate`
+        );
         if (response.data && response.data.address) {
           this.sellGateAddress = response.data.address;
           this.error = null;
@@ -49,6 +52,6 @@ export const useExchangeStore = defineStore("exchange", {
         this.error = "Не удалось получить адрес для продажи.";
         this.sellGateAddress = null;
       }
-    }
+    },
   },
 });

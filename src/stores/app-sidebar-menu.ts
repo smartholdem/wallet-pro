@@ -5,28 +5,28 @@ export const useAppSidebarMenuStore = defineStore({
   state: () => {
     return [
       {
-        "text": "Navigation",
-        "is_header": true
+        text: "Navigation",
+        is_header: true,
       },
       {
-        "url": "/",
-        "icon": "fas fa-user",
-        "text": "Wallet"
+        url: "/",
+        icon: "fas fa-user",
+        text: "Wallet",
       },
       {
-        "url": "/delegates",
-        "icon": "fas fa-list-ol",
-        "text": "Delegates"
+        url: "/delegates",
+        icon: "fas fa-list-ol",
+        text: "Delegates",
       },
       {
-        "url": "/blockchain",
-        "icon": "fas fa-braille",
-        "text": "Blockchain"
+        url: "/blockchain",
+        icon: "fas fa-braille",
+        text: "Blockchain",
       },
       {
-        "url": "/address-book",
-        "icon": "fa fa-address-book",
-        "text": "Address Book"
+        url: "/address-book",
+        icon: "fa fa-address-book",
+        text: "Address Book",
       },
       /**
       {
@@ -46,6 +46,5 @@ export const useAppSidebarMenuStore = defineStore({
       },
       **/
     ];
-  }
-
+  },
 });

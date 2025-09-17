@@ -2,27 +2,41 @@
   <div class="row justify-content-center">
     <div class="col-xl-12">
       <ul class="breadcrumb">
-        <li class="breadcrumb-item"><router-link to="/">{{ $t('wallet') }}</router-link></li>
-        <li class="breadcrumb-item active">{{ $t('address') }}</li>
+        <li class="breadcrumb-item">
+          <router-link to="/">{{ $t("wallet") }}</router-link>
+        </li>
+        <li class="breadcrumb-item active">{{ $t("address") }}</li>
       </ul>
     </div>
 
     <div class="col-xl-6 mb-3">
       <card class="h-100" v-if="currentAddress">
         <card-header class="card-header fw-bold">
-          <i v-if="currentAddress.publicKey" @click="showPubKey = !showPubKey" class="m-lg-2 fa fa-globe"
-             aria-hidden="true"> </i>
-          <span v-if="!showPubKey" @click="copyText($route.params.address)" class="text-default pointer" :class="isMobile ? 'small' : ''">
-            &nbsp;{{ $route.params.address }} <i class="fa fa-clipboard hover-info" aria-hidden="true"></i>
+          <i
+            v-if="currentAddress.publicKey"
+            @click="showPubKey = !showPubKey"
+            class="m-lg-2 fa fa-globe"
+            aria-hidden="true"
+          >
+          </i>
+          <span
+            v-if="!showPubKey"
+            @click="copyText($route.params.address)"
+            class="text-default pointer"
+            :class="isMobile ? 'small' : ''"
+          >
+            &nbsp;{{ $route.params.address }}
+            <i class="fa fa-clipboard hover-info" aria-hidden="true"></i>
           </span>
           <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
             {{ currentAddress.publicKey }}
           </span>
         </card-header>
         <card-body>
-
           <h5 v-if="currentAddress.balance" class="card-title">
-            <img src="/images/logo-green32.png"/> <span class="text-success">{{ (balanceDecimal).toFixed(8)}}</span> STH
+            <img src="/images/logo-green32.png" />
+            <span class="text-success">{{ balanceDecimal.toFixed(8) }}</span>
+            STH
           </h5>
           <!--
           <button @click="sendMessage" class="btn btn-info">Connect APP</button>
@@ -31,27 +45,56 @@
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
                 <card-header class="card-header fw-bold">
-                  <i class="fas fa-lg fa-fw me-1 fa-university"></i>{{ $t('delegate') }} <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
+                  <i class="fas fa-lg fa-fw me-1 fa-university"></i
+                  >{{ $t("delegate") }}
+                  <span class="text-info">{{
+                    currentAddress.attributes.delegate.username
+                  }}</span>
                 </card-header>
                 <card-body>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ $t('rank') }} <span class="text-info">{{ currentAddress.attributes.delegate.rank }}</span></li>
                     <li class="list-group-item">
-                      {{ $t('votes') }} <span class="text-info">{{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }}</span> STH
+                      {{ $t("rank") }}
+                      <span class="text-info">{{
+                        currentAddress.attributes.delegate.rank
+                      }}</span>
                     </li>
-                    <li class="list-group-item">{{ $t('forged_fees') }}
-                      <span class="text-info">{{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }}</span> STH
+                    <li class="list-group-item">
+                      {{ $t("votes") }}
+                      <span class="text-info">{{
+                        (
+                          currentAddress.attributes.delegate.voteBalance /
+                          10 ** 8
+                        ).toFixed(8)
+                      }}</span>
+                      STH
                     </li>
-                    <li class="list-group-item">{{ $t('produced_blocks') }} <span class="text-info">{{ currentAddress.attributes.delegate.producedBlocks }}</span>
+                    <li class="list-group-item">
+                      {{ $t("forged_fees") }}
+                      <span class="text-info">{{
+                        (
+                          currentAddress.attributes.delegate.forgedFees /
+                          10 ** 8
+                        ).toFixed(8)
+                      }}</span>
+                      STH
+                    </li>
+                    <li class="list-group-item">
+                      {{ $t("produced_blocks") }}
+                      <span class="text-info">{{
+                        currentAddress.attributes.delegate.producedBlocks
+                      }}</span>
                     </li>
                   </ul>
                 </card-body>
               </card>
 
               <div v-if="currentAddress.voteFor">
-                {{ $t('voting_for') }} <span class="text-info">{{currentAddress.voteFor.username}}</span>
+                {{ $t("voting_for") }}
+                <span class="text-info">{{
+                  currentAddress.voteFor.username
+                }}</span>
               </div>
-
             </div>
           </div>
         </card-body>
@@ -61,19 +104,21 @@
           {{ $route.params.address }}
         </card-header>
         <card-body>
-          <h3>{{ $t('cold_address') }}</h3>
+          <h3>{{ $t("cold_address") }}</h3>
         </card-body>
       </card>
     </div>
 
     <!-- operations -->
     <div class="col-xl-6 mb-3">
-      <Ops @txResultData="handleData($event)" :address="$route.params.address"/>
+      <Ops
+        @txResultData="handleData($event)"
+        :address="$route.params.address"
+      />
     </div>
 
     <!-- transactions -->
-    <Txs :address="$route.params.address" :newTx="txResult.tx"/>
-
+    <Txs :address="$route.params.address" :newTx="txResult.tx" />
 
     <!-- toasts-container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -86,9 +131,9 @@
         aria-atomic="true"
       >
         <div class="toast-header" :class="'text-' + toastStyle">
-          <i class="far fa-bell me-2"/>
+          <i class="far fa-bell me-2" />
           <strong class="me-auto">{{ toastStyle }}</strong>
-          <small class="text-success-emphasis">{{ $t('operation') }}</small>
+          <small class="text-success-emphasis">{{ $t("operation") }}</small>
           <button
             type="button"
             class="btn-close"
@@ -96,11 +141,10 @@
           ></button>
         </div>
         <div class="toast-body small">
-          {{notifyMsg}}
+          {{ notifyMsg }}
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -123,8 +167,8 @@ export default {
   },
   data() {
     return {
-      notifyOp: 'operation',
-      toastStyle: 'success',
+      notifyOp: "operation",
+      toastStyle: "success",
       notifyMsg: "",
       txResult: {
         response: null,
@@ -177,7 +221,7 @@ export default {
 
        */
     },
-    showToast(event, target, msg, style = 'success') {
+    showToast(event, target, msg, style = "success") {
       event.preventDefault();
       this.notifyMsg = msg;
       this.toastStyle = style;
@@ -187,7 +231,12 @@ export default {
     async copyText(text) {
       await navigator.clipboard.writeText(text);
       this.notifyOp = "operation";
-      this.showToast(event, "toast-address", this.$t('copied_to_clipboard'), "success");
+      this.showToast(
+        event,
+        "toast-address",
+        this.$t("copied_to_clipboard"),
+        "success"
+      );
     },
     handleData: function (e) {
       this.txResult = e;
@@ -199,7 +248,6 @@ export default {
       } else {
         console.log("accountUpdate err", this.$route.params.address);
       }
-
     },
     async startUpdateByTimer() {
       if (this.currentAddress) {
@@ -227,14 +275,12 @@ export default {
   async mounted() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const _self = this;
-    document.body.onfocus = async function(e) {
+    document.body.onfocus = async function (e) {
       //console.info(e.type);
       await _self.accountUpdate();
       await _self.startUpdateByTimer();
-    }
+    };
     await this.startUpdateByTimer();
-
-
   },
   computed: {
     balanceDecimal() {
@@ -246,48 +292,47 @@ export default {
     currentAddress() {
       return storeWallet.attributes[this.$route.params.address];
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
 .ico-heco {
-  background-image:url('/images/heco.svg');
+  background-image: url("/images/heco.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 
 .ico-mainnet {
-  background-image:url('/images/logo-green32.png');
+  background-image: url("/images/logo-green32.png");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 
 .ico-bsc {
-  background-image:url('/images/bsc.svg');
+  background-image: url("/images/bsc.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 .ico-ton {
-  background-image:url('/images/ton.svg');
+  background-image: url("/images/ton.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 .ico-eth {
-  background-image:url('/images/eth.svg');
+  background-image: url("/images/eth.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 .ico-xbts {
-  background-image:url('/images/xbts32.png');
+  background-image: url("/images/xbts32.png");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
-
 </style>
