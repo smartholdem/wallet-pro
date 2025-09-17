@@ -140,5 +140,18 @@
   "modal_sign_message_validate_title": "Проверка подписи сообщения",
   "modal_sign_message_validate_signature": "Проверить подпись",
   "modal_sign_message_valid": "Подпись действительна",
-  "modal_sign_message_not_valid": "Не действительна"
+  "modal_sign_message_not_valid": "Не действительна",
+  "exchange_modal_title": "Обмен STH/USDT",
+  "exchange_modal_buy_tab": "Купить STH",
+  "exchange_modal_sell_tab": "Продать STH",
+  "exchange_modal_buy_amount_label": "Количество STH для покупки:",
+  "exchange_modal_to_pay": "К оплате:",
+  "exchange_modal_send_usdt_to": "Отправьте USDT на адрес:",
+  "exchange_modal_buy_button": "Купить",
+  "exchange_modal_sell_amount_label": "Количество STH для продажи:",
+  "exchange_modal_your_balance": "Ваш баланс:",
+  "exchange_modal_your_usdt_address_bsc": "Ваш USDT адрес (BSC):",
+  "exchange_modal_you_will_receive": "Вы получите:",
+  "exchange_modal_sell_button": "Продать",
+  "exchange_modal_continue_button": "ПРОДОЛЖИТЬ"
 }

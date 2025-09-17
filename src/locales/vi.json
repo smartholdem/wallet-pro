@@ -140,5 +140,18 @@
   "modal_sign_message_validate_title": "Xác thực chữ ký thông điệp",
   "modal_sign_message_validate_signature": "Xác thực chữ ký",
   "modal_sign_message_valid": "Chữ ký hợp lệ",
-  "modal_sign_message_not_valid": "Không hợp lệ"
+  "modal_sign_message_not_valid": "Không hợp lệ",
+  "exchange_modal_title": "Trao đổi STH/USDT",
+  "exchange_modal_buy_tab": "Mua STH",
+  "exchange_modal_sell_tab": "Bán STH",
+  "exchange_modal_buy_amount_label": "Số lượng STH cần mua:",
+  "exchange_modal_to_pay": "Để trả:",
+  "exchange_modal_send_usdt_to": "Gửi USDT đến địa chỉ:",
+  "exchange_modal_buy_button": "Mua",
+  "exchange_modal_sell_amount_label": "Số lượng STH cần bán:",
+  "exchange_modal_your_balance": "Số dư của bạn:",
+  "exchange_modal_your_usdt_address_bsc": "Địa chỉ USDT của bạn (BSC):",
+  "exchange_modal_you_will_receive": "Bạn sẽ nhận được:",
+  "exchange_modal_sell_button": "Bán",
+  "exchange_modal_continue_button": "TIẾP TỤC"
 }

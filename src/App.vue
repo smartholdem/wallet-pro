@@ -10,7 +10,7 @@ import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
 import router from "./router";
 import { storeToRefs } from "pinia";
-import { useStoreSettings } from "@/stores/app-settings.ts";
+import { useStoreSettings } from "@/stores/app-settings";
 const storeSettings = useStoreSettings();
 const { settings } = storeToRefs(storeSettings);
 
@@ -99,7 +99,9 @@ document.querySelector("body").classList.add("app-init");
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bs-theme); /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70); /**var(--bs-theme); **/
+  background: var(
+    --bs-theme
+  ); /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70); /**var(--bs-theme); **/
   border: 1px solid #434a52;
 }
 
@@ -169,7 +171,7 @@ h1 {
 
 .ico-bsc {
   background-image: url("/images/bsc.svg");
-  background-position: 0px 2px;
+  background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }

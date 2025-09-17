@@ -140,5 +140,18 @@
   "modal_sign_message_validate_title": "Validasi Tanda Tangan Pesan",
   "modal_sign_message_validate_signature": "Validasi tanda tangan",
   "modal_sign_message_valid": "Tanda Tangan Valid",
-  "modal_sign_message_not_valid": "Tidak Valid"
+  "modal_sign_message_not_valid": "Tidak Valid",
+  "exchange_modal_title": "Tukar STH/USDT",
+  "exchange_modal_buy_tab": "Beli STH",
+  "exchange_modal_sell_tab": "Jual STH",
+  "exchange_modal_buy_amount_label": "Jumlah STH untuk dibeli:",
+  "exchange_modal_to_pay": "Untuk membayar:",
+  "exchange_modal_send_usdt_to": "Kirim USDT ke alamat:",
+  "exchange_modal_buy_button": "Beli",
+  "exchange_modal_sell_amount_label": "Jumlah STH untuk dijual:",
+  "exchange_modal_your_balance": "Saldo Anda:",
+  "exchange_modal_your_usdt_address_bsc": "Alamat USDT Anda (BSC):",
+  "exchange_modal_you_will_receive": "Anda akan menerima:",
+  "exchange_modal_sell_button": "Jual",
+  "exchange_modal_continue_button": "LANJUTKAN"
 }

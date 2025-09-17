@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Exchange STH/USDT</h5>
+          <h5 class="modal-title">{{ $t("exchange_modal_title") }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -13,20 +13,22 @@
         <div class="modal-body">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a href="#buy-sth" class="nav-link active" data-bs-toggle="tab"
-                >Купить STH</a
-              >
+              <a href="#buy-sth" class="nav-link active" data-bs-toggle="tab">{{
+                $t("exchange_modal_buy_tab")
+              }}</a>
             </li>
             <li class="nav-item">
-              <a href="#sell-sth" class="nav-link" data-bs-toggle="tab"
-                >Продать STH</a
-              >
+              <a href="#sell-sth" class="nav-link" data-bs-toggle="tab">{{
+                $t("exchange_modal_sell_tab")
+              }}</a>
             </li>
           </ul>
           <div class="tab-content pt-3">
             <div class="tab-pane fade show active" id="buy-sth">
               <div class="form-group mb-3">
-                <label class="form-label">Количество STH для покупки:</label>
+                <label class="form-label">{{
+                  $t("exchange_modal_buy_amount_label")
+                }}</label>
                 <input
                   type="number"
                   class="form-control"
@@ -35,9 +37,12 @@
                 />
               </div>
               <div v-if="buyAmount > 0">
-                <p>К оплате: {{ usdtAmount.toFixed(2) }} USDT</p>
+                <p>
+                  {{ $t("exchange_modal_to_pay") }}
+                  {{ usdtAmount.toFixed(2) }} USDT
+                </p>
                 <p v-if="depositAddress">
-                  Отправьте USDT на адрес:
+                  {{ $t("exchange_modal_send_usdt_to") }}
                   <span class="text-success">{{ depositAddress }}</span>
                 </p>
                 <p v-if="exchangeError" class="text-danger">
@@ -45,13 +50,15 @@
                 </p>
               </div>
               <button class="btn btn-success" :disabled="buyAmount <= 0">
-                Купить
+                {{ $t("exchange_modal_buy_button") }}
               </button>
             </div>
             <div class="tab-pane fade" id="sell-sth">
               <div v-if="sellStep === 0">
                 <div class="form-group mb-3">
-                  <label class="form-label">Количество STH для продажи:</label>
+                  <label class="form-label">{{
+                    $t("exchange_modal_sell_amount_label")
+                  }}</label>
                   <input
                     type="number"
                     class="form-control"
@@ -59,11 +66,14 @@
                     @input="calculateReceiveUsdt"
                   />
                   <small class="form-text text-muted"
-                    >Ваш баланс: {{ balance }} STH</small
+                    >{{ $t("exchange_modal_your_balance") }}
+                    {{ balance }} STH</small
                   >
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label">Ваш USDT адрес (BSC):</label>
+                  <label class="form-label">{{
+                    $t("exchange_modal_your_usdt_address_bsc")
+                  }}</label>
                   <input
                     type="text"
                     class="form-control"
@@ -77,7 +87,10 @@
                   />
                 </div>
                 <div v-if="sellAmount > 0">
-                  <p>Вы получите: {{ receiveUsdtAmount.toFixed(2) }} USDT</p>
+                  <p>
+                    {{ $t("exchange_modal_you_will_receive") }}
+                    {{ receiveUsdtAmount.toFixed(2) }} USDT
+                  </p>
                 </div>
                 <button
                   @click="sellSth"
@@ -89,7 +102,7 @@
                     !sellGateAddress
                   "
                 >
-                  Продать
+                  {{ $t("exchange_modal_sell_button") }}
                 </button>
               </div>
               <div
@@ -100,8 +113,12 @@
                   <table class="table">
                     <tbody>
                       <tr>
-                        <td v-if="txErr === 0">Success txId</td>
-                        <td v-if="txErr > 0" class="text-danger">Error txId</td>
+                        <td v-if="txErr === 0">
+                          {{ $t("exchange_modal_success_tx_id") }}
+                        </td>
+                        <td v-if="txErr > 0" class="text-danger">
+                          {{ $t("exchange_modal_error_tx_id") }}
+                        </td>
                         <td>
                           <span
                             class="text-primary"
@@ -115,7 +132,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>Amount</td>
+                        <td>{{ $t("exchange_modal_amount") }}</td>
                         <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.amount / 1e8).toFixed(8) }} STH
@@ -124,7 +141,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>Fee</td>
+                        <td>{{ $t("exchange_modal_fee") }}</td>
                         <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.fee / 1e8).toFixed(8) }} STH
@@ -133,7 +150,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>Recipient</td>
+                        <td>{{ $t("exchange_modal_recipient") }}</td>
                         <td>
                           <span
                             v-if="
@@ -152,7 +169,7 @@
                           txResult && txResult.tx && txResult.tx.vendorField
                         "
                       >
-                        <td>Memo</td>
+                        <td>{{ $t("exchange_modal_memo") }}</td>
                         <td>{{ txResult.tx.vendorField }}</td>
                       </tr>
                     </tbody>
@@ -166,7 +183,7 @@
                     class="btn btn-sm"
                     :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
                   >
-                    CONTINUE</button
+                    {{ $t("exchange_modal_continue_button") }}</button
                   >&nbsp;
                   <span
                     v-show="

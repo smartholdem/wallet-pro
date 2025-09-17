@@ -274,7 +274,8 @@ onMounted(() => {
                   data-bs-trigger="hover"
                   data-bs-container="body"
                   v-bind:data-bs-title="cover.name"
-                  >&nbsp;</a>
+                  >&nbsp;</a
+                >
               </div>
             </div>
           </card-body>

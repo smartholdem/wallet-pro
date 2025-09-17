@@ -3,7 +3,6 @@ import axios from "axios";
 
 // Константы для подключения
 const EXCHANGE_API_URL = "http://localhost:3302";
-const BITSHARES_NODE = "wss://node.xbts.io/ws";
 
 export const useExchangeStore = defineStore("exchange", {
   state: () => ({

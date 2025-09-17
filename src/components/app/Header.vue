@@ -237,7 +237,11 @@ function fullScreen() {
                 class="dropdown-item text-decoration-none p-3 bg-none"
               >
                 <div>
-                  <img style="filter: grayscale(1)" src="/images/2fa48.png" alt="2fa sth"/>
+                  <img
+                    style="filter: grayscale(1)"
+                    src="/images/2fa48.png"
+                    alt="2fa sth"
+                  />
                 </div>
                 <div class="fw-500 fs-10px text-inverse">2FA</div>
               </a>

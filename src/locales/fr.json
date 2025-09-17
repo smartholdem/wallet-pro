@@ -140,5 +140,18 @@
   "modal_sign_message_validate_title": "Valider la signature du message",
   "modal_sign_message_validate_signature": "Valider la signature",
   "modal_sign_message_valid": "La signature est valide",
-  "modal_sign_message_not_valid": "Non valide"
+  "modal_sign_message_not_valid": "Non valide",
+  "exchange_modal_title": "Échanger STH/USDT",
+  "exchange_modal_buy_tab": "Acheter STH",
+  "exchange_modal_sell_tab": "Vendre STH",
+  "exchange_modal_buy_amount_label": "Montant de STH à acheter :",
+  "exchange_modal_to_pay": "À payer :",
+  "exchange_modal_send_usdt_to": "Envoyer des USDT à l'adresse :",
+  "exchange_modal_buy_button": "Acheter",
+  "exchange_modal_sell_amount_label": "Montant de STH à vendre :",
+  "exchange_modal_your_balance": "Votre solde :",
+  "exchange_modal_your_usdt_address_bsc": "Votre adresse USDT (BSC) :",
+  "exchange_modal_you_will_receive": "Vous recevrez :",
+  "exchange_modal_sell_button": "Vendre",
+  "exchange_modal_continue_button": "CONTINUER"
 }

@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{ $t('modal_sign_message_title') }}</h5>
+          <h5 class="modal-title">{{ $t("modal_sign_message_title") }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -27,13 +27,15 @@
                   @click="getSig"
                   class="btn btn-outline-success form-control w-100"
                 >
-                  {{ $t('modal_sign_message_get_signature') }}
+                  {{ $t("modal_sign_message_get_signature") }}
                 </button>
               </div>
             </div>
 
             <div v-if="signature" class="form-group mt-3">
-              <label class="form-label" for="newSignature">{{ $t('modal_sign_message_signature_label') }}</label>
+              <label class="form-label" for="newSignature">{{
+                $t("modal_sign_message_signature_label")
+              }}</label>
               <textarea
                 id="newSignature"
                 readonly
@@ -47,7 +49,9 @@
 
         <hr />
         <div class="modal-header">
-          <h5 class="modal-title">{{ $t('modal_sign_message_validate_title') }}</h5>
+          <h5 class="modal-title">
+            {{ $t("modal_sign_message_validate_title") }}
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -65,7 +69,9 @@
             />
 
             <div class="form-group mt-3">
-              <label class="form-label" for="currentSig">{{ $t('modal_sign_message_signature_label') }}</label>
+              <label class="form-label" for="currentSig">{{
+                $t("modal_sign_message_signature_label")
+              }}</label>
               <textarea
                 id="currentSig"
                 v-model="signatureForValidate"
@@ -76,13 +82,15 @@
                 @click="validateSig"
                 class="btn btn-outline-success form-control w-100 mt-2"
               >
-                {{ $t('modal_sign_message_validate_signature') }}
+                {{ $t("modal_sign_message_validate_signature") }}
               </button>
               <p class="text-center mt-2">
-                <span v-if="isValid" class="text-uppercase text-success"
-                  >{{ $t('modal_sign_message_valid') }}</span
-                >
-                <span v-else class="text-uppercase text-danger">{{ $t('modal_sign_message_not_valid') }}</span>
+                <span v-if="isValid" class="text-uppercase text-success">{{
+                  $t("modal_sign_message_valid")
+                }}</span>
+                <span v-else class="text-uppercase text-danger">{{
+                  $t("modal_sign_message_not_valid")
+                }}</span>
               </p>
             </div>
           </div>

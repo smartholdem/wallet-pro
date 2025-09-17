@@ -1,12 +1,18 @@
 // typescript
-import {defineStore} from "pinia";
-import {generateMnemonic, validateMnemonic} from "bip39";
-import {Crypto, Identities, Managers, Transactions, Utils,} from "@smartholdem/crypto";
-import {Connection} from "@smartholdem/client";
+import { defineStore } from "pinia";
+import { generateMnemonic, validateMnemonic } from "bip39";
+import {
+  Crypto,
+  Identities,
+  Managers,
+  Transactions,
+  Utils,
+} from "@smartholdem/crypto";
+import { Connection } from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import Web3 from "web3";
-import {useStoreSettings} from "@/stores/app-settings";
+import { useStoreSettings } from "@/stores/app-settings";
 
 Managers.configManager.setFromPreset("mainnet");
 Managers.configManager.setHeight(5000000);
@@ -125,8 +131,8 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getSmartHolder() {
       try {
-          this.smartHolder = (
-            await axios.get("https://smartholder.xbts.io/api/public/percents")
+        this.smartHolder = (
+          await axios.get("https://smartholder.xbts.io/api/public/percents")
         ).data;
       } catch {
         console.log("err: get smartHolder");
@@ -135,8 +141,9 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getBlockchain() {
       try {
-          this.blockchain = (await axios.get(getActiveNode() + "/blockchain")).data
-            .data;
+        this.blockchain = (
+          await axios.get(getActiveNode() + "/blockchain")
+        ).data.data;
       } catch {
         console.log("err: get blockchain");
       }
@@ -148,8 +155,9 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getNodeConfig() {
       try {
-          this.nodeConfig = (await axios.get(getActiveNode() + "/node/configuration"))
-            .data.data;
+        this.nodeConfig = (
+          await axios.get(getActiveNode() + "/node/configuration")
+        ).data.data;
       } catch {
         console.log("err: get node config");
       }
