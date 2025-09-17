@@ -293,8 +293,8 @@
                     v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'"
                   >
                     <span
-                      :class="'ico-xbts'"
-                      style="padding: 3px; padding-right: 16px"
+                        :class="'ico-xbts'"
+                        style="padding: 3px 16px 3px 3px;"
                     >&nbsp;</span
                     >
                   </span>
