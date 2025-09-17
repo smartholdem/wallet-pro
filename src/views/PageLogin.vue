@@ -82,7 +82,7 @@ export default {
         </div>
         <div class="mb-3">
           <div class="d-flex">
-            <label class="form-label" for="loginPassword">Pin code <span class="text-danger">*</span></label>
+            <label class="form-label" for="loginPassword">{{ $t('pin_code') }} <span class="text-danger">*</span></label>
             <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">Reset all data?</a>
           </div>
           <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;"
@@ -138,3 +138,4 @@ export default {
 
   </div>
 </template>
+emplate>

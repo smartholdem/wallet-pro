@@ -20,5 +20,14 @@
   "recipient": "Получатель",
   "memo": "Заметка",
   "continue": "ПРОДОЛЖИТЬ",
-  "please_wait_confirmation": "Пожалуйста, ожидайте подтверждения.."
+  "please_wait_confirmation": "Пожалуйста, ожидайте подтверждения..",
+  "unlock_wallet": "Разблокировать кошелек",
+  "enter_pin_protection": "Для вашей защиты, пожалуйста, введите свой пин-код.",
+  "pin_code": "Пин-код",
+  "reset_all_data_q": "Сбросить все данные?",
+  "sign_in": "Войти",
+  "loading": "Загрузка...",
+  "reset_all_data_confirm_q": "Сбросить все данные?",
+  "reset_all_data_desc": "Сбросить все данные, ключи, адреса.",
+  "confirm_reset_all_data": "Подтвердить сброс всех данных"
 }

@@ -20,5 +20,14 @@
   "recipient": "Recipient",
   "memo": "Memo",
   "continue": "CONTINUE",
-  "please_wait_confirmation": "Please wait confirmation.."
+  "please_wait_confirmation": "Please wait confirmation..",
+  "unlock_wallet": "Unlock Wallet",
+  "enter_pin_protection": "For your protection, please enter your Pin code.",
+  "pin_code": "Pin code",
+  "reset_all_data_q": "Reset all data?",
+  "sign_in": "Sign In",
+  "loading": "Loading...",
+  "reset_all_data_confirm_q": "Reset All Data?",
+  "reset_all_data_desc": "Reset all data, keys, address.",
+  "confirm_reset_all_data": "Confirm reset all data"
 }

@@ -20,5 +20,14 @@
   "recipient": "Penerima",
   "memo": "Memo",
   "continue": "LANJUTKAN",
-  "please_wait_confirmation": "Harap tunggu konfirmasi..."
+  "please_wait_confirmation": "Harap tunggu konfirmasi...",
+  "unlock_wallet": "Buka kunci dompet",
+  "enter_pin_protection": "Untuk perlindungan Anda, silakan masukkan kode Pin Anda.",
+  "pin_code": "Kode Pin",
+  "reset_all_data_q": "Setel ulang semua data?",
+  "sign_in": "Masuk",
+  "loading": "Memuat...",
+  "reset_all_data_confirm_q": "Setel ulang semua data?",
+  "reset_all_data_desc": "Setel ulang semua data, kunci, alamat.",
+  "confirm_reset_all_data": "Konfirmasi setel ulang semua data"
 }

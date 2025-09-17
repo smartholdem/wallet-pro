@@ -20,5 +20,14 @@
   "recipient": "Destinatario",
   "memo": "Memo",
   "continue": "CONTINUAR",
-  "please_wait_confirmation": "Por favor, espera la confirmación..."
+  "please_wait_confirmation": "Por favor, espera la confirmación...",
+  "unlock_wallet": "Desbloquear billetera",
+  "enter_pin_protection": "Para su protección, ingrese su código Pin.",
+  "pin_code": "Código Pin",
+  "reset_all_data_q": "¿Restablecer todos los datos?",
+  "sign_in": "Iniciar sesión",
+  "loading": "Cargando...",
+  "reset_all_data_confirm_q": "¿Restablecer todos los datos?",
+  "reset_all_data_desc": "Restablecer todos los datos, claves, dirección.",
+  "confirm_reset_all_data": "Confirmar el restablecimiento de todos los datos"
 }

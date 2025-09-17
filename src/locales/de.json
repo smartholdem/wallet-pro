@@ -20,5 +20,14 @@
   "recipient": "Empfänger",
   "memo": "Memo",
   "continue": "WEITER",
-  "please_wait_confirmation": "Bitte auf Bestätigung warten..."
+  "please_wait_confirmation": "Bitte auf Bestätigung warten...",
+  "unlock_wallet": "Brieftasche entsperren",
+  "enter_pin_protection": "Zu Ihrem Schutz geben Sie bitte Ihren Pin-Code ein.",
+  "pin_code": "Pin-Code",
+  "reset_all_data_q": "Alle Daten zurücksetzen?",
+  "sign_in": "Anmelden",
+  "loading": "Wird geladen...",
+  "reset_all_data_confirm_q": "Alle Daten zurücksetzen?",
+  "reset_all_data_desc": "Alle Daten, Schlüssel, Adresse zurücksetzen.",
+  "confirm_reset_all_data": "Bestätigen Sie das Zurücksetzen aller Daten"
 }

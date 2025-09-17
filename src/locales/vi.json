@@ -20,5 +20,14 @@
   "recipient": "Người nhận",
   "memo": "Ghi nhớ",
   "continue": "TIẾP TỤC",
-  "please_wait_confirmation": "Vui lòng đợi xác nhận..."
+  "please_wait_confirmation": "Vui lòng đợi xác nhận...",
+  "unlock_wallet": "Mở khóa ví",
+  "enter_pin_protection": "Để bảo vệ bạn, vui lòng nhập mã Pin của bạn.",
+  "pin_code": "Mã Pin",
+  "reset_all_data_q": "Đặt lại tất cả dữ liệu?",
+  "sign_in": "Đăng nhập",
+  "loading": "Đang tải...",
+  "reset_all_data_confirm_q": "Đặt lại tất cả dữ liệu?",
+  "reset_all_data_desc": "Đặt lại tất cả dữ liệu, khóa, địa chỉ.",
+  "confirm_reset_all_data": "Xác nhận đặt lại tất cả dữ liệu"
 }
