@@ -139,6 +139,11 @@ function fullScreen() {
         <div class="dropdown-menu dropdown-menu-end">
           <a @click.prevent="setLocale('en')" href="#" class="dropdown-item">English</a>
           <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item">Русский</a>
+          <a @click.prevent="setLocale('es')" href="#" class="dropdown-item">Español</a>
+          <a @click.prevent="setLocale('de')" href="#" class="dropdown-item">Deutsch</a>
+          <a @click.prevent="setLocale('fr')" href="#" class="dropdown-item">Français</a>
+          <a @click.prevent="setLocale('vi')" href="#" class="dropdown-item">Tiếng Việt</a>
+          <a @click.prevent="setLocale('id')" href="#" class="dropdown-item">Bahasa Indonesia</a>
         </div>
       </div>
 			<div class="menu-item dropdown dropdown-mobile-full">
