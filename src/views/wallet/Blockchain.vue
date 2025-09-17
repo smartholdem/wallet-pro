@@ -3,28 +3,28 @@
     <div class="col-xl-12">
       <ul class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/">WALLET</router-link>
+          <router-link to="/">{{ $t("wallet") }}</router-link>
         </li>
-        <li class="breadcrumb-item active text-uppercase">Blockchain</li>
+        <li class="breadcrumb-item active text-uppercase">{{ $t("blockchain") }}</li>
       </ul>
     </div>
 
     <div class="col-xl-5 mb-3">
       <card class="h-100" v-if="nodeConfig">
         <card-header class="card-header fw-bold small text-uppercase"
-          >Static Fees</card-header
+          >{{ $t("static_fees") }}</card-header
         >
         <card-body class="overflow-hidden">
-          <table class="table table-striped">
+          <table class="table table-striped text-capitalize">
             <thead>
               <tr>
-                <th>Operation</th>
-                <th>Cost STH</th>
+                <th>{{ $t("operation") }}</th>
+                <th>{{ $t("cost_sth") }}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Transfer</td>
+                <td>{{ $t("transfer") }}</td>
                 <td>
                   0.25 -
                   {{
@@ -35,7 +35,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Second Signature</td>
+                <td>{{ $t("second_signature") }}</td>
                 <td>
                   {{
                     (
@@ -45,7 +45,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Delegate Registration</td>
+                <td>{{ $t("delegate_registration") }}</td>
                 <td>
                   {{
                     (
@@ -56,7 +56,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Vote</td>
+                <td>{{ $t("vote") }}</td>
                 <td>
                   {{
                     (nodeConfig.constants.fees.staticFees.vote / 1e8).toFixed(0)
@@ -64,7 +64,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Multi Signature</td>
+                <td>{{ $t("multi_signature") }}</td>
                 <td>
                   {{
                     (
@@ -74,7 +74,7 @@
                 </td>
               </tr>
               <tr>
-                <td>IPFS</td>
+                <td>{{ $t("ipfs") }}</td>
                 <td>
                   {{
                     (nodeConfig.constants.fees.staticFees.ipfs / 1e8).toFixed(0)
@@ -82,7 +82,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Multi Payment</td>
+                <td>{{ $t("multi_payment") }}</td>
                 <td>
                   {{
                     (
@@ -92,7 +92,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Delegate Resignation</td>
+                <td>{{ $t("delegate_resignation") }}</td>
                 <td>
                   {{
                     (
@@ -103,7 +103,7 @@
                 </td>
               </tr>
               <tr>
-                <td>HTLC Lock</td>
+                <td>{{ $t("htlc_lock") }}</td>
                 <td>
                   {{
                     (
@@ -113,7 +113,7 @@
                 </td>
               </tr>
               <tr>
-                <td>HTLC Claim</td>
+                <td>{{ $t("htlc_claim") }}</td>
                 <td>
                   {{
                     (
@@ -123,7 +123,7 @@
                 </td>
               </tr>
               <tr>
-                <td>HTLC Refund</td>
+                <td>{{ $t("htlc_refund") }}</td>
                 <td>
                   {{
                     (
@@ -141,13 +141,13 @@
     <!--
     <div class="col-xl-3 mb-3">
       <card class="h-100" v-if="nodeConfig">
-        <card-header class="card-header fw-bold small text-uppercase">Dynamic Fees</card-header>
+        <card-header class="card-header fw-bold small text-uppercase">{{ $t("dynamic_fees") }}</card-header>
         <card-body>
           <table class="table table-striped">
             <thead>
             <tr>
-              <th>Operation</th>
-              <th>Cost STH</th>
+              <th>{{ $t("operation") }}</th>
+              <th>{{ $t("cost_sth") }}</th>
             </tr>
             </thead>
             <tbody>
@@ -161,7 +161,7 @@
             </tr>
             <tr>
               <td>
-                Second Signature
+                {{ $t("second_signature") }}
               </td>
               <td>
                 {{ (nodeConfig.transactionPool.dynamicFees.minFeeBroadcast / 1e8).toFixed(8) }}
@@ -169,7 +169,7 @@
             </tr>
             <tr>
               <td>
-                Delegate Registration
+                {{ $t("delegate_registration") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.delegateRegistration / 1e8).toFixed(0) }}
@@ -177,7 +177,7 @@
             </tr>
             <tr>
               <td>
-                Vote
+                {{ $t("vote") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.vote / 1e8).toFixed(0) }}
@@ -185,7 +185,7 @@
             </tr>
             <tr>
               <td>
-                Multi Signature
+                {{ $t("multi_signature") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.multiSignature / 1e8).toFixed(0) }}
@@ -193,7 +193,7 @@
             </tr>
             <tr>
               <td>
-                IPFS
+                {{ $t("ipfs") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.ipfs / 1e8).toFixed(0) }}
@@ -201,7 +201,7 @@
             </tr>
             <tr>
               <td>
-                Multi Payment
+                {{ $t("multi_payment") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.multiPayment / 1e8).toFixed(2) }}
@@ -209,7 +209,7 @@
             </tr>
             <tr>
               <td>
-                Delegate Resignation
+                {{ $t("delegate_resignation") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.delegateResignation / 1e8).toFixed(0) }}
@@ -217,7 +217,7 @@
             </tr>
             <tr>
               <td>
-                HTLC Lock
+                {{ $t("htlc_lock") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.htlcLock / 1e8).toFixed(2) }}
@@ -225,7 +225,7 @@
             </tr>
             <tr>
               <td>
-                HTLC Claim
+                {{ $t("htlc_claim") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.htlcClaim / 1e8).toFixed(2) }}
@@ -233,7 +233,7 @@
             </tr>
             <tr>
               <td>
-                HTLC Refund
+                {{ $t("htlc_refund") }}
               </td>
               <td>
                 {{ (nodeConfig.constants.fees.staticFees.htlcRefund / 1e8).toFixed(2) }}
@@ -252,42 +252,42 @@
     <div class="col-xl-7 mb-3">
       <card class="h-100" v-if="nodeConfig && blockchain">
         <card-header class="card-header fw-bold small text-uppercase"
-          >Blockchain</card-header
+          >{{ $t("blockchain") }}</card-header
         >
         <card-body class="overflow-hidden">
           <table class="table table-striped">
             <thead>
               <tr>
-                <td>Option</td>
-                <td>Value</td>
+                <td>{{ $t("option") }}</td>
+                <td>{{ $t("value") }}</td>
               </tr>
             </thead>
 
             <tbody>
               <tr v-show="!isMobile">
-                <td>Net Hash</td>
+                <td>{{ $t("net_hash") }}</td>
                 <td>
                   {{ nodeConfig.nethash }}
                 </td>
               </tr>
               <tr>
-                <td>Height</td>
+                <td>{{ $t("height") }}</td>
                 <td>
                   {{ blockchain.block.height }}
                 </td>
               </tr>
               <tr>
-                <td>Coin</td>
+                <td>{{ $t("coin") }}</td>
                 <td>
                   {{ nodeConfig.token }}
                 </td>
               </tr>
               <tr>
-                <td>Supply</td>
+                <td>{{ $t("supply") }}</td>
                 <td>{{ (blockchain.supply / 1e8 - 92068).toFixed(0) }} STH</td>
               </tr>
               <tr>
-                <td>SmartHolder Lock</td>
+                <td>{{ $t("smartholder_lock") }}</td>
                 <td v-if="smartHolder.total">
                   {{ (smartHolder.total["realAmount"] * 1).toFixed(0) }} STH
                   <span class="small text-info"
@@ -300,11 +300,11 @@
                     }}%</span
                   >
                 </td>
-                <td v-if="!smartHolder.total">Loading...</td>
+                <td v-if="!smartHolder.total">{{ $t("loading") }}...</td>
               </tr>
 
               <tr>
-                <td>Version</td>
+                <td>{{ $t("version") }}</td>
                 <td>
                   {{ nodeConfig.version }}
                   <span class=""
@@ -313,7 +313,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Slip44</td>
+                <td>{{ $t("slip44") }}</td>
                 <td>
                   {{ nodeConfig.slip44 }}
                   <span class=""
@@ -322,7 +322,7 @@
                 </td>
               </tr>
               <tr>
-                <td>WIF</td>
+                <td>{{ $t("wif") }}</td>
                 <td>
                   {{ nodeConfig.wif }}
                   <span class=""
@@ -331,17 +331,17 @@
                 </td>
               </tr>
               <tr>
-                <td>Active Delegates</td>
+                <td>{{ $t("active_delegates") }}</td>
                 <td>
                   {{ nodeConfig.constants.activeDelegates }}
                 </td>
               </tr>
               <tr>
-                <td>Block Time</td>
+                <td>{{ $t("block_time") }}</td>
                 <td>{{ nodeConfig.constants.blocktime }}s</td>
               </tr>
               <tr>
-                <td>Epoch</td>
+                <td>{{ $t("epoch") }}</td>
                 <td>
                   {{ nodeConfig.constants.epoch }}
                 </td>
