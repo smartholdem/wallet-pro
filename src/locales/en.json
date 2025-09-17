@@ -108,11 +108,8 @@
   "transaction_failed": "Transaction failed",
   "sell_condition_not_met": "Sell condition not met",
   "transfer": "Transfer",
-  "recipient": "Recipient",
-  "fee": "Fee",
   "max": "[max]",
   "min": "min",
-  "memo": "Memo",
   "public_description_max_250": "Public Description max 250",
   "memo_max_100": "memo max 100",
   "mainnet": "MainNet",
@@ -122,7 +119,7 @@
   "send_sth": "SEND STH",
   "secret_key": "SECRET KEY",
   "for_address": "For address",
-  "please_keep_in_secret": "Please keep in secret!",
   "receiving_address": "Receiving address",
   "list_recipients": "List recipients"
 }
+

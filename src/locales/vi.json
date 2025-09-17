@@ -108,11 +108,8 @@
   "transaction_failed": "Giao dịch thất bại",
   "sell_condition_not_met": "Điều kiện bán không được đáp ứng",
   "transfer": "Chuyển khoản",
-  "recipient": "Người nhận",
-  "fee": "Phí",
   "max": "[tối đa]",
   "min": "tối thiểu",
-  "memo": "Ghi nhớ",
   "public_description_max_250": "Mô tả công khai tối đa 250",
   "memo_max_100": "ghi nhớ tối đa 100",
   "mainnet": "MainNet",
@@ -122,7 +119,6 @@
   "send_sth": "GỬI STH",
   "secret_key": "KHÓA BÍ MẬT",
   "for_address": "Đối với địa chỉ",
-  "please_keep_in_secret": "Vui lòng giữ bí mật!",
   "receiving_address": "Địa chỉ nhận",
   "list_recipients": "Danh sách người nhận"
 }

@@ -108,11 +108,8 @@
   "transaction_failed": "Transaksi gagal",
   "sell_condition_not_met": "Kondisi penjualan tidak terpenuhi",
   "transfer": "Transfer",
-  "recipient": "Penerima",
-  "fee": "Biaya",
   "max": "[maks]",
   "min": "min",
-  "memo": "Memo",
   "public_description_max_250": "Deskripsi Publik maks 250",
   "memo_max_100": "memo maks 100",
   "mainnet": "MainNet",
@@ -122,7 +119,6 @@
   "send_sth": "KIRIM STH",
   "secret_key": "KUNCI RAHASIA",
   "for_address": "Untuk alamat",
-  "please_keep_in_secret": "Harap rahasiakan!",
   "receiving_address": "Alamat penerima",
   "list_recipients": "Daftar penerima"
 }

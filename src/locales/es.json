@@ -108,11 +108,8 @@
   "transaction_failed": "Transacción fallida",
   "sell_condition_not_met": "Condición de venta no cumplida",
   "transfer": "Transferir",
-  "recipient": "Destinatario",
-  "fee": "Tarifa",
   "max": "[máx]",
   "min": "mín",
-  "memo": "Memo",
   "public_description_max_250": "Descripción pública máx. 250",
   "memo_max_100": "memo máx. 100",
   "mainnet": "MainNet",
@@ -122,7 +119,6 @@
   "send_sth": "ENVIAR STH",
   "secret_key": "CLAVE SECRETA",
   "for_address": "Para la dirección",
-  "please_keep_in_secret": "¡Por favor, manténgalo en secreto!",
   "receiving_address": "Dirección de recepción",
   "list_recipients": "Lista de destinatarios"
 }

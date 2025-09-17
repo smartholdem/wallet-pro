@@ -1,7 +1,7 @@
 <template>
   <div class="h-100">
     <card class="h-100 overflow-hidden">
-      <card-header class="card-header fw-bold small"> OPERATIONS</card-header>
+      <card-header class="card-header fw-bold small"> {{ $t('operations') }}</card-header>
       <card-body>
         <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
           <button
@@ -59,10 +59,10 @@
             data-bs-target="#modalMPayTransfer"
             class="btn btn-outline-theme"
           >
-            mPays
+            {{ $t('mpays') }}
           </button>
           <button :disabled="true" type="button" class="btn btn-outline-theme">
-            HTLC
+            {{ $t('htlc') }}
           </button>
           <button
             data-bs-toggle="modal"
@@ -70,7 +70,7 @@
             type="button"
             class="btn btn-outline-theme"
           >
-            SIG
+            {{ $t('sig') }}
           </button>
           <button
             data-bs-toggle="modal"
@@ -84,7 +84,7 @@
 
         <div v-if="currentAddress" class="btn-group mb-3">
           <button disabled="true" type="button" class="btn btn-outline-theme">
-            2nd PWD
+            {{ $t('2nd_pwd') }}
           </button>
 
           <button
@@ -94,7 +94,7 @@
             type="button"
             class="btn btn-outline-theme"
           >
-            DELEGATE REG
+            {{ $t('delegate_reg') }}
           </button>
 
           <button
@@ -103,10 +103,10 @@
             type="button"
             class="btn btn-outline-theme"
           >
-            VOTE
+            {{ $t('vote') }}
           </button>
           <button disabled="true" type="button" class="btn btn-outline-theme">
-            mSIG
+            {{ $t('msig') }}
           </button>
         </div>
       </card-body>
@@ -117,7 +117,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Multi Payments</h5>
+            <h5 class="modal-title">{{ $t('multi_payments') }}</h5>
             <button
               type="button"
               class="btn-close"
@@ -130,7 +130,7 @@
                 <!-- CSV Upload Section -->
                 <div class="row mb-3">
                   <div class="col-md-6">
-                    <label class="form-label">Upload CSV-file</label>
+                    <label class="form-label">{{ $t('upload_csv_file') }}</label>
                     <input
                       ref="csvFileInput"
                       @change="handleCsvUpload"
@@ -138,24 +138,24 @@
                       accept=".csv"
                       class="form-control form-control-sm"
                     />
-                    <small class="text-muted">Format: address,amount</small>
+                    <small class="text-muted">{{ $t('format_address_amount') }}</small>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label">Operations</label>
+                    <label class="form-label">{{ $t('operations_csv') }}</label>
                     <div class="d-flex gap-2">
                       <button
                         @click="clearMultiPayList"
                         type="button"
                         class="btn btn-sm btn-outline-secondary"
                       >
-                        Clear
+                        {{ $t('clear') }}
                       </button>
                       <button
                         @click="downloadTemplate"
                         type="button"
                         class="btn btn-sm btn-outline-info"
                       >
-                        Download template
+                        {{ $t('download_template') }}
                       </button>
                     </div>
                   </div>
@@ -164,7 +164,7 @@
                 <!-- Manual Add Section -->
                 <div class="row mb-3">
                   <div class="col-md-8">
-                    <label class="form-label">Add recipient</label>
+                    <label class="form-label">{{ $t('add_recipient') }}</label>
                     <input
                       v-model="newRecipient.address"
                       @input="validateNewRecipientAddress"
@@ -176,11 +176,11 @@
                           ? 'is-valid'
                           : 'is-invalid'
                       "
-                      placeholder="Enter address"
+                      :placeholder="$t('enter_address')"
                     />
                   </div>
                   <div class="col-md-3">
-                    <label class="form-label">Amount</label>
+                    <label class="form-label">{{ $t('amount') }}</label>
                     <input
                       v-model="newRecipient.amount"
                       type="number"
@@ -211,7 +211,7 @@
                 <!-- Recipients List -->
                 <div v-if="multiPayRecipients.length > 0" class="mb-3">
                   <label class="form-label"
-                  >List recipients ({{ multiPayRecipients.length }})</label
+                  >{{ $t('list_recipients') }} ({{ multiPayRecipients.length }})</label
                   >
                   <div
                     class="table-responsive"
@@ -221,9 +221,9 @@
                       <thead>
                       <tr>
                         <th>#</th>
-                        <th>Address</th>
-                        <th>Amount</th>
-                        <th>Operation</th>
+                        <th>{{ $t('address_table') }}</th>
+                        <th>{{ $t('amount_table') }}</th>
+                        <th>{{ $t('operation_table') }}</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -257,14 +257,14 @@
                       </tbody>
                       <tfoot>
                       <tr class="table-info">
-                        <td colspan="2"><strong>Total:</strong></td>
+                        <td colspan="2"><strong>{{ $t('total') }}:</strong></td>
                         <td>
                           <strong>{{ totalAmount.toFixed(8) }} STH</strong>
                         </td>
                         <td></td>
                       </tr>
                       <tr class="table-warning">
-                        <td colspan="2"><strong>Fees:</strong></td>
+                        <td colspan="2"><strong>{{ $t('fees') }}:</strong></td>
                         <td>
                           <strong
                           >{{
@@ -278,7 +278,7 @@
                         <td></td>
                       </tr>
                       <tr class="table-success">
-                        <td colspan="2"><strong>Total amount:</strong></td>
+                        <td colspan="2"><strong>{{ $t('total_amount') }}:</strong></td>
                         <td>
                           <strong
                           >{{
@@ -303,7 +303,7 @@
                     <label
                       class="form-label px-4"
                       :class="'ico-' + selectedNetwork"
-                    >Network</label
+                    >{{ $t('network') }}</label
                     >
                     <select
                       v-model="selectedNetwork"
@@ -326,14 +326,14 @@
                       type="button"
                       class="btn btn-success"
                     >
-                      Send {{ multiPayRecipients.length }} transactions
+                      {{ $t('send_transactions', { count: multiPayRecipients.length }) }}
                     </button>
                   </div>
                 </div>
 
                 <!-- Error Messages -->
                 <div v-if="csvErrors.length > 0" class="alert alert-warning">
-                  <strong>Errors in CSV:</strong>
+                  <strong>{{ $t('errors_in_csv') }}</strong>
                   <ul class="mb-0">
                     <li v-for="error in csvErrors" :key="error">{{ error }}</li>
                   </ul>
@@ -343,16 +343,16 @@
               <!-- Transaction Results -->
               <div v-if="txSendStep === 1" class="overflow-hidden overflow-x-auto">
                 <div class="mb-3">
-                  <h6>Transaction results ({{ multiPayResults.length }}):</h6>
+                  <h6>{{ $t('transaction_results') }} ({{ multiPayResults.length }}):</h6>
                   <div class="table-responsive" style="max-height: 400px; overflow-y: auto">
                     <table class="table table-sm">
                       <thead>
                       <tr>
                         <th>#</th>
-                        <th>Tx ID</th>
-                        <th>Payments in tx</th>
-                        <th>Status</th>
-                        <th>Error</th>
+                        <th>{{ $t('tx_id') }}</th>
+                        <th>{{ $t('payments_in_tx') }}</th>
+                        <th>{{ $t('status') }}</th>
+                        <th>{{ $t('error') }}</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -362,12 +362,12 @@
                             <span v-if="r.txId" class="text-primary">
                               {{ r.txId.substring(0, 12) }}...{{ r.txId.substr(-12) }}
                             </span>
-                          <span v-else class="text-muted">no id</span>
+                          <span v-else class="text-muted">{{ $t('no_id') }}</span>
                         </td>
                         <td>{{ r.paymentsCount ?? "-" }}</td>
                         <td>
                             <span class="badge" :class="r.success ? 'bg-success' : 'bg-danger'">
-                              {{ r.success ? "Success" : "Error" }}
+                              {{ r.success ? $t('success_badge') : $t('error_badge') }}
                             </span>
                         </td>
                         <td>
@@ -386,7 +386,7 @@
                     type="button"
                     class="btn btn-sm btn-primary"
                   >
-                    Close
+                    {{ $t('close') }}
                   </button>
                 </p>
               </div>
@@ -1029,7 +1029,7 @@ export default {
 
         if (!address || !amount) {
           this.csvErrors.push(
-            `Line ${i + 1}: Invalid format (expected: address,amount)`
+            `{{ $t('invalid_format_expected', { line: i + 1 }) }}`
           );
           continue;
         }
@@ -1038,18 +1038,18 @@ export default {
         const numAmount = parseFloat(amount);
 
         if (!isValidAddress) {
-          this.csvErrors.push(`Line ${i + 1}: Invalid address ${address}`);
+          this.csvErrors.push(`{{ $t('invalid_address', { line: i + 1, address: address }) }}`);
           continue;
         }
 
         if (isNaN(numAmount) || numAmount <= 0) {
-          this.csvErrors.push(`Line ${i + 1}: Invalid amount ${amount}`);
+          this.csvErrors.push(`{{ $t('invalid_amount', { line: i + 1, amount: amount }) }}`);
           continue;
         }
 
         if (address === this.address) {
           this.csvErrors.push(
-            `Line ${i + 1}: Cannot send to your address`
+            `{{ $t('cannot_send_to_your_address', { line: i + 1 }) }}`
           );
           continue;
         }
@@ -1059,7 +1059,7 @@ export default {
           (r) => r.address === address
         );
         if (exists) {
-          this.csvErrors.push(`Line ${i + 1}: Address ${address} already added`);
+          this.csvErrors.push(`{{ $t('address_already_added', { line: i + 1, address: address }) }}`);
           continue;
         }
 

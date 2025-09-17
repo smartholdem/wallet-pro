@@ -108,11 +108,8 @@
   "transaction_failed": "Транзакция не удалась",
   "sell_condition_not_met": "Условие продажи не выполнено",
   "transfer": "Перевод",
-  "recipient": "Получатель",
-  "fee": "Комиссия",
   "max": "[макс]",
   "min": "мин",
-  "memo": "Заметка",
   "public_description_max_250": "Публичное описание макс. 250",
   "memo_max_100": "заметка макс. 100",
   "mainnet": "Основная сеть",
@@ -122,7 +119,6 @@
   "send_sth": "ОТПРАВИТЬ STH",
   "secret_key": "СЕКРЕТНЫЙ КЛЮЧ",
   "for_address": "Для адреса",
-  "please_keep_in_secret": "Пожалуйста, храните в секрете!",
   "receiving_address": "Адрес получения",
   "list_recipients": "Список получателей"
 }
