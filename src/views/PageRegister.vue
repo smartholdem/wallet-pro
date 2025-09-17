@@ -114,7 +114,7 @@ function setLocale(lang: string) {
     <div class="modal modal-cover fade" id="modalTerms">
       <div class="modal-dialog">
         <div class="modal-content">
-          <button type="button" class="btn-close position-absolute top-0 end-0 m-3" style="z-index: 1060;" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-2" style="z-index: 1060;" data-bs-dismiss="modal" aria-label="Close"></button>
           <card class="card mb-3">
             <card-header class="card-header">
               Terms and Conditions
