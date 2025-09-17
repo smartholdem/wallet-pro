@@ -109,7 +109,7 @@
   "transaction_failed": "Transaction échouée",
   "sell_condition_not_met": "Condition de vente non remplie",
   "transfer": "Transfert",
-b  "max": "[max]",
+  "max": "[max]",
   "min": "min",
   "public_description_max_250": "Description publique max 250",
   "memo_max_100": "mémo max 100",

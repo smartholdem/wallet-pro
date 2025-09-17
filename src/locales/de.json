@@ -109,7 +109,7 @@
   "transaction_failed": "Transaktion fehlgeschlagen",
   "sell_condition_not_met": "Verkaufsbedingung nicht erfüllt",
   "transfer": "Übertragen",
-о  "max": "[max]",
+  "max": "[max]",
   "min": "min",
   "public_description_max_250": "Öffentliche Beschreibung max. 250",
   "memo_max_100": "Memo max. 100",
