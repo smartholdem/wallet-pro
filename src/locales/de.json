@@ -57,5 +57,14 @@
   "copied_to_clipboard": "In die Zwischenablage kopiert!",
   "deleted": "Gelöscht",
   "imported": "Importiert",
-  "created": "Erstellt"
+  "created": "Erstellt",
+  "wallet": "GELDBÖRSE",
+  "delegate": "DELEGIERTER",
+  "rank": "Rang",
+  "votes": "Stimmen",
+  "forged_fees": "Geschmiedete Gebühren",
+  "produced_blocks": "Produzierte Blöcke",
+  "voting_for": "Abstimmung für",
+  "cold_address": "Kalte Adresse",
+  "operation": "Operation"
 }

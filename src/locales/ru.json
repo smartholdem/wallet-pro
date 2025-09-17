@@ -57,5 +57,14 @@
   "copied_to_clipboard": "Скопировано в буфер обмена!",
   "deleted": "Удалено",
   "imported": "Импортировано",
-  "created": "Создано"
+  "created": "Создано",
+  "wallet": "КОШЕЛЕК",
+  "delegate": "ДЕЛЕГАТ",
+  "rank": "Ранг",
+  "votes": "Голоса",
+  "forged_fees": "Комиссии за ковку",
+  "produced_blocks": "Произведено блоков",
+  "voting_for": "Голосует за",
+  "cold_address": "Холодный адрес",
+  "operation": "операция"
 }

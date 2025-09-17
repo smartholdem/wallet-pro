@@ -57,5 +57,14 @@
   "copied_to_clipboard": "Copied to clipboard!",
   "deleted": "Deleted",
   "imported": "Imported",
-  "created": "Created"
+  "created": "Created",
+  "wallet": "WALLET",
+  "delegate": "DELEGATE",
+  "rank": "Rank",
+  "votes": "Votes",
+  "forged_fees": "Forged fees",
+  "produced_blocks": "Produced blocks",
+  "voting_for": "Voting for",
+  "cold_address": "Cold Address",
+  "operation": "operation"
 }
