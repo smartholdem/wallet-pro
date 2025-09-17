@@ -57,5 +57,14 @@
   "copied_to_clipboard": "Đã sao chép vào khay nhớ tạm!",
   "deleted": "Đã xóa",
   "imported": "Đã nhập",
-  "created": "Đã tạo"
+  "created": "Đã tạo",
+  "wallet": "VÍ",
+  "delegate": "ĐẠI BIỂU",
+  "rank": "Hạng",
+  "votes": "Phiếu bầu",
+  "forged_fees": "Phí đúc",
+  "produced_blocks": "Khối đã tạo",
+  "voting_for": "Bỏ phiếu cho",
+  "cold_address": "Địa chỉ lạnh",
+  "operation": "hoạt động"
 }

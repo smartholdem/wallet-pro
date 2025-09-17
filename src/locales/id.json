@@ -57,5 +57,14 @@
   "copied_to_clipboard": "Disalin ke papan klip!",
   "deleted": "Dihapus",
   "imported": "Diimpor",
-  "created": "Dibuat"
+  "created": "Dibuat",
+  "wallet": "DOMPET",
+  "delegate": "DELEGASI",
+  "rank": "Peringkat",
+  "votes": "Suara",
+  "forged_fees": "Biaya yang ditempa",
+  "produced_blocks": "Blok yang diproduksi",
+  "voting_for": "Memilih untuk",
+  "cold_address": "Alamat dingin",
+  "operation": "operasi"
 }

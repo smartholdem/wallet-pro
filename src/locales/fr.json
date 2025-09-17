@@ -57,5 +57,14 @@
   "copied_to_clipboard": "Copié dans le presse-papiers !",
   "deleted": "Supprimé",
   "imported": "Importé",
-  "created": "Créé"
+  "created": "Créé",
+  "wallet": "PORTEFEUILLE",
+  "delegate": "DÉLÉGUÉ",
+  "rank": "Rang",
+  "votes": "Votes",
+  "forged_fees": "Frais forgés",
+  "produced_blocks": "Blocs produits",
+  "voting_for": "Vote pour",
+  "cold_address": "Adresse froide",
+  "operation": "opération"
 }
