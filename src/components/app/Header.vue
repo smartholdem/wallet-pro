@@ -1,25 +1,28 @@
 <script setup lang="ts">
-import { slideToggle } from '@/composables/slideToggle.js';
-import { useAppOptionStore } from '@/stores/app-option';
-import { useStoreSettings } from '@/stores/app-settings';
-import { RouterLink } from 'vue-router';
+import { slideToggle } from "@/composables/slideToggle.js";
+import { useAppOptionStore } from "@/stores/app-option";
+import { useStoreSettings } from "@/stores/app-settings";
+import { RouterLink } from "vue-router";
 import router from "@/router";
-import packageJson from '/package.json';
+import packageJson from "/package.json";
 import { useI18n } from "vue-i18n";
 
 const { locale } = useI18n();
 
 const appOption = useAppOptionStore();
 const appSettings = useStoreSettings();
-const notificationData = [{
-	icon: 'bi bi-bag text-theme',
-	title: 'NEW MONEY RECEIVED (1,299 STH)',
-	time: 'JUST NOW'
-},{
-	icon: 'bi bi-person-circle text-theme',
-	title: '3 NEW ACCOUNT CREATED',
-	time: '2 MINUTES AGO'
-}];
+const notificationData = [
+  {
+    icon: "bi bi-bag text-theme",
+    title: "NEW MONEY RECEIVED (1,299 STH)",
+    time: "JUST NOW",
+  },
+  {
+    icon: "bi bi-person-circle text-theme",
+    title: "3 NEW ACCOUNT CREATED",
+    time: "2 MINUTES AGO",
+  },
+];
 
 function setLocale(lang) {
   locale.value = lang;
@@ -31,37 +34,37 @@ function currentVersion() {
 }
 
 function toggleAppSidebarCollapsed() {
-	if (!appOption.appSidebarHide) {
-		if (appOption.appSidebarCollapsed) {
-			appOption.appSidebarToggled = !appOption.appSidebarToggled;
-		} else if (appOption.appSidebarToggled) {
-			appOption.appSidebarToggled = !appOption.appSidebarToggled;
-		}
-		appOption.appSidebarCollapsed = !appOption.appSidebarCollapsed;
-	}
+  if (!appOption.appSidebarHide) {
+    if (appOption.appSidebarCollapsed) {
+      appOption.appSidebarToggled = !appOption.appSidebarToggled;
+    } else if (appOption.appSidebarToggled) {
+      appOption.appSidebarToggled = !appOption.appSidebarToggled;
+    }
+    appOption.appSidebarCollapsed = !appOption.appSidebarCollapsed;
+  }
 }
 function toggleAppSidebarMobileToggled() {
-	if (!(appOption.appTopNav && appOption.appSidebarHide)) {
-		appOption.appSidebarMobileToggled = !appOption.appSidebarMobileToggled;
-	} else {
-		slideToggle(document.querySelector('.app-top-nav'));
-		window.scrollTo(0, 0);
-	}
+  if (!(appOption.appTopNav && appOption.appSidebarHide)) {
+    appOption.appSidebarMobileToggled = !appOption.appSidebarMobileToggled;
+  } else {
+    slideToggle(document.querySelector(".app-top-nav"));
+    window.scrollTo(0, 0);
+  }
 }
 function toggleAppHeaderSearch(event) {
-	event.preventDefault();
+  event.preventDefault();
 
-	appOption.appHeaderSearchToggled = !appOption.appHeaderSearchToggled;
+  appOption.appHeaderSearchToggled = !appOption.appHeaderSearchToggled;
 }
 function checkForm(event) {
-	event.preventDefault();
-	this.$router.push({ path: '/extra/search' })
+  event.preventDefault();
+  this.$router.push({ path: "/extra/search" });
 }
 
 function walletLock() {
   appOption.appSidebarHide = true;
   appOption.appHeaderHide = true;
-  appOption.appContentClass = 'p-0';
+  appOption.appContentClass = "p-0";
   appSettings.tmpPin = "";
   router.push("/login");
 }
@@ -69,117 +72,167 @@ function walletLock() {
 let isFullScreen = false;
 
 function fullScreen() {
-  var element = document.querySelector("html");
+  const element = document.querySelector("html");
 
   isFullScreen = !isFullScreen;
 
   if (isFullScreen) {
     element.requestFullscreen()
-      .then(function() {
+      .then(function () {
         // element has entered fullscreen mode successfully
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // element could not enter fullscreen mode
         // error message
         console.log(error.message);
       });
   } else {
-    document.exitFullscreen()
-      .then(function() {
+    document
+      .exitFullscreen()
+      .then(function () {
         // element has exited fullscreen mode
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // element could not exit fullscreen mode
         // error message
         console.log(error.message);
       });
   }
-
-
 }
 </script>
 <template>
-	<div id="header" class="app-header">
-		<!-- BEGIN desktop-toggler -->
-		<div class="desktop-toggler">
-			<button type="button" class="menu-toggler" v-on:click="toggleAppSidebarCollapsed">
-				<span class="bar"></span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-			</button>
-		</div>
-		<!-- BEGIN desktop-toggler -->
+  <div id="header" class="app-header">
+    <!-- BEGIN desktop-toggler -->
+    <div class="desktop-toggler">
+      <button
+        type="button"
+        class="menu-toggler"
+        v-on:click="toggleAppSidebarCollapsed"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+    <!-- BEGIN desktop-toggler -->
 
-		<!-- BEGIN mobile-toggler -->
-		<div class="mobile-toggler">
-			<button type="button" class="menu-toggler" v-on:click="toggleAppSidebarMobileToggled">
-				<span class="bar"></span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-			</button>
-		</div>
-		<!-- END mobile-toggler -->
+    <!-- BEGIN mobile-toggler -->
+    <div class="mobile-toggler">
+      <button
+        type="button"
+        class="menu-toggler"
+        v-on:click="toggleAppSidebarMobileToggled"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+    <!-- END mobile-toggler -->
 
-		<!-- BEGIN brand -->
-		<div class="brand">
-			<RouterLink to="/" class="brand-logo">
-				<span class="brand-img">
-					<span class="brand-img-text text-theme">S</span>
-				</span>
-				<span class="brand-text">SmartHoldem Wallet <span class="small text-success-emphasis"> v.{{currentVersion()}}</span></span>
-			</RouterLink>
-		</div>
-		<!-- END brand -->
+    <!-- BEGIN brand -->
+    <div class="brand">
+      <RouterLink to="/" class="brand-logo">
+        <span class="brand-img">
+          <span class="brand-img-text text-theme">S</span>
+        </span>
+        <div class="brand-text" style="line-height:100%;">SmartHoldem Wallet <span class="small text-success-emphasis">v.{{ currentVersion() }}</span></div>
+      </RouterLink>
+    </div>
+    <!-- END brand -->
 
-		<!-- BEGIN menu -->
-		<div class="menu">
+    <!-- BEGIN menu -->
+    <div class="menu">
       <div class="menu-item dropdown">
         <a href="#" data-bs-toggle="dropdown" class="menu-link">
           <div class="menu-icon"><i class="fa fa-language"></i></div>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <a @click.prevent="setLocale('en')" href="#" class="dropdown-item">English</a>
-          <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item">Русский</a>
-          <a @click.prevent="setLocale('es')" href="#" class="dropdown-item">Español</a>
-          <a @click.prevent="setLocale('de')" href="#" class="dropdown-item">Deutsch</a>
-          <a @click.prevent="setLocale('fr')" href="#" class="dropdown-item">Français</a>
-          <a @click.prevent="setLocale('vi')" href="#" class="dropdown-item">Tiếng Việt</a>
-          <a @click.prevent="setLocale('id')" href="#" class="dropdown-item">Bahasa Indonesia</a>
+          <a @click.prevent="setLocale('en')" href="#" class="dropdown-item"
+            >English</a
+          >
+          <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item"
+            >Русский</a
+          >
+          <a @click.prevent="setLocale('es')" href="#" class="dropdown-item"
+            >Español</a
+          >
+          <a @click.prevent="setLocale('de')" href="#" class="dropdown-item"
+            >Deutsch</a
+          >
+          <a @click.prevent="setLocale('fr')" href="#" class="dropdown-item"
+            >Français</a
+          >
+          <a @click.prevent="setLocale('vi')" href="#" class="dropdown-item"
+            >Tiếng Việt</a
+          >
+          <a @click.prevent="setLocale('id')" href="#" class="dropdown-item"
+            >Bahasa Indonesia</a
+          >
         </div>
       </div>
-			<div class="menu-item dropdown dropdown-mobile-full">
-				<a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
-					<div class="menu-icon"><i class="bi bi-grid-3x3-gap nav-icon"></i></div>
-				</a>
-				<div class="dropdown-menu fade dropdown-menu-end w-300px text-center p-0 mt-1">
-					<div class="row row-grid gx-0">
-
+      <div class="menu-item dropdown dropdown-mobile-full">
+        <a
+          href="#"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+          class="menu-link"
+        >
+          <div class="menu-icon">
+            <i class="bi bi-grid-3x3-gap nav-icon"></i>
+          </div>
+        </a>
+        <div
+          class="dropdown-menu fade dropdown-menu-end w-300px text-center p-0 mt-1"
+        >
+          <div class="row row-grid gx-0">
             <div class="col-4">
-							<div @click="fullScreen" class="dropdown-item text-decoration-none p-3 bg-none">
-								<div class="position-relative">
-									<!--<i class="bi bi-circle-fill position-absolute text-theme top-0 mt-n2 me-n2 fs-6px d-block text-center w-100"></i>-->
-									<i class="fa fa-television h2 opacity-5 d-block my-1"></i>
-								</div>
-								<div class="fw-500 fs-10px text-inverse">FULLSCREEN</div>
-							</div>
-						</div>
-						<div class="col-4">
-							<a target="_blank" href="https://github.com/smartholdem/wallet-pro" class="dropdown-item text-decoration-none p-3 bg-none">
-								<div><i class="fa fa-github h2 opacity-5 d-block my-1"></i></div>
-								<div class="fw-500 fs-10px text-inverse">GITHUB</div>
-							</a>
-						</div>
-						<div class="col-4">
-							<a target="_blank" href="https://explorer.smartholdem.io" class="dropdown-item text-decoration-none p-3 bg-none">
-								<div><i class="bi bi-hdd-network h2 opacity-5 d-block my-1"></i></div>
-								<div class="fw-500 fs-10px text-inverse">EXPLORER</div>
-							</a>
-						</div>
-					</div>
-					<div class="row row-grid gx-0">
+              <div
+                @click="fullScreen"
+                class="dropdown-item text-decoration-none p-3 bg-none"
+              >
+                <div class="position-relative">
+                  <!--<i class="bi bi-circle-fill position-absolute text-theme top-0 mt-n2 me-n2 fs-6px d-block text-center w-100"></i>-->
+                  <i class="fa fa-television h2 opacity-5 d-block my-1"></i>
+                </div>
+                <div class="fw-500 fs-10px text-inverse">FULLSCREEN</div>
+              </div>
+            </div>
             <div class="col-4">
-              <a target="_blank" href="https://github.com/technologiespro/smart2fa/releases" class="dropdown-item text-decoration-none p-3 bg-none">
-                <div><img style="filter: grayscale(1);" src="/images/2fa48.png"></div>
+              <a
+                target="_blank"
+                href="https://github.com/smartholdem/wallet-pro"
+                class="dropdown-item text-decoration-none p-3 bg-none"
+              >
+                <div>
+                  <i class="fa fa-github h2 opacity-5 d-block my-1"></i>
+                </div>
+                <div class="fw-500 fs-10px text-inverse">GITHUB</div>
+              </a>
+            </div>
+            <div class="col-4">
+              <a
+                target="_blank"
+                href="https://explorer.smartholdem.io"
+                class="dropdown-item text-decoration-none p-3 bg-none"
+              >
+                <div>
+                  <i class="bi bi-hdd-network h2 opacity-5 d-block my-1"></i>
+                </div>
+                <div class="fw-500 fs-10px text-inverse">EXPLORER</div>
+              </a>
+            </div>
+          </div>
+          <div class="row row-grid gx-0">
+            <div class="col-4">
+              <a
+                target="_blank"
+                href="https://github.com/technologiespro/smart2fa/releases"
+                class="dropdown-item text-decoration-none p-3 bg-none"
+              >
+                <div>
+                  <img style="filter: grayscale(1)" src="/images/2fa48.png" />
+                </div>
                 <div class="fw-500 fs-10px text-inverse">2FA</div>
               </a>
             </div>
@@ -202,9 +255,9 @@ function fullScreen() {
               </RouterLink>
             </div>
             -->
-					</div>
-				</div>
-			</div>
+          </div>
+        </div>
+      </div>
       <!--
 			<div class="menu-item dropdown dropdown-mobile-full">
 				<a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
@@ -255,17 +308,17 @@ function fullScreen() {
 				</div>
 			</div>
 -->
-     <!--  -->
+      <!--  -->
       <div class="menu-item">
         <div v-on:click="walletLock" class="menu-link">
           <div class="menu-icon">
-            <span class=""> <i class="fas fa-lock text-success-emphasis"></i></span>
+            <span class="">
+              <i class="fas fa-lock text-success-emphasis"></i
+            ></span>
           </div>
         </div>
       </div>
-		</div>
-		<!-- END menu -->
-
-
-	</div>
+    </div>
+    <!-- END menu -->
+  </div>
 </template>

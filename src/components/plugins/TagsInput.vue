@@ -3,11 +3,11 @@ import VueTagsInput from "@sipec/vue3-tags-input";
 
 export default {
   components: {
-    VueTagsInput
+    VueTagsInput,
   },
 };
 </script>
 
 <template>
-	<vue-tags-input />
+  <vue-tags-input />
 </template>

@@ -4,25 +4,36 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Crypto Signature Message with Schnorr</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
         </div>
         <div v-if="currentAddress" class="modal-body">
           <div class="w-100">
-
             <div class="row">
               <div class="col-md-8">
-                <input v-model="message" type="text" class="form-control" id="signMessage"
-                       placeholder="enter message">
+                <input
+                  v-model="message"
+                  type="text"
+                  class="form-control"
+                  id="signMessage"
+                  placeholder="enter message"
+                />
               </div>
               <div class="col-md-4">
-                <button @click="getSig" class="btn btn-outline-success form-control w-100">Get signature</button>
+                <button
+                  @click="getSig"
+                  class="btn btn-outline-success form-control w-100"
+                >
+                  Get signature
+                </button>
               </div>
-
             </div>
 
             <div v-if="signature" class="form-group mt-3">
-              <label class="form-label" for="newSignature"
-              >Signature</label>
+              <label class="form-label" for="newSignature">Signature</label>
               <textarea
                 id="newSignature"
                 readonly
@@ -34,32 +45,45 @@
           </div>
         </div>
 
-        <hr/>
+        <hr />
         <div class="modal-header">
           <h5 class="modal-title">Validate Signature Message</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
         </div>
         <div v-if="currentAddress" class="modal-body">
           <div class="w-100">
-            <input v-model="message" type="text" class="form-control" id="signMessage"
-                   placeholder="enter message">
+            <input
+              v-model="message"
+              type="text"
+              class="form-control"
+              id="signMessage"
+              placeholder="enter message"
+            />
 
             <div class="form-group mt-3">
-              <label class="form-label" for="currentSig"
-              >Signature</label
-              >
+              <label class="form-label" for="currentSig">Signature</label>
               <textarea
                 id="currentSig"
                 v-model="signatureForValidate"
                 class="form-control"
                 rows="3"
               ></textarea>
-              <button @click="validateSig" class="btn btn-outline-success form-control w-100 mt-2">Validate signature</button>
+              <button
+                @click="validateSig"
+                class="btn btn-outline-success form-control w-100 mt-2"
+              >
+                Validate signature
+              </button>
               <p class="text-center mt-2">
-                <span v-if="isValid" class="text-uppercase text-success">Signature is Valid</span>
+                <span v-if="isValid" class="text-uppercase text-success"
+                  >Signature is Valid</span
+                >
                 <span v-else class="text-uppercase text-danger">Not Valid</span>
               </p>
-
             </div>
           </div>
         </div>
@@ -79,15 +103,13 @@ export default {
   },
   data() {
     return {
-      message: '',
-      signature: '',
-      signatureForValidate: '',
+      message: "",
+      signature: "",
+      signatureForValidate: "",
       isValid: null,
-    }
+    };
   },
-  mounted() {
-
-  },
+  mounted() {},
   computed: {
     balanceDecimal() {
       return this.currentAddress.balance / 10 ** 8;
@@ -108,13 +130,10 @@ export default {
         address: this.address,
         message: this.message,
         signature: this.signatureForValidate,
-      })
-    }
+      });
+    },
   },
-
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
