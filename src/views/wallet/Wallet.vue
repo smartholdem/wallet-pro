@@ -2,20 +2,20 @@
   <div class="col-xl-10">
     <card>
       <card-header class="card-header fw-bold small"
-      >List of your accounts
+      >{{ $t('list_of_your_accounts') }}
       </card-header>
       <ul class="nav nav-tabs pt-3 ps-4 pe-4">
         <li class="nav-item me-1">
           <a href="#addressList" class="nav-link active" data-bs-toggle="tab"
-          >Accounts</a
+          >{{ $t('accounts') }}</a
           >
         </li>
         <li class="nav-item me-1">
-          <a href="#addressNew" class="nav-link" data-bs-toggle="tab">New</a>
+          <a href="#addressNew" class="nav-link" data-bs-toggle="tab">{{ $t('new') }}</a>
         </li>
         <li class="nav-item me-1">
           <a href="#addressImport" class="nav-link" data-bs-toggle="tab"
-          >Import</a
+          >{{ $t('import') }}</a
           >
         </li>
       </ul>
@@ -90,10 +90,10 @@
           </table>
 
           <div class="alert alert-light">
-            Please select, import or get new address
+            {{ $t('please_select_import_or_get_new_address') }}
           </div>
           <div v-if="!Object.keys(listAddresses)" class="alert alert-info">
-            No addresses. Import or create new address.
+            {{ $t('no_addresses_import_or_create_new_address') }}
           </div>
         </div>
         <!-- new address tab-->
@@ -108,7 +108,7 @@
               type="button"
               class="btn btn-outline-theme"
             >
-              Generate new address <i class="fas fa-dice"></i>
+              {{ $t('generate_new_address') }} <i class="fas fa-dice"></i>
             </button>
 
             <button
@@ -124,7 +124,7 @@
           <div class="mt-3">
             <div class="form-group mb-3">
               <label class="form-label" for="newPublicAddress"
-              >Public Address</label
+              >{{ $t('public_address') }}</label
               >
               <input
                 type="text"
@@ -136,7 +136,7 @@
               />
             </div>
             <div class="form-group mb-3">
-              <label class="form-label" for="newPrivateKey">Private Key<span class="small text-danger">please keep in secret</span></label>
+              <label class="form-label" for="newPrivateKey">{{ $t('private_key') }}<span class="small text-danger">{{ $t('please_keep_in_secret') }}</span></label>
               <textarea
                 id="newPrivateKey"
                 readonly
@@ -148,7 +148,7 @@
             <div class="form-group mb-3">
               <div class="row">
                 <div class="col-md-4">
-                  <label class="form-label" for="encrypted">Encrypted methods</label>
+                  <label class="form-label" for="encrypted">{{ $t('encrypted_methods') }}</label>
                   <select
                     v-model="encryptedAlgo"
                     class="form-select form-select-sm"
@@ -159,7 +159,7 @@
                   </select>
                 </div>
                 <div class="col-md-4">
-                  <label class="form-label" for="newLabel">Label</label>
+                  <label class="form-label" for="newLabel">{{ $t('label') }}</label>
                   <input
                     type="text"
                     v-model="account.label"
@@ -176,7 +176,7 @@
               type="submit"
               class="btn btn-outline-theme btn-lg d-block"
             >
-              Save address
+              {{ $t('save_address') }}
             </button>
           </div>
         </div>
@@ -188,7 +188,7 @@
         >
           <div class="form-group mb-3">
             <label class="form-label" for="importPrivateKey"
-            >Enter Private Key</label
+            >{{ $t('enter_private_key') }}</label
             >
             <input
               type="text"
@@ -196,12 +196,12 @@
               @input="accountImportFromPassword()"
               class="form-control form-control-sm"
               id="importPrivateKey"
-              placeholder="bip39 12 or 24 words"
+              :placeholder="$t('bip39_words')"
             />
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="importPublicAddress"
-            >Public Address</label
+            >{{ $t('public_address') }}</label
             >
             <input
               type="text"
@@ -216,7 +216,7 @@
             <div class="row">
               <div class="col-md-4">
                 <label class="form-label" for="encryptedImport"
-                >Encrypted methods</label
+                >{{ $t('encrypted_methods') }}</label
                 >
                 <select
                   v-model="encryptedAlgo"
@@ -228,7 +228,7 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label class="form-label" for="importLabel">Label</label>
+                <label class="form-label" for="importLabel">{{ $t('label') }}</label>
                 <input
                   type="text"
                   v-model="accountImport.label"
@@ -246,7 +246,7 @@
               type="submit"
               class="btn btn-outline-theme btn-lg d-block"
             >
-              Save address
+              {{ $t('save_address') }}
             </button>
           </div>
         </div>
@@ -271,8 +271,8 @@
       >
         <div class="toast-header text-info">
           <i class="far fa-bell me-2 text-info"></i>
-          <strong class="me-auto">Address</strong>
-          <small class="text-success-emphasis">Success</small>
+          <strong class="me-auto">{{ $t('address') }}</strong>
+          <small class="text-success-emphasis">{{ $t('success') }}</small>
           <button
             type="button"
             class="btn-close"
@@ -346,11 +346,11 @@ export default {
   methods: {
     async copyJson(data) {
       navigator.clipboard.writeText(JSON.stringify(data));
-      this.showToast(event, "toast-1", "Copied to clipboard!");
+      this.showToast(event, "toast-1", this.$t('copied_to_clipboard'));
     },
     async copyAddress(data) {
       navigator.clipboard.writeText(data);
-      this.showToast(event, "toast-1", "Copied to clipboard!");
+      this.showToast(event, "toast-1", this.$t('copied_to_clipboard'));
     },
     async decryptSecret(address) {
       this.decryptedSecret = await store.decryptByAddress(address);
@@ -363,7 +363,7 @@ export default {
     },
     async deleteAddress(address) {
       await store.addressDelete(address);
-      this.showToast(event, "toast-1", "Deleted");
+      this.showToast(event, "toast-1", this.$t('deleted'));
     },
     async openAddress(address) {
       await this.$router.push("/address/" + address);
@@ -395,10 +395,10 @@ export default {
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {
-          this.showToast(event, "toast-1", "Imported");
+          this.showToast(event, "toast-1", this.$t('imported'));
         }
         if (this.account.address) {
-          this.showToast(event, "toast-1", "Created");
+          this.showToast(event, "toast-1", this.$t('created'));
         }
         this.accountImport = {
           address: "",
