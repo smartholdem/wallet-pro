@@ -45,6 +45,7 @@
     "bip39": "^3.0.4",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
+    "btsdex": "^0.7.11",
     "chart.js": "^4.3.0",
     "crypto-js": "4.2.0",
     "crypto-random-string": "^5.0.0",
@@ -137,13 +138,19 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "build/icon.ico"
     },
     "linux": {
-      "target": ["AppImage", "deb", "snap"],
+      "target": [
+        "AppImage",
+        "deb",
+        "snap"
+      ],
       "category": "Finance",
       "icon": "build/icons"
     },
@@ -152,7 +159,10 @@
       "confinement": "strict"
     },
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "category": "public.app-category.finance",
       "icon": "build/icon.icns"
     },
