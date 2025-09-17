@@ -3,9 +3,9 @@
     <div class="col-xl-12">
       <ul class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/">WALLET</router-link>
+          <router-link to="/">{{ $t("wallet") }}</router-link>
         </li>
-        <li class="breadcrumb-item active">ADDRESS BOOK</li>
+        <li class="breadcrumb-item active">{{ $t("address_book") }}</li>
       </ul>
 
       <card>
@@ -16,7 +16,7 @@
             type="button"
             class="btn btn-sm btn-light"
           >
-            ADD NEW ADDRESS
+            {{ $t("add_new_address") }}
           </button>
         </card-header>
         <card-body>
@@ -24,8 +24,8 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Label</th>
-                <th scope="col">Address</th>
+                <th scope="col">{{ $t("label") }}</th>
+                <th scope="col">{{ $t("address") }}</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">ADD NEW ADDRESS</h5>
+            <h5 class="modal-title">{{ $t("add_new_address") }}</h5>
             <button
               type="button"
               class="btn-close"
@@ -56,7 +56,7 @@
           </div>
           <div class="modal-body">
             <div class="form-group mb-3">
-              <label class="form-label" for="bookAddress">Address</label>
+              <label class="form-label" for="bookAddress">{{ $t("address") }}</label>
               <input
                 v-model="toSave.address"
                 @input="validateAddress"
@@ -64,13 +64,13 @@
                 class="form-control form-control-sm"
                 :class="isValid ? 'is-valid' : 'is-invalid'"
                 id="bookAddress"
-                placeholder="enter address"
+                :placeholder="$t('enter_address')"
               />
             </div>
 
             <div class="form-group mb-3">
               <label class="form-label" for="bookLabel"
-                ><i class="fas fa-tag"></i> Label</label
+                ><i class="fas fa-tag"></i> {{ $t("label") }}</label
               >
               <input
                 v-model="toSave.label"
@@ -78,7 +78,7 @@
                 class="form-control form-control-sm"
                 :class="toSave.label.length > 0 ? 'is-valid' : 'is-invalid'"
                 id="bookLabel"
-                placeholder="enter label"
+                :placeholder="$t('enter_label')"
               />
             </div>
 
@@ -88,7 +88,7 @@
                   class="form-label px-4"
                   :class="'ico-' + toSave.network"
                   for="sendNetwork"
-                  >Network</label
+                  >{{ $t("network") }}</label
                 >
                 <select
                   v-model="toSave.network"
@@ -96,10 +96,10 @@
                   class="form-select form-select-sm"
                   id="sendNetwork"
                 >
-                  <option selected value="mainnet">MainNet</option>
-                  <option value="bsc">BSC</option>
+                  <option selected value="mainnet">{{ $t("mainnet") }}</option>
+                  <option value="bsc">{{ $t("bsc") }}</option>
                   <option value="heco">HECO</option>
-                  <option value="eth">Ethereum</option>
+                  <option value="eth">{{ $t("ethereum") }}</option>
                 </select>
               </div>
             </div>
@@ -110,7 +110,7 @@
               class="btn btn-default"
               data-bs-dismiss="modal"
             >
-              Close
+              {{ $t("close") }}
             </button>
             <button
               @click="saveAddress"
@@ -118,7 +118,7 @@
               class="btn btn-outline-theme"
               data-bs-dismiss="modal"
             >
-              Save changes
+              {{ $t("save_changes") }}
             </button>
           </div>
         </div>

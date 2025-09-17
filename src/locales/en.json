@@ -211,5 +211,12 @@
   "modal_vote_button": "Vote For Delegate",
   "modal_vote_result_title": "Vote Result",
   "modal_vote_success": "Success!",
-  "modal_vote_power": "The power of my vote"
+  "modal_vote_power": "The power of my vote",
+  "address_book": "ADDRESS BOOK",
+  "add_new_address": "ADD NEW ADDRESS",
+  "enter_address": "enter address",
+  "enter_label": "enter label",
+  "network": "Network",
+  "heco": "HECO",
+  "save_changes": "Save changes"
 }

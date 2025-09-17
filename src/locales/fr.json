@@ -212,5 +212,12 @@
   "modal_vote_button": "Voter pour le délégué",
   "modal_vote_result_title": "Résultat du vote",
   "modal_vote_success": "Succès !",
-  "modal_vote_power": "La puissance de mon vote"
+  "modal_vote_power": "La puissance de mon vote",
+  "address_book": "CARNET D'ADRESSES",
+  "add_new_address": "AJOUTER UNE NOUVELLE ADRESSE",
+  "enter_address": "saisir l'adresse",
+  "enter_label": "saisir le libellé",
+  "network": "Réseau",
+  "heco": "HECO",
+  "save_changes": "Enregistrer les modifications"
 }

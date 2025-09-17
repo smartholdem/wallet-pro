@@ -211,5 +211,12 @@
   "modal_vote_button": "Votar por delegado",
   "modal_vote_result_title": "Resultado de la votación",
   "modal_vote_success": "¡Éxito!",
-  "modal_vote_power": "El poder de mi voto"
+  "modal_vote_power": "El poder de mi voto",
+  "address_book": "LIBRETA DE DIRECCIONES",
+  "add_new_address": "AGREGAR NUEVA DIRECCIÓN",
+  "enter_address": "ingresar dirección",
+  "enter_label": "ingresar etiqueta",
+  "network": "Red",
+  "heco": "HECO",
+  "save_changes": "Guardar cambios"
 }

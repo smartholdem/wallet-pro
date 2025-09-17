@@ -211,5 +211,12 @@
   "modal_vote_button": "Голосовать за делегата",
   "modal_vote_result_title": "Результат голосования",
   "modal_vote_success": "Успешно!",
-  "modal_vote_power": "Сила моего голоса"
+  "modal_vote_power": "Сила моего голоса",
+  "address_book": "АДРЕСНАЯ КНИГА",
+  "add_new_address": "ДОБАВИТЬ НОВЫЙ АДРЕС",
+  "enter_address": "введите адрес",
+  "enter_label": "введите метку",
+  "network": "Сеть",
+  "heco": "HECO",
+  "save_changes": "Сохранить изменения"
 }

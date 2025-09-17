@@ -211,5 +211,12 @@
   "modal_vote_button": "Für Delegierten abstimmen",
   "modal_vote_result_title": "Abstimmungsergebnis",
   "modal_vote_success": "Erfolg!",
-  "modal_vote_power": "Die Kraft meiner Stimme"
+  "modal_vote_power": "Die Kraft meiner Stimme",
+  "address_book": "ADRESSBUCH",
+  "add_new_address": "NEUE ADRESSE HINZUFÜGEN",
+  "enter_address": "Adresse eingeben",
+  "enter_label": "Bezeichnung eingeben",
+  "network": "Netzwerk",
+  "heco": "HECO",
+  "save_changes": "Änderungen speichern"
 }

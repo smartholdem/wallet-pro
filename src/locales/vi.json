@@ -211,5 +211,12 @@
   "modal_vote_button": "Bỏ phiếu cho Đại biểu",
   "modal_vote_result_title": "Kết quả bỏ phiếu",
   "modal_vote_success": "Thành công!",
-  "modal_vote_power": "Sức mạnh của phiếu bầu tôi"
+  "modal_vote_power": "Sức mạnh của phiếu bầu tôi",
+  "address_book": "SỔ ĐỊA CHỈ",
+  "add_new_address": "THÊM ĐỊA CHỈ MỚI",
+  "enter_address": "nhập địa chỉ",
+  "enter_label": "nhập nhãn",
+  "network": "Mạng",
+  "heco": "HECO",
+  "save_changes": "Lưu thay đổi"
 }
