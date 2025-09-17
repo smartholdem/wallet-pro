@@ -77,7 +77,8 @@ function fullScreen() {
   isFullScreen = !isFullScreen;
 
   if (isFullScreen) {
-    element.requestFullscreen()
+    element
+      .requestFullscreen()
       .then(function () {
         // element has entered fullscreen mode successfully
       })
@@ -136,7 +137,12 @@ function fullScreen() {
         <span class="brand-img">
           <span class="brand-img-text text-theme">S</span>
         </span>
-        <div class="brand-text" style="line-height:100%;">SmartHoldem Wallet <span class="small text-success-emphasis">v.{{ currentVersion() }}</span></div>
+        <div class="brand-text" style="line-height: 100%">
+          SmartHoldem Wallet
+          <span class="small text-success-emphasis"
+            >v.{{ currentVersion() }}</span
+          >
+        </div>
       </RouterLink>
     </div>
     <!-- END brand -->
@@ -231,7 +237,7 @@ function fullScreen() {
                 class="dropdown-item text-decoration-none p-3 bg-none"
               >
                 <div>
-                  <img style="filter: grayscale(1)" src="/images/2fa48.png" />
+                  <img style="filter: grayscale(1)" src="/images/2fa48.png" alt="2fa sth"/>
                 </div>
                 <div class="fw-500 fs-10px text-inverse">2FA</div>
               </a>

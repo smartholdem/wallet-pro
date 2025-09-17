@@ -2,98 +2,100 @@
 <template>
   <div class="col-xl-12 mb-3">
     <card v-if="transactions && !isMobile" style="overflow: hidden">
-      <card-header class="card-header fw-bold small text-uppercase">{{ $t('transactions_title') }}</card-header>
+      <card-header class="card-header fw-bold small text-uppercase">{{
+        $t("transactions_title")
+      }}</card-header>
       <card-body style="overflow-x: auto">
         <table class="table table-hover">
           <thead>
-          <tr>
-            <th scope="col">{{ $t("table_header_number") }}</th>
-            <th scope="col">{{ $t("table_header_id") }}</th>
-            <th scope="col">{{ $t("table_header_time") }}</th>
-            <th scope="col">{{ $t("table_header_amount") }}</th>
-            <th scope="col">{{ $t("table_header_sender") }}</th>
-            <th scope="col">{{ $t("table_header_recipient") }}</th>
-            <th scope="col">{{ $t("table_header_fee") }}</th>
-            <th scope="col" :title="$t('table_header_confirmations')">
-              <i class="fas fa-fw fa-clock"></i>
-            </th>
-            <th scope="col">{{ $t("table_header_memo") }}</th>
-          </tr>
+            <tr>
+              <th scope="col">{{ $t("table_header_number") }}</th>
+              <th scope="col">{{ $t("table_header_id") }}</th>
+              <th scope="col">{{ $t("table_header_time") }}</th>
+              <th scope="col">{{ $t("table_header_amount") }}</th>
+              <th scope="col">{{ $t("table_header_sender") }}</th>
+              <th scope="col">{{ $t("table_header_recipient") }}</th>
+              <th scope="col">{{ $t("table_header_fee") }}</th>
+              <th scope="col" :title="$t('table_header_confirmations')">
+                <i class="fas fa-fw fa-clock"></i>
+              </th>
+              <th scope="col">{{ $t("table_header_memo") }}</th>
+            </tr>
           </thead>
           <tbody>
-          <tr
+            <tr
               v-if="newTx && transactions.data[0].id !== newTx.id"
               class="text-secondary"
-          >
-            <td class="text-secondary">
-              {{ newTx.id.slice(0, 5) }} .. {{ newTx.id.slice(-5) }}
-            </td>
-            <td class="text-secondary">Now</td>
-            <td class="text-secondary">
-              <i
+            >
+              <td class="text-secondary">
+                {{ newTx.id.slice(0, 5) }} .. {{ newTx.id.slice(-5) }}
+              </td>
+              <td class="text-secondary">Now</td>
+              <td class="text-secondary">
+                <i
                   class="text-secondary fas fa-sm fa-fw me-2 fa-angle-double-up"
-              ></i>
-              {{ (newTx.amount / 1e8).toFixed(8) }}
-            </td>
-            <td class="text-secondary">
-              {{ address.slice(0, 5) }} .. {{ address.slice(-5) }}
-            </td>
-            <td class="text-secondary">
-              {{ newTx.recipientId.slice(0, 5) }} ..
-              {{ newTx.recipientId.slice(-5) }}
-            </td>
-            <td class="text-secondary">{{ (newTx.fee / 1e8).toFixed(3) }}</td>
-            <td class="text-secondary">
-              <i class="fas fa-fw fa-hourglass"></i>
-            </td>
-            <td class="text-secondary">
-              {{ newTx.vendorField ? newTx.vendorField : "" }}
-            </td>
-          </tr>
+                ></i>
+                {{ (newTx.amount / 1e8).toFixed(8) }}
+              </td>
+              <td class="text-secondary">
+                {{ address.slice(0, 5) }} .. {{ address.slice(-5) }}
+              </td>
+              <td class="text-secondary">
+                {{ newTx.recipientId.slice(0, 5) }} ..
+                {{ newTx.recipientId.slice(-5) }}
+              </td>
+              <td class="text-secondary">{{ (newTx.fee / 1e8).toFixed(3) }}</td>
+              <td class="text-secondary">
+                <i class="fas fa-fw fa-hourglass"></i>
+              </td>
+              <td class="text-secondary">
+                {{ newTx.vendorField ? newTx.vendorField : "" }}
+              </td>
+            </tr>
 
-          <tr
+            <tr
               v-for="(item, index) in transactions.data"
               :key="item.id"
               :class="item.confirmations < 8 ? 'table-dark' : ''"
-          >
-            <td>
-              {{ index + 1 + (tbPage - 1) * 10 }}
-            </td>
-            <td :title="item.id">
+            >
+              <td>
+                {{ index + 1 + (tbPage - 1) * 10 }}
+              </td>
+              <td :title="item.id">
                 <span v-if="item.type === 3">
                   <i
-                      title="Vote+"
-                      class="text-success fas fa-fw me-2 fa-plus-circle"
+                    title="Vote+"
+                    class="text-success fas fa-fw me-2 fa-plus-circle"
                   ></i>
                 </span>
 
-              <span v-if="item.vendorField">
+                <span v-if="item.vendorField">
                   <span
-                      v-if="networksTransfer[item.vendorField.split(':')[0]]"
-                      :class="'ico-' + item.vendorField.split(':')[0]"
-                      style="padding: 3px 16px 3px 3px"
-                  >&nbsp;</span
+                    v-if="networksTransfer[item.vendorField.split(':')[0]]"
+                    :class="'ico-' + item.vendorField.split(':')[0]"
+                    style="padding: 3px 16px 3px 3px"
+                    >&nbsp;</span
                   >
                 </span>
-              <span
+                <span
                   v-if="item.sender === 'SR1W4qS8DCPN65oV9Jd8JSLbfU5vhmEEky'"
-              >
+                >
                   <span
-                      :class="'ico-telegram'"
-                      style="padding: 3px 16px 3px 3px"
-                  >&nbsp;</span
+                    :class="'ico-telegram'"
+                    style="padding: 3px 16px 3px 3px"
+                    >&nbsp;</span
                   >
                 </span>
 
-              <span
+                <span
                   v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'"
-              >
+                >
                   <span :class="'ico-xbts'" style="padding: 3px 16px 3px 3px"
-                  >&nbsp;</span
+                    >&nbsp;</span
                   >
                 </span>
 
-              <a
+                <a
                   :class="
                     item.recipient === this.address
                       ? 'text-success'
@@ -103,55 +105,55 @@
                     'https://explorer.smartholdem.io/#/transaction/' + item.id
                   "
                   target="_blank"
-              >
+                >
                   <span>
                     {{ item.id.slice(0, 5) }} .. {{ item.id.slice(-5) }}
                   </span>
-              </a>
-            </td>
-            <td>
+                </a>
+              </td>
+              <td>
                 <span
-                    :class="item.recipient === this.address ? 'text-success' : ''"
+                  :class="item.recipient === this.address ? 'text-success' : ''"
                 >
                   {{ tmFormat(item.timestamp.unix, "DD/MM/YY") }}
                   <span class="small">{{
-                      format_time(item.timestamp.unix * 1000)
-                    }}</span>
+                    format_time(item.timestamp.unix * 1000)
+                  }}</span>
                 </span>
-            </td>
-            <td>
-              <i
+              </td>
+              <td>
+                <i
                   :class="
                     item.recipient === this.address && item.amount > 0
                       ? 'text-warning fas fa-sm fa-fw me-2 fa-angle-double-down'
                       : 'text-info fas fa-sm fa-fw me-2 fa-angle-double-up'
                   "
-              ></i>
-              <span
+                ></i>
+                <span
                   :class="
                     item.recipient === this.address || item.type === 6
                       ? 'text-success'
                       : ''
                   "
-              >
+                >
                   {{
-                  item.type === 6
+                    item.type === 6
                       ? "MultiPay (" + item["asset"].payments.length + ")"
                       : (item.amount / 1e8).toFixed(8)
-                }}
+                  }}
                 </span>
-              <div v-if="item.type === 6">
-                <div
+                <div v-if="item.type === 6">
+                  <div
                     v-for="itm in item.asset.payments"
                     v-show="itm.recipientId === this.address"
                     v-bind:key="itm.recipientId"
-                >
-                  {{ itm.amount / 1e8 }}
+                  >
+                    {{ itm.amount / 1e8 }}
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td>
-              <a
+              </td>
+              <td>
+                <a
                   :class="
                     item.recipient === this.address
                       ? 'text-success'
@@ -161,14 +163,14 @@
                     'https://explorer.smartholdem.io/#/wallets/' + item.sender
                   "
                   target="_blank"
-              >
+                >
                   <span>
                     {{ item.sender.slice(0, 5) }} .. {{ item.sender.slice(-5) }}
                   </span>
-              </a>
-            </td>
-            <td>
-              <a
+                </a>
+              </td>
+              <td>
+                <a
                   :class="
                     item.recipient === this.address
                       ? 'text-success'
@@ -179,40 +181,40 @@
                     item.recipient
                   "
                   target="_blank"
-              >
+                >
                   <span
-                  >{{ item.recipient.slice(0, 5) }} ..
+                    >{{ item.recipient.slice(0, 5) }} ..
                     {{ item.recipient.slice(-5) }}</span
                   >
-              </a>
-            </td>
-            <td>
+                </a>
+              </td>
+              <td>
                 <span
-                    :class="item.recipient === this.address ? 'text-success' : ''"
-                >{{ (item.fee / 1e8).toFixed(3) }}</span
+                  :class="item.recipient === this.address ? 'text-success' : ''"
+                  >{{ (item.fee / 1e8).toFixed(3) }}</span
                 >
-            </td>
-            <td>
+              </td>
+              <td>
                 <span
-                    v-if="item.recipient === this.address"
-                    :class="
+                  v-if="item.recipient === this.address"
+                  :class="
                     item.confirmations > 7 ? 'text-success' : 'text-warning'
                   "
-                >{{ item.confirmations }}</span
+                  >{{ item.confirmations }}</span
                 >
-              <span
+                <span
                   v-if="item.recipient !== this.address"
                   :class="
                     item.confirmations > 7 ? 'text-default' : 'text-warning'
                   "
-              >{{ item.confirmations }}</span
-              >
-            </td>
-            <td>
-              <span v-if="item.type === 3"> Vote+ </span>
-              <span>{{ item.vendorField }}</span>
-            </td>
-          </tr>
+                  >{{ item.confirmations }}</span
+                >
+              </td>
+              <td>
+                <span v-if="item.type === 3"> Vote+ </span>
+                <span>{{ item.vendorField }}</span>
+              </td>
+            </tr>
           </tbody>
         </table>
         <div>
@@ -234,65 +236,67 @@
     <!-- tx mobile -->
     <div v-if="transactions && isMobile" style="overflow: hidden">
       <card>
-        <div class="card-header fw-bold small text-uppercase">{{ $t('transactions_title') }}</div>
+        <div class="card-header fw-bold small text-uppercase">
+          {{ $t("transactions_title") }}
+        </div>
       </card>
 
       <card>
         <card-body
-            v-if="newTx && transactions.data[0].id !== newTx.id"
-            class="overflow-hidden text-secondary"
+          v-if="newTx && transactions.data[0].id !== newTx.id"
+          class="overflow-hidden text-secondary"
         >
           <transition name="slide-fade">
             <table class="table table-striped">
               <tbody>
-              <tr>
-                <td>{{ $t("table_header_id") }}</td>
-                <td class="text-secondary">
-                  {{ newTx.id.slice(0, 5) }} .. {{ newTx.id.slice(-5) }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_time") }}</td>
-                <td class="text-secondary">Now</td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_amount") }}</td>
-                <td class="text-secondary">
-                  <i
+                <tr>
+                  <td>{{ $t("table_header_id") }}</td>
+                  <td class="text-secondary">
+                    {{ newTx.id.slice(0, 5) }} .. {{ newTx.id.slice(-5) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_time") }}</td>
+                  <td class="text-secondary">Now</td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_amount") }}</td>
+                  <td class="text-secondary">
+                    <i
                       class="text-secondary fas fa-sm fa-fw me-2 fa-angle-double-up"
-                  ></i>
-                  {{ (newTx.amount / 1e8).toFixed(8) }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_sender") }}</td>
-                <td class="text-secondary">
-                  {{ address.slice(0, 5) }} .. {{ address.slice(-5) }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_recipient") }}</td>
-                <td class="text-secondary">
-                  {{ newTx.recipientId.slice(0, 5) }} ..
-                  {{ newTx.recipientId.slice(-5) }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_fee") }}</td>
-                <td class="text-secondary">
-                  {{ (newTx.fee / 1e8).toFixed(3) }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_confirmations") }}</td>
-                <td><i class="fas fa-fw fa-clock text-info"></i></td>
-              </tr>
-              <tr v-if="newTx.vendorField">
-                <td>{{ $t("table_header_memo") }}</td>
-                <td class="text-secondary">
-                  {{ newTx.vendorField ? newTx.vendorField : "" }}
-                </td>
-              </tr>
+                    ></i>
+                    {{ (newTx.amount / 1e8).toFixed(8) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_sender") }}</td>
+                  <td class="text-secondary">
+                    {{ address.slice(0, 5) }} .. {{ address.slice(-5) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_recipient") }}</td>
+                  <td class="text-secondary">
+                    {{ newTx.recipientId.slice(0, 5) }} ..
+                    {{ newTx.recipientId.slice(-5) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_fee") }}</td>
+                  <td class="text-secondary">
+                    {{ (newTx.fee / 1e8).toFixed(3) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_confirmations") }}</td>
+                  <td><i class="fas fa-fw fa-clock text-info"></i></td>
+                </tr>
+                <tr v-if="newTx.vendorField">
+                  <td>{{ $t("table_header_memo") }}</td>
+                  <td class="text-secondary">
+                    {{ newTx.vendorField ? newTx.vendorField : "" }}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </transition>
@@ -303,25 +307,25 @@
         <card-body class="overflow-hidden">
           <table class="table table-striped">
             <tbody>
-            <tr>
-              <td>{{ $t("table_header_id") }}</td>
-              <td>
+              <tr>
+                <td>{{ $t("table_header_id") }}</td>
+                <td>
                   <span
-                      v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'"
+                    v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'"
                   >
                     <span :class="'ico-xbts'" style="padding: 3px 16px 3px 3px"
-                    >&nbsp;</span
+                      >&nbsp;</span
                     >
                   </span>
-                <span v-if="item.vendorField">
+                  <span v-if="item.vendorField">
                     <span
-                        v-if="networksTransfer[item.vendorField.split(':')[0]]"
-                        :class="'ico-' + item.vendorField.split(':')[0]"
-                        style="padding: 3px 16px 3px 3px"
-                    >&nbsp;</span
+                      v-if="networksTransfer[item.vendorField.split(':')[0]]"
+                      :class="'ico-' + item.vendorField.split(':')[0]"
+                      style="padding: 3px 16px 3px 3px"
+                      >&nbsp;</span
                     >
                   </span>
-                <a
+                  <a
                     :class="
                       item.recipient === this.address
                         ? 'text-success'
@@ -331,33 +335,33 @@
                       'https://explorer.smartholdem.io/#/transaction/' + item.id
                     "
                     target="_blank"
-                >
+                  >
                     <span>
                       {{ item.id.slice(0, 11) }}..{{ item.id.slice(-11) }}
                     </span>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>{{ $t("table_header_time") }}</td>
-              <td>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>{{ $t("table_header_time") }}</td>
+                <td>
                   <span
-                      :class="
+                    :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
                   >
                     {{ tmFormat(item.timestamp.unix, "DD/MM/YY") }}
                     <span class="small">{{
-                        format_time(item.timestamp.unix * 1000)
-                      }}</span>
+                      format_time(item.timestamp.unix * 1000)
+                    }}</span>
                   </span>
-              </td>
-            </tr>
-            <tr>
-              <td>{{ $t("table_header_amount") }}</td>
-              <td>
+                </td>
+              </tr>
+              <tr>
+                <td>{{ $t("table_header_amount") }}</td>
+                <td>
                   <span
-                      :class="
+                    :class="
                       item.recipient === this.address || item.type === 6
                         ? 'text-success'
                         : ''
@@ -365,38 +369,38 @@
                   >
                     {{
                       item.type === 6
-                          ? "MultiPay (" + item["asset"].payments.length + ")"
-                          : (item.amount / 1e8).toFixed(8)
+                        ? "MultiPay (" + item["asset"].payments.length + ")"
+                        : (item.amount / 1e8).toFixed(8)
                     }}
                   </span>
-                <div v-if="item.type === 6">
-                  <div
+                  <div v-if="item.type === 6">
+                    <div
                       v-for="itm in item.asset.payments"
                       v-show="itm.recipientId === this.address"
                       v-bind:key="itm.recipientId"
-                  >
-                    +{{ itm.amount / 1e8 }} STH
+                    >
+                      +{{ itm.amount / 1e8 }} STH
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            <tr v-if="item.type !== 6">
-              <td>{{ $t("table_header_sender") }}</td>
-              <td>
+                </td>
+              </tr>
+              <tr v-if="item.type !== 6">
+                <td>{{ $t("table_header_sender") }}</td>
+                <td>
                   <span
-                      :class="
+                    :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
                   >
                     {{ item.sender.slice(0, 11) }}..{{ item.sender.slice(-11) }}
                   </span>
-              </td>
-            </tr>
-            <tr v-if="item.type !== 6">
-              <td>{{ $t("table_header_recipient") }}</td>
-              <td>
+                </td>
+              </tr>
+              <tr v-if="item.type !== 6">
+                <td>{{ $t("table_header_recipient") }}</td>
+                <td>
                   <span
-                      :class="
+                    :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
                   >
@@ -404,49 +408,49 @@
                       item.recipient.slice(-11)
                     }}
                   </span>
-              </td>
-            </tr>
-            <tr>
-              <td>{{ $t("table_header_fee") }}</td>
-              <td>
+                </td>
+              </tr>
+              <tr>
+                <td>{{ $t("table_header_fee") }}</td>
+                <td>
                   <span
-                      :class="
+                    :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
-                  >{{ (item.fee / 1e8).toFixed(3) }}</span
+                    >{{ (item.fee / 1e8).toFixed(3) }}</span
                   >
-              </td>
-            </tr>
-            <tr>
-              <td>{{ $t("table_header_confirmations") }}</td>
-              <td>
+                </td>
+              </tr>
+              <tr>
+                <td>{{ $t("table_header_confirmations") }}</td>
+                <td>
                   <span
-                      v-if="item.recipient === this.address"
-                      :class="
+                    v-if="item.recipient === this.address"
+                    :class="
                       item.confirmations > 7 ? 'text-success' : 'text-warning'
                     "
-                  >{{ item.confirmations }}</span
+                    >{{ item.confirmations }}</span
                   >
-                <span
+                  <span
                     v-if="item.recipient !== this.address"
                     :class="
                       item.confirmations > 7 ? 'text-default' : 'text-warning'
                     "
-                >{{ item.confirmations }}</span
-                >
-              </td>
-            </tr>
+                    >{{ item.confirmations }}</span
+                  >
+                </td>
+              </tr>
 
-            <tr v-if="item.vendorField">
-              <td>{{ $t("table_header_memo") }}</td>
-              <td>
+              <tr v-if="item.vendorField">
+                <td>{{ $t("table_header_memo") }}</td>
+                <td>
                   <span>{{
-                      item.vendorField.length < 40
-                          ? item.vendorField
-                          : item.vendorField.slice(0, 25) + ".."
-                    }}</span>
-              </td>
-            </tr>
+                    item.vendorField.length < 40
+                      ? item.vendorField
+                      : item.vendorField.slice(0, 25) + ".."
+                  }}</span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </card-body>
@@ -458,12 +462,11 @@
 </template>
 
 <script>
-import {storeToRefs} from "pinia";
-import {useAppOptionStore} from "@/stores/app-option";
+import { useAppOptionStore } from "@/stores/app-option";
 
 const appOption = useAppOptionStore();
 
-import {useStoreWallet} from "@/stores/wallet";
+import { useStoreWallet } from "@/stores/wallet";
 import moment from "moment";
 
 const storeWallet = useStoreWallet();

@@ -132,5 +132,13 @@
   "table_header_fee": "Comisión",
   "table_header_confirmations": "Confirmaciones",
   "table_header_memo": "Memo",
-  "no_transactions": "Sin transacciones"
+  "no_transactions": "Sin transacciones",
+  "modal_sign_message_title": "Firma criptográfica de mensaje con Schnorr",
+  "modal_sign_message_placeholder": "ingresar mensaje",
+  "modal_sign_message_get_signature": "Obtener firma",
+  "modal_sign_message_signature_label": "Firma",
+  "modal_sign_message_validate_title": "Validar firma de mensaje",
+  "modal_sign_message_validate_signature": "Validar firma",
+  "modal_sign_message_valid": "La firma es válida",
+  "modal_sign_message_not_valid": "No válida"
 }

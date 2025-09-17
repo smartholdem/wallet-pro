@@ -132,5 +132,13 @@
   "table_header_fee": "Gebühr",
   "table_header_confirmations": "Bestätigungen",
   "table_header_memo": "Memo",
-  "no_transactions": "Keine Transaktionen"
+  "no_transactions": "Keine Transaktionen",
+  "modal_sign_message_title": "Kryptografische Nachrichtensignatur mit Schnorr",
+  "modal_sign_message_placeholder": "Nachricht eingeben",
+  "modal_sign_message_get_signature": "Signatur erhalten",
+  "modal_sign_message_signature_label": "Signatur",
+  "modal_sign_message_validate_title": "Nachrichtensignatur validieren",
+  "modal_sign_message_validate_signature": "Signatur validieren",
+  "modal_sign_message_valid": "Signatur ist gültig",
+  "modal_sign_message_not_valid": "Nicht gültig"
 }

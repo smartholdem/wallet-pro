@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Crypto Signature Message with Schnorr</h5>
+          <h5 class="modal-title">{{ $t('modal_sign_message_title') }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -19,7 +19,7 @@
                   type="text"
                   class="form-control"
                   id="signMessage"
-                  placeholder="enter message"
+                  :placeholder="$t('modal_sign_message_placeholder')"
                 />
               </div>
               <div class="col-md-4">
@@ -27,13 +27,13 @@
                   @click="getSig"
                   class="btn btn-outline-success form-control w-100"
                 >
-                  Get signature
+                  {{ $t('modal_sign_message_get_signature') }}
                 </button>
               </div>
             </div>
 
             <div v-if="signature" class="form-group mt-3">
-              <label class="form-label" for="newSignature">Signature</label>
+              <label class="form-label" for="newSignature">{{ $t('modal_sign_message_signature_label') }}</label>
               <textarea
                 id="newSignature"
                 readonly
@@ -47,7 +47,7 @@
 
         <hr />
         <div class="modal-header">
-          <h5 class="modal-title">Validate Signature Message</h5>
+          <h5 class="modal-title">{{ $t('modal_sign_message_validate_title') }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -61,11 +61,11 @@
               type="text"
               class="form-control"
               id="signMessage"
-              placeholder="enter message"
+              :placeholder="$t('modal_sign_message_placeholder')"
             />
 
             <div class="form-group mt-3">
-              <label class="form-label" for="currentSig">Signature</label>
+              <label class="form-label" for="currentSig">{{ $t('modal_sign_message_signature_label') }}</label>
               <textarea
                 id="currentSig"
                 v-model="signatureForValidate"
@@ -76,13 +76,13 @@
                 @click="validateSig"
                 class="btn btn-outline-success form-control w-100 mt-2"
               >
-                Validate signature
+                {{ $t('modal_sign_message_validate_signature') }}
               </button>
               <p class="text-center mt-2">
                 <span v-if="isValid" class="text-uppercase text-success"
-                  >Signature is Valid</span
+                  >{{ $t('modal_sign_message_valid') }}</span
                 >
-                <span v-else class="text-uppercase text-danger">Not Valid</span>
+                <span v-else class="text-uppercase text-danger">{{ $t('modal_sign_message_not_valid') }}</span>
               </p>
             </div>
           </div>
@@ -109,11 +109,7 @@ export default {
       isValid: null,
     };
   },
-  mounted() {},
   computed: {
-    balanceDecimal() {
-      return this.currentAddress.balance / 10 ** 8;
-    },
     currentAddress() {
       return storeWallet.attributes[this.address];
     },

@@ -1,12 +1,12 @@
 // typescript
-import { defineStore } from "pinia";
-import { generateMnemonic, validateMnemonic } from "bip39";
-import { Crypto, Identities, Managers, Transactions, Utils } from "@smartholdem/crypto";
-import { Connection } from "@smartholdem/client";
+import {defineStore} from "pinia";
+import {generateMnemonic, validateMnemonic} from "bip39";
+import {Crypto, Identities, Managers, Transactions, Utils,} from "@smartholdem/crypto";
+import {Connection} from "@smartholdem/client";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import Web3 from "web3";
-import { useStoreSettings } from "@/stores/app-settings";
+import {useStoreSettings} from "@/stores/app-settings";
 
 Managers.configManager.setFromPreset("mainnet");
 Managers.configManager.setHeight(5000000);
@@ -88,7 +88,7 @@ export const useStoreWallet = defineStore("walletStorage", {
     nodeConfig: {} as any,
     blockchain: {} as any,
     smartHolder: {} as any,
-    addressBook: {} as Record<string, AddressBookEntry>
+    addressBook: {} as Record<string, AddressBookEntry>,
   }),
   actions: {
     async validateSigSchnorr(payload: SchnorrVerifyPayload) {
@@ -108,7 +108,9 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     // Address book
     async addInAddressBook(entry: AddressBookEntry) {
-      const result: Record<string, AddressBookEntry> = { [entry.address]: entry };
+      const result: Record<string, AddressBookEntry> = {
+        [entry.address]: entry,
+      };
       this.addressBook = { ...this.addressBook, ...result };
     },
 
@@ -123,8 +125,9 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getSmartHolder() {
       try {
-        const data = (await axios.get("https://smartholder.xbts.io/api/public/percents")).data;
-        this.smartHolder = data;
+          this.smartHolder = (
+            await axios.get("https://smartholder.xbts.io/api/public/percents")
+        ).data;
       } catch {
         console.log("err: get smartHolder");
       }
@@ -132,8 +135,8 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getBlockchain() {
       try {
-        const data = (await axios.get(getActiveNode() + "/blockchain")).data.data;
-        this.blockchain = data;
+          this.blockchain = (await axios.get(getActiveNode() + "/blockchain")).data
+            .data;
       } catch {
         console.log("err: get blockchain");
       }
@@ -145,8 +148,8 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getNodeConfig() {
       try {
-        const data = (await axios.get(getActiveNode() + "/node/configuration")).data.data;
-        this.nodeConfig = data;
+          this.nodeConfig = (await axios.get(getActiveNode() + "/node/configuration"))
+            .data.data;
       } catch {
         console.log("err: get node config");
       }
@@ -154,7 +157,8 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getDelegate(userName: string) {
       try {
-        return (await axios.get(getActiveNode() + "/delegates/" + userName)).data.data;
+        return (await axios.get(getActiveNode() + "/delegates/" + userName))
+          .data.data;
       } catch {
         console.log("err: get delegate " + userName);
         return null;
@@ -163,7 +167,9 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async getDelegates() {
       try {
-        const result = (await axios.get(getActiveNode() + "/delegates?page=1&limit=100")).data;
+        const result = (
+          await axios.get(getActiveNode() + "/delegates?page=1&limit=100")
+        ).data;
         this.delegates = { ...this.delegates, ...result };
       } catch {
         console.log("err: get delegates");
@@ -184,7 +190,9 @@ export const useStoreWallet = defineStore("walletStorage", {
       const secretDecrypted = await this.decryptByAddress(payload.sender);
 
       const senderWallet = await client.api("wallets").get(payload.sender);
-      const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+      const senderNonce = Utils.BigNumber.make(
+        senderWallet.body.data.nonce
+      ).plus(1);
 
       const votes: string[] = [];
       if (payload.lastVote) votes.push("-" + payload.lastVote);
@@ -193,14 +201,16 @@ export const useStoreWallet = defineStore("walletStorage", {
       const transactionVote = await this.txVotePrepare({
         votes,
         senderNonce,
-        secretDecrypted
+        secretDecrypted,
       });
 
       txs.push(transactionVote.build().toJson());
 
       let broadcastResponse: any = {};
       try {
-        broadcastResponse = await client.api("transactions").create({ transactions: txs });
+        broadcastResponse = await client
+          .api("transactions")
+          .create({ transactions: txs });
       } catch {
         console.log("err: tx vote");
       }
@@ -212,7 +222,9 @@ export const useStoreWallet = defineStore("walletStorage", {
       const secretDecrypted = await this.decryptByAddress(payload.sender);
 
       const senderWallet = await client.api("wallets").get(payload.sender);
-      const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(1);
+      const senderNonce = Utils.BigNumber.make(
+        senderWallet.body.data.nonce
+      ).plus(1);
 
       const transaction = Transactions.BuilderFactory.delegateRegistration()
         .version(2)
@@ -223,26 +235,27 @@ export const useStoreWallet = defineStore("walletStorage", {
       const tx = transaction.build().toJson();
       let broadcastResponse: any = {};
       try {
-        broadcastResponse = await client.api("transactions").create({ transactions: [tx] });
+        broadcastResponse = await client
+          .api("transactions")
+          .create({ transactions: [tx] });
       } catch {
         console.log("err: tx delegate");
       }
       return { response: broadcastResponse, tx: [tx], network: "mainnet" };
     },
 
-    
     // отправка мультиплатежей с smartholdem blockchain api txType = 6
     async txTransferMulti(payload: TxTransferPayload) {
       if (!payload.recipients || payload.recipients.length === 0) {
-        throw new Error('Recipients array is required and cannot be empty');
+        throw new Error("Recipients array is required and cannot be empty");
       }
 
-      const paymentsCountAll = payload.recipients.length
+      const paymentsCountAll = payload.recipients.length;
       const txMax = payload.txMax || 150; // число мультиплатежей в одной multipayment транзакции, если > 150 разбить на несколько транзакций, default = 150
       const txPlus = paymentsCountAll % txMax; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
       const txQue = Math.trunc(paymentsCountAll / txMax); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax платежей на разные адреса
       let payIndex = 0;
-      let allPayments = [];
+      const allPayments = [];
 
       // инициализация SmartHoldem API
       const client = apiClient();
@@ -252,15 +265,20 @@ export const useStoreWallet = defineStore("walletStorage", {
       // если существует очередь транзакций
       if (txQue > 0) {
         for (let i = 0; i < txQue; i++) {
-          const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(i + 1); // новая транзакция должнга содержать nonce+1 олученный из блокчейн
+          const senderNonce = Utils.BigNumber.make(
+            senderWallet.body.data.nonce
+          ).plus(i + 1); // новая транзакция должнга содержать nonce+1 олученный из блокчейн
           // инициализация мультиплатёжной транзакции
-          let transaction = Transactions.BuilderFactory.multiPayment()
+          const transaction = Transactions.BuilderFactory.multiPayment()
             .fee((payload.fee * 1e8).toString())
             .version(2)
             .nonce(senderNonce.toFixed());
           //перебор мультиплатежей в одной транзакции из recipients
           for (let j = 0; j < txMax; j++) {
-            transaction.addPayment(payload.recipients[payIndex].address, (payload.recipients[payIndex]["amount"] * 1e8).toFixed(0)); // * 1e8
+            transaction.addPayment(
+              payload.recipients[payIndex].address,
+              (payload.recipients[payIndex]["amount"] * 1e8).toFixed(0)
+            ); // * 1e8
             payIndex++;
           }
           transaction
@@ -272,8 +290,10 @@ export const useStoreWallet = defineStore("walletStorage", {
 
       // если существует остаток платежей, которые не вошли в полную транзакцию < txMax
       if (txPlus > 0) {
-        const senderNonce = Utils.BigNumber.make(senderWallet.body.data.nonce).plus(txQue + 1);
-        let transaction = Transactions.BuilderFactory.multiPayment()
+        const senderNonce = Utils.BigNumber.make(
+          senderWallet.body.data.nonce
+        ).plus(txQue + 1);
+        const transaction = Transactions.BuilderFactory.multiPayment()
           .version(2)
           .nonce(senderNonce.toFixed());
         for (let i = 0; i < txPlus; i++) {
@@ -287,9 +307,7 @@ export const useStoreWallet = defineStore("walletStorage", {
           .vendorField(payload.memo || "airdrop")
           .sign(secretDecrypted);
         allPayments.push(transaction.build().toJson());
-
       }
-
 
       let broadcastResponse: any = {};
       if (allPayments.length > 0) {
@@ -306,7 +324,6 @@ export const useStoreWallet = defineStore("walletStorage", {
           }
         : { response: null, tx: allPayments, network: payload.network };
     },
-
 
     // отправка одиночной транзакции, txType = 2
     async txTransfer(payload: TxTransferPayload) {
@@ -351,18 +368,28 @@ export const useStoreWallet = defineStore("walletStorage", {
 
       let broadcastResponse: any = {};
       try {
-        broadcastResponse = (await client.api("transactions").create({ transactions: txs })).body.data;
+        broadcastResponse = (
+          await client.api("transactions").create({ transactions: txs })
+        ).body.data;
       } catch {
         console.log("err: tx send");
       }
-      return { response: broadcastResponse, tx: txs[0], network: payload.network };
+      return {
+        response: broadcastResponse,
+        tx: txs[0],
+        network: payload.network,
+      };
     },
 
     async getTransactions(address: string, limit = 10, page = 1) {
       if (!address) return;
       const result: Record<string, any> = { [address]: {} };
       try {
-        result[address] = (await axios.get(`${getActiveNode()}/wallets/${address}/transactions?page=${page}&limit=${limit}`)).data;
+        result[address] = (
+          await axios.get(
+            `${getActiveNode()}/wallets/${address}/transactions?page=${page}&limit=${limit}`
+          )
+        ).data;
         this.transactions = { ...this.transactions, ...result };
       } catch {
         console.log("err: address not stored in blockchain");
@@ -374,9 +401,15 @@ export const useStoreWallet = defineStore("walletStorage", {
       if (!address) return;
       const result: Record<string, any> = { [address]: {} };
       try {
-        result[address] = (await axios.get(`${getActiveNode()}/wallets/${address}`)).data.data;
+        result[address] = (
+          await axios.get(`${getActiveNode()}/wallets/${address}`)
+        ).data.data;
         if (result[address].attributes?.vote) {
-          result[address].voteFor = (await axios.get(`${getActiveNode()}/delegates/${result[address].attributes.vote}`)).data.data;
+          result[address].voteFor = (
+            await axios.get(
+              `${getActiveNode()}/delegates/${result[address].attributes.vote}`
+            )
+          ).data.data;
         }
         // гарантируем наличие balance
         if (typeof result[address].balance === "undefined") {
@@ -393,7 +426,10 @@ export const useStoreWallet = defineStore("walletStorage", {
 
     async addressNew() {
       const mnemonic = generateMnemonic();
-      return { secret: mnemonic, address: Identities.Address.fromPassphrase(mnemonic, 63) };
+      return {
+        secret: mnemonic,
+        address: Identities.Address.fromPassphrase(mnemonic, 63),
+      };
     },
 
     async addressSave(payload: Record<string, AccountRecord>) {
@@ -427,10 +463,16 @@ export const useStoreWallet = defineStore("walletStorage", {
       if (!acc) throw new Error("account not found");
 
       if (acc.encrypt === "rabbit") {
-        const accountBytes = CryptoJS.Rabbit.decrypt(acc.secret, settings.tmpPin + hash);
+        const accountBytes = CryptoJS.Rabbit.decrypt(
+          acc.secret,
+          settings.tmpPin + hash
+        );
         return accountBytes.toString(CryptoJS.enc.Utf8);
       } else {
-        const accountBytes = CryptoJS.AES.decrypt(acc.secret, settings.tmpPin + hash);
+        const accountBytes = CryptoJS.AES.decrypt(
+          acc.secret,
+          settings.tmpPin + hash
+        );
         return accountBytes.toString(CryptoJS.enc.Utf8);
       }
     },
@@ -439,7 +481,7 @@ export const useStoreWallet = defineStore("walletStorage", {
       const isBip39 = validateMnemonic(secret);
       const address = Identities.Address.fromPassphrase(secret, 63);
       return { isBip39, address };
-    }
+    },
   },
-  persist: true
+  persist: true,
 });

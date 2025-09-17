@@ -132,5 +132,13 @@
   "table_header_fee": "Phí",
   "table_header_confirmations": "Xác nhận",
   "table_header_memo": "Ghi nhớ",
-  "no_transactions": "Không có giao dịch"
+  "no_transactions": "Không có giao dịch",
+  "modal_sign_message_title": "Chữ ký mật mã thông điệp với Schnorr",
+  "modal_sign_message_placeholder": "nhập thông điệp",
+  "modal_sign_message_get_signature": "Lấy chữ ký",
+  "modal_sign_message_signature_label": "Chữ ký",
+  "modal_sign_message_validate_title": "Xác thực chữ ký thông điệp",
+  "modal_sign_message_validate_signature": "Xác thực chữ ký",
+  "modal_sign_message_valid": "Chữ ký hợp lệ",
+  "modal_sign_message_not_valid": "Không hợp lệ"
 }

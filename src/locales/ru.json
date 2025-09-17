@@ -132,5 +132,13 @@
   "table_header_fee": "Комиссия",
   "table_header_confirmations": "Подтверждения",
   "table_header_memo": "Примечание",
-  "no_transactions": "Нет транзакций"
+  "no_transactions": "Нет транзакций",
+  "modal_sign_message_title": "Криптографическая подпись сообщения с помощью Schnorr",
+  "modal_sign_message_placeholder": "введите сообщение",
+  "modal_sign_message_get_signature": "Получить подпись",
+  "modal_sign_message_signature_label": "Подпись",
+  "modal_sign_message_validate_title": "Проверка подписи сообщения",
+  "modal_sign_message_validate_signature": "Проверить подпись",
+  "modal_sign_message_valid": "Подпись действительна",
+  "modal_sign_message_not_valid": "Не действительна"
 }

@@ -9,10 +9,10 @@ import AppTopNav from "@/components/app/TopNav.vue";
 import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
 import router from "./router";
-import { storeToRefs } from 'pinia'
-import { useStoreSettings } from '@/stores/app-settings.ts';
-const storeSettings = useStoreSettings()
-const { settings } = storeToRefs(storeSettings)
+import { storeToRefs } from "pinia";
+import { useStoreSettings } from "@/stores/app-settings.ts";
+const storeSettings = useStoreSettings();
+const { settings } = storeToRefs(storeSettings);
 
 onMounted(() => {
   appOption.isMobile = window.innerWidth < 768;
@@ -41,8 +41,10 @@ router.beforeEach(async (to, from) => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 
-  var targetElm = [].slice.call(document.querySelectorAll(".app-sidebar .menu-submenu"));
-  targetElm.map(function(elm) {
+  const targetElm = [].slice.call(
+    document.querySelectorAll(".app-sidebar .menu-submenu")
+  );
+  targetElm.map(function (elm) {
     elm.style.display = "";
   });
   appOption.isMobile = window.innerWidth < 768;
@@ -51,25 +53,28 @@ router.afterEach(async (to, from) => {
   progresses.pop()?.finish();
 });
 
-
 document.querySelector("body").classList.add("app-init");
 </script>
 
 <template>
-  <div class="app" v-bind:class="{
-		'app-header-menu-search-toggled': appOption.appHeaderSearchToggled,
-		'app-sidebar-toggled': appOption.appSidebarToggled && !appOption.appSidebarCollapsed,
-		'app-sidebar-collapsed': appOption.appSidebarCollapsed,
-		'app-sidebar-mobile-toggled': appOption.appSidebarMobileToggled,
-		'app-sidebar-mobile-closed': appOption.appSidebarMobileClosed,
-		'app-content-full-height': appOption.appContentFullHeight,
-		'app-content-full-width': appOption.appSidebarHide,
-		'app-without-sidebar': appOption.appSidebarHide,
-		'app-without-header': appOption.appHeaderHide,
-		'app-boxed-layout': appOption.appBoxedLayout,
-		'app-with-top-nav': appOption.appTopNav,
-		'app-footer-fixed': appOption.appFooterFixed,
-	}">
+  <div
+    class="app"
+    v-bind:class="{
+      'app-header-menu-search-toggled': appOption.appHeaderSearchToggled,
+      'app-sidebar-toggled':
+        appOption.appSidebarToggled && !appOption.appSidebarCollapsed,
+      'app-sidebar-collapsed': appOption.appSidebarCollapsed,
+      'app-sidebar-mobile-toggled': appOption.appSidebarMobileToggled,
+      'app-sidebar-mobile-closed': appOption.appSidebarMobileClosed,
+      'app-content-full-height': appOption.appContentFullHeight,
+      'app-content-full-width': appOption.appSidebarHide,
+      'app-without-sidebar': appOption.appSidebarHide,
+      'app-without-header': appOption.appHeaderHide,
+      'app-boxed-layout': appOption.appBoxedLayout,
+      'app-with-top-nav': appOption.appTopNav,
+      'app-footer-fixed': appOption.appFooterFixed,
+    }"
+  >
     <vue3-progress-bar />
     <app-header v-if="!appOption.appHeaderHide" />
     <app-top-nav v-if="appOption.appTopNav" />
@@ -83,19 +88,18 @@ document.querySelector("body").classList.add("app-init");
 </template>
 
 <style>
-
--moz-scrollbar, ::-webkit-scrollbar {
+-moz-scrollbar,
+::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 
 ::-webkit-scrollbar {
   background-color: #fefdf9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bs-theme) ; /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70);**/
+  background: var(--bs-theme); /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70); /**var(--bs-theme); **/
   border: 1px solid #434a52;
 }
 
@@ -107,15 +111,21 @@ document.querySelector("body").classList.add("app-init");
  **/
 
 @font-face {
-  font-family: 'Chakra Petch';
-  src: local('Chakra Petch Regular'), local('ChakraPetch-Regular'), url('/assets/Chakrapetchregular.woff2') format('woff2'), url('/assets/Chakrapetchregular.woff') format('woff'), url('/assets/Chakrapetchregular.ttf') format('truetype');
+  font-family: "Chakra Petch";
+  src: local("Chakra Petch Regular"), local("ChakraPetch-Regular"),
+    url("/assets/Chakrapetchregular.woff2") format("woff2"),
+    url("/assets/Chakrapetchregular.woff") format("woff"),
+    url("/assets/Chakrapetchregular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Chakra Petch Light';
-  src: local('Chakra Petch Light'), local('ChakraPetch-Light'), url('/assets/Chakrapetchlight.woff2') format('woff2'), url('/assets/Chakrapetchlight.woff') format('woff'), url('/assets/Chakrapetchlight.ttf') format('truetype');
+  font-family: "Chakra Petch Light";
+  src: local("Chakra Petch Light"), local("ChakraPetch-Light"),
+    url("/assets/Chakrapetchlight.woff2") format("woff2"),
+    url("/assets/Chakrapetchlight.woff") format("woff"),
+    url("/assets/Chakrapetchlight.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
@@ -137,46 +147,49 @@ h1 {
 }
 
 .ico-telegram {
-  background-image:url('/images/telegram.svg');
+  background-image: url("/images/telegram.svg");
   background-position: 0px 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 
 .ico-heco {
-  background-image:url('/images/heco.svg');
+  background-image: url("/images/heco.svg");
   background-position: 0px 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 
 .ico-mainnet {
-  background-image:url('/images/logo-green32.png');
+  background-image: url("/images/logo-green32.png");
   background-position: 0px 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 
 .ico-bsc {
-  background-image:url('/images/bsc.svg');
+  background-image: url("/images/bsc.svg");
   background-position: 0px 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
 .ico-eth {
-  background-image:url('/images/eth.svg');
+  background-image: url("/images/eth.svg");
   background-position: 0px 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 .ico-xbts {
-  background-image:url('/images/xbts32.png');
+  background-image: url("/images/xbts32.png");
   background-position: 0px 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
 
-.ico-mainnet-18, .ico-heco-18, .ico-bsc-18, .ico-eth-18 {
+.ico-mainnet-18,
+.ico-heco-18,
+.ico-bsc-18,
+.ico-eth-18 {
   background-size: 18px;
 }
 </style>

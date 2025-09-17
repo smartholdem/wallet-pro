@@ -62,7 +62,9 @@ function subIsActive(urls) {
       <a v-bind:href="href" @click="navigate" class="menu-link">
         <span class="menu-icon" v-if="menu.icon">
           <i v-bind:class="menu.icon"></i>
-          <span class="menu-icon-label" v-if="menu.label">{{menu.label}}</span>
+          <span class="menu-icon-label" v-if="menu.label">{{
+            menu.label
+          }}</span>
         </span>
         <span class="menu-text">{{ menu.text }}</span>
       </a>
