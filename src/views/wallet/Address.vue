@@ -34,8 +34,7 @@
         </card-header>
         <card-body>
           <h5 v-if="currentAddress.balance" class="card-title">
-            <img src="/images/logo-green32.png" />
-            <span class="text-success">{{ balanceDecimal.toFixed(8) }}</span>
+            <img src="/images/logo-green32.png" alt="sth logo"/>&nbsp;<span class="text-success">{{ balanceDecimal.toFixed(8) }}</span>
             STH
           </h5>
           <!--
