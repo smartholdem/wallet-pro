@@ -68,6 +68,7 @@
   "cold_address": "Kalte Adresse",
   "operation": "Operation",
   "operations": "OPERATIONEN",
+  "transactions_title": "Transaktionen",
   "mpays": "mPays",
   "htlc": "HTLC",
   "sig": "SIG",
@@ -121,5 +122,15 @@
   "secret_key": "GEHEIMER SCHLÜSSEL",
   "for_address": "Für Adresse",
   "receiving_address": "Empfangsadresse",
-  "list_recipients": "Empfängerliste"
+  "list_recipients": "Empfängerliste",
+  "table_header_number": "#",
+  "table_header_id": "id",
+  "table_header_time": "Zeit",
+  "table_header_amount": "Betrag",
+  "table_header_sender": "Absender",
+  "table_header_recipient": "Empfänger",
+  "table_header_fee": "Gebühr",
+  "table_header_confirmations": "Bestätigungen",
+  "table_header_memo": "Memo",
+  "no_transactions": "Keine Transaktionen"
 }

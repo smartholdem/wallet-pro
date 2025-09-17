@@ -68,6 +68,7 @@
   "cold_address": "Dirección fría",
   "operation": "operación",
   "operations": "OPERACIONES",
+  "transactions_title": "Transacciones",
   "mpays": "Pagos múltiples",
   "htlc": "HTLC",
   "sig": "SIG",
@@ -121,5 +122,15 @@
   "secret_key": "CLAVE SECRETA",
   "for_address": "Para la dirección",
   "receiving_address": "Dirección de recepción",
-  "list_recipients": "Lista de destinatarios"
+  "list_recipients": "Lista de destinatarios",
+  "table_header_number": "#",
+  "table_header_id": "id",
+  "table_header_time": "Tiempo",
+  "table_header_amount": "Cantidad",
+  "table_header_sender": "Remitente",
+  "table_header_recipient": "Destinatario",
+  "table_header_fee": "Comisión",
+  "table_header_confirmations": "Confirmaciones",
+  "table_header_memo": "Memo",
+  "no_transactions": "Sin transacciones"
 }

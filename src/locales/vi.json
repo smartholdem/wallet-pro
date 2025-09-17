@@ -68,6 +68,7 @@
   "cold_address": "Địa chỉ lạnh",
   "operation": "hoạt động",
   "operations": "HOẠT ĐỘNG",
+  "transactions_title": "Giao dịch",
   "mpays": "Đa thanh toán",
   "htlc": "HTLC",
   "sig": "SIG",
@@ -121,5 +122,15 @@
   "secret_key": "KHÓA BÍ MẬT",
   "for_address": "Đối với địa chỉ",
   "receiving_address": "Địa chỉ nhận",
-  "list_recipients": "Danh sách người nhận"
+  "list_recipients": "Danh sách người nhận",
+  "table_header_number": "#",
+  "table_header_id": "id",
+  "table_header_time": "Thời gian",
+  "table_header_amount": "Số lượng",
+  "table_header_sender": "Người gửi",
+  "table_header_recipient": "Người nhận",
+  "table_header_fee": "Phí",
+  "table_header_confirmations": "Xác nhận",
+  "table_header_memo": "Ghi nhớ",
+  "no_transactions": "Không có giao dịch"
 }

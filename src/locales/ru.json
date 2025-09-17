@@ -68,6 +68,7 @@
   "cold_address": "Холодный адрес",
   "operation": "операция",
   "operations": "ОПЕРАЦИИ",
+  "transactions_title": "Транзакции",
   "mpays": "мультиплатежи",
   "htlc": "HTLC",
   "sig": "ПОДПИСЬ",
@@ -121,5 +122,15 @@
   "secret_key": "СЕКРЕТНЫЙ КЛЮЧ",
   "for_address": "Для адреса",
   "receiving_address": "Адрес получения",
-  "list_recipients": "Список получателей"
+  "list_recipients": "Список получателей",
+  "table_header_number": "№",
+  "table_header_id": "id",
+  "table_header_time": "Время",
+  "table_header_amount": "Сумма",
+  "table_header_sender": "Отправитель",
+  "table_header_recipient": "Получатель",
+  "table_header_fee": "Комиссия",
+  "table_header_confirmations": "Подтверждения",
+  "table_header_memo": "Примечание",
+  "no_transactions": "Нет транзакций"
 }
