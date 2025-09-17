@@ -5,6 +5,22 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useI18n } from "vue-i18n";
 import { useStoreSettings } from '@/stores/app-settings.ts';
 
+import Terms_EN from '@/components/terms/Terms_EN.vue';
+import Terms_RU from '@/components/terms/Terms_RU.vue';
+import Terms_ES from '@/components/terms/Terms_ES.vue';
+import Terms_DE from '@/components/terms/Terms_DE.vue';
+import Terms_FR from '@/components/terms/Terms_FR.vue';
+import Terms_VI from '@/components/terms/Terms_VI.vue';
+import Terms_ID from '@/components/terms/Terms_ID.vue';
+
+import Privacy_EN from '@/components/terms/Privacy_EN.vue';
+import Privacy_RU from '@/components/terms/Privacy_RU.vue';
+import Privacy_ES from '@/components/terms/Privacy_ES.vue';
+import Privacy_DE from '@/components/terms/Privacy_DE.vue';
+import Privacy_FR from '@/components/terms/Privacy_FR.vue';
+import Privacy_VI from '@/components/terms/Privacy_VI.vue';
+import Privacy_ID from '@/components/terms/Privacy_ID.vue';
+
 const appOption = useAppOptionStore();
 const router = useRouter();
 const storeSettings = useStoreSettings();
@@ -15,6 +31,44 @@ const pinTwo = ref('');
 
 const pinIsInValid = computed(() => {
   return pinOne.value !== pinTwo.value || (pinOne.value.length < 4 || pinTwo.value.length < 4);
+});
+
+const termsComponent = computed(() => {
+  switch (locale.value) {
+    case 'ru':
+      return Terms_RU;
+    case 'es':
+      return Terms_ES;
+    case 'de':
+      return Terms_DE;
+    case 'fr':
+      return Terms_FR;
+    case 'vi':
+      return Terms_VI;
+    case 'id':
+      return Terms_ID;
+    default:
+      return Terms_EN;
+  }
+});
+
+const privacyComponent = computed(() => {
+  switch (locale.value) {
+    case 'ru':
+      return Privacy_RU;
+    case 'es':
+      return Privacy_ES;
+    case 'de':
+      return Privacy_DE;
+    case 'fr':
+      return Privacy_FR;
+    case 'vi':
+      return Privacy_VI;
+    case 'id':
+      return Privacy_ID;
+    default:
+      return Privacy_EN;
+  }
 });
 
 onMounted(() => {
@@ -115,57 +169,7 @@ function setLocale(lang: string) {
       <div class="modal-dialog">
         <div class="modal-content">
           <button type="button" class="btn-close position-absolute top-0 end-0 m-2" style="z-index: 1060;" data-bs-dismiss="modal" aria-label="Close"></button>
-          <card class="card mb-3">
-            <card-header class="card-header">
-              Terms and Conditions
-            </card-header>
-
-              <card-body class="p-3">
-                <p class="ml-3 small color-brown">20 November 2017</p>
-                <p>
-                  Technologies related to blockchain are subject to supervision and control by various regulatory bodies
-                  around the world.
-                </p>
-                <p>SmartHoldem coins may fall under one or more requests or actions on their part, including but not limited
-                  to imposing restrictions on the use or possession of digital coins such as SmartHoldem that can slow or
-                  limit the functionality of SmartHoldem coins in the future.</p>
-                <p>
-                  SmartHoldem coins are not an investment.
-                </p>
-                <p>
-                  SmartHoldem coins are not a “surrogate currency”.
-                </p>
-                <p>
-                  SmartHoldem coins are not official or legally binding investment. Due to unforeseen circumstances, the
-                  objectives described in this document may be amended. Despite the fact that we intend to reach all the
-                  points described in this document, all persons and parties involved in the purchase of SmartHoldem coins
-                  do this at their own risk.
-                </p>
-                <p>
-                  <span class="font-weight-bold">The risk of using new technologies.</span><br>
-                  Cryptographic coins, such as SmartHoldem, are a new and experimental technology. In addition to the
-                  risks mentioned in this document, there are additional risks that the SmartHoldem team can not foresee.
-                  These risks can materialize in other forms of risk than those specified here.
-                </p>
-              </card-body>
-
-          </card>
-          <card class="card">
-            <card-header class="card-header">
-              Disclaimer of Warranties
-            </card-header>
-
-              <card-body>
-                <p class="ml-3 small color-brown">20 November 2017</p>
-                <p>You agree that your use or inability to use SmartHoldem cryptocoins is carried out solely at your own risk
-                  and</p>
-                <p>you don't put any responsibility on SmartHoldem Team.</p>
-                <p>You agree that your use or inability to use SmartHoldem coins is carried out solely at your own risk
-                  and</p>
-                <p>you don't put any responsibility on SmartHoldem Team.</p>
-              </card-body>
-
-          </card>
+          <component :is="termsComponent" />
         </div>
       </div>
     </div>
