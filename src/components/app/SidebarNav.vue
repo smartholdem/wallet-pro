@@ -2,6 +2,9 @@
 import SidebarNav from "@/components/app/SidebarNav.vue";
 import { useRouter, RouterLink } from "vue-router";
 import { onMounted } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 defineProps<{
   menu: {
@@ -41,7 +44,7 @@ function subIsActive(urls) {
           v-if="menu.highlight"
         ></span>
       </span>
-      <span class="menu-text">{{ menu.text }}</span>
+      <span class="menu-text text-capitalize">{{ t(menu.text) }}</span>
       <span class="menu-caret" v-if="menu.children"><b class="caret"></b></span>
     </a>
     <div class="menu-submenu">
@@ -62,11 +65,9 @@ function subIsActive(urls) {
       <a v-bind:href="href" @click="navigate" class="menu-link">
         <span class="menu-icon" v-if="menu.icon">
           <i v-bind:class="menu.icon"></i>
-          <span class="menu-icon-label" v-if="menu.label">{{
-            menu.label
-          }}</span>
+          <span class="menu-icon-label text-capitalize" v-if="menu.label">{{ menu.label }}</span>
         </span>
-        <span class="menu-text">{{ menu.text }}</span>
+        <span class="menu-text text-capitalize">{{ t(menu.text) }}</span>
       </a>
     </div>
   </router-link>
