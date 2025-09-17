@@ -20,12 +20,11 @@ export default {
   async created() {
     await storeSettings.updateNodes();
   },
-   mounted() {
+  mounted() {
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
     appOption.appContentClass = "p-0";
-
   },
   beforeUnmount() {
     appOption.appSidebarCollapsed = false;
@@ -50,19 +49,16 @@ export default {
           }
         }, 120);
       }
-
-
-
     },
-    submitForm: function() {
+    submitForm: function () {
       const pinIsValid = storeSettings.validatePinCode(this.password);
       if (pinIsValid) {
         //this.$root.pin = this.password;
         storeSettings.tmpPin = this.password;
         this.$router.push("/");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <template>
@@ -70,32 +66,44 @@ export default {
   <div class="login">
     <!-- BEGIN login-content -->
     <div class="login-content">
-
       <form v-on:submit.prevent="submitForm()" method="POST" name="login_form">
         <div class="w-100 text-center mb-2">
           <img class="text-center" src="/logo-green120.png" />
         </div>
 
-        <h1 class="text-center">{{ $t('unlock_wallet') }}</h1>
+        <h1 class="text-center">{{ $t("unlock_wallet") }}</h1>
         <div class="text-inverse text-opacity-50 text-center mb-4">
-          {{ $t('enter_pin_protection') }}
+          {{ $t("enter_pin_protection") }}
         </div>
         <div class="mb-3">
           <div class="d-flex">
-            <label class="form-label" for="loginPassword">{{ $t('pin_code') }} <span class="text-danger">*</span></label>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">{{ $t('reset_all_data_q') }}</a>
+            <label class="form-label" for="loginPassword"
+              >{{ $t("pin_code") }} <span class="text-danger">*</span></label
+            >
+            <a
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#modalResetAll"
+              class="ms-auto text-inverse text-decoration-none text-opacity-50"
+              >{{ $t("reset_all_data_q") }}</a
+            >
           </div>
-          <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;"
-                 autofocus
-                 type="text"
-                 autocomplete="off"
-                 v-model="password"
-                 @input="pinValidator"
-                 inputmode="numeric"
-                 pattern="[0-9]*"
-                 enterkeyhint="login"
-                 maxlength="16"
-                 class="form-control form-control-lg bg-white bg-opacity-5" :class="pinIsValid ? 'is-valid' : ''" placeholder="" />
+          <input
+            id="loginPassword"
+            style="-webkit-text-security: disc; text-security: disc"
+            autofocus
+            type="text"
+            autocomplete="off"
+            v-model="password"
+            @input="pinValidator"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            enterkeyhint="login"
+            maxlength="16"
+            class="form-control form-control-lg bg-white bg-opacity-5"
+            :class="pinIsValid ? 'is-valid' : ''"
+            placeholder=""
+          />
         </div>
         <!--
 				<div class="mb-3">
@@ -105,10 +113,15 @@ export default {
 					</div>
 				</div>
 				-->
-        <button :disabled="!pinIsValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">{{ $t('sign_in') }}
+        <button
+          :disabled="!pinIsValid"
+          type="submit"
+          class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3"
+        >
+          {{ $t("sign_in") }}
         </button>
 
-        <span v-show="pinIsValid">{{ $t('loading') }}</span>
+        <span v-show="pinIsValid">{{ $t("loading") }}</span>
         <!--
 				<div class="text-center text-inverse text-opacity-50">
 					Don't have an account yet? <RouterLink to="/page/register">Sign up</RouterLink>.
@@ -121,11 +134,18 @@ export default {
           <div class="modal-content">
             <card>
               <card-header class="card-header">
-                {{ $t('reset_all_data_confirm_q') }}
+                {{ $t("reset_all_data_confirm_q") }}
               </card-header>
               <card-body>
-                <p>{{ $t('reset_all_data_desc') }}</p>
-                <button @click="resetAll" data-bs-dismiss="modal" type="button" class="btn btn-danger text-uppercase">{{ $t('confirm_reset_all_data') }}</button>
+                <p>{{ $t("reset_all_data_desc") }}</p>
+                <button
+                  @click="resetAll"
+                  data-bs-dismiss="modal"
+                  type="button"
+                  class="btn btn-danger text-uppercase"
+                >
+                  {{ $t("confirm_reset_all_data") }}
+                </button>
               </card-body>
             </card>
           </div>
@@ -134,7 +154,6 @@ export default {
       <!-- END login-content -->
     </div>
     <!-- END login -->
-
   </div>
 </template>
 emplate>

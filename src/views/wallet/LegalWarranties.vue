@@ -7,11 +7,15 @@
       <p class="ml-3 small color-brown">20 November 2017</p>
       <div>
         <div class="card-body">
-          <p>You agree that your use or inability to use SmartHoldem cryptocoins is carried out solely at your own risk
-            and</p>
+          <p>
+            You agree that your use or inability to use SmartHoldem cryptocoins
+            is carried out solely at your own risk and
+          </p>
           <p>you don't put any responsibility on SmartHoldem Team.</p>
-          <p>You agree that your use or inability to use SmartHoldem tokens is carried out solely at your own risk
-            and</p>
+          <p>
+            You agree that your use or inability to use SmartHoldem tokens is
+            carried out solely at your own risk and
+          </p>
           <p>you don't put any responsibility on SmartHoldem Team.</p>
         </div>
       </div>
@@ -21,10 +25,8 @@
 
 <script>
 export default {
-  name: "LegalWarranties"
-}
+  name: "LegalWarranties",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
