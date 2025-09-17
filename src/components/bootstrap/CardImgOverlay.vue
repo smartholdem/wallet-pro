@@ -1,5 +1,5 @@
 <template>
-	<div class="card-img-overlay">
-		<slot />
-	</div>
+  <div class="card-img-overlay">
+    <slot />
+  </div>
 </template>

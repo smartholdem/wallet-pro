@@ -10,7 +10,9 @@
           <!-- BEGIN #general -->
           <div id="general" class="mb-5">
             <h4><i class="far fa-user fa-fw text-theme"></i> General</h4>
-            <p>View and update your general account information and settings.</p>
+            <p>
+              View and update your general account information and settings.
+            </p>
             <card>
               <div class="list-group list-group-flush">
                 <div class="list-group-item d-flex align-items-center">
@@ -20,7 +22,14 @@
                   </div>
                   <div class="w-100px">
                     <div class="form-check form-switch">
-                      <input v-model="settings.darkMode" type="checkbox" :checked="darkmode" class="form-check-input" id="themeStyle" v-on:change="changeStyle">
+                      <input
+                        v-model="settings.darkMode"
+                        type="checkbox"
+                        :checked="darkmode"
+                        class="form-check-input"
+                        id="themeStyle"
+                        v-on:change="changeStyle"
+                      />
                     </div>
                   </div>
                 </div>
@@ -48,17 +57,23 @@
                 <div class="list-group-item d-flex align-items-center">
                   <div class="flex-1 text-break">
                     <div>Time lock</div>
-                    <div class="text-inverse text-opacity-50">0 - disable lock</div>
+                    <div class="text-inverse text-opacity-50">
+                      0 - disable lock
+                    </div>
                   </div>
                   <div>
-                    <input type="text" class="form-control" placeholder="time lock in sec" value="600">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="time lock in sec"
+                      value="600"
+                    />
                   </div>
                 </div>
               </div>
             </card>
           </div>
           <!-- END #general -->
-
 
           <!-- BEGIN #resetSettings -->
           <div id="resetSettings" class="mb-5">
@@ -70,11 +85,14 @@
                   <div class="flex-1 text-break">
                     <div>Reset Settings</div>
                     <div class="text-inverse text-opacity-50">
-                      This action will clear and reset all the current app setting.
+                      This action will clear and reset all the current app
+                      setting.
                     </div>
                   </div>
                   <div>
-                    <a href="#" class="btn btn-outline-default w-100px">Reset</a>
+                    <a href="#" class="btn btn-outline-default w-100px"
+                      >Reset</a
+                    >
                   </div>
                 </div>
               </div>
@@ -83,7 +101,6 @@
           <!-- END #resetSettings -->
         </div>
         <!-- END col-9-->
-
       </div>
       <!-- END row -->
     </div>
@@ -97,7 +114,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Edit name</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
@@ -117,19 +138,30 @@
           <div class="alert bg-inverse bg-opacity-10 border-0">
             <b>Please note:</b>
             If you change your name, you can't change it again for 60 days.
-            Don't add any unusual capitalization, punctuation, characters or random words.
+            Don't add any unusual capitalization, punctuation, characters or
+            random words.
             <a href="#" class="alert-link">Learn more.</a>
           </div>
           <div class="mb-3">
             <label class="form-label">Other Names</label>
             <div>
-              <a href="#" class="btn btn-outline-default"><i class="fa fa-plus fa-fw"></i> Add other names</a>
+              <a href="#" class="btn btn-outline-default"
+                ><i class="fa fa-plus fa-fw"></i> Add other names</a
+              >
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-default" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-outline-theme">Save changes</button>
+          <button
+            type="button"
+            class="btn btn-outline-default"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-outline-theme">
+            Save changes
+          </button>
         </div>
       </div>
     </div>
@@ -150,5 +182,4 @@ const changeStyle = () => {
   store.updateSettings(settings.value);
   console.log(settings.value);
 };
-
 </script>

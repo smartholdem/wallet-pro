@@ -16,11 +16,8 @@ export default {
     isMobile() {
       return window.innerWidth < 768;
     },
-  }
-
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

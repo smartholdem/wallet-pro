@@ -8,51 +8,51 @@
         <li class="breadcrumb-item active">DELEGATE</li>
       </ul>
       <card v-if="delegates">
-        <card-header class="card-header fw-bold">
-          DELEGATE LIST
-        </card-header>
-        <card-body style="overflow-x: hidden; overflow-y: auto;">
+        <card-header class="card-header fw-bold"> DELEGATE LIST </card-header>
+        <card-body style="overflow-x: hidden; overflow-y: auto">
           <table class="table table-hover table-responsive">
             <thead>
-            <tr class="text-uppercase">
-              <th scope="col">Rank</th>
-              <th scope="col">Name</th>
-              <th scope="col">Blocks produced</th>
-              <th scope="col">Votes</th>
-              <th scope="col">Forged fees</th>
-              <!--<th scope="col">status</th>-->
-            </tr>
+              <tr class="text-uppercase">
+                <th scope="col">Rank</th>
+                <th scope="col">Name</th>
+                <th scope="col">Blocks produced</th>
+                <th scope="col">Votes</th>
+                <th scope="col">Forged fees</th>
+                <!--<th scope="col">status</th>-->
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="item in delegates.data" :key="item.address" :class="item.rank > 21 ? 'bg-gradient' : ''">
-              <td>
-                {{ item.rank }}
-              </td>
-              <td>
-                {{ item.username }}
-              </td>
-              <td>
-                {{ item.blocks.produced }}
-              </td>
-              <td>
-                {{ (item.votes / 1e8).toFixed(0) }}
-              </td>
-              <td>
-                {{ (item.forged.total / 1e8).toFixed(0) }}
-              </td>
-              <!--
+              <tr
+                v-for="item in delegates.data"
+                :key="item.address"
+                :class="item.rank > 21 ? 'bg-gradient' : ''"
+              >
+                <td>
+                  {{ item.rank }}
+                </td>
+                <td>
+                  {{ item.username }}
+                </td>
+                <td>
+                  {{ item.blocks.produced }}
+                </td>
+                <td>
+                  {{ (item.votes / 1e8).toFixed(0) }}
+                </td>
+                <td>
+                  {{ (item.forged.total / 1e8).toFixed(0) }}
+                </td>
+                <!--
               <td>
                 <span v-show-="item.last" class="text-success"><i class="fas fa-lg fa-fw me-2 fa-check-circle"></i></span>
                 <span v-show-="item.last" class="text-warning"><i class="fas fa-lg fa-fw me-2 fa-circle"></i></span>
                 <span v-show-="item.last" class="text-danger"><i class="fas fa-lg fa-fw me-2 fa-circle"></i></span>
               </td>
-              -->
-            </tr>
+              --></tr>
             </tbody>
           </table>
         </card-body>
       </card>
-
     </div>
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
   async created() {
     await storeWallet.getDelegates();
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    var self = this;
+    const self = this;
     this.$root.timerDelegates = setTimeout(async function tick() {
       if (self.page === "/delegates") {
         await storeWallet.getDelegates();
@@ -88,11 +88,9 @@ export default {
     },
     delegates() {
       return storeWallet.delegates;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
