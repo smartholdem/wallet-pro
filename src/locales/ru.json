@@ -62,9 +62,9 @@
   "delegate": "ДЕЛЕГАТ",
   "rank": "Ранг",
   "votes": "Голоса",
-  "forged_fees": "Комиссии за ковку",
+  "forged_fees": "Комиссии за форжинг",
   "produced_blocks": "Произведено блоков",
-  "voting_for": "Голосует за",
+  "voting_for": "Адрес голосует за",
   "cold_address": "Холодный адрес",
   "operation": "операция"
 }

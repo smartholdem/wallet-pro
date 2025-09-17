@@ -2,8 +2,8 @@
   <div class="row justify-content-center">
     <div class="col-xl-12">
       <ul class="breadcrumb">
-        <li class="breadcrumb-item"><router-link to="/">WALLET</router-link></li>
-        <li class="breadcrumb-item active">ADDRESS</li>
+        <li class="breadcrumb-item"><router-link to="/">{{ $t('wallet') }}</router-link></li>
+        <li class="breadcrumb-item active">{{ $t('address') }}</li>
       </ul>
     </div>
 
@@ -31,25 +31,25 @@
             <div v-if="currentAddress.attributes">
               <card v-if="currentAddress.attributes.delegate">
                 <card-header class="card-header fw-bold">
-                  <i class="fas fa-lg fa-fw me-1 fa-university"></i>DELEGATE <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
+                  <i class="fas fa-lg fa-fw me-1 fa-university"></i>{{ $t('delegate') }} <span class="text-info">{{ currentAddress.attributes.delegate.username }}</span>
                 </card-header>
                 <card-body>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Rank <span class="text-info">{{ currentAddress.attributes.delegate.rank }}</span></li>
+                    <li class="list-group-item">{{ $t('rank') }} <span class="text-info">{{ currentAddress.attributes.delegate.rank }}</span></li>
                     <li class="list-group-item">
-                      Votes <span class="text-info">{{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }}</span> STH
+                      {{ $t('votes') }} <span class="text-info">{{ (currentAddress.attributes.delegate.voteBalance / 10 ** 8).toFixed(8) }}</span> STH
                     </li>
-                    <li class="list-group-item">Forged fees
+                    <li class="list-group-item">{{ $t('forged_fees') }}
                       <span class="text-info">{{ (currentAddress.attributes.delegate.forgedFees / 10 ** 8).toFixed(8) }}</span> STH
                     </li>
-                    <li class="list-group-item">Produced blocks <span class="text-info">{{ currentAddress.attributes.delegate.producedBlocks }}</span>
+                    <li class="list-group-item">{{ $t('produced_blocks') }} <span class="text-info">{{ currentAddress.attributes.delegate.producedBlocks }}</span>
                     </li>
                   </ul>
                 </card-body>
               </card>
 
               <div v-if="currentAddress.voteFor">
-                Voting for <span class="text-info">{{currentAddress.voteFor.username}}</span>
+                {{ $t('voting_for') }} <span class="text-info">{{currentAddress.voteFor.username}}</span>
               </div>
 
             </div>
@@ -61,7 +61,7 @@
           {{ $route.params.address }}
         </card-header>
         <card-body>
-          <h3>Cold Address</h3>
+          <h3>{{ $t('cold_address') }}</h3>
         </card-body>
       </card>
     </div>
@@ -88,7 +88,7 @@
         <div class="toast-header" :class="'text-' + toastStyle">
           <i class="far fa-bell me-2"/>
           <strong class="me-auto">{{ toastStyle }}</strong>
-          <small class="text-success-emphasis">{{ notifyOp }}</small>
+          <small class="text-success-emphasis">{{ $t('operation') }}</small>
           <button
             type="button"
             class="btn-close"
@@ -187,7 +187,7 @@ export default {
     async copyText(text) {
       await navigator.clipboard.writeText(text);
       this.notifyOp = "operation";
-      this.showToast(event, "toast-address", "Copied to clipboard!", "success");
+      this.showToast(event, "toast-address", this.$t('copied_to_clipboard'), "success");
     },
     handleData: function (e) {
       this.txResult = e;
