@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "CONTINUE",
   "exchange_error_invalid_response": "Invalid response from server",
   "exchange_error_failed_to_get_deposit_address": "Failed to get deposit address.",
-  "exchange_error_failed_to_get_sell_address": "Failed to get sell address."
+  "exchange_error_failed_to_get_sell_address": "Failed to get sell address.",
+  "modal_delegate_reg_title": "New Delegate Registration",
+  "modal_delegate_reg_delegate_name": "Delegate Name",
+  "modal_delegate_reg_enter_delegate_name": "enter delegate name",
+  "modal_delegate_reg_before_registering": "Before registering as a delegate, please familiarize yourself with the",
+  "modal_delegate_reg_node_installation": "node installation",
+  "modal_delegate_reg_delegate_exists": "DELEGATE is exist",
+  "modal_delegate_reg_rank": "Rank",
+  "modal_delegate_reg_votes": "Votes",
+  "modal_delegate_reg_forged_fees": "Forged fees",
+  "modal_delegate_reg_produced_blocks": "Produced blocks",
+  "modal_delegate_reg_fee": "Fee 10 000 STH",
+  "modal_delegate_reg_balance": "balance",
+  "modal_delegate_reg_register": "REGISTER",
+  "modal_delegate_reg_result_title": "Delegate registration result",
+  "modal_delegate_reg_success": "Success!"
 }

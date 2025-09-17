@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "ПРОДОЛЖИТЬ",
   "exchange_error_invalid_response": "Неверный ответ от сервера",
   "exchange_error_failed_to_get_deposit_address": "Не удалось получить адрес для депозита.",
-  "exchange_error_failed_to_get_sell_address": "Не удалось получить адрес для продажи."
+  "exchange_error_failed_to_get_sell_address": "Не удалось получить адрес для продажи.",
+  "modal_delegate_reg_title": "Регистрация нового делегата",
+  "modal_delegate_reg_delegate_name": "Имя делегата",
+  "modal_delegate_reg_enter_delegate_name": "введите имя делегата",
+  "modal_delegate_reg_before_registering": "Перед регистрацией в качестве делегата, пожалуйста, ознакомьтесь с",
+  "modal_delegate_reg_node_installation": "установкой ноды",
+  "modal_delegate_reg_delegate_exists": "ДЕЛЕГАТ существует",
+  "modal_delegate_reg_rank": "Ранг",
+  "modal_delegate_reg_votes": "Голоса",
+  "modal_delegate_reg_forged_fees": "Комиссии за форжинг",
+  "modal_delegate_reg_produced_blocks": "Произведено блоков",
+  "modal_delegate_reg_fee": "Комиссия 10 000 STH",
+  "modal_delegate_reg_balance": "баланс",
+  "modal_delegate_reg_register": "ЗАРЕГИСТРИРОВАТЬ",
+  "modal_delegate_reg_result_title": "Результат регистрации делегата",
+  "modal_delegate_reg_success": "Успешно!"
 }

@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">New Delegate Registration</h5>
+          <h5 class="modal-title">{{ $t("modal_delegate_reg_title") }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                   <div class="form-group mb-3">
                     <label class="form-label w-100" for="sendDelegateName"
-                      >Delegate Name
+                      >{{ $t("modal_delegate_reg_delegate_name") }}
                       <i class="fa fa-address-book hover-info"></i>
                       <i
                         @click="searchClear"
@@ -36,17 +36,18 @@
                           : 'is-invalid'
                       "
                       id="sendDelegateName"
-                      placeholder="enter delegate name"
+                      :placeholder="
+                        $t('modal_delegate_reg_enter_delegate_name')
+                      "
                     />
                   </div>
 
                   <p>
-                    Before registering as a delegate, please familiarize
-                    yourself with the
+                    {{ $t("modal_delegate_reg_before_registering") }}
                     <a
                       target="_blank"
                       href="https://github.com/smartholdem/sth-core#smartholdem-core-blockchain"
-                      >node installation</a
+                      >{{ $t("modal_delegate_reg_node_installation") }}</a
                     >
                   </p>
 
@@ -54,7 +55,7 @@
                     <card>
                       <card-header class="card-header fw-bold text-warning">
                         <i class="fas fa-lg fa-fw me-1 fa-university"></i
-                        >DELEGATE is exist
+                        >{{ $t("modal_delegate_reg_delegate_exists") }}
                         <span class="text-info">{{
                           foundDelegate.username
                         }}</span>
@@ -62,27 +63,27 @@
                       <card-body>
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">
-                            Rank
+                            {{ $t("modal_delegate_reg_rank") }}
                             <span class="text-info">{{
                               foundDelegate.rank
                             }}</span>
                           </li>
                           <li class="list-group-item">
-                            Votes
+                            {{ $t("modal_delegate_reg_votes") }}
                             <span class="text-info">{{
                               (foundDelegate.votes / 10 ** 8).toFixed(8)
                             }}</span>
                             STH
                           </li>
                           <li class="list-group-item">
-                            Forged fees
+                            {{ $t("modal_delegate_reg_forged_fees") }}
                             <span class="text-info">{{
                               (foundDelegate.forged.total / 10 ** 8).toFixed(8)
                             }}</span>
                             STH
                           </li>
                           <li class="list-group-item">
-                            Produced blocks
+                            {{ $t("modal_delegate_reg_produced_blocks") }}
                             <span class="text-info">{{
                               foundDelegate.blocks.produced
                             }}</span>
@@ -94,8 +95,11 @@
 
                   <div v-if="!foundDelegate && userName.length > 3">
                     <p>
-                      Fee 10 000 STH
-                      <span class="small">(balance {{ balanceDecimal }})</span>
+                      {{ $t("modal_delegate_reg_fee") }}
+                      <span class="small"
+                        >({{ $t("modal_delegate_reg_balance") }}
+                        {{ balanceDecimal }})</span
+                      >
                     </p>
                     <button
                       :disabled="balanceDecimal < 10001"
@@ -104,7 +108,7 @@
                       class="btn btn-sm"
                       :class="foundDelegate ? 'btn-secondary' : 'btn-success'"
                     >
-                      REGISTER - {{ userName }}
+                      {{ $t("modal_delegate_reg_register") }} - {{ userName }}
                     </button>
                   </div>
                 </div>
@@ -115,11 +119,13 @@
               <div v-if="txResult">
                 <card>
                   <card-header class="card-header">
-                    Delegate registration result
+                    {{ $t("modal_delegate_reg_result_title") }}
                   </card-header>
                   <card-body>
                     <p>{{ txResult }}</p>
-                    <span class="text-success">Success!</span>
+                    <span class="text-success">{{
+                      $t("modal_delegate_reg_success")
+                    }}</span>
                   </card-body>
                 </card>
               </div>

@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "CONTINUAR",
   "exchange_error_invalid_response": "Respuesta no válida del servidor",
   "exchange_error_failed_to_get_deposit_address": "No se pudo obtener la dirección de depósito.",
-  "exchange_error_failed_to_get_sell_address": "No se pudo obtener la dirección de venta."
+  "exchange_error_failed_to_get_sell_address": "No se pudo obtener la dirección de venta.",
+  "modal_delegate_reg_title": "Registro de nuevo delegado",
+  "modal_delegate_reg_delegate_name": "Nombre del delegado",
+  "modal_delegate_reg_enter_delegate_name": "ingresar nombre del delegado",
+  "modal_delegate_reg_before_registering": "Antes de registrarse como delegado, por favor familiarícese con la",
+  "modal_delegate_reg_node_installation": "instalación del nodo",
+  "modal_delegate_reg_delegate_exists": "DELEGADO existe",
+  "modal_delegate_reg_rank": "Rango",
+  "modal_delegate_reg_votes": "Votos",
+  "modal_delegate_reg_forged_fees": "Tarifas forjadas",
+  "modal_delegate_reg_produced_blocks": "Bloques producidos",
+  "modal_delegate_reg_fee": "Tarifa 10 000 STH",
+  "modal_delegate_reg_balance": "saldo",
+  "modal_delegate_reg_register": "REGISTRAR",
+  "modal_delegate_reg_result_title": "Resultado del registro de delegado",
+  "modal_delegate_reg_success": "¡Éxito!"
 }

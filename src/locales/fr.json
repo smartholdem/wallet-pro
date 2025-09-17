@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "CONTINUER",
   "exchange_error_invalid_response": "Réponse invalide du serveur",
   "exchange_error_failed_to_get_deposit_address": "Impossible d'obtenir l'adresse de dépôt.",
-  "exchange_error_failed_to_get_sell_address": "Impossible d'obtenir l'adresse de vente."
+  "exchange_error_failed_to_get_sell_address": "Impossible d'obtenir l'adresse de vente.",
+  "modal_delegate_reg_title": "Enregistrement d'un nouveau délégué",
+  "modal_delegate_reg_delegate_name": "Nom du délégué",
+  "modal_delegate_reg_enter_delegate_name": "entrer le nom du délégué",
+  "modal_delegate_reg_before_registering": "Avant de vous enregistrer comme délégué, veuillez vous familiariser avec",
+  "modal_delegate_reg_node_installation": "l'installation du nœud",
+  "modal_delegate_reg_delegate_exists": "LE DÉLÉGUÉ existe",
+  "modal_delegate_reg_rank": "Rang",
+  "modal_delegate_reg_votes": "Votes",
+  "modal_delegate_reg_forged_fees": "Frais forgés",
+  "modal_delegate_reg_produced_blocks": "Blocs produits",
+  "modal_delegate_reg_fee": "Frais 10 000 STH",
+  "modal_delegate_reg_balance": "solde",
+  "modal_delegate_reg_register": "ENREGISTRER",
+  "modal_delegate_reg_result_title": "Résultat de l'enregistrement du délégué",
+  "modal_delegate_reg_success": "Succès !"
 }

@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "TIẾP TỤC",
   "exchange_error_invalid_response": "Phản hồi không hợp lệ từ máy chủ",
   "exchange_error_failed_to_get_deposit_address": "Không thể lấy địa chỉ gửi tiền.",
-  "exchange_error_failed_to_get_sell_address": "Không thể lấy địa chỉ bán."
+  "exchange_error_failed_to_get_sell_address": "Không thể lấy địa chỉ bán.",
+  "modal_delegate_reg_title": "Đăng ký Đại biểu Mới",
+  "modal_delegate_reg_delegate_name": "Tên Đại biểu",
+  "modal_delegate_reg_enter_delegate_name": "nhập tên đại biểu",
+  "modal_delegate_reg_before_registering": "Trước khi đăng ký làm đại biểu, vui lòng tìm hiểu",
+  "modal_delegate_reg_node_installation": "cài đặt nút",
+  "modal_delegate_reg_delegate_exists": "ĐẠI BIỂU tồn tại",
+  "modal_delegate_reg_rank": "Hạng",
+  "modal_delegate_reg_votes": "Phiếu bầu",
+  "modal_delegate_reg_forged_fees": "Phí đúc",
+  "modal_delegate_reg_produced_blocks": "Khối đã tạo",
+  "modal_delegate_reg_fee": "Phí 10 000 STH",
+  "modal_delegate_reg_balance": "số dư",
+  "modal_delegate_reg_register": "ĐĂNG KÝ",
+  "modal_delegate_reg_result_title": "Kết quả đăng ký đại biểu",
+  "modal_delegate_reg_success": "Thành công!"
 }

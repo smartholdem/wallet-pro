@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "LANJUTKAN",
   "exchange_error_invalid_response": "Respons tidak valid dari server",
   "exchange_error_failed_to_get_deposit_address": "Gagal mendapatkan alamat deposit.",
-  "exchange_error_failed_to_get_sell_address": "Gagal mendapatkan alamat jual."
+  "exchange_error_failed_to_get_sell_address": "Gagal mendapatkan alamat jual.",
+  "modal_delegate_reg_title": "Pendaftaran Delegasi Baru",
+  "modal_delegate_reg_delegate_name": "Nama Delegasi",
+  "modal_delegate_reg_enter_delegate_name": "masukkan nama delegasi",
+  "modal_delegate_reg_before_registering": "Sebelum mendaftar sebagai delegasi, silakan pahami",
+  "modal_delegate_reg_node_installation": "instalasi node",
+  "modal_delegate_reg_delegate_exists": "DELEGASI ada",
+  "modal_delegate_reg_rank": "Peringkat",
+  "modal_delegate_reg_votes": "Suara",
+  "modal_delegate_reg_forged_fees": "Biaya yang ditempa",
+  "modal_delegate_reg_produced_blocks": "Blok yang diproduksi",
+  "modal_delegate_reg_fee": "Biaya 10 000 STH",
+  "modal_delegate_reg_balance": "saldo",
+  "modal_delegate_reg_register": "DAFTAR",
+  "modal_delegate_reg_result_title": "Hasil pendaftaran delegasi",
+  "modal_delegate_reg_success": "Berhasil!"
 }

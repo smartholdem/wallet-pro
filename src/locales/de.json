@@ -156,5 +156,20 @@
   "exchange_modal_continue_button": "WEITER",
   "exchange_error_invalid_response": "Ungültige Antwort vom Server",
   "exchange_error_failed_to_get_deposit_address": "Fehler beim Abrufen der Einzahlungsadresse.",
-  "exchange_error_failed_to_get_sell_address": "Fehler beim Abrufen der Verkaufsadresse."
+  "exchange_error_failed_to_get_sell_address": "Fehler beim Abrufen der Verkaufsadresse.",
+  "modal_delegate_reg_title": "Neue Delegiertenregistrierung",
+  "modal_delegate_reg_delegate_name": "Delegiertenname",
+  "modal_delegate_reg_enter_delegate_name": "Delegiertenname eingeben",
+  "modal_delegate_reg_before_registering": "Bevor Sie sich als Delegierter registrieren, machen Sie sich bitte mit der",
+  "modal_delegate_reg_node_installation": "Node-Installation",
+  "modal_delegate_reg_delegate_exists": "DELEGIERTE existiert",
+  "modal_delegate_reg_rank": "Rang",
+  "modal_delegate_reg_votes": "Stimmen",
+  "modal_delegate_reg_forged_fees": "Geschmiedete Gebühren",
+  "modal_delegate_reg_produced_blocks": "Produzierte Blöcke",
+  "modal_delegate_reg_fee": "Gebühr 10 000 STH",
+  "modal_delegate_reg_balance": "Guthaben",
+  "modal_delegate_reg_register": "REGISTRIEREN",
+  "modal_delegate_reg_result_title": "Ergebnis der Delegiertenregistrierung",
+  "modal_delegate_reg_success": "Erfolg!"
 }
