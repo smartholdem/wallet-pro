@@ -1,3 +1,6 @@
+v1.2.17
+- Add support 7 languages
+
 v1.2.16
 - Add desktop app (Electron)
 - Fix bugs

@@ -63,8 +63,15 @@
           >
             {{ $t("mpays") }}
           </button>
-          <button :disabled="true" type="button" class="btn btn-outline-theme">
-            {{ $t("htlc") }}
+          <!-- временно disabled-->
+          <button
+              disabled
+              data-bs-toggle="modal"
+              data-bs-target="#modalExchange"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+          >
+            {{ $t("exchange") }}
           </button>
           <button
             data-bs-toggle="modal"
@@ -74,13 +81,8 @@
           >
             {{ $t("sig") }}
           </button>
-          <button
-            data-bs-toggle="modal"
-            data-bs-target="#modalExchange"
-            type="button"
-            class="btn btn-outline-theme text-uppercase"
-          >
-            {{ $t("exchange") }}
+          <button :disabled="true" type="button" class="btn btn-outline-theme">
+            {{ $t("htlc") }}
           </button>
         </div>
 

@@ -1,6 +1,6 @@
 {
   "name": "smartholdem-wallet-pro",
-  "version": "1.2.17a",
+  "version": "1.2.17c",
   "description": "SmartHoldem Wallet Pro — десктопный кошелёк (Electron) для сети SmartHoldem с кросс-чейном и расширенными функциями.",
   "author": "SmartHoldem Team",
   "main": "electron/main.js",
