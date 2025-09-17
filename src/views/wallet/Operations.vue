@@ -684,7 +684,7 @@
 
     <ModalSignMessage :address="address" />
 
-    <ExchangeModal :balance="balanceDecimal" />
+    <ExchangeModal :balance="balanceDecimal" :address="address" />
 
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
