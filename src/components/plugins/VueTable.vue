@@ -1,11 +1,11 @@
 <script>
-import VueTableLite from 'vue3-table-lite'
+import VueTableLite from "vue3-table-lite";
 
 export default {
-	components: {
-		VueTableLite,
-	}
-}
+  components: {
+    VueTableLite,
+  },
+};
 </script>
 
 <template>

@@ -2,21 +2,23 @@
   <div class="col-xl-10">
     <card>
       <card-header class="card-header fw-bold small"
-      >{{ $t('list_of_your_accounts') }}
+        >{{ $t("list_of_your_accounts") }}
       </card-header>
       <ul class="nav nav-tabs pt-3 ps-4 pe-4">
         <li class="nav-item me-1">
-          <a href="#addressList" class="nav-link active" data-bs-toggle="tab"
-          >{{ $t('accounts') }}</a
-          >
+          <a href="#addressList" class="nav-link active" data-bs-toggle="tab">{{
+            $t("accounts")
+          }}</a>
         </li>
         <li class="nav-item me-1">
-          <a href="#addressNew" class="nav-link" data-bs-toggle="tab">{{ $t('new') }}</a>
+          <a href="#addressNew" class="nav-link" data-bs-toggle="tab">{{
+            $t("new")
+          }}</a>
         </li>
         <li class="nav-item me-1">
-          <a href="#addressImport" class="nav-link" data-bs-toggle="tab"
-          >{{ $t('import') }}</a
-          >
+          <a href="#addressImport" class="nav-link" data-bs-toggle="tab">{{
+            $t("import")
+          }}</a>
         </li>
       </ul>
       <div class="tab-content p-4">
@@ -28,72 +30,73 @@
         >
           <table class="table table-borderless">
             <thead>
-            <tr v-for="item in listAddresses" :key="item.address">
-              <td>
-                <button
-                  @click="openAddress(item.address)"
-                  class="btn btn-outline-theme mb-2"
-                  :style="!isMobile ? 'width: 336px' : 'width: 125px'"
-                >
-                  <AddressComponent
-                    v-if="!isMobile"
-                    :address="item.address"
-                  />
-                  <AddressComponent
-                    v-if="isMobile && !item.label"
-                    :address="item.address"
-                  />
-                  <span v-if="item.label && isMobile">{{
+              <tr v-for="item in listAddresses" :key="item.address">
+                <td>
+                  <button
+                    @click="openAddress(item.address)"
+                    class="btn btn-outline-theme mb-2"
+                    :style="!isMobile ? 'width: 336px' : 'width: 125px'"
+                  >
+                    <AddressComponent
+                      v-if="!isMobile"
+                      :address="item.address"
+                    />
+                    <AddressComponent
+                      v-if="isMobile && !item.label"
+                      :address="item.address"
+                    />
+                    <span v-if="item.label && isMobile">{{
                       item.label.length < 12
                         ? item.label
                         : item.label.slice(0, 11) + ".."
-                    }}</span></button
-                >
-                <div class="mx-2 btn-group mb-2">
-                  <button
-                    @click="copyAddress(item.address)"
-                    type="button"
-                    class="btn btn-outline-secondary"
-                  >
-                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                    }}</span>
                   </button>
+                  <div class="mx-2 btn-group mb-2">
+                    <button
+                      @click="copyAddress(item.address)"
+                      type="button"
+                      class="btn btn-outline-secondary"
+                    >
+                      <i class="fa fa-clipboard" aria-hidden="true"></i>
+                    </button>
 
-                  <button
-                    @click="deleteAddress(item.address)"
-                    type="button"
-                    class="btn btn-outline-default"
-                  >
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                  </button>
-                  <button
-                    @click="decryptSecret(item.address)"
-                    type="button"
-                    class="btn btn-outline-default"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalDecrypt"
-                  >
-                    <i class="fa fa-key" aria-hidden="true"></i>
-                  </button>
+                    <button
+                      @click="deleteAddress(item.address)"
+                      type="button"
+                      class="btn btn-outline-default"
+                    >
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      @click="decryptSecret(item.address)"
+                      type="button"
+                      class="btn btn-outline-default"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalDecrypt"
+                    >
+                      <i class="fa fa-key" aria-hidden="true"></i>
+                    </button>
 
-                  <button
-                    v-if="!isMobile && item.label"
-                    type="button"
-                    class="btn btn-outline-secondary"
-                    style="width: 200px"
-                  >
-                    <i class="fas fa-tag mr-1"></i> <span v-show="item.label">{{ item.label }}</span>
-                  </button>
-                </div>
-              </td>
-            </tr>
+                    <button
+                      v-if="!isMobile && item.label"
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      style="width: 200px"
+                    >
+                      <i class="fas fa-tag mr-1"></i>
+                      <span v-show="item.label">{{ item.label }}</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
             </thead>
           </table>
 
           <div class="alert alert-light">
-            {{ $t('please_select_import_or_get_new_address') }}
+            {{ $t("please_select_import_or_get_new_address") }}
           </div>
           <div v-if="!Object.keys(listAddresses)" class="alert alert-info">
-            {{ $t('no_addresses_import_or_create_new_address') }}
+            {{ $t("no_addresses_import_or_create_new_address") }}
           </div>
         </div>
         <!-- new address tab-->
@@ -108,7 +111,7 @@
               type="button"
               class="btn btn-outline-theme"
             >
-              {{ $t('generate_new_address') }} <i class="fas fa-dice"></i>
+              {{ $t("generate_new_address") }} <i class="fas fa-dice"></i>
             </button>
 
             <button
@@ -123,9 +126,9 @@
 
           <div class="mt-3">
             <div class="form-group mb-3">
-              <label class="form-label" for="newPublicAddress"
-              >{{ $t('public_address') }}</label
-              >
+              <label class="form-label" for="newPublicAddress">{{
+                $t("public_address")
+              }}</label>
               <input
                 type="text"
                 readonly
@@ -136,7 +139,12 @@
               />
             </div>
             <div class="form-group mb-3">
-              <label class="form-label" for="newPrivateKey">{{ $t('private_key') }}<span class="small text-danger">{{ $t('please_keep_in_secret') }}</span></label>
+              <label class="form-label" for="newPrivateKey"
+                >{{ $t("private_key")
+                }}<span class="small text-danger">{{
+                  $t("please_keep_in_secret")
+                }}</span></label
+              >
               <textarea
                 id="newPrivateKey"
                 readonly
@@ -148,7 +156,9 @@
             <div class="form-group mb-3">
               <div class="row">
                 <div class="col-md-4">
-                  <label class="form-label" for="encrypted">{{ $t('encrypted_methods') }}</label>
+                  <label class="form-label" for="encrypted">{{
+                    $t("encrypted_methods")
+                  }}</label>
                   <select
                     v-model="encryptedAlgo"
                     class="form-select form-select-sm"
@@ -159,7 +169,9 @@
                   </select>
                 </div>
                 <div class="col-md-4">
-                  <label class="form-label" for="newLabel">{{ $t('label') }}</label>
+                  <label class="form-label" for="newLabel">{{
+                    $t("label")
+                  }}</label>
                   <input
                     type="text"
                     v-model="account.label"
@@ -176,7 +188,7 @@
               type="submit"
               class="btn btn-outline-theme btn-lg d-block"
             >
-              {{ $t('save_address') }}
+              {{ $t("save_address") }}
             </button>
           </div>
         </div>
@@ -187,7 +199,9 @@
           id="addressImport"
         >
           <div class="form-group mb-3">
-            <label class="form-label" for="importPrivateKey">{{ $t('enter_private_key') }}</label>
+            <label class="form-label" for="importPrivateKey">{{
+              $t("enter_private_key")
+            }}</label>
             <input
               type="text"
               v-model="accountImport.secret"
@@ -198,9 +212,9 @@
             />
           </div>
           <div class="form-group mb-3">
-            <label class="form-label" for="importPublicAddress"
-            >{{ $t('public_address') }}</label
-            >
+            <label class="form-label" for="importPublicAddress">{{
+              $t("public_address")
+            }}</label>
             <input
               type="text"
               readonly
@@ -213,9 +227,9 @@
           <div class="form-group mb-3">
             <div class="row">
               <div class="col-md-4">
-                <label class="form-label" for="encryptedImport"
-                >{{ $t('encrypted_methods') }}</label
-                >
+                <label class="form-label" for="encryptedImport">{{
+                  $t("encrypted_methods")
+                }}</label>
                 <select
                   v-model="encryptedAlgo"
                   class="form-select form-select-sm"
@@ -226,7 +240,9 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label class="form-label" for="importLabel">{{ $t('label') }}</label>
+                <label class="form-label" for="importLabel">{{
+                  $t("label")
+                }}</label>
                 <input
                   type="text"
                   v-model="accountImport.label"
@@ -244,7 +260,7 @@
               type="submit"
               class="btn btn-outline-theme btn-lg d-block"
             >
-              {{ $t('save_address') }}
+              {{ $t("save_address") }}
             </button>
           </div>
         </div>
@@ -269,8 +285,8 @@
       >
         <div class="toast-header text-info">
           <i class="far fa-bell me-2 text-info"></i>
-          <strong class="me-auto">{{ $t('address') }}</strong>
-          <small class="text-success-emphasis">{{ $t('success') }}</small>
+          <strong class="me-auto">{{ $t("address") }}</strong>
+          <small class="text-success-emphasis">{{ $t("success") }}</small>
           <button
             type="button"
             class="btn-close"
@@ -307,7 +323,7 @@ import AddressComponent from "@/components/wallet/ComponentAddress.vue";
 export default {
   name: "WalletPage",
   components: {
-    AddressComponent: AddressComponent
+    AddressComponent: AddressComponent,
   },
   data() {
     return {
@@ -321,34 +337,34 @@ export default {
       accounts: store.accounts,
       checks: {
         agree: false,
-        lose: false
+        lose: false,
       },
       isBip39: null,
       account: {
         address: "",
         secret: "",
-        label: ""
+        label: "",
       },
       accountImport: {
         address: "",
         secret: "",
-        label: ""
-      }
+        label: "",
+      },
     };
   },
   computed: {
     listAddresses() {
       return store.accounts;
-    }
+    },
   },
   methods: {
     async copyJson(data) {
       navigator.clipboard.writeText(JSON.stringify(data));
-      this.showToast(event, "toast-1", this.$t('copied_to_clipboard'));
+      this.showToast(event, "toast-1", this.$t("copied_to_clipboard"));
     },
     async copyAddress(data) {
       navigator.clipboard.writeText(data);
-      this.showToast(event, "toast-1", this.$t('copied_to_clipboard'));
+      this.showToast(event, "toast-1", this.$t("copied_to_clipboard"));
     },
     async decryptSecret(address) {
       this.decryptedSecret = await store.decryptByAddress(address);
@@ -361,7 +377,7 @@ export default {
     },
     async deleteAddress(address) {
       await store.addressDelete(address);
-      this.showToast(event, "toast-1", this.$t('deleted'));
+      this.showToast(event, "toast-1", this.$t("deleted"));
     },
     async openAddress(address) {
       await this.$router.push("/address/" + address);
@@ -389,19 +405,19 @@ export default {
           address: account.address,
           secret: encryptedSecret,
           encrypt: this.encryptedAlgo,
-          label: account.label
+          label: account.label,
         };
         store.addressSave(objAddress);
         if (this.accountImport.address) {
-          this.showToast(event, "toast-1", this.$t('imported'));
+          this.showToast(event, "toast-1", this.$t("imported"));
         }
         if (this.account.address) {
-          this.showToast(event, "toast-1", this.$t('created'));
+          this.showToast(event, "toast-1", this.$t("created"));
         }
         this.accountImport = {
           address: "",
           secret: "",
-          label: ""
+          label: "",
         };
         this.account = this.accountImport;
         this.tabActive = 0;
@@ -415,8 +431,8 @@ export default {
           this.accountImport.address = account.address;
         }, 200);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
