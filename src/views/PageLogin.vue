@@ -76,14 +76,14 @@ export default {
           <img class="text-center" src="/logo-green120.png" />
         </div>
 
-        <h1 class="text-center">Unlock Wallet</h1>
+        <h1 class="text-center">{{ $t('unlock_wallet') }}</h1>
         <div class="text-inverse text-opacity-50 text-center mb-4">
-          For your protection, please enter your Pin code.
+          {{ $t('enter_pin_protection') }}
         </div>
         <div class="mb-3">
           <div class="d-flex">
             <label class="form-label" for="loginPassword">{{ $t('pin_code') }} <span class="text-danger">*</span></label>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">Reset all data?</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modalResetAll" class="ms-auto text-inverse text-decoration-none text-opacity-50">{{ $t('reset_all_data_q') }}</a>
           </div>
           <input id="loginPassword" style="-webkit-text-security:disc;text-security:disc;"
                  autofocus
@@ -105,11 +105,10 @@ export default {
 					</div>
 				</div>
 				-->
-        <button :disabled="!pinIsValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">Sign
-          In
+        <button :disabled="!pinIsValid" type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">{{ $t('sign_in') }}
         </button>
 
-        <span v-show="pinIsValid">Loading...</span>
+        <span v-show="pinIsValid">{{ $t('loading') }}</span>
         <!--
 				<div class="text-center text-inverse text-opacity-50">
 					Don't have an account yet? <RouterLink to="/page/register">Sign up</RouterLink>.
@@ -122,11 +121,11 @@ export default {
           <div class="modal-content">
             <card>
               <card-header class="card-header">
-                Reset All Data?
+                {{ $t('reset_all_data_confirm_q') }}
               </card-header>
               <card-body>
-                <p>Reset all data, keys, address.</p>
-                <button @click="resetAll" data-bs-dismiss="modal" type="button" class="btn btn-danger text-uppercase">Confirm reset all data</button>
+                <p>{{ $t('reset_all_data_desc') }}</p>
+                <button @click="resetAll" data-bs-dismiss="modal" type="button" class="btn btn-danger text-uppercase">{{ $t('confirm_reset_all_data') }}</button>
               </card-body>
             </card>
           </div>

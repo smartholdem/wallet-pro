@@ -35,10 +35,11 @@ import de from './locales/de.json';
 import fr from './locales/fr.json';
 import vi from './locales/vi.json';
 import id from './locales/id.json';
+import { useStoreSettings } from "@/stores/app-settings";
 
 const i18n = createI18n({
   legacy: false,
-  locale: 'ru', // установить локаль
+  locale: 'en', // установить локаль
   fallbackLocale: 'en', // установить резервную локаль
   messages: {
     en,
@@ -66,6 +67,11 @@ app.component('CardExpandToggler', CardExpandToggler);
 const pPersist = createPinia()
 pPersist.use(piniaPluginPersistedstate)
 app.use(pPersist);
+
+const storeSettings = useStoreSettings();
+if (storeSettings.settings.language) {
+  i18n.global.locale.value = storeSettings.settings.language;
+}
 
 app.use(router);
 app.use(Vue3ProgressPlugin);

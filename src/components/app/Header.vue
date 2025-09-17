@@ -23,6 +23,7 @@ const notificationData = [{
 
 function setLocale(lang) {
   locale.value = lang;
+  appSettings.updateSettings({ language: lang });
 }
 
 function currentVersion() {
