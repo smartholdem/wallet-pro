@@ -85,6 +85,7 @@
   "enter_address": "Enter address",
   "amount_table": "Amount",
   "operation_table": "Operation",
+  "address_table": "Address",
   "total": "Total",
   "fees": "Fees",
   "total_amount": "Total amount",
@@ -122,4 +123,3 @@
   "receiving_address": "Receiving address",
   "list_recipients": "List recipients"
 }
-

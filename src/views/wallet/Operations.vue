@@ -30,7 +30,7 @@
             data-bs-toggle="modal"
             data-bs-target="#modalTransfer"
             type="button"
-            class="btn btn-outline-theme"
+            class="btn btn-outline-theme text-uppercase"
           >
             {{ $t('send') }}
           </button>
@@ -57,7 +57,7 @@
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#modalMPayTransfer"
-            class="btn btn-outline-theme"
+            class="btn btn-outline-theme text-uppercase"
           >
             {{ $t('mpays') }}
           </button>
@@ -68,7 +68,7 @@
             data-bs-toggle="modal"
             data-bs-target="#modalSignMessage"
             type="button"
-            class="btn btn-outline-theme"
+            class="btn btn-outline-theme text-uppercase"
           >
             {{ $t('sig') }}
           </button>
@@ -76,9 +76,9 @@
             data-bs-toggle="modal"
             data-bs-target="#modalExchange"
             type="button"
-            class="btn btn-outline-theme"
+            class="btn btn-outline-theme text-uppercase"
           >
-            Exchange
+            {{ $t('exchange') }}
           </button>
         </div>
 
@@ -101,11 +101,11 @@
             data-bs-toggle="modal"
             data-bs-target="#modalVote"
             type="button"
-            class="btn btn-outline-theme"
+            class="btn btn-outline-theme text-uppercase"
           >
             {{ $t('vote') }}
           </button>
-          <button disabled="true" type="button" class="btn btn-outline-theme">
+          <button disabled="true" type="button" class="btn btn-outline-theme text-uppercase">
             {{ $t('msig') }}
           </button>
         </div>
@@ -300,15 +300,8 @@
                 <!-- Network Selection -->
                 <div class="row mb-3">
                   <div class="col-md-4">
-                    <label
-                      class="form-label px-4"
-                      :class="'ico-' + selectedNetwork"
-                    >{{ $t('network') }}</label
-                    >
-                    <select
-                      v-model="selectedNetwork"
-                      class="form-select form-select-sm"
-                    >
+                    <label class="form-label px-4" :class="'ico-' + selectedNetwork">{{ $t('network') }}</label>
+                    <select v-model="selectedNetwork" class="form-select form-select-sm">
                       <option value="mainnet">MainNet</option>
                       <!--
                       <option value="bsc">BSC</option>
@@ -401,7 +394,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Transfer</h5>
+            <h5 class="modal-title">{{ $t('transfer') }}</h5>
             <button
               type="button"
               class="btn-close"
@@ -415,7 +408,7 @@
                   <div class="col-md-10">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendRecipient"
-                      >Recipient <i class="fa fa-address-book hover-info"></i
+                      >{{ $t('recipient') }} <i class="fa fa-address-book hover-info"></i
                       ></label>
                       <input
                         v-model="forSend.recipientId"
@@ -429,13 +422,13 @@
                             : 'is-invalid'
                         "
                         id="sendRecipient"
-                        placeholder="Enter address"
+                        :placeholder="$t('enter_address')"
                       />
                     </div>
                   </div>
                   <div class="col-md-2" v-show="!isMobile">
                     <div class="form-group mb-3">
-                      <label class="form-label" for="sendFee">Fee</label>
+                      <label class="form-label" for="sendFee">{{ $t('fee') }}</label>
                       <input
                         readonly
                         :value="networksTransfer[selectedNetwork].fee"
@@ -458,10 +451,10 @@
                         class="form-label"
                         for="sendAmount"
                       >
-                        Amount <span class="badge text-info">[max]</span></label>
+                        {{ $t('amount') }} <span class="badge text-info">{{ $t('max') }}</span></label>
                       <input
                         :placeholder="
-                          'min ' + networksTransfer[selectedNetwork].minAmount
+                          $t('min') + ' ' + networksTransfer[selectedNetwork].minAmount
                         "
                         v-model="forSend.amount"
                         type="text"
@@ -477,7 +470,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group mb-3">
-                      <label class="form-label" for="sendMemo">Memo</label>
+                      <label class="form-label" for="sendMemo">{{ $t('memo') }}</label>
                       <input
                         :readonly="selectedNetwork !== 'mainnet'"
                         v-model="forSend.memo"
@@ -485,7 +478,7 @@
                         class="form-control form-control-sm"
                         :class="selectedNetwork === 'ton' ? 'hide' : ''"
                         id="sendMemo"
-                        placeholder="Public Description max 250"
+                        :placeholder="$t('public_description_max_250')"
                       />
 
                       <input
@@ -497,7 +490,7 @@
                         class="form-control form-control-sm"
                         :class="selectedNetwork !== 'ton' ? 'hide' : ''"
                         id="sendMemo2"
-                        placeholder="memo max 100"
+                        :placeholder="$t('memo_max_100')"
                       />
                     </div>
                   </div>
@@ -507,7 +500,7 @@
                         class="form-label px-4"
                         :class="'ico-' + selectedNetwork"
                         for="sendNetwork"
-                      >Network</label
+                      >{{ $t('network') }}</label
                       >
                       <select
                         v-model="selectedNetwork"
@@ -515,10 +508,10 @@
                         class="form-select form-select-sm"
                         id="sendNetwork"
                       >
-                        <option selected value="mainnet">MainNet</option>
-                        <option value="bsc">BSC</option>
-                        <option value="ton">TON</option>
-                        <!--<option disabled value="eth">Ethereum</option>-->
+                        <option selected value="mainnet">{{ $t('mainnet') }}</option>
+                        <option value="bsc">{{ $t('bsc') }}</option>
+                        <option value="ton">{{ $t('ton') }}</option>
+                        <!--<option disabled value="eth">{{ $t('ethereum') }}</option>-->
                       </select>
                     </div>
                   </div>
@@ -549,7 +542,7 @@
                         : 'btn-success'
                     "
                   >
-                    SEND STH
+                    {{ $t('send_sth') }}
                   </button>
                 </div>
               </div>
@@ -561,8 +554,8 @@
                   <table class="table">
                     <tbody>
                     <tr>
-                      <td v-if="txErr === 0">Success txId</td>
-                      <td v-if="txErr > 0" class="text-danger">Error txId</td>
+                      <td v-if="txErr === 0">{{ $t('success_tx_id') }}</td>
+                      <td v-if="txErr > 0" class="text-danger">{{ $t('error_tx_id') }}</td>
                       <td>
                         <!-- безопасный вывод txId одиночной транзакции -->
                         <span
@@ -577,7 +570,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>Amount</td>
+                      <td>{{ $t('amount') }}</td>
                       <td>
                         <!-- защита от null -->
                         <span v-if="txResult && txResult.tx">
@@ -587,7 +580,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>Fee</td>
+                      <td>{{ $t('fee') }}</td>
                       <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.fee / 1e8).toFixed(8) }} STH
@@ -596,7 +589,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>Recipient</td>
+                      <td>{{ $t('recipient') }}</td>
                       <td>
                           <span v-if="txResult && txResult.tx && txResult.tx.recipientId">
                             {{ txResult.tx.recipientId.substring(0, 10) }}..{{
@@ -607,12 +600,12 @@
                       </td>
                     </tr>
                     <tr v-if="txResult && txResult.tx && txResult.tx.vendorField">
-                      <td>Memo</td>
+                      <td>{{ $t('memo') }}</td>
                       <td>{{ txResult.tx.vendorField }}</td>
                     </tr>
                     <tr>
                       <td>
-                        Network&nbsp;<i
+                        {{ $t('network') }}&nbsp;<i
                         class="px-3 py-1"
                         :class="'ico-' + (txResult?.network || selectedNetwork)"
                       ></i>
@@ -634,7 +627,7 @@
                     class="btn btn-sm"
                     :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
                   >
-                    CONTINUE
+                    {{ $t('continue') }}
                   </button
                   >&nbsp;<span
                   v-show="
@@ -642,7 +635,7 @@
                       timerConfirmation > 0 &&
                       timerConfirmation < 8
                     "
-                >Please wait confirmation.. {{ timerConfirmation }}</span
+                >{{ $t('please_wait_confirmation') }} {{ timerConfirmation }}</span
                 >
                 </p>
               </div>
@@ -691,7 +684,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">SECRET KEY</h5>
+            <h5 class="modal-title">{{ $t('secret_key') }}</h5>
             <button
               type="button"
               class="btn-close"
@@ -699,13 +692,13 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p>For address {{ address }}</p>
+            <p>{{ $t('for_address') }} {{ address }}</p>
             <textarea
               v-model="decryptedSecret"
               class="form-control text-info"
               rows="3"
             ></textarea>
-            <p class="small text-danger mt-2">Please keep in secret!</p>
+            <p class="small text-danger mt-2">{{ $t('please_keep_in_secret') }}</p>
           </div>
         </div>
       </div>
@@ -715,7 +708,7 @@
     <div class="modal modal-cover fade" id="modalQr">
       <div class="modal-dialog">
         <div class="modal-content text-info text-center">
-          <h3>Receiving address</h3>
+          <h3>{{ $t('receiving_address') }}</h3>
           <p class="text-center">{{ address }}</p>
           <div class="">
             <qrcode-vue
@@ -851,7 +844,7 @@ export default {
     }
   },
   watch: {
-    // Отслеживание изменений результата транзакции
+    // Отслеживание ��зменений результата транзакции
     txResult: {
       handler: function() {
         this.$emit("txResultData", this.txResult);
@@ -974,7 +967,7 @@ export default {
           }, 1000);
         }
 
-        // Обновление данных аккаунта после подтверждения
+        // Обновлен��е данных аккаунта после подтверждения
         setTimeout(async () => {
           this.waitConfirmTx = false;
           await this.accountUpdate();
@@ -1011,8 +1004,8 @@ export default {
     },
 
     async calculateMultiPayFees(recipients) {
-      const txQue = Math.trunc(recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax платежей на разные адреса
-      const txPlus = (recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses) > 0 ? 1 : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очереди)
+      const txQue = Math.trunc(recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax пл��тежей на разные адреса
+      const txPlus = (recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses) > 0 ? 1 : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очер��ди)
       this.totalMultiPayFees = (txQue + txPlus);
       return this.totalMultiPayFees;
     },
@@ -1029,7 +1022,7 @@ export default {
 
         if (!address || !amount) {
           this.csvErrors.push(
-            `{{ $t('invalid_format_expected', { line: i + 1 }) }}`
+            this.$t('invalid_format_expected', { line: i + 1 })
           );
           continue;
         }
@@ -1038,18 +1031,18 @@ export default {
         const numAmount = parseFloat(amount);
 
         if (!isValidAddress) {
-          this.csvErrors.push(`{{ $t('invalid_address', { line: i + 1, address: address }) }}`);
+          this.csvErrors.push(this.$t('invalid_address', { line: i + 1, address: address }));
           continue;
         }
 
         if (isNaN(numAmount) || numAmount <= 0) {
-          this.csvErrors.push(`{{ $t('invalid_amount', { line: i + 1, amount: amount }) }}`);
+          this.csvErrors.push(this.$t('invalid_amount', { line: i + 1, amount: amount }));
           continue;
         }
 
         if (address === this.address) {
           this.csvErrors.push(
-            `{{ $t('cannot_send_to_your_address', { line: i + 1 }) }}`
+            this.$t('cannot_send_to_your_address', { line: i + 1 })
           );
           continue;
         }
@@ -1059,7 +1052,7 @@ export default {
           (r) => r.address === address
         );
         if (exists) {
-          this.csvErrors.push(`{{ $t('address_already_added', { line: i + 1, address: address }) }}`);
+          this.csvErrors.push(this.$t('address_already_added', { line: i + 1, address: address }));
           continue;
         }
 
@@ -1109,7 +1102,7 @@ export default {
       if (exists) {
         this.showToast(
           "toast-transfer",
-          "Адрес уже добавлен в список",
+          "Адрес уже добавлен �� список",
           "warning"
         );
         return;
@@ -1159,7 +1152,7 @@ export default {
       this.multiPayResults = [];
       this.txSendStep = 1;
 
-      // Подготовка пакета получателей
+      // Подгото��ка пакета получателей
       const recipients = [];
       for (let i = 0; i < this.multiPayRecipients.length; i++) {
         recipients.push(this.multiPayRecipients[i]);
@@ -1226,7 +1219,7 @@ export default {
           const id = successTxs[0].txId;
           this.showToast(
             "toast-transfer",
-            // комментарий: показываем короткий txId и число платежей
+            // комментарий: показываем коротки�� txId и число платежей
             `Multipay success: txId ${id.substring(0, 10)}..${id.substr(-10)}, payments ${successTxs[0].paymentsCount}`,
             "success"
           );
