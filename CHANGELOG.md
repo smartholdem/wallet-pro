@@ -1,3 +1,10 @@
+v1.2.18
+- Added UI for STH/USDT exchange.
+- Implemented STH selling functionality.
+- Integrated `vue-i18n` for internationalization.
+- Refactored and cleaned up localization files, removing duplicate keys.
+- Replaced static labels with translation keys in the transfer modal window.
+
 v1.2.17
 - Add support 7 languages
 

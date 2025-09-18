@@ -65,7 +65,6 @@
           </button>
           <!-- временно disabled-->
           <button
-              disabled
               data-bs-toggle="modal"
               data-bs-target="#modalExchange"
               type="button"
