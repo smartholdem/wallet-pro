@@ -23,6 +23,14 @@
           >
             <i class="fa fa-key" aria-hidden="true"></i>
           </button>
+          <button
+              data-bs-toggle="modal"
+              data-bs-target="#modalExchange"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+          >
+            {{ $t("exchange") }}
+          </button>
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3 me-2">
@@ -109,7 +117,7 @@
             {{ $t("vote") }}
           </button>
           <button
-            disabled="true"
+            disabled
             type="button"
             class="btn btn-outline-theme text-uppercase"
           >
