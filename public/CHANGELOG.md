@@ -4,6 +4,12 @@ v1.2.18
 - Integrated `vue-i18n` for internationalization.
 - Refactored and cleaned up localization files, removing duplicate keys.
 - Replaced static labels with translation keys in the transfer modal window.
+- Added a "What's New" changelog modal shown after app updates.
+- Implemented a backend endpoint to fetch real-time STH/USDT exchange rates.
+- Integrated live exchange rates into the exchange modal.
+- Added display of USDT equivalent value for the account balance.
+- Added and internationalized the new Settings page.
+- Minor UI/UX improvements in the exchange modal.
 
 v1.2.17
 - Add support 7 languages
