@@ -39,6 +39,7 @@
               >{{ balanceDecimal.toFixed(8) }}</span
             >
             STH
+            <span v-if="balanceInUsdt > 0">&nbsp;(${{ balanceInUsdt.toFixed(2) }} USDT)</span>
           </h5>
           <!--
           <button @click="sendMessage" class="btn btn-info">Connect APP</button>
@@ -155,7 +156,9 @@
 import { useAppOptionStore } from "@/stores/app-option";
 const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet";
+import { useExchangeStore } from "@/stores/exchange";
 const storeWallet = useStoreWallet();
+const storeExchange = useExchangeStore();
 //const { accounts } = storeToRefs(storeWallet);
 import Txs from "./Transactions.vue";
 import Ops from "./Operations.vue";
@@ -270,6 +273,7 @@ export default {
   async beforeCreate() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const _self = this;
+    await storeExchange.fetchSthUsdtPrice();
     setTimeout(async () => {
       await _self.accountUpdate();
     }, 120);
@@ -285,6 +289,15 @@ export default {
     await this.startUpdateByTimer();
   },
   computed: {
+    sth_usdt_price() {
+      return storeExchange.sth_usdt_price;
+    },
+    balanceInUsdt() {
+      if (this.sth_usdt_price > 0) {
+        return this.balanceDecimal * this.sth_usdt_price;
+      }
+      return 0;
+    },
     balanceDecimal() {
       return this.currentAddress.balance / 10 ** 8 || 0;
     },
