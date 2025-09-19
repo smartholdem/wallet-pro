@@ -17,7 +17,7 @@ export const useExchangeStore = defineStore("exchange", {
      */
     async fetchSthUsdtPrice() {
       try {
-        const response = await axios.get(`${EXCHANGE_API_URL}/pool/sth-usdt`);
+        const response = await axios.get(`${EXCHANGE_API_URL}/xbts/pool/sth-usdt`);
         if (response.data && response.data.price) {
           this.sth_usdt_price = parseFloat(response.data.price);
           this.error = null;
