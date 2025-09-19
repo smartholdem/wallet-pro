@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted } from "vue";
+import { getCurrentInstance, onMounted, ref, watch } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useAppOptionStore } from "@/stores/app-option";
 import { ProgressFinisher, useProgress } from "@marcoschulte/vue3-progress";
@@ -8,11 +8,42 @@ import AppHeader from "@/components/app/Header.vue";
 import AppTopNav from "@/components/app/TopNav.vue";
 import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
+import ChangelogModal from "@/components/app/ChangelogModal.vue";
 import router from "./router";
 import { storeToRefs } from "pinia";
 import { useStoreSettings } from "@/stores/app-settings";
+
 const storeSettings = useStoreSettings();
 const { settings } = storeToRefs(storeSettings);
+const appOption = useAppOptionStore();
+
+// --- Changelog Logic ---
+const showChangelog = ref(false);
+const changelogContent = ref('');
+const handleCloseChangelog = () => {
+  showChangelog.value = false;
+  localStorage.setItem("appVersion", __APP_VERSION__);
+};
+
+watch(() => appOption.shouldShowChangelog, async (newValue) => {
+  if (newValue) {
+    try {
+      const response = await fetch('/CHANGELOG.md');
+      if (response.ok) {
+        changelogContent.value = await response.text();
+        showChangelog.value = true;
+      } else {
+        localStorage.setItem("appVersion", __APP_VERSION__);
+      }
+    } catch (error) {
+      console.error('Failed to fetch changelog:', error);
+      localStorage.setItem("appVersion", __APP_VERSION__);
+    } finally {
+      appOption.shouldShowChangelog = false;
+    }
+  }
+});
+// --- End Changelog Logic ---
 
 onMounted(() => {
   appOption.isMobile = window.innerWidth < 768;
@@ -29,7 +60,6 @@ onMounted(() => {
   }
 });
 
-const appOption = useAppOptionStore();
 const internalInstance = getCurrentInstance();
 const progresses = [] as ProgressFinisher[];
 
@@ -84,6 +114,14 @@ document.querySelector("body").classList.add("app-init");
     </div>
     <app-footer v-if="appOption.appFooter" />
     <app-theme-panel />
+
+    <!-- --- Add Changelog Modal --- -->
+    <ChangelogModal
+      :show="showChangelog"
+      :content="changelogContent"
+      @close="handleCloseChangelog"
+    />
+    <!-- --- End Changelog Modal --- -->
   </div>
 </template>
 

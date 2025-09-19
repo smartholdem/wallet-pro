@@ -44,8 +44,7 @@ export default {
           const pinIsValid = storeSettings.validatePinCode(this.password);
           if (pinIsValid === true) {
             this.pinIsValid = pinIsValid;
-            storeSettings.tmpPin = this.password;
-            this.$router.push("/");
+            this.handleLoginSuccess();
           }
         }, 120);
       }
@@ -53,10 +52,18 @@ export default {
     submitForm: function () {
       const pinIsValid = storeSettings.validatePinCode(this.password);
       if (pinIsValid) {
-        //this.$root.pin = this.password;
-        storeSettings.tmpPin = this.password;
-        this.$router.push("/");
+        this.handleLoginSuccess();
       }
+    },
+    handleLoginSuccess() {
+      storeSettings.tmpPin = this.password;
+
+      const lastSeenVersion = localStorage.getItem("appVersion");
+      if (lastSeenVersion !== __APP_VERSION__) {
+        appOption.shouldShowChangelog = true;
+      }
+
+      this.$router.push("/");
     },
   },
 };

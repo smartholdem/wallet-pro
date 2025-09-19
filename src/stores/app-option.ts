@@ -21,6 +21,7 @@ export const useAppOptionStore = defineStore({
       appFooterFixed: false,
       appThemePanelToggled: false,
       currentPage: "",
+      shouldShowChangelog: false,
       isMobile: false,
     };
   },

@@ -5,10 +5,14 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import rollupNodePolyFill from "rollup-plugin-polyfill-node";
+import { version } from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "./",
+  define: {
+    "__APP_VERSION__": JSON.stringify(version),
+  },
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
