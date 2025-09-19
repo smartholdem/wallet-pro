@@ -39,7 +39,7 @@
               <div v-if="buyAmount > 0">
                 <p>
                   {{ $t("exchange_modal_to_pay") }}
-                  {{ usdtAmount.toFixed(2) }} USDT
+                  {{ usdtAmount.toFixed(8) }} USDT
                 </p>
                 <p v-if="depositAddress">
                   {{ $t("exchange_modal_send_usdt_to") }}
@@ -89,7 +89,7 @@
                 <div v-if="sellAmount > 0">
                   <p>
                     {{ $t("exchange_modal_you_will_receive") }}
-                    {{ receiveUsdtAmount.toFixed(2) }} USDT
+                    {{ receiveUsdtAmount.toFixed(8) }} USDT
                   </p>
                 </div>
                 <button
@@ -231,7 +231,6 @@ export default {
       receiveUsdtAmount: 0,
       usdtAddress: "",
       usdtAddressIsValid: false,
-      price: 0.01, // 1 STH = 0.01 USDT
       txResult: null,
       sellStep: 0,
       txErr: 0,
@@ -240,6 +239,9 @@ export default {
     };
   },
   computed: {
+    price() {
+      return this.exchangeStore.sth_usdt_price;
+    },
     exchangeStore() {
       return useExchangeStore();
     },
@@ -255,6 +257,7 @@ export default {
   },
   async created() {
     const exchangeStore = useExchangeStore();
+    await exchangeStore.fetchSthUsdtPrice();
     await exchangeStore.getDepositAddress("bsc", this.address);
     await exchangeStore.getSellGateAddress();
   },

@@ -8,9 +8,28 @@ export const useExchangeStore = defineStore("exchange", {
   state: () => ({
     depositAddress: null,
     sellGateAddress: null,
+    sth_usdt_price: 0,
     error: null,
   }),
   actions: {
+    /**
+     * Получает актуальный курс STH/USDT из пула ликвидности.
+     */
+    async fetchSthUsdtPrice() {
+      try {
+        const response = await axios.get(`${EXCHANGE_API_URL}/pool/sth-usdt`);
+        if (response.data && response.data.price) {
+          this.sth_usdt_price = parseFloat(response.data.price);
+          this.error = null;
+        } else {
+          this.error = "exchange_error_invalid_response";
+        }
+      } catch (e) {
+        console.error("Ошибка при получении курса STH/USDT:", e);
+        this.error = "Failed to fetch STH/USDT price"; // Лучше добавить ключ перевода
+      }
+    },
+
     /**
      * Получает адрес для депозита с обменного сервера.
      * @param network - Сеть (например, 'bsc')
