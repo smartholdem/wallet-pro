@@ -9,15 +9,15 @@
         <div class="col-xl-8">
           <!-- BEGIN #general -->
           <div id="general" class="mb-5">
-            <h4><i class="far fa-user fa-fw text-theme"></i> General</h4>
+            <h4><i class="far fa-user fa-fw text-theme"></i> {{ $t('settings_general_title') }}</h4>
             <p>
-              View and update your general account information and settings.
+              {{ $t('settings_general_subtitle') }}
             </p>
             <card>
               <div class="list-group list-group-flush">
                 <div class="list-group-item d-flex align-items-center">
                   <div class="flex-1 text-break">
-                    <div>Dark mode</div>
+                    <div>{{ $t('settings_dark_mode') }}</div>
                     <!--<div class="text-inverse text-opacity-50">Dark mode</div>-->
                   </div>
                   <div class="w-100px">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="list-group-item d-flex align-items-center">
                   <div class="flex-1 text-break">
-                    <div>Currency</div>
+                    <div>{{ $t('settings_currency') }}</div>
                   </div>
                   <div>
                     <select class="form-select">
@@ -46,16 +46,16 @@
                 </div>
                 <div class="list-group-item d-flex align-items-center">
                   <div class="flex-1 text-break">
-                    <div>Time lock</div>
+                    <div>{{ $t('settings_time_lock') }}</div>
                     <div class="text-inverse text-opacity-50">
-                      0 - disable lock
+                      {{ $t('settings_time_lock_subtitle') }}
                     </div>
                   </div>
                   <div>
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="time lock in sec"
+                      :placeholder="$t('settings_time_lock_placeholder')"
                       value="600"
                     />
                   </div>
@@ -67,21 +67,20 @@
 
           <!-- BEGIN #resetSettings -->
           <div id="resetSettings" class="mb-5">
-            <h4><i class="fa fa-redo fa-fw text-theme"></i> Reset settings</h4>
-            <p>Reset all app setting to factory default setting.</p>
+            <h4><i class="fa fa-redo fa-fw text-theme"></i> {{ $t('settings_reset_title') }}</h4>
+            <p>{{ $t('settings_reset_subtitle') }}</p>
             <card>
               <div class="list-group list-group-flush">
                 <div class="list-group-item d-flex align-items-center">
                   <div class="flex-1 text-break">
-                    <div>Reset Settings</div>
+                    <div>{{ $t('settings_reset_button_title') }}</div>
                     <div class="text-inverse text-opacity-50">
-                      This action will clear and reset all the current app
-                      setting.
+                      {{ $t('settings_reset_button_subtitle') }}
                     </div>
                   </div>
                   <div>
                     <a href="#" class="btn btn-outline-default w-100px"
-                      >Reset</a
+                      >{{ $t('settings_reset_button') }}</a
                     >
                   </div>
                 </div>

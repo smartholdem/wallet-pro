@@ -223,5 +223,18 @@
   "network": "Netzwerk",
   "heco": "HECO",
   "save_changes": "Änderungen speichern",
-  "whats_new": "Was ist neu"
+  "settings": "Einstellungen",
+  "whats_new": "Was ist neu",
+  "settings_general_title": "Allgemein",
+  "settings_general_subtitle": "Sehen und aktualisieren Sie Ihre allgemeinen Kontoinformationen und -einstellungen.",
+  "settings_dark_mode": "Dunkelmodus",
+  "settings_currency": "Währung",
+  "settings_time_lock": "Zeitsperre",
+  "settings_time_lock_subtitle": "0 - Sperre deaktivieren",
+  "settings_time_lock_placeholder": "Zeitsperre in Sek",
+  "settings_reset_title": "Einstellungen zurücksetzen",
+  "settings_reset_subtitle": "Alle App-Einstellungen auf die Werkseinstellungen zurücksetzen.",
+  "settings_reset_button_title": "Einstellungen zurücksetzen",
+  "settings_reset_button_subtitle": "Diese Aktion löscht und setzt alle aktuellen App-Einstellungen zurück.",
+  "settings_reset_button": "Zurücksetzen"
 }

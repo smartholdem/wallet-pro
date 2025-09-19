@@ -223,5 +223,18 @@
   "network": "Red",
   "heco": "HECO",
   "save_changes": "Guardar cambios",
-  "whats_new": "Qué hay de nuevo"
+  "settings": "Ajustes",
+  "whats_new": "Qué hay de nuevo",
+  "settings_general_title": "General",
+  "settings_general_subtitle": "Ver y actualizar la información y configuración general de su cuenta.",
+  "settings_dark_mode": "Modo oscuro",
+  "settings_currency": "Moneda",
+  "settings_time_lock": "Bloqueo de tiempo",
+  "settings_time_lock_subtitle": "0 - desactivar bloqueo",
+  "settings_time_lock_placeholder": "bloqueo de tiempo en seg",
+  "settings_reset_title": "Restablecer configuración",
+  "settings_reset_subtitle": "Restablecer toda la configuración de la aplicación a la configuración de fábrica.",
+  "settings_reset_button_title": "Restablecer configuración",
+  "settings_reset_button_subtitle": "Esta acción borrará y restablecerá toda la configuración actual de la aplicación.",
+  "settings_reset_button": "Restablecer"
 }

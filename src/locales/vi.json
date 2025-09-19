@@ -223,5 +223,18 @@
   "network": "Mạng",
   "heco": "HECO",
   "save_changes": "Lưu thay đổi",
-  "whats_new": "Có gì mới"
+  "settings": "Cài đặt",
+  "whats_new": "Có gì mới",
+  "settings_general_title": "Chung",
+  "settings_general_subtitle": "Xem và cập nhật thông tin và cài đặt chung tài khoản của bạn.",
+  "settings_dark_mode": "Chế độ tối",
+  "settings_currency": "Tiền tệ",
+  "settings_time_lock": "Khóa thời gian",
+  "settings_time_lock_subtitle": "0 - tắt khóa",
+  "settings_time_lock_placeholder": "khóa thời gian tính bằng giây",
+  "settings_reset_title": "Đặt lại cài đặt",
+  "settings_reset_subtitle": "Đặt lại tất cả cài đặt ứng dụng về cài đặt mặc định của nhà sản xuất.",
+  "settings_reset_button_title": "Đặt lại cài đặt",
+  "settings_reset_button_subtitle": "Hành động này sẽ xóa và đặt lại tất cả cài đặt ứng dụng hiện tại.",
+  "settings_reset_button": "Đặt lại"
 }

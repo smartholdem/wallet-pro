@@ -223,5 +223,18 @@
   "network": "Сеть",
   "heco": "HECO",
   "save_changes": "Сохранить изменения",
-  "whats_new": "Что нового"
+  "settings": "Настройки",
+  "whats_new": "Что нового",
+  "settings_general_title": "Общие",
+  "settings_general_subtitle": "Просмотр и обновление общей информации и настроек вашей учетной записи.",
+  "settings_dark_mode": "Тёмный режим",
+  "settings_currency": "Валюта",
+  "settings_time_lock": "Блокировка по времени",
+  "settings_time_lock_subtitle": "0 - отключить блокировку",
+  "settings_time_lock_placeholder": "время блокировки в сек",
+  "settings_reset_title": "Сброс настроек",
+  "settings_reset_subtitle": "Сбросить все настройки приложения до заводских.",
+  "settings_reset_button_title": "Сбросить настройки",
+  "settings_reset_button_subtitle": "Это действие очистит и сбросит все текущие настройки приложения.",
+  "settings_reset_button": "Сбросить"
 }

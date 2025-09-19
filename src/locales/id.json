@@ -223,5 +223,18 @@
   "network": "Jaringan",
   "heco": "HECO",
   "save_changes": "Simpan perubahan",
-  "whats_new": "Apa yang baru"
+  "settings": "Pengaturan",
+  "whats_new": "Apa yang baru",
+  "settings_general_title": "Umum",
+  "settings_general_subtitle": "Lihat dan perbarui informasi dan pengaturan akun umum Anda.",
+  "settings_dark_mode": "Mode gelap",
+  "settings_currency": "Mata uang",
+  "settings_time_lock": "Kunci waktu",
+  "settings_time_lock_subtitle": "0 - nonaktifkan kunci",
+  "settings_time_lock_placeholder": "kunci waktu dalam detik",
+  "settings_reset_title": "Setel ulang pengaturan",
+  "settings_reset_subtitle": "Setel ulang semua pengaturan aplikasi ke pengaturan pabrik.",
+  "settings_reset_button_title": "Setel Ulang Pengaturan",
+  "settings_reset_button_subtitle": "Tindakan ini akan menghapus dan mengatur ulang semua pengaturan aplikasi saat ini.",
+  "settings_reset_button": "Setel ulang"
 }

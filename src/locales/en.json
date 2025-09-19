@@ -223,5 +223,18 @@
   "network": "Network",
   "heco": "HECO",
   "save_changes": "Save changes",
-  "whats_new": "What's New"
+  "settings": "Settings",
+  "whats_new": "What's New",
+  "settings_general_title": "General",
+  "settings_general_subtitle": "View and update your general account information and settings.",
+  "settings_dark_mode": "Dark mode",
+  "settings_currency": "Currency",
+  "settings_time_lock": "Time lock",
+  "settings_time_lock_subtitle": "0 - disable lock",
+  "settings_time_lock_placeholder": "time lock in sec",
+  "settings_reset_title": "Reset settings",
+  "settings_reset_subtitle": "Reset all app setting to factory default setting.",
+  "settings_reset_button_title": "Reset Settings",
+  "settings_reset_button_subtitle": "This action will clear and reset all the current app setting.",
+  "settings_reset_button": "Reset"
 }

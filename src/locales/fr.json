@@ -224,5 +224,18 @@
   "network": "Réseau",
   "heco": "HECO",
   "save_changes": "Enregistrer les modifications",
-  "whats_new": "Quoi de neuf"
+  "settings": "Paramètres",
+  "whats_new": "Quoi de neuf",
+  "settings_general_title": "Général",
+  "settings_general_subtitle": "Affichez et mettez à jour les informations et les paramètres généraux de votre compte.",
+  "settings_dark_mode": "Mode sombre",
+  "settings_currency": "Devise",
+  "settings_time_lock": "Verrouillage temporel",
+  "settings_time_lock_subtitle": "0 - désactiver le verrouillage",
+  "settings_time_lock_placeholder": "verrouillage temporel en sec",
+  "settings_reset_title": "Réinitialiser les paramètres",
+  "settings_reset_subtitle": "Réinitialiser tous les paramètres de l'application aux paramètres d'usine.",
+  "settings_reset_button_title": "Réinitialiser les paramètres",
+  "settings_reset_button_subtitle": "Cette action effacera et réinitialisera tous les paramètres actuels de l'application.",
+  "settings_reset_button": "Réinitialiser"
 }
