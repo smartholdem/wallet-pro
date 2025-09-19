@@ -35,16 +35,6 @@
                 </div>
                 <div class="list-group-item d-flex align-items-center">
                   <div class="flex-1 text-break">
-                    <div>Language</div>
-                  </div>
-                  <div>
-                    <select class="form-select">
-                      <option>English</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="list-group-item d-flex align-items-center">
-                  <div class="flex-1 text-break">
                     <div>Currency</div>
                   </div>
                   <div>
