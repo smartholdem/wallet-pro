@@ -55,6 +55,9 @@
             </div>
             <div class="tab-pane fade" id="sell-sth">
               <div v-if="sellStep === 0">
+                <div class="text-muted mb-2">
+                  {{ $t("exchange_modal_your_balance") }} {{ balance.toFixed(8) }} STH
+                </div>
                 <div class="form-group mb-3">
                   <label class="form-label">{{
                     $t("exchange_modal_sell_amount_label")
@@ -65,10 +68,6 @@
                     v-model.number="sellAmount"
                     @input="calculateReceiveUsdt"
                   />
-                  <small class="form-text text-muted"
-                    >{{ $t("exchange_modal_your_balance") }}
-                    {{ balance }} STH</small
-                  >
                 </div>
                 <div class="form-group mb-3">
                   <label class="form-label">{{
@@ -96,6 +95,7 @@
                   @click="sellSth"
                   class="btn btn-danger"
                   :disabled="
+                    balance < 1 ||
                     sellAmount <= 0 ||
                     sellAmount > balance ||
                     !usdtAddressIsValid ||
