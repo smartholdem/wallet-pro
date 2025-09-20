@@ -8,7 +8,7 @@ const EXCHANGE_API_URL = "http://localhost:3302"
 export const useExchangeStore = defineStore("exchange", {
   state: () => ({
     depositAddress: null,
-    sellGateAddress: null,
+    gate_address_sth: null, // { address: String, timestamp: Number }
     sth_usdt_price: 0,
     error: null,
     realPrice: 0, // Храним динамическую цену
@@ -16,6 +16,9 @@ export const useExchangeStore = defineStore("exchange", {
     calculatedReceiveUsdtAmount: 0, // Рассчитанное количество USDT при продаже
     calculatedUsdtAmountForBuy: 0, // Рассчитанное количество USDT для покупки определенного количества STH
   }),
+  getters: {
+    sellGateAddress: (state) => state.gate_address_sth ? state.gate_address_sth.address : null,
+  },
   actions: {
     /**
      * Получает актуальный курс STH/USDT из пула ликвидности.
@@ -61,21 +64,33 @@ export const useExchangeStore = defineStore("exchange", {
       }
     },
     async getSellGateAddress() {
+      const now = Date.now();
+      const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
+
+      if (this.gate_address_sth && (now - this.gate_address_sth.timestamp < tenDaysInMs)) {
+        // Адрес есть в кэше и он не старше 10 дней, ничего не делаем
+        return;
+      }
+
+      // Если адреса нет или он протух, запрашиваем новый
       try {
         const response = await axios.get(
           `${EXCHANGE_API_URL}/sell-sth-address-gate`
         );
         if (response.data && response.data.address) {
-          this.sellGateAddress = response.data.address;
+          this.gate_address_sth = {
+            address: response.data.address,
+            timestamp: now
+          };
           this.error = null;
         } else {
           this.error = "exchange_error_invalid_response";
-          this.sellGateAddress = null;
+          this.gate_address_sth = null;
         }
       } catch (e) {
         console.error("Ошибка при получении адреса шлюза для продажи:", e);
         this.error = "exchange_error_failed_to_get_sell_address";
-        this.sellGateAddress = null;
+        this.gate_address_sth = null;
       }
     },
 

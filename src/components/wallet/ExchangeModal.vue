@@ -428,7 +428,7 @@ export default {
           sender: this.address,
           recipientId: this.sellGateAddress,
           amount: this.sellAmount,
-          memo: this.usdtAddress,
+          memo: `bsc:${this.usdtAddress}`,
           network: "mainnet",
           fee: 0.25,
         };
