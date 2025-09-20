@@ -349,8 +349,7 @@ export default {
       }
 
       let url;
-      let apiUrl = 'http://194.67.116.168:3302'; // if electron
-      //let apiUrl = 'https://exchange.smartholdem.io'; // if web app
+      const apiUrl = this.exchangeStore.apiUrl;
       if (type === 'buy') {
         this.usdtAmount = this.buyAmount * this.price;
         if (this.usdtAmount <= 0) {

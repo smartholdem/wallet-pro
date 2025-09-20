@@ -19,6 +19,7 @@ export const useExchangeStore = defineStore("exchange", {
     calculatedUsdtAmountForBuy: 0, // Рассчитанное количество USDT для покупки определенного количества STH
   }),
   getters: {
+    apiUrl: () => EXCHANGE_API_URL,
     sellGateAddress: (state) => state.gate_address_sth ? state.gate_address_sth.address : null,
   },
   actions: {
