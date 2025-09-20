@@ -34,7 +34,7 @@
                       ref="buyAmountInput"
                       type="number"
                       class="form-control"
-                      v-model.number="buyAmount"
+                      v-model="displayBuyAmount"
                       @input="calculateUsdtAmount"
                   />
                 </div>
@@ -96,7 +96,7 @@
                   <input
                     type="number"
                     class="form-control"
-                    v-model.number="sellAmount"
+                    v-model="displaySellAmount"
                     @input="calculateReceiveUsdt"
                   />
                 </div>
@@ -312,6 +312,22 @@ export default {
     };
   },
   computed: {
+    displayBuyAmount: {
+      get() {
+        return this.buyAmount === 0 ? '' : this.buyAmount;
+      },
+      set(val) {
+        this.buyAmount = Number(val);
+      }
+    },
+    displaySellAmount: {
+      get() {
+        return this.sellAmount === 0 ? '' : this.sellAmount;
+      },
+      set(val) {
+        this.sellAmount = Number(val);
+      }
+    },
     price() {
       return this.exchangeStore.sth_usdt_price;
     },
