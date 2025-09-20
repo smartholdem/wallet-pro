@@ -241,5 +241,6 @@
   "exchange_modal_min_guaranteed": "Min. guaranteed",
   "exchange_modal_i_have_paid_button": "I have paid",
   "exchange_modal_payment_sent_message": "Once the transaction is received, you will get your STH coins.",
-  "exchange_modal_min_amount_warning": "The minimum amount to receive is 5 USDT"
+  "exchange_modal_min_amount_warning": "The minimum amount to receive is 5 USDT",
+  "exchange_modal_min_payment_warning": "The minimum payment amount is 5 USDT"
 }

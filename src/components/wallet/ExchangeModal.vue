@@ -41,10 +41,10 @@
                 <div v-if="buyAmount > 0">
                   <p>
                     {{ $t("exchange_modal_to_pay") }}
-                    {{ usdtAmount.toFixed(8) }} USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
+                    <span class="text-info">{{ usdtAmount.toFixed(8) }}</span> USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
                   <p v-if="calculatedBuyAmount">
-                    {{ $t("exchange_modal_you_will_receive") }} ~{{ calculatedBuyAmount.toFixed(8) }} STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
+                    {{ $t("exchange_modal_you_will_receive") }} ~<span class="text-success">{{ calculatedBuyAmount.toFixed(8) }}</span> STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
                   </p>
                   <div v-if="depositAddress">
                     <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
@@ -59,8 +59,11 @@
                     {{ $t(exchangeError) }}
                   </p>
                 </div>
+                <div v-if="isBuyAmountTooLow" class="alert alert-warning py-2">
+                    {{ $t("exchange_modal_min_payment_warning") }}
+                </div>
                 <div class="d-flex justify-content-between align-items-center">
-                  <button class="btn btn-success" :disabled="buyAmount <= 0" @click="handlePaymentSent">
+                  <button class="btn btn-success" :disabled="buyAmount <= 0 || isBuyAmountTooLow" @click="handlePaymentSent">
                     {{ $t("exchange_modal_i_have_paid_button") }}
                   </button>
                   <div class="dropdown">
@@ -326,6 +329,9 @@ export default {
     },
     isSellAmountTooLow() {
       return this.calculatedReceiveUsdtAmount !== null && this.calculatedReceiveUsdtAmount < 5 && this.sellAmount > 0;
+    },
+    isBuyAmountTooLow() {
+      return this.usdtAmount > 0 && this.usdtAmount < 5;
     }
   },
   watch: {

@@ -241,5 +241,6 @@
   "exchange_modal_min_guaranteed": "Tối thiểu đảm bảo",
   "exchange_modal_i_have_paid_button": "Tôi đã thanh toán",
   "exchange_modal_payment_sent_message": "Khi giao dịch được nhận, bạn sẽ nhận được đồng STH của mình.",
-  "exchange_modal_min_amount_warning": "Số tiền tối thiểu để nhận là 5 USDT"
+  "exchange_modal_min_amount_warning": "Số tiền tối thiểu để nhận là 5 USDT",
+  "exchange_modal_min_payment_warning": "Số tiền thanh toán tối thiểu là 5 USDT"
 }

@@ -241,5 +241,6 @@
   "exchange_modal_min_guaranteed": "Мин. гарантировано",
   "exchange_modal_i_have_paid_button": "Я оплатил",
   "exchange_modal_payment_sent_message": "Как только транзакция поступит, вы получите свои STH-монеты.",
-  "exchange_modal_min_amount_warning": "Минимальная сумма к получению 5 USDT"
+  "exchange_modal_min_amount_warning": "Минимальная сумма к получению 5 USDT",
+  "exchange_modal_min_payment_warning": "Минимальная сумма к оплате 5 USDT"
 }
