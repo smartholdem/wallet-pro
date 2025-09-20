@@ -305,6 +305,7 @@ export default {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const _self = this;
     await storeExchange.fetchSthUsdtPrice();
+    await storeExchange.checkExchangeAvailability();
     setTimeout(async () => {
       await _self.accountUpdate();
     }, 120);

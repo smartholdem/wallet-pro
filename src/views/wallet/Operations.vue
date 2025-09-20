@@ -28,6 +28,7 @@
               data-bs-target="#modalExchange"
               type="button"
               class="btn btn-outline-theme text-uppercase"
+						:disabled="!isExchangeAvailable"
           >
             {{ $t("exchange") }}
           </button>
@@ -77,6 +78,7 @@
               data-bs-target="#modalExchange"
               type="button"
               class="btn btn-outline-theme text-uppercase"
+							:disabled="!isExchangeAvailable"
           >
             {{ $t("exchange") }}
           </button>
@@ -816,12 +818,14 @@
 import QrcodeVue from "qrcode.vue";
 import { storeToRefs } from "pinia";
 import { useAppOptionStore } from "@/stores/app-option.ts";
+import { useExchangeStore } from "@/stores/exchange.ts";
 
 const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet.ts";
 import { Identities } from "@smartholdem/crypto";
 
 const storeWallet = useStoreWallet();
+const exchangeStore = useExchangeStore();
 import ModalVote from "@/components/wallet/ModalVote.vue";
 import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
 import ModalSignMessage from "@/components/wallet/ModalSignMessage.vue";
@@ -908,6 +912,9 @@ export default {
     };
   },
   computed: {
+    isExchangeAvailable() {
+      return exchangeStore.isExchangeAvailable;
+    },
     // Адресная книга
     book() {
       return storeWallet.addressBook;

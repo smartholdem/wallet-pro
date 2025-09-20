@@ -16,12 +16,22 @@ export const useExchangeStore = defineStore("exchange", {
     calculatedBuyAmount: 0, // Рассчитанное количество STH при покупке
     calculatedReceiveUsdtAmount: 0, // Рассчитанное количество USDT при продаже
     calculatedUsdtAmountForBuy: 0, // Рассчитанное количество USDT для покупки определенного количества STH
+    isExchangeAvailable: false,
   }),
   getters: {
     apiUrl: () => EXCHANGE_API_URL,
     sellGateAddress: (state) => state.gate_address_sth ? state.gate_address_sth.address : null,
   },
   actions: {
+    async checkExchangeAvailability() {
+      try {
+        const response = await axios.get(`${EXCHANGE_API_URL}/`);
+        this.isExchangeAvailable = response.data === true;
+      } catch (error) {
+        console.error("Exchange server is not available:", error);
+        this.isExchangeAvailable = false;
+      }
+    },
     /**
      * Получает актуальный курс STH/USDT из пула ликвидности.
      */
