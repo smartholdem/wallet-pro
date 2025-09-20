@@ -144,10 +144,10 @@
                     <tbody>
                       <tr>
                         <td v-if="txErr === 0">
-                          {{ $t("exchange_modal_success_tx_id") }}
+                          {{ $t("success_tx_id") }}
                         </td>
                         <td v-if="txErr > 0" class="text-danger">
-                          {{ $t("exchange_modal_error_tx_id") }}
+                          {{ $t("error_tx_id") }}
                         </td>
                         <td>
                           <span
@@ -162,7 +162,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ $t("exchange_modal_amount") }}</td>
+                        <td>{{ $t("amount") }}</td>
                         <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.amount / 1e8).toFixed(8) }} STH
@@ -171,7 +171,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ $t("exchange_modal_fee") }}</td>
+                        <td>{{ $t("fee") }}</td>
                         <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.fee / 1e8).toFixed(8) }} STH
@@ -180,7 +180,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ $t("exchange_modal_recipient") }}</td>
+                        <td>{{ $t("recipient") }}</td>
                         <td>
                           <span
                             v-if="
@@ -199,8 +199,12 @@
                           txResult && txResult.tx && txResult.tx.vendorField
                         "
                       >
-                        <td>{{ $t("exchange_modal_memo") }}</td>
-                        <td>{{ txResult.tx.vendorField }}</td>
+                        <td>{{ $t("memo") }}</td>
+                        <td>{{
+                          txResult.tx.vendorField.length > 30
+                          ? txResult.tx.vendorField.slice(0, 30) + '...'
+                          : txResult.tx.vendorField
+                        }}</td>
                       </tr>
                     </tbody>
                   </table>
