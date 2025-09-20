@@ -40,13 +40,13 @@
                 <div v-if="buyAmount > 0">
                   <p>
                     {{ $t("exchange_modal_to_pay") }}
-                    {{ usdtAmount.toFixed(8) }} USDT
+                    {{ usdtAmount.toFixed(8) }} USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
                   <p v-if="calculatedBuyAmount">
-                    {{ $t("exchange_modal_you_will_receive") }} ~{{ calculatedBuyAmount.toFixed(8) }} STH
+                    {{ $t("exchange_modal_you_will_receive") }} ~{{ calculatedBuyAmount.toFixed(8) }} STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
                   </p>
                   <div v-if="depositAddress">
-                    <label class="form-label">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
+                    <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
                     <div class="input-group mb-3">
                       <input type="text" class="form-control" :value="depositAddress" readonly />
                       <button class="btn btn-outline-secondary" type="button" @click="copyAddress">
@@ -83,7 +83,7 @@
             <div class="tab-pane fade" id="sell-sth">
               <div v-if="sellStep === 0">
                 <div class="text-muted mb-2">
-                  {{ $t("exchange_modal_your_balance") }} {{ balance.toFixed(8) }} STH
+                  {{ $t("exchange_modal_your_balance") }}&nbsp;<span class="text-primary">{{ balance.toFixed(8) }}</span> STH
                 </div>
                 <div class="form-group mb-3">
                   <label class="form-label">{{
@@ -97,7 +97,7 @@
                   />
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label">{{
+                  <label class="form-label px-4 ico-bsc">{{
                     $t("exchange_modal_your_usdt_address_bsc")
                   }}</label>
                   <input
@@ -115,7 +115,7 @@
                 <div v-if="sellAmount > 0">
                   <p>
                     {{ $t("exchange_modal_you_will_receive") }}
-                    ~{{ receiveUsdtAmount.toFixed(8) }} USDT
+                    ~<span class="text-success">{{ receiveUsdtAmount.toFixed(8) }}</span> USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
                   <p v-if="calculatedReceiveUsdtAmount" class="text-muted small">
                     {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedReceiveUsdtAmount.toFixed(8) }} USDT

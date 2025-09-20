@@ -213,6 +213,11 @@ h1 {
   background-repeat: no-repeat;
   background-size: 16px;
 }
+
+  .ico-bsc .icon-right {
+    background-position-x: x-end;
+  }
+
 .ico-eth {
   background-image: url("/images/eth.svg");
   background-position: 0px 2px;
