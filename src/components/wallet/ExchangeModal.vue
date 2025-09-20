@@ -31,6 +31,7 @@
                     $t("exchange_modal_buy_amount_label")
                   }}</label>
                   <input
+                      ref="buyAmountInput"
                       type="number"
                       class="form-control"
                       v-model.number="buyAmount"
@@ -333,6 +334,9 @@ export default {
     this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
   },
   methods: {
+    focusBuyAmountInput() {
+      this.$refs.buyAmountInput.focus();
+    },
     async fetchDepositAddress() {
       await this.exchangeStore.getDepositAddress(this.selectedNetwork.toLowerCase(), this.address);
     },
@@ -468,9 +472,11 @@ export default {
   },
   mounted() {
     this.modalEl = document.getElementById('modalExchange');
+    this.modalEl.addEventListener('shown.bs.modal', this.focusBuyAmountInput);
     this.modalEl.addEventListener('hide.bs.modal', this.resetBuyTabState);
   },
   beforeUnmount() {
+    this.modalEl.removeEventListener('shown.bs.modal', this.focusBuyAmountInput);
     this.modalEl.removeEventListener('hide.bs.modal', this.resetBuyTabState);
   },
 };
