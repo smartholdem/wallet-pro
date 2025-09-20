@@ -1,4 +1,6 @@
 v1.2.18
+- Implemented dynamic price calculation for swaps, including slippage and price impact.
+- Added notifications for new incoming transactions on the address page.
 - Added UI for STH/USDT exchange.
 - Implemented STH selling functionality.
 - Integrated `vue-i18n` for internationalization.

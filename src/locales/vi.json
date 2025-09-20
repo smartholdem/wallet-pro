@@ -237,6 +237,7 @@
   "settings_reset_button_title": "Đặt lại cài đặt",
   "settings_reset_button_subtitle": "Hành động này sẽ xóa và đặt lại tất cả cài đặt ứng dụng hiện tại.",
   "settings_reset_button": "Đặt lại",
+  "incoming_tx_notification": "Giao dịch đến cho {amount} STH",
   "exchange_modal_min_guaranteed": "Tối thiểu đảm bảo",
   "exchange_modal_i_have_paid_button": "Tôi đã thanh toán",
   "exchange_modal_payment_sent_message": "Khi giao dịch được nhận, bạn sẽ nhận được đồng STH của mình."

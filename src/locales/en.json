@@ -237,6 +237,7 @@
   "settings_reset_button_title": "Reset Settings",
   "settings_reset_button_subtitle": "This action will clear and reset all the current app setting.",
   "settings_reset_button": "Reset",
+  "incoming_tx_notification": "Incoming transaction for {amount} STH",
   "exchange_modal_min_guaranteed": "Min. guaranteed",
   "exchange_modal_i_have_paid_button": "I have paid",
   "exchange_modal_payment_sent_message": "Once the transaction is received, you will get your STH coins."

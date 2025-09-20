@@ -204,6 +204,7 @@ export default {
       },
       showPubKey: false,
       timerTx: null,
+      latestTxId: null,
     };
   },
   methods: {
@@ -227,7 +228,9 @@ export default {
        */
     },
     showToast(event, target, msg, style = "success") {
-      event.preventDefault();
+      if (event) {
+        event.preventDefault();
+      }
       this.notifyMsg = msg;
       this.toastStyle = style;
       const toast = new Toast(document.getElementById(target));
@@ -246,10 +249,38 @@ export default {
     handleData: function (e) {
       this.txResult = e;
     },
+    checkNewTransactions() {
+      const address = this.$route.params.address;
+      const transactionData = storeWallet.transactions[address];
+
+      if (!transactionData || !Array.isArray(transactionData.data) || transactionData.data.length === 0) {
+        return;
+      }
+
+      const transactions = transactionData.data;
+      const latestTx = transactions[0];
+
+      // Если это первая загрузка, просто устанавливаем начальный ID и выходим
+      if (this.latestTxId === null) {
+        this.latestTxId = latestTx.id;
+        return;
+      }
+
+      // Если ID последней транзакции изменился и это входящая транзакция
+      if (latestTx.id !== this.latestTxId && latestTx.recipient === address) {
+        const amount = (latestTx.amount / 10 ** 8).toFixed(8);
+        const message = this.$t('incoming_tx_notification', { amount: amount });
+        this.showToast(null, 'toast-address', message, 'info');
+
+        // Обновляем ID последней транзакции
+        this.latestTxId = latestTx.id;
+      }
+    },
     async accountUpdate() {
       if (this.$route.params.address) {
         await storeWallet.getAttributes(this.$route.params.address);
         await storeWallet.getTransactions(this.$route.params.address, 10);
+        this.checkNewTransactions();
       } else {
         console.log("accountUpdate err", this.$route.params.address);
       }

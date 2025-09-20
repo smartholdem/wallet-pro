@@ -237,6 +237,7 @@
   "settings_reset_button_title": "Einstellungen zurücksetzen",
   "settings_reset_button_subtitle": "Diese Aktion löscht und setzt alle aktuellen App-Einstellungen zurück.",
   "settings_reset_button": "Zurücksetzen",
+  "incoming_tx_notification": "Eingehende Transaktion über {amount} STH",
   "exchange_modal_min_guaranteed": "Min. garantiert",
   "exchange_modal_i_have_paid_button": "Ich habe bezahlt",
   "exchange_modal_payment_sent_message": "Sobald die Transaktion eingegangen ist, erhalten Sie Ihre STH-Münzen."

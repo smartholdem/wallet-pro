@@ -237,6 +237,7 @@
   "settings_reset_button_title": "Setel Ulang Pengaturan",
   "settings_reset_button_subtitle": "Tindakan ini akan menghapus dan mengatur ulang semua pengaturan aplikasi saat ini.",
   "settings_reset_button": "Setel ulang",
+  "incoming_tx_notification": "Transaksi masuk sebesar {amount} STH",
   "exchange_modal_min_guaranteed": "Min. dijamin",
   "exchange_modal_i_have_paid_button": "Saya sudah bayar",
   "exchange_modal_payment_sent_message": "Setelah transaksi diterima, Anda akan mendapatkan koin STH Anda."

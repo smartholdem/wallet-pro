@@ -237,6 +237,7 @@
   "settings_reset_button_title": "Сбросить настройки",
   "settings_reset_button_subtitle": "Это действие очистит и сбросит все текущие настройки приложения.",
   "settings_reset_button": "Сбросить",
+  "incoming_tx_notification": "Входящая транзакция на сумму {amount} STH",
   "exchange_modal_min_guaranteed": "Мин. гарантировано",
   "exchange_modal_i_have_paid_button": "Я оплатил",
   "exchange_modal_payment_sent_message": "Как только транзакция поступит, вы получите свои STH-монеты."
