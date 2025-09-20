@@ -349,15 +349,17 @@ export default {
       }
 
       let url;
+      let apiUrl = 'http://194.67.116.168:3302'; // if electron
+      //let apiUrl = 'https://exchange.smartholdem.io'; // if web app
       if (type === 'buy') {
         this.usdtAmount = this.buyAmount * this.price;
         if (this.usdtAmount <= 0) {
           this.calculatedBuyAmount = null;
           return;
         }
-        url = `https://exchange.smartholdem.io/xbts/pool/sth-usdt-real?usdt_amount=${this.usdtAmount}`;
+        url = `${apiUrl}/xbts/pool/sth-usdt-real?usdt_amount=${this.usdtAmount}`;
       } else { // sell
-        url = `https://exchange.smartholdem.io/xbts/pool/sth-usdt-real?sth_amount=${this.sellAmount}`;
+        url = `${apiUrl}/xbts/pool/sth-usdt-real?sth_amount=${this.sellAmount}`;
       }
 
       try {
