@@ -27,15 +27,13 @@
             <div class="tab-pane fade show active" id="buy-sth">
               <div v-if="!paymentSent">
                 <div class="form-group mb-3">
-                  <label class="form-label">{{
-                    $t("exchange_modal_buy_amount_label")
-                  }}</label>
                   <input
                       ref="buyAmountInput"
                       type="number"
                       class="form-control"
                       v-model="displayBuyAmount"
                       @input="calculateUsdtAmount"
+                      :placeholder="$t('exchange_modal_buy_amount_label')"
                   />
                 </div>
                 <div v-if="buyAmount > 0">
@@ -90,14 +88,12 @@
                   {{ $t("exchange_modal_your_balance") }}&nbsp;<span class="text-primary">{{ balance.toFixed(8) }}</span> STH
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label">{{
-                    $t("exchange_modal_sell_amount_label")
-                  }}</label>
                   <input
                     type="number"
                     class="form-control"
                     v-model="displaySellAmount"
                     @input="calculateReceiveUsdt"
+                    :placeholder="$t('exchange_modal_sell_amount_label')"
                   />
                 </div>
                 <div class="form-group mb-3">

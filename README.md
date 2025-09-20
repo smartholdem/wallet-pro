@@ -35,3 +35,5 @@ As an Electron-based application, SmartHoldem Wallet Pro is available for:
 - Windows
 - macOS
 - Linux
+- Telegram app
+- Web
