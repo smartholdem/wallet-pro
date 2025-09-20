@@ -12,6 +12,9 @@ v1.2.18
 - Added display of USDT equivalent value for the account balance.
 - Added and internationalized the new Settings page.
 - Minor UI/UX improvements in the exchange modal.
+- Refactored `ExchangeModal.vue` to use the `exchange.ts` store for the backend URL.
+- Dynamically set the `EXCHANGE_API_URL` based on the environment (Electron/Web).
+- Added a check for the exchange server availability and disabled the "Exchange" button if it's not available.
 
 v1.2.17
 - Add support 7 languages
