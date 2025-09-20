@@ -2,8 +2,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 // Константы для подключения
-//const EXCHANGE_API_URL = "https://exchange.smartholdem.io"; //;
-const EXCHANGE_API_URL = "http://localhost:3302"
+const EXCHANGE_API_URL = "https://exchange.smartholdem.io"; // production
+//const EXCHANGE_API_URL = "http://localhost:3302" // dev
 
 export const useExchangeStore = defineStore("exchange", {
   state: () => ({
