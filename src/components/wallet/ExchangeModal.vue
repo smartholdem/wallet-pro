@@ -354,10 +354,10 @@ export default {
         if (this.usdtAmount <= 0) {
           this.calculatedBuyAmount = null;
           return;
-        };
-        url = `http://localhost:3302/xbts/pool/sth-usdt-real?usdt_amount=${this.usdtAmount}`;
+        }
+        url = `https://exchange.smartholdem.io/xbts/pool/sth-usdt-real?usdt_amount=${this.usdtAmount}`;
       } else { // sell
-        url = `http://localhost:3302/xbts/pool/sth-usdt-real?sth_amount=${this.sellAmount}`;
+        url = `https://exchange.smartholdem.io/xbts/pool/sth-usdt-real?sth_amount=${this.sellAmount}`;
       }
 
       try {
