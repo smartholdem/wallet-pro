@@ -240,5 +240,6 @@
   "incoming_tx_notification": "Transacción entrante por {amount} STH",
   "exchange_modal_min_guaranteed": "Mín. garantizado",
   "exchange_modal_i_have_paid_button": "He pagado",
-  "exchange_modal_payment_sent_message": "Una vez que se reciba la transacción, obtendrá sus monedas STH."
+  "exchange_modal_payment_sent_message": "Una vez que se reciba la transacción, obtendrá sus monedas STH.",
+  "exchange_modal_min_amount_warning": "La cantidad mínima a recibir es de 5 USDT"
 }

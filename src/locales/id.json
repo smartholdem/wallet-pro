@@ -240,5 +240,6 @@
   "incoming_tx_notification": "Transaksi masuk sebesar {amount} STH",
   "exchange_modal_min_guaranteed": "Min. dijamin",
   "exchange_modal_i_have_paid_button": "Saya sudah bayar",
-  "exchange_modal_payment_sent_message": "Setelah transaksi diterima, Anda akan mendapatkan koin STH Anda."
+  "exchange_modal_payment_sent_message": "Setelah transaksi diterima, Anda akan mendapatkan koin STH Anda.",
+  "exchange_modal_min_amount_warning": "Jumlah minimum untuk diterima adalah 5 USDT"
 }

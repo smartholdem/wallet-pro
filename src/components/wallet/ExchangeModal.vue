@@ -122,6 +122,9 @@
                     {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedReceiveUsdtAmount.toFixed(8) }} USDT
                   </p>
                 </div>
+				<div v-if="isSellAmountTooLow" class="alert alert-warning py-2">
+					{{ $t("exchange_modal_min_amount_warning") }}
+				</div>
                 <button
                   @click="sellSth"
                   class="btn btn-danger"
@@ -130,7 +133,8 @@
                     sellAmount <= 0 ||
                     sellAmount > balance ||
                     !usdtAddressIsValid ||
-                    !sellGateAddress
+                    !sellGateAddress ||
+                    isSellAmountTooLow
                   "
                 >
                   {{ $t("exchange_modal_sell_button") }}
@@ -320,6 +324,9 @@ export default {
     exchangeError() {
       return this.exchangeStore.error;
     },
+    isSellAmountTooLow() {
+      return this.calculatedReceiveUsdtAmount !== null && this.calculatedReceiveUsdtAmount < 5 && this.sellAmount > 0;
+    }
   },
   watch: {
     selectedNetwork() {
