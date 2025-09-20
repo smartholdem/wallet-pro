@@ -25,36 +25,60 @@
           </ul>
           <div class="tab-content pt-3">
             <div class="tab-pane fade show active" id="buy-sth">
-              <div class="form-group mb-3">
-                <label class="form-label">{{
-                  $t("exchange_modal_buy_amount_label")
-                }}</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  v-model.number="buyAmount"
-                  @input="calculateUsdtAmount"
-                />
+              <div v-if="!paymentSent">
+                <div class="form-group mb-3">
+                  <label class="form-label">{{
+                    $t("exchange_modal_buy_amount_label")
+                  }}</label>
+                  <input
+                      type="number"
+                      class="form-control"
+                      v-model.number="buyAmount"
+                      @input="calculateUsdtAmount"
+                  />
+                </div>
+                <div v-if="buyAmount > 0">
+                  <p>
+                    {{ $t("exchange_modal_to_pay") }}
+                    {{ usdtAmount.toFixed(8) }} USDT
+                  </p>
+                  <p v-if="calculatedBuyAmount">
+                    {{ $t("exchange_modal_you_will_receive") }} ~{{ calculatedBuyAmount.toFixed(8) }} STH
+                  </p>
+                  <div v-if="depositAddress">
+                    <label class="form-label">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" :value="depositAddress" readonly />
+                      <button class="btn btn-outline-secondary" type="button" @click="copyAddress">
+                        <i class="fa fa-copy"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p v-if="exchangeError" class="text-danger">
+                    {{ $t(exchangeError) }}
+                  </p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <button class="btn btn-success" :disabled="buyAmount <= 0" @click="handlePaymentSent">
+                    {{ $t("exchange_modal_i_have_paid_button") }}
+                  </button>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{ selectedNetwork }} Network
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li v-for="network in networks" :key="network">
+                        <a v-show="network !== 'TON'" class="dropdown-item" href="#" @click.prevent="selectedNetwork = network">{{ network }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div v-if="buyAmount > 0">
-                <p>
-                  {{ $t("exchange_modal_to_pay") }}
-                  {{ usdtAmount.toFixed(8) }} USDT
-                </p>
-                <p v-if="calculatedBuyAmount">
-                  {{ $t("exchange_modal_you_will_receive") }} ~{{ calculatedBuyAmount.toFixed(8) }} STH
-                </p>
-                <p v-if="depositAddress">
-                  {{ $t("exchange_modal_send_usdt_to") }}
-                  <span class="text-success">{{ depositAddress }}</span>
-                </p>
-                <p v-if="exchangeError" class="text-danger">
-                  {{ $t(exchangeError) }}
-                </p>
+              <div v-else>
+                <div class="alert alert-info">
+                  {{ $t("exchange_modal_payment_sent_message") }}
+                </div>
               </div>
-              <button class="btn btn-success" :disabled="buyAmount <= 0">
-                {{ $t("exchange_modal_buy_button") }}
-              </button>
             </div>
             <div class="tab-pane fade" id="sell-sth">
               <div v-if="sellStep === 0">
@@ -208,6 +232,28 @@
         </div>
       </div>
     </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+          class="toast fade hide mb-3"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast-exchange"
+          data-bs-delay="2000"
+      >
+        <div class="toast-header" :class="'text-' + toastStyle">
+          <strong class="me-auto">{{ toastStyle }}</strong>
+          <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+          ></button>
+        </div>
+        <div class="toast-body small">
+          {{ toastMessage }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -215,6 +261,7 @@
 import { useStoreWallet } from "@/stores/wallet.ts";
 import { useExchangeStore } from "@/stores/exchange.ts";
 import debounce from "lodash/debounce";
+import { Toast } from "bootstrap";
 
 const storeWallet = useStoreWallet();
 
@@ -245,6 +292,11 @@ export default {
       timerConfirmation: 8,
       calculatedBuyAmount: null,
       calculatedReceiveUsdtAmount: null,
+      toastMessage: "",
+      toastStyle: "success",
+      paymentSent: false,
+      networks: ['BSC', 'TON'],
+      selectedNetwork: 'BSC',
     };
   },
   computed: {
@@ -264,14 +316,22 @@ export default {
       return this.exchangeStore.error;
     },
   },
+  watch: {
+    selectedNetwork() {
+      this.fetchDepositAddress();
+    }
+  },
   async created() {
     const exchangeStore = useExchangeStore();
     await exchangeStore.fetchSthUsdtPrice();
-    await exchangeStore.getDepositAddress("bsc", this.address);
+    await this.fetchDepositAddress();
     await exchangeStore.getSellGateAddress();
     this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
   },
   methods: {
+    async fetchDepositAddress() {
+      await this.exchangeStore.getDepositAddress(this.selectedNetwork.toLowerCase(), this.address);
+    },
     async fetchRealPrice(amount, type) {
       if (amount <= 0) {
         this.calculatedBuyAmount = null;
@@ -320,6 +380,24 @@ export default {
     calculateReceiveUsdt() {
       this.debouncedFetchRealPrice(this.sellAmount, 'sell');
     },
+    showToast(target, msg, style = "success") {
+      this.toastMessage = msg;
+      this.toastStyle = style;
+      const toast = new Toast(document.getElementById(target));
+      toast.show();
+    },
+    copyAddress() {
+      navigator.clipboard.writeText(this.depositAddress).then(() => {
+        this.showToast(
+            "toast-exchange",
+            this.$t("copied_to_clipboard"),
+            "success"
+        );
+      });
+    },
+    handlePaymentSent() {
+      this.paymentSent = true;
+    },
     async validateUsdtAddress() {
       this.usdtAddressIsValid = await storeWallet.validateAddressCrossChain(
         this.usdtAddress
@@ -333,6 +411,12 @@ export default {
       this.usdtAddressIsValid = false;
       this.waitConfirmTx = true;
       this.timerConfirmation = 8;
+    },
+    resetBuyTabState() {
+      this.paymentSent = false;
+      this.buyAmount = 0;
+      this.usdtAmount = 0;
+      this.calculatedBuyAmount = null;
     },
     async sellSth() {
       if (
@@ -376,6 +460,13 @@ export default {
         console.log("Sell condition not met");
       }
     },
+  },
+  mounted() {
+    this.modalEl = document.getElementById('modalExchange');
+    this.modalEl.addEventListener('hide.bs.modal', this.resetBuyTabState);
+  },
+  beforeUnmount() {
+    this.modalEl.removeEventListener('hide.bs.modal', this.resetBuyTabState);
   },
 };
 </script>

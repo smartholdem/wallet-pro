@@ -175,7 +175,7 @@
   "exchange_modal_sell_tab": "Vendre STH",
   "exchange_modal_buy_amount_label": "Montant de STH à acheter :",
   "exchange_modal_to_pay": "À payer :",
-  "exchange_modal_send_usdt_to": "Envoyer des USDT à l'adresse :",
+  "exchange_modal_send_usdt_to_network": "Envoyez des USDT à l'adresse du réseau {network}",
   "exchange_modal_buy_button": "Acheter",
   "exchange_modal_sell_amount_label": "Montant de STH à vendre :",
   "exchange_modal_your_balance": "Votre solde :",
@@ -238,5 +238,7 @@
   "settings_reset_button_title": "Réinitialiser les paramètres",
   "settings_reset_button_subtitle": "Cette action effacera et réinitialisera tous les paramètres actuels de l'application.",
   "settings_reset_button": "Réinitialiser",
-  "exchange_modal_min_guaranteed": "Min. garanti"
+  "exchange_modal_min_guaranteed": "Min. garanti",
+  "exchange_modal_i_have_paid_button": "J'ai payé",
+  "exchange_modal_payment_sent_message": "Une fois la transaction reçue, vous recevrez vos pièces STH."
 }

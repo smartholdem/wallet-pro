@@ -174,7 +174,7 @@
   "exchange_modal_sell_tab": "Продать STH",
   "exchange_modal_buy_amount_label": "Количество STH для покупки:",
   "exchange_modal_to_pay": "К оплате:",
-  "exchange_modal_send_usdt_to": "Отправьте USDT на адрес:",
+  "exchange_modal_send_usdt_to_network": "Отправьте USDT на адрес в сеть {network}",
   "exchange_modal_buy_button": "Купить",
   "exchange_modal_sell_amount_label": "Количество STH для продажи:",
   "exchange_modal_your_balance": "Ваш баланс:",
@@ -237,5 +237,7 @@
   "settings_reset_button_title": "Сбросить настройки",
   "settings_reset_button_subtitle": "Это действие очистит и сбросит все текущие настройки приложения.",
   "settings_reset_button": "Сбросить",
-  "exchange_modal_min_guaranteed": "Мин. гарантировано"
+  "exchange_modal_min_guaranteed": "Мин. гарантировано",
+  "exchange_modal_i_have_paid_button": "Я оплатил",
+  "exchange_modal_payment_sent_message": "Как только транзакция поступит, вы получите свои STH-монеты."
 }

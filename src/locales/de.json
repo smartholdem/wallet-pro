@@ -174,7 +174,7 @@
   "exchange_modal_sell_tab": "STH verkaufen",
   "exchange_modal_buy_amount_label": "Menge an STH zu kaufen:",
   "exchange_modal_to_pay": "Zu zahlen:",
-  "exchange_modal_send_usdt_to": "USDT an die Adresse senden:",
+  "exchange_modal_send_usdt_to_network": "Senden Sie USDT an die Adresse im {network}-Netzwerk",
   "exchange_modal_buy_button": "Kaufen",
   "exchange_modal_sell_amount_label": "Menge an STH zu verkaufen:",
   "exchange_modal_your_balance": "Dein Guthaben:",
@@ -237,5 +237,7 @@
   "settings_reset_button_title": "Einstellungen zurücksetzen",
   "settings_reset_button_subtitle": "Diese Aktion löscht und setzt alle aktuellen App-Einstellungen zurück.",
   "settings_reset_button": "Zurücksetzen",
-  "exchange_modal_min_guaranteed": "Min. garantiert"
+  "exchange_modal_min_guaranteed": "Min. garantiert",
+  "exchange_modal_i_have_paid_button": "Ich habe bezahlt",
+  "exchange_modal_payment_sent_message": "Sobald die Transaktion eingegangen ist, erhalten Sie Ihre STH-Münzen."
 }

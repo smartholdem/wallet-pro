@@ -174,7 +174,7 @@
   "exchange_modal_sell_tab": "Sell STH",
   "exchange_modal_buy_amount_label": "Amount of STH to buy:",
   "exchange_modal_to_pay": "To pay:",
-  "exchange_modal_send_usdt_to": "Send USDT to the address:",
+  "exchange_modal_send_usdt_to_network": "Send USDT to the address in the {network} network",
   "exchange_modal_buy_button": "Buy",
   "exchange_modal_sell_amount_label": "Amount of STH to sell:",
   "exchange_modal_your_balance": "Your balance:",
@@ -237,5 +237,7 @@
   "settings_reset_button_title": "Reset Settings",
   "settings_reset_button_subtitle": "This action will clear and reset all the current app setting.",
   "settings_reset_button": "Reset",
-  "exchange_modal_min_guaranteed": "Min. guaranteed"
+  "exchange_modal_min_guaranteed": "Min. guaranteed",
+  "exchange_modal_i_have_paid_button": "I have paid",
+  "exchange_modal_payment_sent_message": "Once the transaction is received, you will get your STH coins."
 }

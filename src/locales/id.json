@@ -174,7 +174,7 @@
   "exchange_modal_sell_tab": "Jual STH",
   "exchange_modal_buy_amount_label": "Jumlah STH untuk dibeli:",
   "exchange_modal_to_pay": "Untuk membayar:",
-  "exchange_modal_send_usdt_to": "Kirim USDT ke alamat:",
+  "exchange_modal_send_usdt_to_network": "Kirim USDT ke alamat di jaringan {network}",
   "exchange_modal_buy_button": "Beli",
   "exchange_modal_sell_amount_label": "Jumlah STH untuk dijual:",
   "exchange_modal_your_balance": "Saldo Anda:",
@@ -237,5 +237,7 @@
   "settings_reset_button_title": "Setel Ulang Pengaturan",
   "settings_reset_button_subtitle": "Tindakan ini akan menghapus dan mengatur ulang semua pengaturan aplikasi saat ini.",
   "settings_reset_button": "Setel ulang",
-  "exchange_modal_min_guaranteed": "Min. dijamin"
+  "exchange_modal_min_guaranteed": "Min. dijamin",
+  "exchange_modal_i_have_paid_button": "Saya sudah bayar",
+  "exchange_modal_payment_sent_message": "Setelah transaksi diterima, Anda akan mendapatkan koin STH Anda."
 }
