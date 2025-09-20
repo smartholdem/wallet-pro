@@ -236,5 +236,6 @@
   "settings_reset_subtitle": "Đặt lại tất cả cài đặt ứng dụng về cài đặt mặc định của nhà sản xuất.",
   "settings_reset_button_title": "Đặt lại cài đặt",
   "settings_reset_button_subtitle": "Hành động này sẽ xóa và đặt lại tất cả cài đặt ứng dụng hiện tại.",
-  "settings_reset_button": "Đặt lại"
+  "settings_reset_button": "Đặt lại",
+  "exchange_modal_min_guaranteed": "Tối thiểu đảm bảo"
 }

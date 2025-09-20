@@ -41,6 +41,9 @@
                   {{ $t("exchange_modal_to_pay") }}
                   {{ usdtAmount.toFixed(8) }} USDT
                 </p>
+                <p v-if="calculatedBuyAmount">
+                  {{ $t("exchange_modal_you_will_receive") }} ~{{ calculatedBuyAmount.toFixed(8) }} STH
+                </p>
                 <p v-if="depositAddress">
                   {{ $t("exchange_modal_send_usdt_to") }}
                   <span class="text-success">{{ depositAddress }}</span>
@@ -88,7 +91,10 @@
                 <div v-if="sellAmount > 0">
                   <p>
                     {{ $t("exchange_modal_you_will_receive") }}
-                    {{ receiveUsdtAmount.toFixed(8) }} USDT
+                    ~{{ receiveUsdtAmount.toFixed(8) }} USDT
+                  </p>
+                  <p v-if="calculatedReceiveUsdtAmount" class="text-muted small">
+                    {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedReceiveUsdtAmount.toFixed(8) }} USDT
                   </p>
                 </div>
                 <button
@@ -208,6 +214,7 @@
 <script>
 import { useStoreWallet } from "@/stores/wallet.ts";
 import { useExchangeStore } from "@/stores/exchange.ts";
+import debounce from "lodash/debounce";
 
 const storeWallet = useStoreWallet();
 
@@ -236,6 +243,8 @@ export default {
       txErr: 0,
       waitConfirmTx: true,
       timerConfirmation: 8,
+      calculatedBuyAmount: null,
+      calculatedReceiveUsdtAmount: null,
     };
   },
   computed: {
@@ -260,13 +269,56 @@ export default {
     await exchangeStore.fetchSthUsdtPrice();
     await exchangeStore.getDepositAddress("bsc", this.address);
     await exchangeStore.getSellGateAddress();
+    this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
   },
   methods: {
+    async fetchRealPrice(amount, type) {
+      if (amount <= 0) {
+        this.calculatedBuyAmount = null;
+        this.calculatedReceiveUsdtAmount = null;
+        if (type === 'buy') {
+          this.usdtAmount = 0;
+        } else {
+          this.receiveUsdtAmount = 0;
+        }
+        return;
+      }
+
+      let url;
+      if (type === 'buy') {
+        this.usdtAmount = this.buyAmount * this.price;
+        if (this.usdtAmount <= 0) {
+          this.calculatedBuyAmount = null;
+          return;
+        };
+        url = `http://localhost:3302/xbts/pool/sth-usdt-real?usdt_amount=${this.usdtAmount}`;
+      } else { // sell
+        url = `http://localhost:3302/xbts/pool/sth-usdt-real?sth_amount=${this.sellAmount}`;
+      }
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        if (type === 'buy') {
+          this.calculatedBuyAmount = data.estimatedSthToReceive;
+        } else { // sell
+          this.receiveUsdtAmount = data.estimatedUsdtToReceive;
+          this.calculatedReceiveUsdtAmount = data.minUsdtToReceive;
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        this.calculatedBuyAmount = null;
+        this.calculatedReceiveUsdtAmount = null;
+      }
+    },
     calculateUsdtAmount() {
-      this.usdtAmount = this.buyAmount * this.price;
+      this.debouncedFetchRealPrice(this.buyAmount, 'buy');
     },
     calculateReceiveUsdt() {
-      this.receiveUsdtAmount = this.sellAmount * this.price;
+      this.debouncedFetchRealPrice(this.sellAmount, 'sell');
     },
     async validateUsdtAddress() {
       this.usdtAddressIsValid = await storeWallet.validateAddressCrossChain(

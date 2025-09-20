@@ -236,5 +236,6 @@
   "settings_reset_subtitle": "Reset all app setting to factory default setting.",
   "settings_reset_button_title": "Reset Settings",
   "settings_reset_button_subtitle": "This action will clear and reset all the current app setting.",
-  "settings_reset_button": "Reset"
+  "settings_reset_button": "Reset",
+  "exchange_modal_min_guaranteed": "Min. guaranteed"
 }

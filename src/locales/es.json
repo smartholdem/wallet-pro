@@ -236,5 +236,6 @@
   "settings_reset_subtitle": "Restablecer toda la configuración de la aplicación a la configuración de fábrica.",
   "settings_reset_button_title": "Restablecer configuración",
   "settings_reset_button_subtitle": "Esta acción borrará y restablecerá toda la configuración actual de la aplicación.",
-  "settings_reset_button": "Restablecer"
+  "settings_reset_button": "Restablecer",
+  "exchange_modal_min_guaranteed": "Mín. garantizado"
 }

@@ -236,5 +236,6 @@
   "settings_reset_subtitle": "Сбросить все настройки приложения до заводских.",
   "settings_reset_button_title": "Сбросить настройки",
   "settings_reset_button_subtitle": "Это действие очистит и сбросит все текущие настройки приложения.",
-  "settings_reset_button": "Сбросить"
+  "settings_reset_button": "Сбросить",
+  "exchange_modal_min_guaranteed": "Мин. гарантировано"
 }

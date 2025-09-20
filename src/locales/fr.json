@@ -237,5 +237,6 @@
   "settings_reset_subtitle": "Réinitialiser tous les paramètres de l'application aux paramètres d'usine.",
   "settings_reset_button_title": "Réinitialiser les paramètres",
   "settings_reset_button_subtitle": "Cette action effacera et réinitialisera tous les paramètres actuels de l'application.",
-  "settings_reset_button": "Réinitialiser"
+  "settings_reset_button": "Réinitialiser",
+  "exchange_modal_min_guaranteed": "Min. garanti"
 }

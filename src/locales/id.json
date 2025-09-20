@@ -236,5 +236,6 @@
   "settings_reset_subtitle": "Setel ulang semua pengaturan aplikasi ke pengaturan pabrik.",
   "settings_reset_button_title": "Setel Ulang Pengaturan",
   "settings_reset_button_subtitle": "Tindakan ini akan menghapus dan mengatur ulang semua pengaturan aplikasi saat ini.",
-  "settings_reset_button": "Setel ulang"
+  "settings_reset_button": "Setel ulang",
+  "exchange_modal_min_guaranteed": "Min. dijamin"
 }

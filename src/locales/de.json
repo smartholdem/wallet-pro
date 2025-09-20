@@ -236,5 +236,6 @@
   "settings_reset_subtitle": "Alle App-Einstellungen auf die Werkseinstellungen zurücksetzen.",
   "settings_reset_button_title": "Einstellungen zurücksetzen",
   "settings_reset_button_subtitle": "Diese Aktion löscht und setzt alle aktuellen App-Einstellungen zurück.",
-  "settings_reset_button": "Zurücksetzen"
+  "settings_reset_button": "Zurücksetzen",
+  "exchange_modal_min_guaranteed": "Min. garantiert"
 }
