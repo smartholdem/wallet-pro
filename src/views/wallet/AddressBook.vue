@@ -82,7 +82,7 @@
               />
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group mb-3">
                 <label
                   class="form-label px-4"
@@ -98,7 +98,7 @@
                 >
                   <option selected value="mainnet">{{ $t("mainnet") }}</option>
                   <option value="bsc">{{ $t("bsc") }}</option>
-                  <option value="heco">HECO</option>
+                  <option value="ton">TON Network</option>
                   <option value="eth">{{ $t("ethereum") }}</option>
                 </select>
               </div>

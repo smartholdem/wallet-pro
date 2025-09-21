@@ -193,6 +193,13 @@ h1 {
   background-size: 18px;
 }
 
+.ico-ton {
+  background-image: url("/images/ton.svg");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
 .ico-heco {
   background-image: url("/images/heco.svg");
   background-position: 0px 2px;
@@ -214,10 +221,6 @@ h1 {
   background-size: 16px;
 }
 
-  .ico-bsc .icon-right {
-    background-position-x: x-end;
-  }
-
 .ico-eth {
   background-image: url("/images/eth.svg");
   background-position: 0px 2px;
@@ -234,6 +237,7 @@ h1 {
 .ico-mainnet-18,
 .ico-heco-18,
 .ico-bsc-18,
+.ico-ton-18,
 .ico-eth-18 {
   background-size: 18px;
 }

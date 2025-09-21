@@ -24,6 +24,7 @@
             </li>
           </ul>
           <div class="tab-content pt-3">
+            <!-- BUY STH -->
             <div class="tab-pane fade show active" id="buy-sth">
               <div v-if="!paymentSent">
                 <div class="form-group mb-3">
@@ -31,6 +32,7 @@
                       ref="buyAmountInput"
                       type="number"
                       class="form-control"
+                      inputmode="decimal"
                       v-model="displayBuyAmount"
                       @input="calculateUsdtAmount"
                       :placeholder="$t('exchange_modal_buy_amount_label')"
@@ -82,6 +84,7 @@
                 </div>
               </div>
             </div>
+            <!-- SELL STH-->
             <div class="tab-pane fade" id="sell-sth">
               <div v-if="sellStep === 0">
                 <div class="text-muted mb-2">
@@ -91,6 +94,7 @@
                   <input
                     type="number"
                     class="form-control"
+                    inputmode="decimal"
                     v-model="displaySellAmount"
                     @input="calculateReceiveUsdt"
                     :placeholder="$t('exchange_modal_sell_amount_label')"
