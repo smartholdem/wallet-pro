@@ -44,13 +44,13 @@
                     <span class="text-info">{{ usdtAmount.toFixed(8) }}</span> USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
                   <p v-if="calculatedBuyAmount">
-                    {{ $t("exchange_modal_you_will_receive") }} ~<span class="text-success">{{ calculatedBuyAmount.toFixed(8) }}</span> STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
+                    <i class="fas fa-lg fa-fw me-2 fa-money-bill-alt" title="The exchange is carried out in XBTS liquidity pools"></i>{{ $t("exchange_modal_you_will_receive") }} <span class="text-success">{{ calculatedBuyAmount.toFixed(8) }}</span> STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
                   </p>
                   <div v-if="depositAddress">
                     <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" :value="depositAddress" readonly />
-                      <button class="btn btn-outline-secondary" type="button" @click="copyAddress">
+                      <input type="text" class="form-control text-warning" :value="depositAddress" readonly />
+                      <button class="btn btn-outline-theme" type="button" @click="copyAddress">
                         <i class="fa fa-copy"></i>
                       </button>
                     </div>
@@ -72,7 +72,7 @@
                   </button>
                   <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      {{ selectedNetwork }} Network
+                      <img width="16" src="/images/bsc.svg" class="me-2">{{ selectedNetwork }} Network
                     </button>
                     <ul class="dropdown-menu">
                       <li v-for="network in networks" :key="network">
@@ -105,9 +105,7 @@
                   />
                 </div>
                 <div class="form-group mb-3">
-                  <label class="form-label px-4 ico-bsc">{{
-                    $t("exchange_modal_your_usdt_address_bsc")
-                  }}</label>
+                  <label class="form-label px-4 ico-bsc">{{$t("exchange_modal_your_usdt_address_bsc")}}</label>
                   <div class="input-group">
                     <input
                         type="text"
@@ -132,8 +130,8 @@
                 </div>
                 <div v-if="sellAmount > 0">
                   <p>
-                    {{ $t("exchange_modal_you_will_receive") }}
-                    ~<span class="text-success">{{ receiveUsdtAmount.toFixed(8) }}</span> USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
+                    <i class="fas fa-lg fa-fw me-2 fa-money-bill-alt" title="The exchange is carried out in XBTS liquidity pools"></i>{{ $t("exchange_modal_you_will_receive") }}
+                    <span class="text-success">{{ receiveUsdtAmount.toFixed(8) }}</span> USDT <img alt="usdt"  width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
                   <p v-if="calculatedReceiveUsdtAmount" class="text-muted small">
                     {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedReceiveUsdtAmount.toFixed(8) }} USDT

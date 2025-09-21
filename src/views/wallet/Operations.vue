@@ -48,6 +48,16 @@
           </button>
 
           <button
+              data-bs-toggle="modal"
+              data-bs-target="#modalExchange"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+              :disabled="!isExchangeAvailable"
+          >
+            <i class="fas fa-lg fa-fw me-2 fa-exchange-alt"></i>{{ $t("exchange") }} STH
+          </button>
+
+          <button
               :disabled="false"
               type="button"
               data-bs-toggle="modal"
@@ -57,15 +67,7 @@
             <i class="far fa-lg fa-fw me-2 fa-list-alt"></i>{{ $t("mpays") }}
           </button>
 
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalExchange"
-              type="button"
-              class="btn btn-outline-theme text-uppercase"
-              :disabled="!isExchangeAvailable"
-          >
-            <i class="fas fa-lg fa-fw me-2 fa-exchange-alt"></i>{{ $t("exchange") }}
-          </button>
+
 
 
         </div>
@@ -96,7 +98,7 @@
               type="button"
               class="btn btn-outline-theme"
           >
-            <i class="fas fa-lg fa-fw me-2 fa-user-plus"></i>{{ $t("delegate_reg") }}
+            <i class="fas fa-lg fa-fw me-2 fa-university"></i>{{ $t("delegate_reg") }}
           </button>
 
           <button

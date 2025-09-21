@@ -36,7 +36,7 @@
                   <button @click="copyAddress(item.address)" type="button" class="btn btn-sm btn-outline"><i class="fa fa-copy"></i></button>
                 </td>
                 <td class="text-uppercase">
-                  <span :class="'px-3 py-0 ico-' + item.network"></span>
+                  <span :class="'pb-2 px-3 py-0 ico-' + item.network"></span>
                   {{ item.network }}
                 </td>
                 <td>{{ item.label }}</td>
