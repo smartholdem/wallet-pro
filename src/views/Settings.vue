@@ -40,7 +40,6 @@
                   <div>
                     <select class="form-select">
                       <option>USD</option>
-                      <option>RUB</option>
                     </select>
                   </div>
                 </div>
