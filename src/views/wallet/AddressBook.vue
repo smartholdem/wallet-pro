@@ -8,7 +8,7 @@
         <li class="breadcrumb-item active">{{ $t("address_book") }}</li>
       </ul>
 
-      <card>
+      <card class="overflow-hidden">
         <card-header class="card-header fw-bold small text-uppercase">
           <button
             data-bs-toggle="modal"
