@@ -41,10 +41,10 @@
                 <div v-if="buyAmount > 0">
                   <p>
                     {{ $t("exchange_modal_to_pay") }}
-                    <span class="text-info">{{ usdtAmount.toFixed(8) }}</span> USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
+                    <span class="text-info">{{ usdtAmount.toFixed(4) }}</span> USDT <img width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
-                  <p v-if="calculatedBuyAmount">
-                    <i class="fas fa-lg fa-fw me-2 fa-money-bill-alt" title="The exchange is carried out in XBTS liquidity pools"></i>{{ $t("exchange_modal_you_will_receive") }} <span class="text-success">{{ calculatedBuyAmount.toFixed(8) }}</span> STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
+                  <p v-if="calculatedBuyAmount" title="The exchange is carried out in XBTS liquidity pools">
+                    {{ $t("exchange_modal_you_will_receive") }} <span class="text-success">{{ calculatedBuyAmount.toFixed(4) }}</span> STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
                   </p>
                   <div v-if="depositAddress">
                     <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
@@ -129,9 +129,9 @@
                   </div>
                 </div>
                 <div v-if="sellAmount > 0">
-                  <p>
-                    <i class="fas fa-lg fa-fw me-2 fa-money-bill-alt" title="The exchange is carried out in XBTS liquidity pools"></i>{{ $t("exchange_modal_you_will_receive") }}
-                    <span class="text-success">{{ receiveUsdtAmount.toFixed(8) }}</span> USDT <img alt="usdt"  width="20" style="vertical-align: top" src="/images/usdt.png"/>
+                  <p title="The exchange is carried out in XBTS liquidity pools">
+                    {{ $t("exchange_modal_you_will_receive") }}
+                    <span class="text-success">{{ receiveUsdtAmount.toFixed(4) }}</span> USDT <img alt="usdt"  width="20" style="vertical-align: top" src="/images/usdt.png"/>
                   </p>
                   <p v-if="calculatedReceiveUsdtAmount" class="text-muted small">
                     {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedReceiveUsdtAmount.toFixed(8) }} USDT

@@ -29,16 +29,20 @@
           </span>
           <div class="btn-toolbar" :class="!isMobile ? 'float-end' : 'float-start mt-2'">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-outline-theme">
-                <i @click="copyText($route.params.address)" class="fa fa-clipboard hover-info text-secondary ms-1" aria-hidden="true"></i>
+              <button type="button" class="btn btn-outline-theme" @click="copyText($route.params.address)">
+                <i class="fa fa-clipboard hover-info text-secondary ms-1" aria-hidden="true"></i>
               </button>
-              <button type="button" class="btn btn-outline-theme">
-                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1" data-bs-toggle="modal"
-                   data-bs-target="#modalQr" aria-hidden="true"></i>
+              <button type="button" class="btn btn-outline-theme"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalQr">
+                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1"  aria-hidden="true"></i>
               </button>
-              <button type="button" class="btn btn-outline-theme">
-                <i class="fas fa-lg fa-fw fa-key hover-info text-warning" @click="decryptSecret()" data-bs-toggle="modal"
-                   data-bs-target="#modalDecryptAddress" aria-hidden="true"></i>
+              <button type="button" class="btn btn-outline-theme"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalDecryptAddress"
+              >
+                <i class="fas fa-lg fa-fw fa-key hover-info text-warning" @click="decryptSecret()"
+                  aria-hidden="true"></i>
               </button>
             </div>
           </div>
