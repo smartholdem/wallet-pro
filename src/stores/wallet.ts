@@ -189,6 +189,18 @@ export const useStoreWallet = defineStore("walletStorage", {
       }
     },
 
+    async getAddress(address: string) {
+      try {
+        const response = await axios.get(`${getActiveNode()}/wallets/${address}`);
+        const data = response.data.data;
+        data.balance = parseFloat((data.balance / 1e8).toFixed(8));
+        return data;
+      } catch (e) {
+        console.error(`Error fetching address ${address}:`, e);
+        return null;
+      }
+    },
+
     async txVotePrepare(payload: TxVotePreparePayload) {
       return Transactions.BuilderFactory.vote()
         .version(2)
