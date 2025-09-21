@@ -74,8 +74,8 @@
 
 <script>
 import { ref, onBeforeUnmount } from 'vue';
-import { Identities } from "@smartholdem/crypto";
-import { generateMnemonic } from "bip39";
+// Импортируем наш новый, локальный воркер. Vite сам все соберет.
+import VanityWorker from '@/workers/vanity.worker.ts?worker';
 
 export default {
   name: "VanityAddress",
@@ -93,60 +93,6 @@ export default {
     let startTime = 0;
     let progressInterval;
 
-    // Since we can't use modules in workers directly without bundling,
-    // we create a dynamic worker that imports the scripts.
-    const createWorker = () => {
-        const workerCode = `
-            importScripts("https://unpkg.com/@smartholdem/crypto@3.8.3/dist/index.umd.js");
-            importScripts("https://unpkg.com/bip39@3.1.0/dist/bip39.min.js");
-
-            function generateWallet() {
-                const mnemonic = bip39.generateMnemonic();
-                const address = smartholdemCrypto.Identities.Address.fromPassphrase(mnemonic, 63);
-                return { address, secret: mnemonic };
-            }
-
-            self.onmessage = (event) => {
-                const { term, mode } = event.data;
-                const upperCaseTerm = term.toUpperCase();
-                let attempts = 0;
-
-                while (true) {
-                    attempts++;
-                    const wallet = generateWallet();
-                    const address = wallet.address;
-                    let isMatch = false;
-
-                    switch (mode) {
-                        case 'suffix':
-                            isMatch = address.toUpperCase().endsWith(upperCaseTerm);
-                            break;
-                        case 'contains':
-                            isMatch = address.toUpperCase().includes(upperCaseTerm);
-                            break;
-                        case 'prefix':
-                        default:
-                            isMatch = address.substring(1).toUpperCase().startsWith(upperCaseTerm);
-                            break;
-                    }
-
-                    if (isMatch) {
-                        self.postMessage({ status: 'found', wallet, attempts });
-                        self.close();
-                        break;
-                    }
-
-                    if (attempts % 5000 === 0) {
-                        self.postMessage({ status: 'progress', attempts });
-                        attempts = 0; // Reset attempts for this worker's progress report
-                    }
-                }
-            };
-        `;
-        const blob = new Blob([workerCode], { type: 'application/javascript' });
-        return new Worker(URL.createObjectURL(blob));
-    };
-
     const startGeneration = () => {
       if (!term.value) {
         alert('Search string cannot be empty.');
@@ -160,7 +106,7 @@ export default {
       startTime = Date.now();
 
       for (let i = 0; i < threads.value; i++) {
-        const worker = createWorker();
+        const worker = new VanityWorker();
         worker.onmessage = (event) => {
           const { status, wallet, attempts } = event.data;
           if (status === 'found') {
