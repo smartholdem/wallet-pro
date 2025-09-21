@@ -477,24 +477,31 @@
                 <div class="row">
                   <div class="col-md-10">
                     <div class="form-group mb-3">
-                      <label class="form-label" for="sendRecipient"
-                      >{{ $t("recipient") }}
-                        <i class="fa fa-address-book hover-info"></i
-                        ></label>
-                      <input
-                          v-model="forSend.recipientId"
-                          @input="validateAddress"
-                          type="text"
-                          class="form-control form-control-sm"
-                          :class="
-                          forSend.addressIsValid &&
-                          forSend.recipientId !== this.address
-                            ? 'is-valid'
-                            : 'is-invalid'
-                        "
-                          id="sendRecipient"
-                          :placeholder="$t('enter_address')"
-                      />
+                      <label class="form-label" for="sendRecipient">{{ $t("recipient") }}</label>
+                      <div class="input-group">
+                        <input
+                            v-model="forSend.recipientId"
+                            @input="validateAddress"
+                            type="text"
+                            class="form-control form-control-sm"
+                            :class="
+                            forSend.addressIsValid &&
+                            forSend.recipientId !== this.address
+                              ? 'is-valid'
+                              : 'is-invalid'
+                          "
+                            id="sendRecipient"
+                            :placeholder="$t('enter_address')"
+                        />
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-address-book"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li v-for="item in book" :key="item.address">
+                            <a class="dropdown-item" href="#" @click.prevent="selectRecipient(item.address)">
+                              <span :class="'px-3 py-1 ico-' + item.network"></span> {{ item.label }} - {{ item.address.substring(0, 10) }}...
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-2" v-show="!isMobile">
@@ -965,6 +972,10 @@ export default {
     // Копировать текст в буфер обмена
     async copyText(text) {
       navigator.clipboard.writeText(text);
+    },
+    selectRecipient(address) {
+      this.forSend.recipientId = address;
+      this.validateAddress();
     },
     // Подготовка формы отправки
     async sendTabPrepare() {

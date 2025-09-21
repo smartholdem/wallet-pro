@@ -15,6 +15,9 @@ v1.2.18
 - Refactored `ExchangeModal.vue` to use the `exchange.ts` store for the backend URL.
 - Dynamically set the `EXCHANGE_API_URL` based on the environment (Electron/Web).
 - Added a check for the exchange server availability and disabled the "Exchange" button if it's not available.
+- Added a button to copy the private key to the clipboard with a security warning.
+- Added copy and delete buttons for each entry in the address book.
+- Integrated the address book into the send modal for quick recipient selection.
 
 v1.2.17
 - Add support 7 languages
