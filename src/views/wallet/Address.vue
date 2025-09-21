@@ -13,31 +13,46 @@
       <card class="h-100" v-if="currentAddress">
         <card-header class="card-header fw-bold" id="current-address">
           <i
-            v-if="currentAddress.publicKey"
-            @click="showPubKey = !showPubKey"
-            class="m-lg-2 fa fa-globe"
-            aria-hidden="true"
+              v-if="currentAddress.publicKey"
+              @click="showPubKey = !showPubKey"
+              class="m-lg-2 fa fa-globe"
+              aria-hidden="true"
           >
           </i>
           <span
-            v-if="!showPubKey"
-            @click="copyText($route.params.address)"
-            class="text-theme pointer"
-            :class="isMobile ? 'small' : ''"
+              v-if="!showPubKey"
+              class="text-theme pointer"
+              :class="isMobile ? 'small' : ''"
+              @click="copyText($route.params.address)"
           >
             &nbsp;{{ $route.params.address }}
-            <i class="fa fa-clipboard hover-info" aria-hidden="true"></i>
           </span>
+          <div class="btn-toolbar" :class="!isMobile ? 'float-end' : 'float-start mt-2'">
+            <div class="btn-group me-2">
+              <button type="button" class="btn btn-outline-theme">
+                <i @click="copyText($route.params.address)" class="fa fa-clipboard hover-info text-secondary ms-1" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-outline-theme">
+                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1" data-bs-toggle="modal"
+                   data-bs-target="#modalQr" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="btn btn-outline-theme">
+                <i class="fas fa-lg fa-fw fa-key hover-info text-warning" @click="decryptSecret()" data-bs-toggle="modal"
+                   data-bs-target="#modalDecryptAddress" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
           <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
             {{ currentAddress.publicKey }}
           </span>
         </card-header>
         <card-body>
           <h5 v-if="currentAddress.balance" class="card-title">
-            <img src="/images/logo-green32.png" alt="sth logo" />&nbsp;<span
+            <img src="/images/logo-green32.png" alt="sth logo"/>&nbsp;<span
               class="text-success"
-              >{{ balanceDecimal.toFixed(8) }}</span
-            >
+          >{{ balanceDecimal.toFixed(8) }}</span
+          >
             STH
             <span v-if="balanceInUsdt > 0">&nbsp;(${{ balanceInUsdt.toFixed(2) }} USDT)</span>
           </h5>
@@ -51,42 +66,42 @@
                   <i class="fas fa-lg fa-fw me-1 fa-university"></i
                   >{{ $t("delegate") }}
                   <span class="text-info">{{
-                    currentAddress.attributes.delegate.username
-                  }}</span>
+                      currentAddress.attributes.delegate.username
+                    }}</span>
                 </card-header>
                 <card-body>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                       {{ $t("rank") }}
                       <span class="text-info">{{
-                        currentAddress.attributes.delegate.rank
-                      }}</span>
+                          currentAddress.attributes.delegate.rank
+                        }}</span>
                     </li>
                     <li class="list-group-item">
                       {{ $t("votes") }}
                       <span class="text-info">{{
-                        (
-                          currentAddress.attributes.delegate.voteBalance /
-                          10 ** 8
-                        ).toFixed(8)
-                      }}</span>
+                          (
+                              currentAddress.attributes.delegate.voteBalance /
+                              10 ** 8
+                          ).toFixed(8)
+                        }}</span>
                       STH
                     </li>
                     <li class="list-group-item">
                       {{ $t("forged_fees") }}
                       <span class="text-info">{{
-                        (
-                          currentAddress.attributes.delegate.forgedFees /
-                          10 ** 8
-                        ).toFixed(8)
-                      }}</span>
+                          (
+                              currentAddress.attributes.delegate.forgedFees /
+                              10 ** 8
+                          ).toFixed(8)
+                        }}</span>
                       STH
                     </li>
                     <li class="list-group-item">
                       {{ $t("produced_blocks") }}
                       <span class="text-info">{{
-                        currentAddress.attributes.delegate.producedBlocks
-                      }}</span>
+                          currentAddress.attributes.delegate.producedBlocks
+                        }}</span>
                     </li>
                   </ul>
                 </card-body>
@@ -95,8 +110,8 @@
               <div v-if="currentAddress.voteFor">
                 {{ $t("voting_for") }}
                 <span class="text-info">{{
-                  currentAddress.voteFor.username
-                }}</span>
+                    currentAddress.voteFor.username
+                  }}</span>
               </div>
             </div>
           </div>
@@ -115,36 +130,81 @@
     <!-- operations -->
     <div class="col-xl-6 mb-3">
       <Ops
-        @txResultData="handleData($event)"
-        :address="$route.params.address"
+          @txResultData="handleData($event)"
+          :address="$route.params.address"
       />
     </div>
 
     <!-- transactions -->
-    <Txs :address="$route.params.address" :newTx="txResult.tx" />
+    <Txs :address="$route.params.address" :newTx="txResult.tx"/>
 
     <!-- toasts-container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div
-        class="toast fade hide mb-3"
-        data-autohide="false"
-        id="toast-address"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
+          class="toast fade hide mb-3"
+          data-autohide="false"
+          id="toast-address"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
       >
         <div class="toast-header" :class="'text-' + toastStyle">
-          <i class="far fa-bell me-2" />
+          <i class="far fa-bell me-2"/>
           <strong class="me-auto">{{ toastStyle }}</strong>
           <small class="text-success-emphasis">{{ $t("operation") }}</small>
           <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
           ></button>
         </div>
         <div class="toast-body small">
           {{ notifyMsg }}
+        </div>
+      </div>
+    </div>
+
+    <!-- modal decrypt -->
+    <div class="modal fade" id="modalDecryptAddress">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ $t("secret_key") }}</h5>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ $t("for_address") }} {{ $route.params.address }}</p>
+            <textarea
+                v-model="decryptedSecret"
+                class="form-control text-info"
+                rows="3"
+            ></textarea>
+            <p class="small text-danger mt-2">
+              {{ $t("please_keep_in_secret") }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal qr -->
+    <div class="modal modal-cover fade" id="modalQr">
+      <div class="modal-dialog">
+        <div class="modal-content text-info text-center">
+          <h3>{{ $t("receiving_address") }}</h3>
+          <p class="text-center">{{ $route.params.address }}</p>
+          <div class="">
+            <qrcode-vue
+                class="m-auto border border-5 border-secondary"
+                :value="$route.params.address"
+                :size="280"
+                level="H"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -153,22 +213,26 @@
 
 <script>
 //import { storeToRefs } from "pinia";
-import { useAppOptionStore } from "@/stores/app-option";
+import {useAppOptionStore} from "@/stores/app-option";
+
 const appOption = useAppOptionStore();
-import { useStoreWallet } from "@/stores/wallet";
-import { useExchangeStore } from "@/stores/exchange";
+import {useStoreWallet} from "@/stores/wallet";
+import {useExchangeStore} from "@/stores/exchange";
+
 const storeWallet = useStoreWallet();
 const storeExchange = useExchangeStore();
 //const { accounts } = storeToRefs(storeWallet);
 import Txs from "./Transactions.vue";
 import Ops from "./Operations.vue";
-import { Toast } from "bootstrap";
+import {Toast} from "bootstrap";
+import QrcodeVue from "qrcode.vue";
 
 export default {
   name: "AddressPage",
   components: {
     Txs,
     Ops,
+    QrcodeVue,
   },
   data() {
     return {
@@ -205,6 +269,7 @@ export default {
       showPubKey: false,
       timerTx: null,
       latestTxId: null,
+      decryptedSecret: "",
     };
   },
   methods: {
@@ -240,10 +305,10 @@ export default {
       await navigator.clipboard.writeText(text);
       this.notifyOp = "operation";
       this.showToast(
-        event,
-        "toast-address",
-        this.$t("copied_to_clipboard"),
-        "success"
+          event,
+          "toast-address",
+          this.$t("copied_to_clipboard"),
+          "success"
       );
     },
     handleData: function (e) {
@@ -269,7 +334,7 @@ export default {
       // Если ID последней транзакции изменился и это входящая транзакция
       if (latestTx.id !== this.latestTxId && latestTx.recipient === address) {
         const amount = (latestTx.amount / 10 ** 8).toFixed(8);
-        const message = this.$t('incoming_tx_notification', { amount: amount });
+        const message = this.$t('incoming_tx_notification', {amount: amount});
         this.showToast(null, 'toast-address', message, 'info');
 
         // Обновляем ID последней транзакции
@@ -299,6 +364,9 @@ export default {
           }
         }, 28000);
       }
+    },
+    async decryptSecret() {
+      this.decryptedSecret = await storeWallet.decryptByAddress(this.$route.params.address);
     },
   },
   async beforeCreate() {
@@ -364,18 +432,21 @@ export default {
   background-repeat: no-repeat;
   background-size: 16px;
 }
+
 .ico-ton {
   background-image: url("/images/ton.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 16px;
 }
+
 .ico-eth {
   background-image: url("/images/eth.svg");
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 18px;
 }
+
 .ico-xbts {
   background-image: url("/images/xbts32.png");
   background-position: 0 2px;

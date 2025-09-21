@@ -3,27 +3,9 @@
     <card class="h-100 overflow-hidden">
       <card-header class="card-header fw-bold small">
         {{ $t("operations") }}
-      </card-header
-      >
+      </card-header>
       <card-body>
         <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalQr"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
-          </button>
-          <button
-              @click="decryptSecret()"
-              data-bs-toggle="modal"
-              data-bs-target="#modalDecryptAddress"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fa fa-key" aria-hidden="true"></i>
-          </button>
           <button
               data-bs-toggle="modal"
               data-bs-target="#modalExchange"
@@ -116,23 +98,6 @@
               class="btn btn-outline-theme text-uppercase"
           >
             <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
-          </button>
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalQr"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
-          </button>
-          <button
-              @click="decryptSecret()"
-              data-bs-toggle="modal"
-              data-bs-target="#modalDecryptAddress"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fa fa-key" aria-hidden="true"></i>
           </button>
         </div>
       </card-body>
@@ -269,8 +234,8 @@
                             style="max-width: 200px"
                             :title="recipient.address"
                         >
-                          {{ recipient.address.substring(0, 20) }}...{{
-                            recipient.address.substr(-10)
+                          {{ recipient.address.substring(0, 20) }}...{{ 
+                            recipient.address.substr(-10) 
                           }}
                         </td>
                         <td>
@@ -303,7 +268,7 @@
                         </td>
                         <td>
                           <strong
-                          >{{
+                          >{{ 
                               networksTransfer[
                                   selectedNetwork
                                   ].multiPayFee.toFixed(8)
@@ -319,7 +284,7 @@
                         </td>
                         <td>
                           <strong
-                          >{{
+                          >{{ 
                               (totalAmount + totalMultiPayFees).toFixed(8)
                             }}
                             STH</strong
@@ -361,7 +326,7 @@
                         type="button"
                         class="btn btn-success"
                     >
-                      {{
+                      {{ 
                         $t("send_transactions", {
                           count: multiPayRecipients.length,
                         })
@@ -412,12 +377,12 @@
                         <td>{{ idx + 1 }}</td>
                         <td class="text-truncate" style="max-width: 220px">
                             <span v-if="r.txId" class="text-primary">
-                              {{ r.txId.substring(0, 12) }}...{{
-                                r.txId.substr(-12)
+                              {{ r.txId.substring(0, 12) }}...{{ 
+                                r.txId.substr(-12) 
                               }}
                             </span>
-                          <span v-else class="text-muted">{{
-                              $t("no_id")
+                          <span v-else class="text-muted">{{ 
+                              $t("no_id") 
                             }}</span>
                         </td>
                         <td>{{ r.paymentsCount ?? "-" }}</td>
@@ -426,7 +391,7 @@
                                 class="badge"
                                 :class="r.success ? 'bg-success' : 'bg-danger'"
                             >
-                              {{
+                              {{ 
                                 r.success
                                     ? $t("success_badge")
                                     : $t("error_badge")
@@ -434,7 +399,7 @@
                             </span>
                         </td>
                         <td>
-                            <span class="text-danger" v-if="r.error">{{
+                            <span class="text-danger" v-if="r.error">{{ 
                                 r.error
                               }}</span>
                           <span class="text-muted" v-else>-</span>
@@ -534,15 +499,15 @@
                           for="sendAmount"
                       >
                         {{ $t("amount") }}
-                        <span class="badge text-info">{{
-                            $t("max")
+                        <span class="badge text-info">{{ 
+                            $t("max") 
                           }}</span></label
                       >
                       <input
                           :placeholder="
                           $t('min') +
-                          ' ' +
-                          networksTransfer[selectedNetwork].minAmount
+                          ' '
+                          + networksTransfer[selectedNetwork].minAmount
                         "
                           v-model="forSend.amount"
                           type="text"
@@ -655,8 +620,8 @@
                             class="text-primary"
                             v-if="txResult && txResult.tx && txResult.tx.id"
                         >
-                            {{ txResult.tx.id.substring(0, 10) }}..{{
-                            txResult.tx.id.substr(-10)
+                            {{ txResult.tx.id.substring(0, 10) }}..{{ 
+                            txResult.tx.id.substr(-10) 
                           }}
                           </span>
                         <span v-else class="text-muted">-</span>
@@ -689,8 +654,8 @@
                               txResult && txResult.tx && txResult.tx.recipientId
                             "
                           >
-                            {{ txResult.tx.recipientId.substring(0, 10) }}..{{
-                              txResult.tx.recipientId.substr(-10)
+                            {{ txResult.tx.recipientId.substring(0, 10) }}..{{ 
+                              txResult.tx.recipientId.substr(-10) 
                             }}
                           </span>
                         <span v-else class="text-muted">-</span>
@@ -714,8 +679,8 @@
                       ></i>
                       </td>
                       <td>
-                          <span class="text-uppercase text-info">{{
-                              txResult?.network || selectedNetwork
+                          <span class="text-uppercase text-info">{{ 
+                              txResult?.network || selectedNetwork 
                             }}</span>
                       </td>
                     </tr>
@@ -783,55 +748,10 @@
 
     <ExchangeModal :balance="balanceDecimal" :address="address"/>
 
-    <!-- modal decrypt -->
-    <div class="modal fade" id="modalDecryptAddress">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ $t("secret_key") }}</h5>
-            <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>{{ $t("for_address") }} {{ address }}</p>
-            <textarea
-                v-model="decryptedSecret"
-                class="form-control text-info"
-                rows="3"
-            ></textarea>
-            <p class="small text-danger mt-2">
-              {{ $t("please_keep_in_secret") }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- modal qr -->
-    <div class="modal modal-cover fade" id="modalQr">
-      <div class="modal-dialog">
-        <div class="modal-content text-info text-center">
-          <h3>{{ $t("receiving_address") }}</h3>
-          <p class="text-center">{{ address }}</p>
-          <div class="">
-            <qrcode-vue
-                class="m-auto border border-5 border-secondary"
-                :value="address"
-                :size="280"
-                level="H"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import QrcodeVue from "qrcode.vue";
 import {storeToRefs} from "pinia";
 import {useAppOptionStore} from "@/stores/app-option.ts";
 import {useExchangeStore} from "@/stores/exchange.ts";
@@ -851,7 +771,6 @@ import {Toast} from "bootstrap";
 export default {
   name: "OperationsComponent",
   components: {
-    QrcodeVue,
     ModalVote,
     ModalDelegateReg,
     ModalSignMessage,
@@ -866,7 +785,6 @@ export default {
       notifyOp: "operation",
       toastStyle: "success",
       notifyMsg: "",
-      decryptedSecret: "",
       waitConfirmTx: true,
       // Конфигурация сетей для переводов
       networksTransfer: {
@@ -943,7 +861,7 @@ export default {
       const balance = Number(attrs?.balance ?? 0);
       return balance / 1e8; // Конвертируем из сатоши в STH
     },
-    // Текущий адр��с кошелька
+    // Текущий адрс кошелька
     currentAddress() {
       return storeWallet.attributes[this.address];
     },
@@ -955,7 +873,7 @@ export default {
     },
   },
   watch: {
-    // Отслеживание ��зменений результата транзакции
+    // Отслеживание зменений результата транзакции
     txResult: {
       handler: function () {
         this.$emit("txResultData", this.txResult);
@@ -990,7 +908,7 @@ export default {
       this.waitConfirmTx = true;
       this.txSendStep = 0;
       this.selectedNetwork = "mainnet";
-      // Ини��иализация данных для отправки
+      // Инииализация данных для отправки
       this.forSend = {
         network: "mainnet",
         addressIsValid: false,
@@ -1082,7 +1000,7 @@ export default {
           }, 1000);
         }
 
-        // Обновлен��е данных аккаунта после подтверждения
+        // Обновлене данных аккаунта после подтверждения
         setTimeout(async () => {
           this.waitConfirmTx = false;
           await this.accountUpdate();
@@ -1091,10 +1009,6 @@ export default {
 
         this.showToast("toast-transfer", "Tx Transfer success!", "success");
       }
-    },
-    // Расшифров��а приватного ключа
-    async decryptSecret() {
-      this.decryptedSecret = await storeWallet.decryptByAddress(this.address);
     },
     // Обновление данных аккаунта
     async accountUpdate() {
@@ -1121,12 +1035,12 @@ export default {
     async calculateMultiPayFees(recipients) {
       const txQue = Math.trunc(
           recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses
-      ); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax пл��тежей на разные адреса
+      ); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax плтежей на разные адреса
       const txPlus =
           recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses >
           0
               ? 1
-              : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очер��ди)
+              : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очерди)
       this.totalMultiPayFees = txQue + txPlus;
       return this.totalMultiPayFees;
     },
@@ -1229,7 +1143,7 @@ export default {
       if (exists) {
         this.showToast(
             "toast-transfer",
-            "Адрес уже добавлен �� список",
+            "Адрес уже добавлен  список",
             "warning"
         );
         return;
@@ -1280,7 +1194,7 @@ export default {
       this.multiPayResults = [];
       this.txSendStep = 1;
 
-      // Подгото��ка пакета получателей
+      // Подготока пакета получателей
       const recipients = [];
       for (let i = 0; i < this.multiPayRecipients.length; i++) {
         recipients.push(this.multiPayRecipients[i]);
@@ -1298,7 +1212,7 @@ export default {
       // Выполняем мультиплатежи
       const result = await storeWallet.txTransferMulti(transferPayload);
 
-      // Разбор резу��ьтата и подготовка данных для UI
+      // Разбор резуьтата и подготовка данных для UI
       // result.tx — массив сформированных multipayment-транзакций
       // result.response — ответ API с данными accept/broadcast/invalid/errors
       const txList = Array.isArray(result?.tx)
@@ -1343,15 +1257,15 @@ export default {
           0
       );
 
-      // Показать тост с дета��ями успеха:
-      // - если одна успешна�� транзакция — выводим её txId и число платежей
+      // Показать тост с детаями успеха:
+      // - если одна успешна транзакция — выводим её txId и число платежей
       // - если несколько — суммарная статистика
       if (successCount > 0) {
         if (successCount === 1 && successTxs[0].txId) {
           const id = successTxs[0].txId;
           this.showToast(
               "toast-transfer",
-              // комментарий: показываем коротки�� txId и число платежей
+              // комментарий: показываем коротки txId и число платежей
               `Multipay success: txId ${id.substring(0, 10)}..${id.substr(
                   -10
               )}, payments ${successTxs[0].paymentsCount}`,
