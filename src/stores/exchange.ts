@@ -17,12 +17,27 @@ export const useExchangeStore = defineStore("exchange", {
     calculatedReceiveUsdtAmount: 0, // Рассчитанное количество USDT при продаже
     calculatedUsdtAmountForBuy: 0, // Рассчитанное количество USDT для покупки определенного количества STH
     isExchangeAvailable: false,
+    exchangeSthBalance: 0,
+    exchangeUsdtBalance: 0,
   }),
   getters: {
     apiUrl: () => EXCHANGE_API_URL,
     sellGateAddress: (state) => state.gate_address_sth ? state.gate_address_sth.address : null,
   },
   actions: {
+    async checkEchangeBalance() {
+      try {
+        const response = await axios.get(`${EXCHANGE_API_URL}/xbts/smartholdem-balances`);
+        if (response.data && response.data.STH !== undefined && response.data.USDT !== undefined) {
+          this.exchangeSthBalance = response.data.STH;
+          this.exchangeUsdtBalance = response.data.USDT;
+        }
+      } catch (error) {
+        console.error("Failed to fetch exchange balances:", error);
+        this.exchangeSthBalance = 0;
+        this.exchangeUsdtBalance = 0;
+      }
+    },
     async checkExchangeAvailability() {
       try {
         const response = await axios.get(`${EXCHANGE_API_URL}/`);
