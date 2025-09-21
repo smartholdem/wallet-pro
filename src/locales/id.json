@@ -245,5 +245,6 @@
   "exchange_modal_continue_button": "Lanjutkan",
   "exchange_modal_min_payment_warning": "Jumlah pembayaran minimum adalah 5 USDT",
   "warning": "Peringatan",
-  "private_key_copied_warning": "Kunci pribadi disalin ke papan klip, jaga kerahasiaannya!"
+  "private_key_copied_warning": "Kunci pribadi disalin ke papan klip, jaga kerahasiaannya!",
+  "actions": "Tindakan"
 }

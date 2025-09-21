@@ -245,5 +245,6 @@
   "exchange_modal_max_sell_warning": "Maximal zu verkaufen {amount} STH",
   "exchange_modal_min_payment_warning": "Der Mindestzahlungsbetrag beträgt 5 USDT",
   "warning": "Warnung",
-  "private_key_copied_warning": "Privater Schlüssel in die Zwischenablage kopiert, geheim halten!"
+  "private_key_copied_warning": "Privater Schlüssel in die Zwischenablage kopiert, geheim halten!",
+  "actions": "Aktionen"
 }

@@ -120,6 +120,11 @@ export const useStoreWallet = defineStore("walletStorage", {
       this.addressBook = { ...this.addressBook, ...result };
     },
 
+    deleteFromAddressBook(address: string) {
+      const { [address]: _, ...rest } = this.addressBook;
+      this.addressBook = { ...rest };
+    },
+
     async validateAddressCrossChain(address: string) {
       try {
         return Web3.utils.isAddress(address);
