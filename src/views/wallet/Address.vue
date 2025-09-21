@@ -11,7 +11,7 @@
 
     <div class="col-xl-6 mb-3">
       <card class="h-100" v-if="currentAddress">
-        <card-header class="card-header fw-bold">
+        <card-header class="card-header fw-bold" id="current-address">
           <i
             v-if="currentAddress.publicKey"
             @click="showPubKey = !showPubKey"
