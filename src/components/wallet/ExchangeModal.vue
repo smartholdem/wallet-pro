@@ -125,7 +125,7 @@
 					{{ $t("exchange_modal_min_amount_warning") }}
 				</div>
                 <div v-if="isSellAmountTooHigh" class="alert alert-danger py-2">
-                  Максимум к продаже {{ exchangeSthBalance.toFixed(8) }} STH
+                  {{ $t('exchange_modal_max_sell_warning', { amount: exchangeSthBalance.toFixed(8) }) }}
                 </div>
                 <button
                   @click="sellSth"

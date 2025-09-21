@@ -181,7 +181,6 @@
   "exchange_modal_your_usdt_address_bsc": "Alamat USDT Anda (BSC):",
   "exchange_modal_you_will_receive": "Anda akan menerima:",
   "exchange_modal_sell_button": "Jual",
-  "exchange_modal_continue_button": "LANJUTKAN",
   "exchange_error_invalid_response": "Respons tidak valid dari server",
   "exchange_error_failed_to_get_deposit_address": "Gagal mendapatkan alamat deposit.",
   "exchange_error_failed_to_get_sell_address": "Gagal mendapatkan alamat jual.",
@@ -241,6 +240,8 @@
   "exchange_modal_min_guaranteed": "Min. dijamin",
   "exchange_modal_i_have_paid_button": "Saya sudah bayar",
   "exchange_modal_payment_sent_message": "Setelah transaksi diterima, Anda akan mendapatkan koin STH Anda.",
-  "exchange_modal_min_amount_warning": "Jumlah minimum untuk diterima adalah 5 USDT",
+  "exchange_modal_min_amount_warning": "Jumlah minimum yang akan diterima adalah 5 USDT.",
+  "exchange_modal_max_sell_warning": "Maksimum untuk dijual {amount} STH",
+  "exchange_modal_continue_button": "Lanjutkan",
   "exchange_modal_min_payment_warning": "Jumlah pembayaran minimum adalah 5 USDT"
 }

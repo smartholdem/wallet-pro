@@ -181,7 +181,6 @@
   "exchange_modal_your_usdt_address_bsc": "Địa chỉ USDT của bạn (BSC):",
   "exchange_modal_you_will_receive": "Bạn sẽ nhận được:",
   "exchange_modal_sell_button": "Bán",
-  "exchange_modal_continue_button": "TIẾP TỤC",
   "exchange_error_invalid_response": "Phản hồi không hợp lệ từ máy chủ",
   "exchange_error_failed_to_get_deposit_address": "Không thể lấy địa chỉ gửi tiền.",
   "exchange_error_failed_to_get_sell_address": "Không thể lấy địa chỉ bán.",
@@ -241,6 +240,8 @@
   "exchange_modal_min_guaranteed": "Tối thiểu đảm bảo",
   "exchange_modal_i_have_paid_button": "Tôi đã thanh toán",
   "exchange_modal_payment_sent_message": "Khi giao dịch được nhận, bạn sẽ nhận được đồng STH của mình.",
-  "exchange_modal_min_amount_warning": "Số tiền tối thiểu để nhận là 5 USDT",
+  "exchange_modal_min_amount_warning": "Số tiền tối thiểu để nhận là 5 USDT.",
+  "exchange_modal_max_sell_warning": "Tối đa để bán {amount} STH",
+  "exchange_modal_continue_button": "Tiếp tục",
   "exchange_modal_min_payment_warning": "Số tiền thanh toán tối thiểu là 5 USDT"
 }
