@@ -28,11 +28,13 @@ export const useAppSidebarMenuStore = defineStore({
                 icon: "fa fa-address-book",
                 text: "address_book",
             },
+            /*
             {
                 "url": "/settings",
                 "icon": "bi bi-gear",
                 "text": "settings"
             },
+             */
             /**
 
              {

@@ -2,24 +2,25 @@
   <div class="h-100">
     <card class="h-100 overflow-hidden">
       <card-header class="card-header fw-bold small">
-        {{ $t("operations") }}</card-header
+        {{ $t("operations") }}
+      </card-header
       >
       <card-body>
         <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
           <button
-            data-bs-toggle="modal"
-            data-bs-target="#modalQr"
-            type="button"
-            class="btn btn-outline-theme"
+              data-bs-toggle="modal"
+              data-bs-target="#modalQr"
+              type="button"
+              class="btn btn-outline-theme"
           >
             <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
           </button>
           <button
-            @click="decryptSecret()"
-            data-bs-toggle="modal"
-            data-bs-target="#modalDecryptAddress"
-            type="button"
-            class="btn btn-outline-theme"
+              @click="decryptSecret()"
+              data-bs-toggle="modal"
+              data-bs-target="#modalDecryptAddress"
+              type="button"
+              class="btn btn-outline-theme"
           >
             <i class="fa fa-key" aria-hidden="true"></i>
           </button>
@@ -28,7 +29,7 @@
               data-bs-target="#modalExchange"
               type="button"
               class="btn btn-outline-theme text-uppercase"
-						:disabled="!isExchangeAvailable"
+              :disabled="!isExchangeAvailable"
           >
             {{ $t("exchange") }}
           </button>
@@ -36,94 +37,94 @@
 
         <div v-if="currentAddress" class="btn-group mb-3 me-2">
           <button
-            :disabled="balanceDecimal < 1"
-            @click="sendTabPrepare"
-            data-bs-toggle="modal"
-            data-bs-target="#modalTransfer"
-            type="button"
-            class="btn btn-outline-theme text-uppercase"
+              :disabled="balanceDecimal < 1"
+              @click="sendTabPrepare"
+              data-bs-toggle="modal"
+              data-bs-target="#modalTransfer"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
           >
-            {{ $t("send") }}
+            <i class="fas fa-lg fa-fw me-2 fa-rocket"></i>{{ $t("send") }}
           </button>
           <button
-            data-bs-toggle="modal"
-            data-bs-target="#modalQr"
-            type="button"
-            class="btn btn-outline-theme"
+              data-bs-toggle="modal"
+              data-bs-target="#modalQr"
+              type="button"
+              class="btn btn-outline-theme"
           >
             <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
           </button>
           <button
-            @click="decryptSecret()"
-            data-bs-toggle="modal"
-            data-bs-target="#modalDecryptAddress"
-            type="button"
-            class="btn btn-outline-theme"
+              @click="decryptSecret()"
+              data-bs-toggle="modal"
+              data-bs-target="#modalDecryptAddress"
+              type="button"
+              class="btn btn-outline-theme"
           >
             <i class="fa fa-key" aria-hidden="true"></i>
           </button>
 
           <button
-            :disabled="false"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#modalMPayTransfer"
-            class="btn btn-outline-theme text-uppercase"
+              :disabled="false"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#modalMPayTransfer"
+              class="btn btn-outline-theme text-uppercase"
           >
-            {{ $t("mpays") }}
+            <i class="far fa-lg fa-fw me-2 fa-list-alt"></i>{{ $t("mpays") }}
           </button>
-          <!-- временно disabled-->
+
           <button
               data-bs-toggle="modal"
               data-bs-target="#modalExchange"
               type="button"
               class="btn btn-outline-theme text-uppercase"
-							:disabled="!isExchangeAvailable"
+              :disabled="!isExchangeAvailable"
           >
-            {{ $t("exchange") }}
+            <i class="fas fa-lg fa-fw me-2 fa-exchange-alt"></i>{{ $t("exchange") }}
           </button>
           <button
-            data-bs-toggle="modal"
-            data-bs-target="#modalSignMessage"
-            type="button"
-            class="btn btn-outline-theme text-uppercase"
+              data-bs-toggle="modal"
+              data-bs-target="#modalSignMessage"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
           >
-            {{ $t("sig") }}
+            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
           </button>
           <button :disabled="true" type="button" class="btn btn-outline-theme">
-            {{ $t("htlc") }}
+            <i class="far fa-lg fa-fw me-2 fa-clock"></i>{{ $t("htlc") }}
           </button>
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3">
           <button disabled="true" type="button" class="btn btn-outline-theme">
-            {{ $t("2nd_pwd") }}
+            <i class="fas fa-lg fa-fw me-2 fa-user-secret"></i>{{ $t("2nd_pwd") }}
           </button>
 
           <button
-            v-if="!currentAddress.attributes.delegate"
-            data-bs-toggle="modal"
-            data-bs-target="#modalDelegateReg"
-            type="button"
-            class="btn btn-outline-theme"
+              v-if="!currentAddress.attributes.delegate"
+              data-bs-toggle="modal"
+              data-bs-target="#modalDelegateReg"
+              type="button"
+              class="btn btn-outline-theme"
           >
-            {{ $t("delegate_reg") }}
+            <i class="fas fa-lg fa-fw me-2 fa-user-plus"></i>{{ $t("delegate_reg") }}
           </button>
 
           <button
-            data-bs-toggle="modal"
-            data-bs-target="#modalVote"
-            type="button"
-            class="btn btn-outline-theme text-uppercase"
+              data-bs-toggle="modal"
+              data-bs-target="#modalVote"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
           >
-            {{ $t("vote") }}
+            <i class="far fa-lg fa-fw me-2 fa-thumbs-up"></i>{{ $t("vote") }}
           </button>
           <button
-            disabled
-            type="button"
-            class="btn btn-outline-theme text-uppercase"
+              disabled
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
           >
-            {{ $t("msig") }}
+            <i class="fas fa-lg fa-fw me-2 fa-users"></i>{{ $t("msig") }}
           </button>
         </div>
       </card-body>
@@ -136,9 +137,9 @@
           <div class="modal-header">
             <h5 class="modal-title">{{ $t("multi_payments") }}</h5>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
             ></button>
           </div>
           <div class="modal-body">
@@ -148,33 +149,33 @@
                 <div class="row mb-3">
                   <div class="col-md-6">
                     <label class="form-label">{{
-                      $t("upload_csv_file")
-                    }}</label>
+                        $t("upload_csv_file")
+                      }}</label>
                     <input
-                      ref="csvFileInput"
-                      @change="handleCsvUpload"
-                      type="file"
-                      accept=".csv"
-                      class="form-control form-control-sm"
+                        ref="csvFileInput"
+                        @change="handleCsvUpload"
+                        type="file"
+                        accept=".csv"
+                        class="form-control form-control-sm"
                     />
                     <small class="text-muted">{{
-                      $t("format_address_amount")
-                    }}</small>
+                        $t("format_address_amount")
+                      }}</small>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">{{ $t("operations_csv") }}</label>
                     <div class="d-flex gap-2">
                       <button
-                        @click="clearMultiPayList"
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
+                          @click="clearMultiPayList"
+                          type="button"
+                          class="btn btn-sm btn-outline-secondary"
                       >
                         {{ $t("clear") }}
                       </button>
                       <button
-                        @click="downloadTemplate"
-                        type="button"
-                        class="btn btn-sm btn-outline-info"
+                          @click="downloadTemplate"
+                          type="button"
+                          class="btn btn-sm btn-outline-info"
                       >
                         {{ $t("download_template") }}
                       </button>
@@ -187,42 +188,42 @@
                   <div class="col-md-8">
                     <label class="form-label">{{ $t("add_recipient") }}</label>
                     <input
-                      v-model="newRecipient.address"
-                      @input="validateNewRecipientAddress"
-                      type="text"
-                      class="form-control form-control-sm"
-                      :class="
+                        v-model="newRecipient.address"
+                        @input="validateNewRecipientAddress"
+                        type="text"
+                        class="form-control form-control-sm"
+                        :class="
                         newRecipient.addressIsValid &&
                         newRecipient.address !== this.address
                           ? 'is-valid'
                           : 'is-invalid'
                       "
-                      :placeholder="$t('enter_address')"
+                        :placeholder="$t('enter_address')"
                     />
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">{{ $t("amount") }}</label>
                     <input
-                      v-model="newRecipient.amount"
-                      type="number"
-                      step="0.00000001"
-                      class="form-control form-control-sm"
-                      :class="
+                        v-model="newRecipient.amount"
+                        type="number"
+                        step="0.00000001"
+                        class="form-control form-control-sm"
+                        :class="
                         newRecipient.amount > 0 ? 'is-valid' : 'is-invalid'
                       "
-                      placeholder="0.00000000"
+                        placeholder="0.00000000"
                     />
                   </div>
                   <div class="col-md-1 d-flex align-items-end">
                     <button
-                      @click="addRecipient"
-                      :disabled="
+                        @click="addRecipient"
+                        :disabled="
                         !newRecipient.addressIsValid ||
                         newRecipient.amount <= 0 ||
                         newRecipient.address === this.address
                       "
-                      type="button"
-                      class="btn btn-sm btn-success"
+                        type="button"
+                        class="btn btn-sm btn-success"
                     >
                       +
                     </button>
@@ -232,92 +233,92 @@
                 <!-- Recipients List -->
                 <div v-if="multiPayRecipients.length > 0" class="mb-3">
                   <label class="form-label"
-                    >{{ $t("list_recipients") }} ({{
+                  >{{ $t("list_recipients") }} ({{
                       multiPayRecipients.length
                     }})</label
                   >
                   <div
-                    class="table-responsive"
-                    style="max-height: 300px; overflow-y: auto"
+                      class="table-responsive"
+                      style="max-height: 300px; overflow-y: auto"
                   >
                     <table class="table table-sm">
                       <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>{{ $t("address_table") }}</th>
-                          <th>{{ $t("amount_table") }}</th>
-                          <th>{{ $t("operation_table") }}</th>
-                        </tr>
+                      <tr>
+                        <th>#</th>
+                        <th>{{ $t("address_table") }}</th>
+                        <th>{{ $t("amount_table") }}</th>
+                        <th>{{ $t("operation_table") }}</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr
+                      <tr
                           v-for="(recipient, index) in multiPayRecipients"
                           :key="index"
-                        >
-                          <td>{{ index + 1 }}</td>
-                          <td
+                      >
+                        <td>{{ index + 1 }}</td>
+                        <td
                             class="text-truncate"
                             style="max-width: 200px"
                             :title="recipient.address"
-                          >
-                            {{ recipient.address.substring(0, 20) }}...{{
-                              recipient.address.substr(-10)
-                            }}
-                          </td>
-                          <td>
-                            {{ parseFloat(recipient.amount).toFixed(8) }} STH
-                          </td>
-                          <td>
-                            <button
+                        >
+                          {{ recipient.address.substring(0, 20) }}...{{
+                            recipient.address.substr(-10)
+                          }}
+                        </td>
+                        <td>
+                          {{ parseFloat(recipient.amount).toFixed(8) }} STH
+                        </td>
+                        <td>
+                          <button
                               @click="removeRecipient(index)"
                               type="button"
                               class="btn btn-sm btn-outline-danger"
-                            >
-                              ×
-                            </button>
-                          </td>
-                        </tr>
+                          >
+                            ×
+                          </button>
+                        </td>
+                      </tr>
                       </tbody>
                       <tfoot>
-                        <tr class="table-info">
-                          <td colspan="2">
-                            <strong>{{ $t("total") }}:</strong>
-                          </td>
-                          <td>
-                            <strong>{{ totalAmount.toFixed(8) }} STH</strong>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr class="table-warning">
-                          <td colspan="2">
-                            <strong>{{ $t("fees") }}:</strong>
-                          </td>
-                          <td>
-                            <strong
-                              >{{
-                                networksTransfer[
+                      <tr class="table-info">
+                        <td colspan="2">
+                          <strong>{{ $t("total") }}:</strong>
+                        </td>
+                        <td>
+                          <strong>{{ totalAmount.toFixed(8) }} STH</strong>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr class="table-warning">
+                        <td colspan="2">
+                          <strong>{{ $t("fees") }}:</strong>
+                        </td>
+                        <td>
+                          <strong
+                          >{{
+                              networksTransfer[
                                   selectedNetwork
-                                ].multiPayFee.toFixed(8)
-                              }}
-                              STH</strong
-                            >
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr class="table-success">
-                          <td colspan="2">
-                            <strong>{{ $t("total_amount") }}:</strong>
-                          </td>
-                          <td>
-                            <strong
-                              >{{
-                                (totalAmount + totalMultiPayFees).toFixed(8)
-                              }}
-                              STH</strong
-                            >
-                          </td>
-                          <td></td>
-                        </tr>
+                                  ].multiPayFee.toFixed(8)
+                            }}
+                            STH</strong
+                          >
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr class="table-success">
+                        <td colspan="2">
+                          <strong>{{ $t("total_amount") }}:</strong>
+                        </td>
+                        <td>
+                          <strong
+                          >{{
+                              (totalAmount + totalMultiPayFees).toFixed(8)
+                            }}
+                            STH</strong
+                          >
+                        </td>
+                        <td></td>
+                      </tr>
                       </tfoot>
                     </table>
                   </div>
@@ -327,13 +328,13 @@
                 <div class="row mb-3">
                   <div class="col-md-4">
                     <label
-                      class="form-label px-4"
-                      :class="'ico-' + selectedNetwork"
-                      >{{ $t("network") }}</label
+                        class="form-label px-4"
+                        :class="'ico-' + selectedNetwork"
+                    >{{ $t("network") }}</label
                     >
                     <select
-                      v-model="selectedNetwork"
-                      class="form-select form-select-sm"
+                        v-model="selectedNetwork"
+                        class="form-select form-select-sm"
                     >
                       <option value="mainnet">MainNet</option>
                       <!--
@@ -344,13 +345,13 @@
                   </div>
                   <div class="col-md-8 d-flex align-items-end">
                     <button
-                      @click="executeMultiPay"
-                      :disabled="
+                        @click="executeMultiPay"
+                        :disabled="
                         multiPayRecipients.length === 0 ||
                         totalAmount + totalMultiPayFees > balanceDecimal
                       "
-                      type="button"
-                      class="btn btn-success"
+                        type="button"
+                        class="btn btn-success"
                     >
                       {{
                         $t("send_transactions", {
@@ -372,8 +373,8 @@
 
               <!-- Transaction Results -->
               <div
-                v-if="txSendStep === 1"
-                class="overflow-hidden overflow-x-auto"
+                  v-if="txSendStep === 1"
+                  class="overflow-hidden overflow-x-auto"
               >
                 <div class="mb-3">
                   <h6>
@@ -382,65 +383,65 @@
                     }}):
                   </h6>
                   <div
-                    class="table-responsive"
-                    style="max-height: 400px; overflow-y: auto"
+                      class="table-responsive"
+                      style="max-height: 400px; overflow-y: auto"
                   >
                     <table class="table table-sm">
                       <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>{{ $t("tx_id") }}</th>
-                          <th>{{ $t("payments_in_tx") }}</th>
-                          <th>{{ $t("status") }}</th>
-                          <th>{{ $t("error") }}</th>
-                        </tr>
+                      <tr>
+                        <th>#</th>
+                        <th>{{ $t("tx_id") }}</th>
+                        <th>{{ $t("payments_in_tx") }}</th>
+                        <th>{{ $t("status") }}</th>
+                        <th>{{ $t("error") }}</th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr
+                      <tr
                           v-for="(r, idx) in multiPayResults"
                           :key="r.txId || idx"
-                        >
-                          <td>{{ idx + 1 }}</td>
-                          <td class="text-truncate" style="max-width: 220px">
+                      >
+                        <td>{{ idx + 1 }}</td>
+                        <td class="text-truncate" style="max-width: 220px">
                             <span v-if="r.txId" class="text-primary">
                               {{ r.txId.substring(0, 12) }}...{{
                                 r.txId.substr(-12)
                               }}
                             </span>
-                            <span v-else class="text-muted">{{
+                          <span v-else class="text-muted">{{
                               $t("no_id")
                             }}</span>
-                          </td>
-                          <td>{{ r.paymentsCount ?? "-" }}</td>
-                          <td>
+                        </td>
+                        <td>{{ r.paymentsCount ?? "-" }}</td>
+                        <td>
                             <span
-                              class="badge"
-                              :class="r.success ? 'bg-success' : 'bg-danger'"
+                                class="badge"
+                                :class="r.success ? 'bg-success' : 'bg-danger'"
                             >
                               {{
                                 r.success
-                                  ? $t("success_badge")
-                                  : $t("error_badge")
+                                    ? $t("success_badge")
+                                    : $t("error_badge")
                               }}
                             </span>
-                          </td>
-                          <td>
+                        </td>
+                        <td>
                             <span class="text-danger" v-if="r.error">{{
-                              r.error
-                            }}</span>
-                            <span class="text-muted" v-else>-</span>
-                          </td>
-                        </tr>
+                                r.error
+                              }}</span>
+                          <span class="text-muted" v-else>-</span>
+                        </td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <p>
                   <button
-                    data-bs-dismiss="modal"
-                    @click="resetMultiPay"
-                    type="button"
-                    class="btn btn-sm btn-primary"
+                      data-bs-dismiss="modal"
+                      @click="resetMultiPay"
+                      type="button"
+                      class="btn btn-sm btn-primary"
                   >
                     {{ $t("close") }}
                   </button>
@@ -459,9 +460,9 @@
           <div class="modal-header">
             <h5 class="modal-title">{{ $t("transfer") }}</h5>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
             ></button>
           </div>
           <div class="modal-body">
@@ -471,36 +472,36 @@
                   <div class="col-md-10">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendRecipient"
-                        >{{ $t("recipient") }}
+                      >{{ $t("recipient") }}
                         <i class="fa fa-address-book hover-info"></i
-                      ></label>
+                        ></label>
                       <input
-                        v-model="forSend.recipientId"
-                        @input="validateAddress"
-                        type="text"
-                        class="form-control form-control-sm"
-                        :class="
+                          v-model="forSend.recipientId"
+                          @input="validateAddress"
+                          type="text"
+                          class="form-control form-control-sm"
+                          :class="
                           forSend.addressIsValid &&
                           forSend.recipientId !== this.address
                             ? 'is-valid'
                             : 'is-invalid'
                         "
-                        id="sendRecipient"
-                        :placeholder="$t('enter_address')"
+                          id="sendRecipient"
+                          :placeholder="$t('enter_address')"
                       />
                     </div>
                   </div>
                   <div class="col-md-2" v-show="!isMobile">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendFee">{{
-                        $t("fee")
-                      }}</label>
+                          $t("fee")
+                        }}</label>
                       <input
-                        readonly
-                        :value="networksTransfer[selectedNetwork].fee"
-                        type="text"
-                        class="form-control form-control-sm"
-                        id="sendFee"
+                          readonly
+                          :value="networksTransfer[selectedNetwork].fee"
+                          type="text"
+                          class="form-control form-control-sm"
+                          id="sendFee"
                       />
                     </div>
                   </div>
@@ -509,78 +510,77 @@
                   <div class="col-md-3">
                     <div class="form-group mb-3">
                       <label
-                        @click="
+                          @click="
                           forSend.amount =
                             balanceDecimal -
                             networksTransfer[selectedNetwork].fee
                         "
-                        class="form-label"
-                        for="sendAmount"
+                          class="form-label"
+                          for="sendAmount"
                       >
                         {{ $t("amount") }}
                         <span class="badge text-info">{{
-                          $t("max")
-                        }}</span></label
+                            $t("max")
+                          }}</span></label
                       >
                       <input
-                        :placeholder="
+                          :placeholder="
                           $t('min') +
                           ' ' +
                           networksTransfer[selectedNetwork].minAmount
                         "
-                        v-model="forSend.amount"
-                        type="text"
-                        class="form-control form-control-sm"
-                        :class="
+                          v-model="forSend.amount"
+                          type="text"
+                          class="form-control form-control-sm"
+                          :class="
                           forSend.amount > 0.00000001
                             ? 'is-valid'
                             : 'is-invalid'
                         "
-                        id="sendAmount"
+                          id="sendAmount"
                       />
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group mb-3">
                       <label class="form-label" for="sendMemo">{{
-                        $t("memo")
-                      }}</label>
+                          $t("memo")
+                        }}</label>
                       <input
-                        :readonly="selectedNetwork !== 'mainnet'"
-                        v-model="forSend.memo"
-                        type="text"
-                        class="form-control form-control-sm"
-                        :class="selectedNetwork === 'ton' ? 'hide' : ''"
-                        id="sendMemo"
-                        :placeholder="$t('public_description_max_250')"
+                          :readonly="selectedNetwork !== 'mainnet'"
+                          v-model="forSend.memo"
+                          type="text"
+                          class="form-control form-control-sm"
+                          :class="selectedNetwork === 'ton' ? 'hide' : ''"
+                          id="sendMemo"
+                          :placeholder="$t('public_description_max_250')"
                       />
-
                       <input
-                        v-if="selectedNetwork === 'ton'"
-                        v-model="forSend.memo2"
-                        @change="addMemo2"
-                        @input="addMemo2"
-                        type="text"
-                        class="form-control form-control-sm"
-                        :class="selectedNetwork !== 'ton' ? 'hide' : ''"
-                        id="sendMemo2"
-                        :placeholder="$t('memo_max_100')"
+                          v-if="selectedNetwork === 'ton'"
+                          v-model="forSend.memo2"
+                          @change="addMemo2"
+                          @input="addMemo2"
+                          type="text"
+                          class="form-control form-control-sm"
+                          :class="selectedNetwork !== 'ton' ? 'hide' : ''"
+                          id="sendMemo2"
+                          :placeholder="$t('memo_max_100')"
                       />
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group mb-3">
                       <label
-                        class="form-label px-4"
-                        :class="'ico-' + selectedNetwork"
-                        for="sendNetwork"
-                        >{{ $t("network") }}</label
-                      >
+                          class="form-label px-4"
+                          :class="'ico-' + selectedNetwork"
+                          for="sendNetwork">
+                        {{ $t("network") }}
+                      </label>
                       <select
-                        v-model="selectedNetwork"
-                        @change="validateAddress"
-                        class="form-select form-select-sm"
-                        id="sendNetwork"
+                          v-model="selectedNetwork"
+                          @change="validateAddress"
+                          class="form-select form-select-sm"
+                          id="sendNetwork"
                       >
                         <option selected value="mainnet">
                           {{ $t("mainnet") }}
@@ -594,7 +594,7 @@
                 </div>
                 <div>
                   <button
-                    :disabled="
+                      :disabled="
                       forSend.amount * 1 +
                         networksTransfer[selectedNetwork].fee >
                         balanceDecimal ||
@@ -603,10 +603,10 @@
                       !forSend.recipientId ||
                       forSend.recipientId === this.address
                     "
-                    @click="txSend"
-                    type="button"
-                    class="btn btn-sm"
-                    :class="
+                      @click="txSend"
+                      type="button"
+                      class="btn btn-sm"
+                      :class="
                       forSend.amount * 1 +
                         networksTransfer[selectedNetwork].fee >
                         balanceDecimal ||
@@ -623,54 +623,54 @@
                 </div>
               </div>
               <div
-                v-if="txSendStep === 1"
-                class="overflow-hidden overflow-x-auto"
+                  v-if="txSendStep === 1"
+                  class="overflow-hidden overflow-x-auto"
               >
                 <div class="mb-3">
                   <table class="table">
                     <tbody>
-                      <tr>
-                        <td v-if="txErr === 0">{{ $t("success_tx_id") }}</td>
-                        <td v-if="txErr > 0" class="text-danger">
-                          {{ $t("error_tx_id") }}
-                        </td>
-                        <td>
-                          <!-- безопасный вывод txId одиночной транзакции -->
-                          <span
+                    <tr>
+                      <td v-if="txErr === 0">{{ $t("success_tx_id") }}</td>
+                      <td v-if="txErr > 0" class="text-danger">
+                        {{ $t("error_tx_id") }}
+                      </td>
+                      <td>
+                        <!-- безопасный вывод txId одиночной транзакции -->
+                        <span
                             class="text-primary"
                             v-if="txResult && txResult.tx && txResult.tx.id"
-                          >
+                        >
                             {{ txResult.tx.id.substring(0, 10) }}..{{
-                              txResult.tx.id.substr(-10)
-                            }}
+                            txResult.tx.id.substr(-10)
+                          }}
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>{{ $t("amount") }}</td>
-                        <td>
-                          <!-- защита от null -->
-                          <span v-if="txResult && txResult.tx">
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{ $t("amount") }}</td>
+                      <td>
+                        <!-- защита от null -->
+                        <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.amount / 1e8).toFixed(8) }} STH
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>{{ $t("fee") }}</td>
-                        <td>
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{ $t("fee") }}</td>
+                      <td>
                           <span v-if="txResult && txResult.tx">
                             {{ (txResult.tx.fee / 1e8).toFixed(8) }} STH
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>{{ $t("recipient") }}</td>
-                        <td>
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{ $t("recipient") }}</td>
+                      <td>
                           <span
-                            v-if="
+                              v-if="
                               txResult && txResult.tx && txResult.tx.recipientId
                             "
                           >
@@ -678,53 +678,54 @@
                               txResult.tx.recipientId.substr(-10)
                             }}
                           </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                      <tr
+                        <span v-else class="text-muted">-</span>
+                      </td>
+                    </tr>
+                    <tr
                         v-if="
                           txResult && txResult.tx && txResult.tx.vendorField
                         "
-                      >
-                        <td>{{ $t("memo") }}</td>
-                        <td>{{ txResult.tx.vendorField }}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {{ $t("network") }}&nbsp;<i
-                            class="px-3 py-1"
-                            :class="
+                    >
+                      <td>{{ $t("memo") }}</td>
+                      <td>{{ txResult.tx.vendorField }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{ $t("network") }}&nbsp;<i
+                          class="px-3 py-1"
+                          :class="
                               'ico-' + (txResult?.network || selectedNetwork)
                             "
-                          ></i>
-                        </td>
-                        <td>
+                      ></i>
+                      </td>
+                      <td>
                           <span class="text-uppercase text-info">{{
-                            txResult?.network || selectedNetwork
-                          }}</span>
-                        </td>
-                      </tr>
+                              txResult?.network || selectedNetwork
+                            }}</span>
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
                 <p>
                   <button
-                    data-bs-dismiss="modal"
-                    @click="sendTabPrepare"
-                    type="button"
-                    class="btn btn-sm"
-                    :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
+                      data-bs-dismiss="modal"
+                      @click="sendTabPrepare"
+                      type="button"
+                      class="btn btn-sm"
+                      :class="txErr > 0 ? 'btn-danger' : 'btn-success'"
                   >
-                    {{ $t("continue") }}</button
+                    {{ $t("continue") }}
+                  </button
                   >&nbsp;<span
                     v-show="
                       waitConfirmTx &&
                       timerConfirmation > 0 &&
                       timerConfirmation < 8
                     "
-                    >{{ $t("please_wait_confirmation") }}
+                >{{ $t("please_wait_confirmation") }}
                     {{ timerConfirmation }}</span
-                  >
+                >
                 </p>
               </div>
             </div>
@@ -736,21 +737,21 @@
     <!-- toasts-container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div
-        class="toast fade hide mb-3"
-        data-autohide="false"
-        id="toast-transfer"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
+          class="toast fade hide mb-3"
+          data-autohide="false"
+          id="toast-transfer"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
       >
         <div class="toast-header" :class="'text-' + toastStyle">
-          <i class="far fa-bell me-2" />
+          <i class="far fa-bell me-2"/>
           <strong class="me-auto">{{ toastStyle }}</strong>
           <small class="text-success-emphasis">{{ notifyOp }}</small>
           <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
           ></button>
         </div>
         <div class="toast-body small">
@@ -759,13 +760,13 @@
       </div>
     </div>
 
-    <ModalVote :address="address" />
+    <ModalVote :address="address"/>
 
-    <ModalDelegateReg :address="address" />
+    <ModalDelegateReg :address="address"/>
 
-    <ModalSignMessage :address="address" />
+    <ModalSignMessage :address="address"/>
 
-    <ExchangeModal :balance="balanceDecimal" :address="address" />
+    <ExchangeModal :balance="balanceDecimal" :address="address"/>
 
     <!-- modal decrypt -->
     <div class="modal fade" id="modalDecryptAddress">
@@ -774,17 +775,17 @@
           <div class="modal-header">
             <h5 class="modal-title">{{ $t("secret_key") }}</h5>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
             ></button>
           </div>
           <div class="modal-body">
             <p>{{ $t("for_address") }} {{ address }}</p>
             <textarea
-              v-model="decryptedSecret"
-              class="form-control text-info"
-              rows="3"
+                v-model="decryptedSecret"
+                class="form-control text-info"
+                rows="3"
             ></textarea>
             <p class="small text-danger mt-2">
               {{ $t("please_keep_in_secret") }}
@@ -802,10 +803,10 @@
           <p class="text-center">{{ address }}</p>
           <div class="">
             <qrcode-vue
-              class="m-auto border border-5 border-secondary"
-              :value="address"
-              :size="280"
-              level="H"
+                class="m-auto border border-5 border-secondary"
+                :value="address"
+                :size="280"
+                level="H"
             />
           </div>
         </div>
@@ -816,13 +817,13 @@
 
 <script>
 import QrcodeVue from "qrcode.vue";
-import { storeToRefs } from "pinia";
-import { useAppOptionStore } from "@/stores/app-option.ts";
-import { useExchangeStore } from "@/stores/exchange.ts";
+import {storeToRefs} from "pinia";
+import {useAppOptionStore} from "@/stores/app-option.ts";
+import {useExchangeStore} from "@/stores/exchange.ts";
 
 const appOption = useAppOptionStore();
-import { useStoreWallet } from "@/stores/wallet.ts";
-import { Identities } from "@smartholdem/crypto";
+import {useStoreWallet} from "@/stores/wallet.ts";
+import {Identities} from "@smartholdem/crypto";
 
 const storeWallet = useStoreWallet();
 const exchangeStore = useExchangeStore();
@@ -830,7 +831,7 @@ import ModalVote from "@/components/wallet/ModalVote.vue";
 import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
 import ModalSignMessage from "@/components/wallet/ModalSignMessage.vue";
 import ExchangeModal from "@/components/wallet/ExchangeModal.vue";
-import { Toast } from "bootstrap";
+import {Toast} from "bootstrap";
 
 export default {
   name: "OperationsComponent",
@@ -933,8 +934,8 @@ export default {
     },
     totalAmount() {
       return this.multiPayRecipients.reduce(
-        (sum, recipient) => sum + parseFloat(recipient.amount || 0),
-        0
+          (sum, recipient) => sum + parseFloat(recipient.amount || 0),
+          0
       );
     },
   },
@@ -986,30 +987,30 @@ export default {
       if (this.selectedNetwork === "mainnet") {
         this.forSend.memo = "";
         this.forSend.addressIsValid = await storeWallet.validateAddress(
-          this.forSend.recipientId
+            this.forSend.recipientId
         );
       }
       // Валидация для BSC и Ethereum
       if (this.selectedNetwork === "bsc" || this.selectedNetwork === "eth") {
         this.forSend.addressIsValid =
-          await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
+            await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
         if (this.forSend.addressIsValid) {
           this.forSend.memo =
-            this.selectedNetwork + ":" + this.forSend.recipientId;
+              this.selectedNetwork + ":" + this.forSend.recipientId;
         }
       }
       // Валидация для TON
       if (this.selectedNetwork === "ton") {
         this.forSend.addressIsValid =
-          this.forSend.recipientId[0] === "U" ||
-          this.forSend.recipientId[0] === "E";
+            this.forSend.recipientId[0] === "U" ||
+            this.forSend.recipientId[0] === "E";
         if (this.forSend.addressIsValid) {
           this.forSend.memo =
-            this.selectedNetwork +
-            ":" +
-            this.forSend.recipientId +
-            ":" +
-            (this.forSend.memo2 || "");
+              this.selectedNetwork +
+              ":" +
+              this.forSend.recipientId +
+              ":" +
+              (this.forSend.memo2 || "");
         }
       }
     },
@@ -1017,11 +1018,11 @@ export default {
     async addMemo2() {
       if (this.forSend.memo2) {
         this.forSend.memo =
-          this.selectedNetwork +
-          ":" +
-          this.forSend.recipientId +
-          ":" +
-          (this.forSend.memo2 || "");
+            this.selectedNetwork +
+            ":" +
+            this.forSend.recipientId +
+            ":" +
+            (this.forSend.memo2 || "");
       }
     },
     // Отправка транзакции
@@ -1100,13 +1101,13 @@ export default {
 
     async calculateMultiPayFees(recipients) {
       const txQue = Math.trunc(
-        recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses
+          recipients.length / this.networksTransfer.mainnet.multiPayMaxAddresses
       ); // число транзакция с мультиплатежами, каждая транзакция может содержать txMax пл��тежей на разные адреса
       const txPlus =
-        recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses >
-        0
-          ? 1
-          : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очер��ди)
+          recipients.length % this.networksTransfer.mainnet.multiPayMaxAddresses >
+          0
+              ? 1
+              : 0; // остаток платежей, которые не войдут в полную транзакцию, может быть < txMax (последняя транзакция с платежами в очер��ди)
       this.totalMultiPayFees = txQue + txPlus;
       return this.totalMultiPayFees;
     },
@@ -1123,7 +1124,7 @@ export default {
 
         if (!address || !amount) {
           this.csvErrors.push(
-            this.$t("invalid_format_expected", { line: i + 1 })
+              this.$t("invalid_format_expected", {line: i + 1})
           );
           continue;
         }
@@ -1133,32 +1134,32 @@ export default {
 
         if (!isValidAddress) {
           this.csvErrors.push(
-            this.$t("invalid_address", { line: i + 1, address: address })
+              this.$t("invalid_address", {line: i + 1, address: address})
           );
           continue;
         }
 
         if (isNaN(numAmount) || numAmount <= 0) {
           this.csvErrors.push(
-            this.$t("invalid_amount", { line: i + 1, amount: amount })
+              this.$t("invalid_amount", {line: i + 1, amount: amount})
           );
           continue;
         }
 
         if (address === this.address) {
           this.csvErrors.push(
-            this.$t("cannot_send_to_your_address", { line: i + 1 })
+              this.$t("cannot_send_to_your_address", {line: i + 1})
           );
           continue;
         }
 
         // Проверяем дубликаты
         const exists = this.multiPayRecipients.find(
-          (r) => r.address === address
+            (r) => r.address === address
         );
         if (exists) {
           this.csvErrors.push(
-            this.$t("address_already_added", { line: i + 1, address: address })
+              this.$t("address_already_added", {line: i + 1, address: address})
           );
           continue;
         }
@@ -1188,13 +1189,13 @@ export default {
     async validateNewRecipientAddress() {
       if (this.selectedNetwork === "mainnet") {
         this.newRecipient.addressIsValid = await storeWallet.validateAddress(
-          this.newRecipient.address
+            this.newRecipient.address
         );
       } else {
         this.newRecipient.addressIsValid =
-          await storeWallet.validateAddressCrossChain(
-            this.newRecipient.address
-          );
+            await storeWallet.validateAddressCrossChain(
+                this.newRecipient.address
+            );
       }
     },
 
@@ -1204,13 +1205,13 @@ export default {
 
       // Проверяем дубликаты
       const exists = this.multiPayRecipients.find(
-        (r) => r.address === this.newRecipient.address
+          (r) => r.address === this.newRecipient.address
       );
       if (exists) {
         this.showToast(
-          "toast-transfer",
-          "Адрес уже добавлен �� список",
-          "warning"
+            "toast-transfer",
+            "Адрес уже добавлен �� список",
+            "warning"
         );
         return;
       }
@@ -1243,8 +1244,8 @@ export default {
 
     downloadTemplate() {
       const csvContent =
-        "address,amount\nSTQnKW8JQ6cMKwLrcfdfMwhChyHUysccts,1.00000000\nSTBuvjHvKjKa2BkpKLxJvhztGAfvpbzeDr,2.50000000";
-      const blob = new Blob([csvContent], { type: "text/csv" });
+          "address,amount\nSTQnKW8JQ6cMKwLrcfdfMwhChyHUysccts,1.00000000\nSTBuvjHvKjKa2BkpKLxJvhztGAfvpbzeDr,2.50000000";
+      const blob = new Blob([csvContent], {type: "text/csv"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -1282,10 +1283,10 @@ export default {
       // result.tx — массив сформированных multipayment-транзакций
       // result.response — ответ API с данными accept/broadcast/invalid/errors
       const txList = Array.isArray(result?.tx)
-        ? result.tx
-        : result?.tx
-        ? [result.tx]
-        : [];
+          ? result.tx
+          : result?.tx
+              ? [result.tx]
+              : [];
       const resp = result?.response || {};
       const accepted = Array.isArray(resp.accept) ? resp.accept : [];
       const invalidArr = Array.isArray(resp.invalid) ? resp.invalid : [];
@@ -1311,7 +1312,7 @@ export default {
         } else if (!success && !txId) {
           errorText = "Unknown error";
         }
-        return { txId, paymentsCount, success, error: errorText || null };
+        return {txId, paymentsCount, success, error: errorText || null};
       });
 
       // Подсчёт успешных транзакций и суммарно обработанных платежей
@@ -1319,8 +1320,8 @@ export default {
       const successTxs = this.multiPayResults.filter((r) => r.success);
       const successCount = successTxs.length;
       const processedPayments = successTxs.reduce(
-        (sum, r) => sum + (r.paymentsCount || 0),
-        0
+          (sum, r) => sum + (r.paymentsCount || 0),
+          0
       );
 
       // Показать тост с дета��ями успеха:
@@ -1330,26 +1331,26 @@ export default {
         if (successCount === 1 && successTxs[0].txId) {
           const id = successTxs[0].txId;
           this.showToast(
-            "toast-transfer",
-            // комментарий: показываем коротки�� txId и число платежей
-            `Multipay success: txId ${id.substring(0, 10)}..${id.substr(
-              -10
-            )}, payments ${successTxs[0].paymentsCount}`,
-            "success"
+              "toast-transfer",
+              // комментарий: показываем коротки�� txId и число платежей
+              `Multipay success: txId ${id.substring(0, 10)}..${id.substr(
+                  -10
+              )}, payments ${successTxs[0].paymentsCount}`,
+              "success"
           );
         } else {
           this.showToast(
-            "toast-transfer",
-            `Multipay success: ${successCount}/${totalTx} tx, payments ${processedPayments}`,
-            "success"
+              "toast-transfer",
+              `Multipay success: ${successCount}/${totalTx} tx, payments ${processedPayments}`,
+              "success"
           );
         }
       } else {
         // Неуспех — показываем ошибочный тост
         this.showToast(
-          "toast-transfer",
-          "Multipay failed: 0 accepted",
-          "danger"
+            "toast-transfer",
+            "Multipay failed: 0 accepted",
+            "danger"
         );
       }
 

@@ -142,7 +142,7 @@
               <label class="form-label" for="newPrivateKey"
                 >{{ $t("private_key") }}&nbsp;
                 <span class="small text-danger">
-                  {{ $t("please_keep_in_secret") }}
+                  <i class="fas fa-lg fa-fw me-2 fa-key"></i> {{ $t("please_keep_in_secret") }}
                 </span>
               </label>
               <textarea
