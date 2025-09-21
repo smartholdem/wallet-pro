@@ -243,5 +243,7 @@
   "exchange_modal_payment_sent_message": "Sobald die Transaktion eingegangen ist, erhalten Sie Ihre STH-Münzen.",
   "exchange_modal_min_amount_warning": "Der Mindestbetrag für den Erhalt beträgt 5 USDT.",
   "exchange_modal_max_sell_warning": "Maximal zu verkaufen {amount} STH",
-  "exchange_modal_min_payment_warning": "Der Mindestzahlungsbetrag beträgt 5 USDT"
+  "exchange_modal_min_payment_warning": "Der Mindestzahlungsbetrag beträgt 5 USDT",
+  "warning": "Warnung",
+  "private_key_copied_warning": "Privater Schlüssel in die Zwischenablage kopiert, geheim halten!"
 }

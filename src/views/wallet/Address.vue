@@ -22,7 +22,7 @@
           <span
             v-if="!showPubKey"
             @click="copyText($route.params.address)"
-            class="text-default pointer"
+            class="text-theme pointer"
             :class="isMobile ? 'small' : ''"
           >
             &nbsp;{{ $route.params.address }}

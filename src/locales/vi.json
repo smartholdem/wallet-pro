@@ -243,5 +243,7 @@
   "exchange_modal_min_amount_warning": "Số tiền tối thiểu để nhận là 5 USDT.",
   "exchange_modal_max_sell_warning": "Tối đa để bán {amount} STH",
   "exchange_modal_continue_button": "Tiếp tục",
-  "exchange_modal_min_payment_warning": "Số tiền thanh toán tối thiểu là 5 USDT"
+  "exchange_modal_min_payment_warning": "Số tiền thanh toán tối thiểu là 5 USDT",
+  "warning": "Cảnh báo",
+  "private_key_copied_warning": "Đã sao chép khóa riêng vào khay nhớ tạm, hãy giữ bí mật!"
 }

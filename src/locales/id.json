@@ -243,5 +243,7 @@
   "exchange_modal_min_amount_warning": "Jumlah minimum yang akan diterima adalah 5 USDT.",
   "exchange_modal_max_sell_warning": "Maksimum untuk dijual {amount} STH",
   "exchange_modal_continue_button": "Lanjutkan",
-  "exchange_modal_min_payment_warning": "Jumlah pembayaran minimum adalah 5 USDT"
+  "exchange_modal_min_payment_warning": "Jumlah pembayaran minimum adalah 5 USDT",
+  "warning": "Peringatan",
+  "private_key_copied_warning": "Kunci pribadi disalin ke papan klip, jaga kerahasiaannya!"
 }

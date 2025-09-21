@@ -244,5 +244,7 @@
   "exchange_modal_payment_sent_message": "Une fois la transaction reçue, vous recevrez vos pièces STH.",
   "exchange_modal_min_amount_warning": "Le montant minimum à recevoir est de 5 USDT.",
   "exchange_modal_max_sell_warning": "Maximum à vendre {amount} STH",
-  "exchange_modal_min_payment_warning": "Le montant minimum de paiement est de 5 USDT"
+  "exchange_modal_min_payment_warning": "Le montant minimum de paiement est de 5 USDT",
+  "warning": "Avertissement",
+  "private_key_copied_warning": "Clé privée copiée dans le presse-papiers, gardez-la secrète !"
 }

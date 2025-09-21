@@ -22,7 +22,7 @@
         </li>
       </ul>
       <div class="tab-content p-4">
-        <!-- list -->
+        <!-- accounts list -->
         <div
           class="tab-pane fade"
           :class="tabActive === 0 ? 'show active' : ''"
@@ -55,7 +55,7 @@
                     <button
                       @click="copyAddress(item.address)"
                       type="button"
-                      class="btn btn-outline-secondary"
+                      class="btn btn-outline-theme"
                     >
                       <i class="fa fa-clipboard" aria-hidden="true"></i>
                     </button>
@@ -63,14 +63,14 @@
                     <button
                       @click="deleteAddress(item.address)"
                       type="button"
-                      class="btn btn-outline-default"
+                      class="btn btn-outline-theme"
                     >
                       <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                     <button
                       @click="decryptSecret(item.address)"
                       type="button"
-                      class="btn btn-outline-default"
+                      class="btn btn-outline-theme"
                       data-bs-toggle="modal"
                       data-bs-target="#modalDecrypt"
                     >
@@ -80,7 +80,7 @@
                     <button
                       v-if="!isMobile && item.label"
                       type="button"
-                      class="btn btn-outline-secondary"
+                      class="btn btn-outline-theme"
                       style="width: 200px"
                     >
                       <i class="fas fa-tag mr-1"></i>&nbsp;
@@ -126,9 +126,7 @@
 
           <div class="mt-3">
             <div class="form-group mb-3">
-              <label class="form-label" for="newPublicAddress">{{
-                $t("public_address")
-              }}</label>
+              <label class="form-label" for="newPublicAddress">{{$t("public_address")}}</label>
               <input
                 type="text"
                 readonly
@@ -139,8 +137,9 @@
               />
             </div>
             <div class="form-group mb-3">
-              <label class="form-label" for="newPrivateKey"
-                >{{ $t("private_key") }}&nbsp;
+              <button @click="copyPrivateKey" type="button" class="btn btn-outline p-0 ps-1 pe-1"> <i class="fa fa-copy"></i></button>
+              <label class="form-label" for="newPrivateKey">{{ $t("private_key") }}
+                &nbsp;
                 <span class="small text-danger">
                   <i class="fas fa-lg fa-fw me-2 fa-key"></i> {{ $t("please_keep_in_secret") }}
                 </span>
@@ -297,6 +296,27 @@
           {{ notifyMsg }}
         </div>
       </div>
+      <div
+          class="toast fade hide mb-3"
+          data-autohide="false"
+          id="toast-2"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+      >
+        <div class="toast-header bg-warning text-dark">
+          <i class="fa fa-exclamation-triangle me-2 text-dark"></i>
+          <strong class="me-auto">{{ $t("warning") }}</strong>
+          <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+          ></button>
+        </div>
+        <div class="toast-body">
+          {{ notifyMsg }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -365,6 +385,10 @@ export default {
     async copyAddress(data) {
       navigator.clipboard.writeText(data);
       this.showToast(event, "toast-1", this.$t("copied_to_clipboard"));
+    },
+    async copyPrivateKey() {
+      navigator.clipboard.writeText(this.account.secret);
+      this.showToast(event, "toast-2", this.$t("private_key_copied_warning"));
     },
     async decryptSecret(address) {
       this.decryptedSecret = await store.decryptByAddress(address);

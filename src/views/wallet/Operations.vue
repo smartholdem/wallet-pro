@@ -46,23 +46,6 @@
           >
             <i class="fas fa-lg fa-fw me-2 fa-rocket"></i>{{ $t("send") }}
           </button>
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalQr"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
-          </button>
-          <button
-              @click="decryptSecret()"
-              data-bs-toggle="modal"
-              data-bs-target="#modalDecryptAddress"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fa fa-key" aria-hidden="true"></i>
-          </button>
 
           <button
               :disabled="false"
@@ -83,23 +66,28 @@
           >
             <i class="fas fa-lg fa-fw me-2 fa-exchange-alt"></i>{{ $t("exchange") }}
           </button>
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalSignMessage"
-              type="button"
-              class="btn btn-outline-theme text-uppercase"
-          >
-            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
-          </button>
-          <button :disabled="true" type="button" class="btn btn-outline-theme">
-            <i class="far fa-lg fa-fw me-2 fa-clock"></i>{{ $t("htlc") }}
-          </button>
+
+
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3">
+          <!--
+          <button :disabled="true" type="button" class="btn btn-outline-theme">
+            <i class="far fa-lg fa-fw me-2 fa-clock"></i>{{ $t("htlc") }}
+          </button>
+          -->
+          <!--
           <button disabled="true" type="button" class="btn btn-outline-theme">
             <i class="fas fa-lg fa-fw me-2 fa-user-secret"></i>{{ $t("2nd_pwd") }}
           </button>
+          <button
+              disabled
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+          >
+            <i class="fas fa-lg fa-fw me-2 fa-users"></i>{{ $t("msig") }}
+          </button>
+          -->
 
           <button
               v-if="!currentAddress.attributes.delegate"
@@ -120,11 +108,29 @@
             <i class="far fa-lg fa-fw me-2 fa-thumbs-up"></i>{{ $t("vote") }}
           </button>
           <button
-              disabled
+              data-bs-toggle="modal"
+              data-bs-target="#modalSignMessage"
               type="button"
               class="btn btn-outline-theme text-uppercase"
           >
-            <i class="fas fa-lg fa-fw me-2 fa-users"></i>{{ $t("msig") }}
+            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
+          </button>
+          <button
+              data-bs-toggle="modal"
+              data-bs-target="#modalQr"
+              type="button"
+              class="btn btn-outline-theme"
+          >
+            <i class="fas fa-lg fa-fw fa-qrcode" aria-hidden="true"></i>
+          </button>
+          <button
+              @click="decryptSecret()"
+              data-bs-toggle="modal"
+              data-bs-target="#modalDecryptAddress"
+              type="button"
+              class="btn btn-outline-theme"
+          >
+            <i class="fa fa-key" aria-hidden="true"></i>
           </button>
         </div>
       </card-body>
