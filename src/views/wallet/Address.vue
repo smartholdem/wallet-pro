@@ -54,9 +54,7 @@
         <card-body>
           <h5 v-if="currentAddress.balance" class="card-title">
             <img src="/images/logo-green32.png" alt="sth logo"/>&nbsp;<span
-              class="text-success"
-          >{{ balanceDecimal.toFixed(8) }}</span
-          >
+              class="text-success">{{ balanceDecimal.toFixed(8) }}</span>
             STH
             <span v-if="balanceInUsdt > 0">&nbsp;(${{ balanceInUsdt.toFixed(2) }} USDT)</span>
           </h5>

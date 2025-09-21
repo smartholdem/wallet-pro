@@ -118,7 +118,7 @@
                         !usdtAddressIsValid && usdtAddress.length > 0,
                     }"
                     />
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-address-book"></i></button>
+                    <button v-show="bscAddresses.length" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-address-book"></i></button>
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li v-for="item in bscAddresses" :key="item.address">
                         <a class="dropdown-item" href="#" @click.prevent="selectUsdtAddress(item.address)">
