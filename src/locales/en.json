@@ -246,5 +246,6 @@
   "exchange_modal_min_payment_warning": "The minimum payment amount is 5 USDT",
   "warning": "Warning",
   "private_key_copied_warning": "Private key copied to clipboard, keep it secret!",
-  "actions": "Actions"
+  "actions": "Actions",
+  "exchange_modal_max_buy_warning": "Maximum to buy {amount} STH"
 }

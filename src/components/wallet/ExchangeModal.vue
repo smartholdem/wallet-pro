@@ -62,8 +62,12 @@
                 <div v-if="isBuyAmountTooLow" class="alert alert-warning py-2">
                     {{ $t("exchange_modal_min_payment_warning") }}
                 </div>
+                <div v-if="isBuyAmountTooHigh" class="alert alert-danger py-2">
+                  {{ $t('exchange_modal_max_buy_warning', { amount: hotWalletBalance.toFixed(8) }) }}
+                  <button @click="setMaxBuyAmount" class="btn btn-sm btn-link">{{ $t('max') }}</button>
+                </div>
                 <div class="d-flex justify-content-between align-items-center">
-                  <button class="btn btn-success" :disabled="buyAmount <= 0 || isBuyAmountTooLow" @click="handlePaymentSent">
+                  <button class="btn btn-success" :disabled="buyAmount <= 0 || isBuyAmountTooLow || isBuyAmountTooHigh" @click="handlePaymentSent">
                     {{ $t("exchange_modal_i_have_paid_button") }}
                   </button>
                   <div class="dropdown">
@@ -322,9 +326,13 @@ export default {
       paymentSent: false,
       networks: ['BSC', 'TON'],
       selectedNetwork: 'BSC',
+      hotWalletBalance: 0,
     };
   },
   computed: {
+    isBuyAmountTooHigh() {
+      return this.buyAmount > this.hotWalletBalance && this.hotWalletBalance > 0;
+    },
     displayBuyAmount: {
       get() {
         return this.buyAmount === 0 ? '' : this.buyAmount;
@@ -386,9 +394,21 @@ export default {
     await this.fetchDepositAddress();
     await exchangeStore.getSellGateAddress();
     await exchangeStore.checkEchangeBalance();
+    await exchangeStore.getSthAddressHot();
+    const hotWalletAddress = exchangeStore.sthAddressHot;
+    if (hotWalletAddress) {
+      const hotWalletData = await storeWallet.getAddress(hotWalletAddress);
+      if (hotWalletData && hotWalletData.balance) {
+        this.hotWalletBalance = hotWalletData.balance;
+      }
+    }
     this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
   },
   methods: {
+    setMaxBuyAmount() {
+      this.displayBuyAmount = this.hotWalletBalance;
+      this.calculateUsdtAmount();
+    },
     selectUsdtAddress(address) {
       this.usdtAddress = address;
       this.validateUsdtAddress();

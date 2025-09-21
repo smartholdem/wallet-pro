@@ -246,5 +246,6 @@
   "exchange_modal_min_payment_warning": "Jumlah pembayaran minimum adalah 5 USDT",
   "warning": "Peringatan",
   "private_key_copied_warning": "Kunci pribadi disalin ke papan klip, jaga kerahasiaannya!",
-  "actions": "Tindakan"
+  "actions": "Tindakan",
+  "exchange_modal_max_buy_warning": "Maksimum untuk membeli {amount} STH"
 }

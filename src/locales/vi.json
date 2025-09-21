@@ -246,5 +246,6 @@
   "exchange_modal_min_payment_warning": "Số tiền thanh toán tối thiểu là 5 USDT",
   "warning": "Cảnh báo",
   "private_key_copied_warning": "Đã sao chép khóa riêng vào khay nhớ tạm, hãy giữ bí mật!",
-  "actions": "Hành động"
+  "actions": "Hành động",
+  "exchange_modal_max_buy_warning": "Tối đa để mua {amount} STH"
 }

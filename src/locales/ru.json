@@ -246,5 +246,6 @@
   "exchange_modal_min_payment_warning": "Минимальная сумма к оплате 5 USDT",
   "warning": "Внимание",
   "private_key_copied_warning": "Приватный ключ скопирован в буфер обмена, храните его в секрете!",
-  "actions": "Действия"
+  "actions": "Действия",
+  "exchange_modal_max_buy_warning": "Максимум к покупке {amount} STH"
 }
