@@ -104,17 +104,27 @@
                   <label class="form-label px-4 ico-bsc">{{
                     $t("exchange_modal_your_usdt_address_bsc")
                   }}</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="usdtAddress"
-                    @input="validateUsdtAddress"
-                    :class="{
+                  <div class="input-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        v-model="usdtAddress"
+                        @input="validateUsdtAddress"
+                        :class="{
                       'is-valid': usdtAddressIsValid,
                       'is-invalid':
                         !usdtAddressIsValid && usdtAddress.length > 0,
                     }"
-                  />
+                    />
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-address-book"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li v-for="item in bscAddresses" :key="item.address">
+                        <a class="dropdown-item" href="#" @click.prevent="selectUsdtAddress(item.address)">
+                          <span :class="'px-3 py-1 ico-' + item.network"></span> {{ item.label }} - {{ item.address.substring(0, 10) }}...
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div v-if="sellAmount > 0">
                   <p>
@@ -357,6 +367,12 @@ export default {
     },
     isBuyAmountTooLow() {
       return this.usdtAmount > 0 && this.usdtAmount < 5;
+    },
+    book() {
+      return storeWallet.addressBook;
+    },
+    bscAddresses() {
+      return Object.values(this.book).filter(item => item.network === 'bsc');
     }
   },
   watch: {
@@ -373,6 +389,10 @@ export default {
     this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
   },
   methods: {
+    selectUsdtAddress(address) {
+      this.usdtAddress = address;
+      this.validateUsdtAddress();
+    },
     focusBuyAmountInput() {
       this.$refs.buyAmountInput.focus();
     },

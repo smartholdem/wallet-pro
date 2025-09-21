@@ -18,6 +18,7 @@ v1.2.18
 - Added a button to copy the private key to the clipboard with a security warning.
 - Added copy and delete buttons for each entry in the address book.
 - Integrated the address book into the send modal for quick recipient selection.
+- Integrated the address book into the exchange modal (Sell STH) for quick USDT address selection.
 
 v1.2.17
 - Add support 7 languages
