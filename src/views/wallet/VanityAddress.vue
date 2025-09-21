@@ -83,7 +83,7 @@ export default {
   setup() {
     const { t } = useI18n();
     const term = ref('777');
-    const mode = ref('prefix');
+    const mode = ref('contains');
     const maxThreads = navigator.hardwareConcurrency || 4;
     const threads = ref(maxThreads);
     const isGenerating = ref(false);
