@@ -9,6 +9,7 @@ import AppTopNav from "@/components/app/TopNav.vue";
 import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
 import ChangelogModal from "@/components/app/ChangelogModal.vue";
+import TitleBar from "@/components/TitleBar.vue"; // Импортируем наш компонент
 import router from "./router";
 import { storeToRefs } from "pinia";
 import { useStoreSettings } from "@/stores/app-settings";
@@ -16,6 +17,7 @@ import { useStoreSettings } from "@/stores/app-settings";
 const storeSettings = useStoreSettings();
 const { settings } = storeToRefs(storeSettings);
 const appOption = useAppOptionStore();
+const isElectron = ref(false);
 
 // --- Changelog Logic ---
 const showChangelog = ref(false);
@@ -46,6 +48,7 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 // --- End Changelog Logic ---
 
 onMounted(() => {
+  isElectron.value = navigator.userAgent.toLowerCase().includes("electron");
   appOption.isMobile = window.innerWidth < 768;
   if (!settings.value.pinCode) {
     appOption.appSidebarCollapsed = true;
@@ -89,7 +92,8 @@ document.querySelector("body").classList.add("app-init");
 <template>
   <div
     class="app"
-    v-bind:class="{
+    :class="{
+      'is-electron': isElectron,
       'app-header-menu-search-toggled': appOption.appHeaderSearchToggled,
       'app-sidebar-toggled':
         appOption.appSidebarToggled && !appOption.appSidebarCollapsed,
@@ -105,11 +109,12 @@ document.querySelector("body").classList.add("app-init");
       'app-footer-fixed': appOption.appFooterFixed,
     }"
   >
+    <title-bar v-if="isElectron" /> <!-- Наша новая шапка, только для Electron -->
     <vue3-progress-bar />
     <app-header v-if="!appOption.appHeaderHide" />
     <app-top-nav v-if="appOption.appTopNav" />
-    <app-sidebar v-if="!appOption.appSidebarHide" />
-    <div class="app-content" v-bind:class="appOption.appContentClass">
+    <app-sidebar v-if="!appOption.appSidebarHide"/>
+    <div class="app-content" v-bind:class="appOption.appContentClass" :style="{ paddingTop: isElectron ? '64px' : '' }"> <!-- Динамический отступ -->
       <router-view></router-view>
     </div>
     <app-footer v-if="appOption.appFooter" />
