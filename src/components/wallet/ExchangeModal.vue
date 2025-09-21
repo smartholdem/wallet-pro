@@ -124,6 +124,9 @@
 				<div v-if="isSellAmountTooLow" class="alert alert-warning py-2">
 					{{ $t("exchange_modal_min_amount_warning") }}
 				</div>
+                <div v-if="isSellAmountTooHigh" class="alert alert-danger py-2">
+                  Максимум к продаже {{ exchangeSthBalance.toFixed(8) }} STH
+                </div>
                 <button
                   @click="sellSth"
                   class="btn btn-danger"
@@ -133,7 +136,7 @@
                     sellAmount > balance ||
                     !usdtAddressIsValid ||
                     !sellGateAddress ||
-                    isSellAmountTooLow
+                    isSellAmountTooLow || isSellAmountTooHigh
                   "
                 >
                   {{ $t("exchange_modal_sell_button") }}
@@ -339,6 +342,12 @@ export default {
     exchangeError() {
       return this.exchangeStore.error;
     },
+    exchangeSthBalance() {
+      return this.exchangeStore.exchangeSthBalance;
+    },
+    isSellAmountTooHigh() {
+      return this.sellAmount > this.exchangeSthBalance && this.exchangeSthBalance > 0;
+    },
     isSellAmountTooLow() {
       return this.calculatedReceiveUsdtAmount !== null && this.calculatedReceiveUsdtAmount < 5 && this.sellAmount > 0;
     },
@@ -356,6 +365,7 @@ export default {
     await exchangeStore.fetchSthUsdtPrice();
     await this.fetchDepositAddress();
     await exchangeStore.getSellGateAddress();
+    await exchangeStore.checkEchangeBalance();
     this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
   },
   methods: {
