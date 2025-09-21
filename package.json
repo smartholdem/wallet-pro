@@ -14,7 +14,8 @@
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "electron:dev": "concurrently -k \"vite --port 5173\" \"wait-on http://127.0.0.1:5173 && electron .\"",
+    "electron:dev": "concurrently -k \"vite --host  0.0.0.0 --port 5173\" \"wait-on http://localhost:5173 && npx electron electron/main.js\"",
+    "electron:manual": "npx electron electron/main.js",
     "electron:build": "vite build && electron-builder -w",
     "electron:build:linux": "vite build && electron-builder -l",
     "electron:build:mac": "vite build && electron-builder -m"

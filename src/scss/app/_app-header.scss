@@ -229,8 +229,13 @@
 				}
 			}
 		}
-		.app-header-menu-search-toggled & {
-			top: 0;
+		        .app-header-menu-search-toggled & {
+		            top: 0;
+		        }
+		    }
 		}
-	}
-}
+		
+		.is-electron .app-header {
+		  top: 32px;
+		}
+		

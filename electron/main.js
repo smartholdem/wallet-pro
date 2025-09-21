@@ -19,6 +19,12 @@ function createWindow() {
     height: 800,
     show: false,
     autoHideMenuBar: true,
+    frame: false,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#2f3241',
+      symbolColor: '#74b1be'
+    },
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: false,
@@ -66,6 +72,22 @@ function createWindow() {
     mainWindow = null;
   });
 }
+
+ipcMain.on("minimize-window", () => {
+  mainWindow.minimize();
+});
+
+ipcMain.on("maximize-window", () => {
+  if (mainWindow.isMaximized()) {
+    mainWindow.unmaximize();
+  } else {
+    mainWindow.maximize();
+  }
+});
+
+ipcMain.on("close-window", () => {
+  mainWindow.close();
+});
 
 app.setAppUserModelId("com.smartholdem.walletpro");
 
