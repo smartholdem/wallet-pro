@@ -19,12 +19,42 @@ export const useExchangeStore = defineStore("exchange", {
     isExchangeAvailable: false,
     exchangeSthBalance: 0,
     exchangeUsdtBalance: 0,
+    sth_address_hot: null, // { address: String, timestamp: Number }
   }),
   getters: {
     apiUrl: () => EXCHANGE_API_URL,
     sellGateAddress: (state) => state.gate_address_sth ? state.gate_address_sth.address : null,
+    sthAddressHot: (state) => state.sth_address_hot ? state.sth_address_hot.address : null,
   },
   actions: {
+    async getSthAddressHot() {
+      const now = Date.now();
+      const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
+
+      if (this.sth_address_hot && (now - this.sth_address_hot.timestamp < tenDaysInMs)) {
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+            `${EXCHANGE_API_URL}/xbts/sth_address_hot`
+        );
+        if (response.data && response.data.address) {
+          this.sth_address_hot = {
+            address: response.data.address,
+            timestamp: now
+          };
+          this.error = null;
+        } else {
+          this.error = "exchange_error_invalid_response";
+          this.sth_address_hot = null;
+        }
+      } catch (e) {
+        console.error("Ошибка при получении горячего адреса STH:", e);
+        this.error = "exchange_error_failed_to_get_hot_address";
+        this.sth_address_hot = null;
+      }
+    },
     async checkEchangeBalance() {
       try {
         const response = await axios.get(`${EXCHANGE_API_URL}/xbts/smartholdem-balances`);
