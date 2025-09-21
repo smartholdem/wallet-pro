@@ -28,6 +28,11 @@ export const useAppSidebarMenuStore = defineStore({
                 icon: "fa fa-address-book",
                 text: "address_book",
             },
+            {
+                url: "/vanity-address",
+                icon: "fas fa-search-plus",
+                text: "vanity_address",
+            },
             /*
             {
                 "url": "/settings",
