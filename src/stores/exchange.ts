@@ -101,12 +101,10 @@ export const useExchangeStore = defineStore("exchange", {
      * @param userId - Адрес пользователя в сети SmartHoldem
      */
     async getDepositAddress(network: string, userId: string) {
-        console.log('getDepositAddress', userId)
       try {
         const response = await axios.get(
           `${EXCHANGE_API_URL}/exchange-address/${network}/${userId}`
         );
-        console.log(response.data);
         if (response.data && response.data.address) {
           this.depositAddress = response.data.address;
           this.error = null;

@@ -34,7 +34,7 @@
                       class="form-control"
                       inputmode="decimal"
                       v-model="displayBuyAmount"
-                      @input="calculateUsdtAmount"
+                      @input="performCalculations('buy')"
                       :placeholder="$t('exchange_modal_buy_amount_label')"
                   />
                 </div>
@@ -45,6 +45,9 @@
                   </p>
                   <p v-if="calculatedBuyAmount" title="The exchange is carried out in XBTS liquidity pools">
                     {{ $t("exchange_modal_you_will_receive") }} <span class="text-success">{{ calculatedBuyAmount.toFixed(4) }}</span> STH <img width="20" style="vertical-align: top" src="/images/sth_defi.png"/>
+                  </p>
+                  <p v-if="calculatedMinBuyAmount" class="text-muted small">
+                    {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedMinBuyAmount.toFixed(8) }} STH
                   </p>
                   <div v-if="depositAddress">
                     <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
@@ -100,7 +103,7 @@
                     class="form-control"
                     inputmode="decimal"
                     v-model="displaySellAmount"
-                    @input="calculateReceiveUsdt"
+                    @input="performCalculations('sell')"
                     :placeholder="$t('exchange_modal_sell_amount_label')"
                   />
                 </div>
@@ -319,12 +322,15 @@ export default {
       timerConfirmation: 8,
       calculatedBuyAmount: null,
       calculatedReceiveUsdtAmount: null,
+      calculatedMinBuyAmount: null,
       toastMessage: "",
       toastStyle: "success",
       paymentSent: false,
       networks: ['BSC', 'TON'],
       selectedNetwork: 'BSC',
       hotWalletBalance: 0,
+      poolData: null,
+      poolDataTimer: null,
     };
   },
   computed: {
@@ -400,9 +406,88 @@ export default {
         this.hotWalletBalance = hotWalletData.balance;
       }
     }
-    this.debouncedFetchRealPrice = debounce(this.fetchRealPrice, 500);
+    this.performCalculations = debounce(this.performCalculations, 400);
   },
   methods: {
+    performCalculations(type) {
+        if (type === 'buy') {
+            if (this.buyAmount <= 0) {
+                this.usdtAmount = 0;
+                this.calculatedBuyAmount = null;
+                this.calculatedMinBuyAmount = null;
+                return;
+            }
+            this.usdtAmount = this.buyAmount * this.price;
+            const calculation = this._calculateSthToReceive(this.usdtAmount);
+            if (calculation) {
+                this.calculatedBuyAmount = calculation.estimatedSthToReceive;
+                this.calculatedMinBuyAmount = calculation.minSthToReceive;
+            } else {
+                this.calculatedBuyAmount = null;
+                this.calculatedMinBuyAmount = null;
+            }
+        } else { // sell
+            if (this.sellAmount <= 0) {
+                this.receiveUsdtAmount = 0;
+                this.calculatedReceiveUsdtAmount = null;
+                return;
+            }
+            const calculation = this._calculateUsdtToReceive(this.sellAmount);
+            if (calculation) {
+                this.receiveUsdtAmount = calculation.estimatedUsdtToReceive;
+                this.calculatedReceiveUsdtAmount = calculation.minUsdtToReceive;
+            } else {
+                this.receiveUsdtAmount = 0;
+                this.calculatedReceiveUsdtAmount = null;
+            }
+        }
+    },
+    _calculateSthToReceive(usdtAmount) {
+      if (!this.poolData) return null;
+      try {
+        const [pool, sthAsset, usdtAsset] = this.poolData;
+        const balanceA_raw = BigInt(pool.balance_a); // STH
+        const balanceB_raw = BigInt(pool.balance_b); // USDT
+        const fee = pool.taker_fee_percent / 10000;
+        const usdtAmountRaw = BigInt(Math.floor(usdtAmount * (10 ** usdtAsset.precision)));
+        const usdtAmountAfterFeeRaw = usdtAmountRaw * BigInt(Math.floor((1 - fee) * 10000)) / BigInt(10000);
+        const sthToReceiveRaw = (balanceA_raw * usdtAmountAfterFeeRaw) / (balanceB_raw + usdtAmountAfterFeeRaw);
+        const estimatedSthToReceive = Number(sthToReceiveRaw) / (10 ** sthAsset.precision);
+        if (!isFinite(estimatedSthToReceive)) return null;
+        const slippage = 0.05; // 5%
+        const minSthToReceive = estimatedSthToReceive * (1 - slippage);
+        return {
+            estimatedSthToReceive: estimatedSthToReceive,
+            minSthToReceive: minSthToReceive,
+        };
+      } catch (e) {
+        console.error("Could not calculate STH to receive:", e);
+        return null;
+      }
+    },
+    _calculateUsdtToReceive(sthAmount) {
+        if (!this.poolData) return null;
+        try {
+            const [pool, sthAsset, usdtAsset] = this.poolData;
+            const balanceA_raw = BigInt(pool.balance_a); // STH
+            const balanceB_raw = BigInt(pool.balance_b); // USDT
+            const fee = pool.taker_fee_percent / 10000;
+            const sthAmountRaw = BigInt(Math.floor(sthAmount * (10 ** sthAsset.precision)));
+            const sthAmountAfterFeeRaw = sthAmountRaw * BigInt(Math.floor((1 - fee) * 10000)) / BigInt(10000);
+            const usdtToReceiveRaw = (balanceB_raw * sthAmountAfterFeeRaw) / (balanceA_raw + sthAmountAfterFeeRaw);
+            const estimatedUsdtToReceive = Number(usdtToReceiveRaw) / (10 ** usdtAsset.precision);
+            if (!isFinite(estimatedUsdtToReceive)) return null;
+            const slippage = 0.05; // 5%
+            const minUsdtToReceive = estimatedUsdtToReceive * (1 - slippage);
+            return {
+                estimatedUsdtToReceive: estimatedUsdtToReceive,
+                minUsdtToReceive: minUsdtToReceive,
+            };
+        } catch (e) {
+            console.error("Could not calculate USDT to receive:", e);
+            return null;
+        }
+    },
     setMaxBuyAmount() {
       this.displayBuyAmount = this.hotWalletBalance;
       this.calculateUsdtAmount();
@@ -417,55 +502,20 @@ export default {
     async fetchDepositAddress() {
       await this.exchangeStore.getDepositAddress(this.selectedNetwork.toLowerCase(), this.address);
     },
-    async fetchRealPrice(amount, type) {
-      if (amount <= 0) {
-        this.calculatedBuyAmount = null;
-        this.calculatedReceiveUsdtAmount = null;
-        if (type === 'buy') {
-          this.usdtAmount = 0;
-        } else {
-          this.receiveUsdtAmount = 0;
-        }
-        return;
-      }
-
-      let url;
-      const apiUrl = this.exchangeStore.apiUrl;
-      if (type === 'buy') {
-        this.usdtAmount = this.buyAmount * this.price;
-        if (this.usdtAmount <= 0) {
-          this.calculatedBuyAmount = null;
-          return;
-        }
-        url = `${apiUrl}/xbts/pool/sth-usdt-real?usdt_amount=${this.usdtAmount}`;
-      } else { // sell
-        url = `${apiUrl}/xbts/pool/sth-usdt-real?sth_amount=${this.sellAmount}`;
-      }
-
+    async fetchPoolData() {
       try {
-        const response = await fetch(url);
+        const apiUrl = this.exchangeStore.apiUrl;
+        const response = await fetch(`${apiUrl}/xbts/pool-data`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok for pool data');
         }
-        const data = await response.json();
-        if (type === 'buy') {
-          this.calculatedBuyAmount = data.estimatedSthToReceive;
-        } else { // sell
-          this.receiveUsdtAmount = data.estimatedUsdtToReceive;
-          this.calculatedReceiveUsdtAmount = data.minUsdtToReceive;
-        }
+        this.poolData = await response.json();
       } catch (error) {
-        console.error('Fetch error:', error);
-        this.calculatedBuyAmount = null;
-        this.calculatedReceiveUsdtAmount = null;
+        console.error('Failed to fetch pool data:', error);
+        this.poolData = null; // Reset on failure
       }
     },
-    calculateUsdtAmount() {
-      this.debouncedFetchRealPrice(this.buyAmount, 'buy');
-    },
-    calculateReceiveUsdt() {
-      this.debouncedFetchRealPrice(this.sellAmount, 'sell');
-    },
+
     showToast(target, msg, style = "success") {
       this.toastMessage = msg;
       this.toastStyle = style;
@@ -551,10 +601,14 @@ export default {
     this.modalEl = document.getElementById('modalExchange');
     this.modalEl.addEventListener('shown.bs.modal', this.focusBuyAmountInput);
     this.modalEl.addEventListener('hide.bs.modal', this.resetBuyTabState);
+
+    this.fetchPoolData(); // Fetch immediately on mount
+    this.poolDataTimer = setInterval(this.fetchPoolData, 30000); // Refresh every 30 seconds
   },
   beforeUnmount() {
     this.modalEl.removeEventListener('shown.bs.modal', this.focusBuyAmountInput);
     this.modalEl.removeEventListener('hide.bs.modal', this.resetBuyTabState);
+    clearInterval(this.poolDataTimer); // Clear the timer
   },
 };
 </script>
