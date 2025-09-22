@@ -12,21 +12,34 @@ This wallet is built using modern web technologies, including Vue.js and Pinia, 
 
 ## Key Features
 
-- **Full-Featured Wallet:** Create new addresses, import existing ones (via private key or BIP39 mnemonic), view balances, and browse detailed transaction history.
-- **Cross-Chain Exchange:** Seamlessly swap `STH` for `USDT` (and vice-versa) through a decentralized gateway powered by the BitShares network.
-- **Multi-Language Support:** Fully internationalized interface supporting 7+ languages, including English, Russian, German, Spanish, and more.
-- **Blockchain Interaction:**
-    - Participate in network governance by voting for delegates.
-    - Register as a delegate on the network.
-    - Perform advanced transaction types like Multi-Payments.
-- **Enhanced Security:**
-    - PIN code protection for application access.
-    - Secure, encrypted storage of your private keys.
-- **User-Friendly Interface:**
-    - A clean, modern UI with both light and dark modes.
-    - Real-time notifications for incoming transactions.
-    - "What's New" changelog modal to keep you informed about the latest updates.
-    - Address book for managing frequently used contacts.
+### Core Wallet Functionality
+- **Wallet Management:** Create, import (via 12/24-word BIP39 mnemonics or private keys), and manage unlimited wallets.
+- **Real-Time Balance:** View detailed transaction history and account balances with a real-time `USDT` equivalent value.
+- **Vanity Address Generator:** Create custom, human-readable SmartHoldem addresses (e.g., starting with "STHcool...") using a powerful multi-threaded generation engine.
+- **Address Book:** Securely save and label frequently used addresses for quick access during transfers and exchanges.
+- **Secure Key Access:** Easily view and copy your private keys with appropriate security warnings.
+
+### Advanced Blockchain Capabilities
+- **Cross-Chain Atomic Swaps:** Instantly and securely swap `STH` ↔ `USDT` through a decentralized gateway powered by the BitShares network.
+- **Dynamic Swap Pricing:** Get the best rates with real-time price calculation for swaps, including slippage and price impact display.
+- **Multi-Payments:** Send STH to up to 150 recipients in a single, efficient transaction.
+- **Network Governance:**
+    - **Delegate Registration:** Register yourself as a network delegate to help secure the blockchain.
+    - **Voting System:** Participate in the consensus process by voting for your chosen delegates.
+- **Cryptographic Messaging:** Create and verify Schnorr signatures for secure, off-chain communication.
+- **TON Network Support:** Includes support for Cross-Chain transfers involving the TON network.
+
+### Modern User Experience
+- **Cross-Platform:** Enjoy a consistent experience on **Windows, macOS, and Linux**.
+- **Multi-Language Support:** A fully internationalized interface supporting **7+ languages**, including English, Russian, German, Spanish, and more.
+- **Light & Dark Modes:** Choose a visual theme that's easy on your eyes.
+- **Real-Time Notifications:** Receive instant desktop notifications for incoming transactions.
+- **"What's New" Modal:** Stay informed about the latest features and updates with an automatic changelog popup after every update.
+
+### Security First
+- **PIN Code Protection:** Secure the application interface with a local PIN code.
+- **Encrypted Storage:** All sensitive data, including your private keys, are securely encrypted on your device.
+- **Robust Connection Management:** Features fault-tolerant connection handling with automatic node switching to ensure you're always connected.
 
 ## Supported Platforms
 
