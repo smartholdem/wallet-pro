@@ -28,6 +28,7 @@ This wallet is built using modern web technologies, including Vue.js and Pinia, 
     - **Voting System:** Participate in the consensus process by voting for your chosen delegates.
 - **Cryptographic Messaging:** Create and verify Schnorr signatures for secure, off-chain communication.
 - **TON Network Support:** Includes support for Cross-Chain transfers involving the TON network.
+- **BSC Network Support:** Includes support for Cross-Chain transfers involving the Binance Smart Chain network.
 
 ### Modern User Experience
 - **Cross-Platform:** Enjoy a consistent experience on **Windows, macOS, and Linux**.

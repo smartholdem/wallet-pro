@@ -28,6 +28,7 @@ Esta cartera está construida con tecnologías web modernas, incluyendo Vue.js y
     - **Sistema de Votación:** Participe en el proceso de consenso votando por los delegados de su elección.
 - **Mensajería Criptográfica:** Cree y verifique firmas Schnorr para una comunicación segura fuera de la cadena.
 - **Soporte de la Red TON:** Incluye soporte para transferencias Cross-Chain que involucran la red TON.
+- **Soporte de la Red BSC:** Incluye soporte para transferencias Cross-Chain que involucran la red Binance Smart Chain.
 
 ### Experiencia de Usuario Moderna
 - **Multiplataforma:** Disfrute de una experiencia consistente en **Windows, macOS y Linux**.
