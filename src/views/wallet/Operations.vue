@@ -17,7 +17,7 @@
           </button>
         </div>
 
-        <div v-if="currentAddress" class="btn-group mb-3 me-2">
+        <div v-if="currentAddress" class="btn-group mb-3 me-2 w-100">
           <button
               :disabled="balanceDecimal < 1"
               @click="sendTabPrepare"
@@ -54,7 +54,7 @@
 
         </div>
 
-        <div v-if="currentAddress" class="btn-group mb-3">
+        <div v-if="currentAddress" class="btn-group mb-3 w-100">
           <!--
           <button :disabled="true" type="button" class="btn btn-outline-theme">
             <i class="far fa-lg fa-fw me-2 fa-clock"></i>{{ $t("htlc") }}
@@ -74,6 +74,14 @@
           -->
 
           <button
+              data-bs-toggle="modal"
+              data-bs-target="#modalVote"
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+          >
+            <i class="far fa-lg fa-fw me-2 fa-thumbs-up"></i>{{ $t("vote") }}
+          </button>
+          <button
               v-if="!currentAddress.attributes.delegate"
               data-bs-toggle="modal"
               data-bs-target="#modalDelegateReg"
@@ -81,15 +89,6 @@
               class="btn btn-outline-theme"
           >
             <i class="fas fa-lg fa-fw me-2 fa-university"></i>{{ $t("delegate_reg") }}
-          </button>
-
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalVote"
-              type="button"
-              class="btn btn-outline-theme text-uppercase"
-          >
-            <i class="far fa-lg fa-fw me-2 fa-thumbs-up"></i>{{ $t("vote") }}
           </button>
           <button
               data-bs-toggle="modal"
