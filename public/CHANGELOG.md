@@ -25,6 +25,7 @@ v1.2.18
 - Added auto-update functionality for the Electron application.
 - Displayed STH/USDT exchange rate in the application title bar.
 - Displayed STH/USDT exchange rate in the browser tab title for the web version.
+- Implemented automatic selection of the best network node and added a network status indicator in the header.
 
 v1.2.17
 - Add support 7 languages
