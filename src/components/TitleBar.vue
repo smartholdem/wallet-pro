@@ -1,6 +1,6 @@
 <template>
   <div class="title-bar">
-    <div class="title">Wallet Pro</div>
+    <div class="title">Wallet Pro <span v-if="sthUsdtPrice > 0" class="price-info"> | STH/USDT: ${{ sthUsdtPrice.toFixed(4) }}</span></div>
     <div class="controls">
       <button class="control-btn" @click="minimize" aria-label="Minimize">
         <svg width="12" height="12" viewBox="0 0 12 12"><rect fill="currentColor" width="10" height="1" x="1" y="6"></rect></svg>
@@ -16,6 +16,12 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { useExchangeStore } from '@/stores/exchange';
+
+const exchangeStore = useExchangeStore();
+const sthUsdtPrice = computed(() => exchangeStore.sth_usdt_price);
+
 const minimize = () => {
   window.electronAPI?.minimize();
 };
@@ -49,6 +55,12 @@ const close = () => {
 .title {
   padding-left: 12px;
   font-size: 14px;
+}
+
+.price-info {
+  font-size: 12px;
+  color: #74b1be; /* a color that fits the theme */
+  margin-left: 10px;
 }
 
 .controls {

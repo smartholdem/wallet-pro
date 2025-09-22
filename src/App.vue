@@ -13,11 +13,13 @@ import TitleBar from "@/components/TitleBar.vue"; // Импортируем на
 import router from "./router";
 import { storeToRefs } from "pinia";
 import { useStoreSettings } from "@/stores/app-settings";
+import { useExchangeStore } from "@/stores/exchange";
 
 const storeSettings = useStoreSettings();
 const { settings } = storeToRefs(storeSettings);
 const appOption = useAppOptionStore();
 const isElectron = ref(false);
+const storeExchange = useExchangeStore();
 
 // --- Changelog Logic ---
 const showChangelog = ref(false);
@@ -50,6 +52,11 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 onMounted(() => {
   isElectron.value = navigator.userAgent.toLowerCase().includes("electron");
   appOption.isMobile = window.innerWidth < 768;
+  
+  storeExchange.fetchSthUsdtPrice();
+  setInterval(() => {
+    storeExchange.fetchSthUsdtPrice();
+  }, 60000);
   if (!settings.value.pinCode) {
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
