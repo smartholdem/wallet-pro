@@ -1,3 +1,4 @@
+const { autoUpdater } = require("electron-updater");
 const { app, BrowserWindow, shell, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
@@ -93,6 +94,7 @@ app.setAppUserModelId("com.smartholdem.walletpro");
 
 app.whenReady().then(() => {
   createWindow();
+  autoUpdater.checkForUpdatesAndNotify();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
