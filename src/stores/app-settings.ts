@@ -24,26 +24,44 @@ export const useStoreSettings = defineStore("appSettings", {
             "node0.sth.cx",
         ],
         activeNode: "node0.smartholdem.io",
+        activeNodeStatus: null,
     }),
     actions: {
         async updateNodes() {
-            this.activeNode = "node0.smartholdem.io";
-            //setTimeout(async () => {
-            for (let i = 0; i < this.nodes.length; i++) {
-                let nodeStatus = null;
+            const nodePromises = this.nodes.map(async (node) => {
+                const startTime = Date.now();
                 try {
-                    nodeStatus = (
-                        await axios.get("https://" + this.nodes[i] + "/api/node/status")
-                    ).data;
-                    if (nodeStatus.synced) {
-                        this.activeNode = this.nodes[i];
+                    const response = await axios.get(`https://${node}/api/node/status`, { timeout: 5000 });
+                    const latency = Date.now() - startTime;
+                    if (response.data && response.data.data) {
+                        return {
+                            node,
+                            status: response.data.data,
+                            latency,
+                            synced: response.data.data.synced,
+                        };
                     }
-                } catch (e) {
-                    console.log("node err", this.nodes[i]);
+                    return { node, status: null, latency: Infinity, synced: false };
+                } catch (error) {
+                    return { node, status: null, latency: Infinity, synced: false };
                 }
+            });
+
+            const results = await Promise.allSettled(nodePromises);
+
+            const successfulResponses = results
+                .filter(result => result.status === 'fulfilled' && result.value.synced)
+                .map(result => result.value);
+
+            if (successfulResponses.length > 0) {
+                successfulResponses.sort((a, b) => a.latency - b.latency);
+                const bestNode = successfulResponses[0];
+                this.activeNode = bestNode.node;
+                this.activeNodeStatus = bestNode.status;
+                console.log(`Выбрана лучшая нода: ${bestNode.node} с задержкой ${bestNode.latency}ms`);
+            } else {
+                console.log("Не найдено синхронизированных нод. Используется нода по-умолчанию.");
             }
-            console.log("activeNode", this.activeNode);
-            // }, 120);
         },
         updateSettings(partialSettings: object) {
             this.settings = {
