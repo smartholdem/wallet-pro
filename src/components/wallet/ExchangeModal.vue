@@ -603,7 +603,7 @@ export default {
     this.modalEl.addEventListener('hide.bs.modal', this.resetBuyTabState);
 
     this.fetchPoolData(); // Fetch immediately on mount
-    this.poolDataTimer = setInterval(this.fetchPoolData, 30000); // Refresh every 30 seconds
+    this.poolDataTimer = setInterval(this.fetchPoolData, 60000); // Refresh every 60 seconds
   },
   beforeUnmount() {
     this.modalEl.removeEventListener('shown.bs.modal', this.focusBuyAmountInput);
