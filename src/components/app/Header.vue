@@ -6,11 +6,47 @@ import { RouterLink } from "vue-router";
 import router from "@/router";
 import packageJson from "/package.json";
 import { useI18n } from "vue-i18n";
+import { computed, ref } from 'vue';
+import { Toast } from 'bootstrap';
 
 const { locale } = useI18n();
 
 const appOption = useAppOptionStore();
 const appSettings = useStoreSettings();
+
+const networkStatus = computed(() => appSettings.activeNodeStatus ? 'text-success' : 'text-danger');
+const activeNode = computed(() => appSettings.activeNode);
+const activeNodeStatus = computed(() => appSettings.activeNodeStatus);
+const nodesStatus = computed(() => appSettings.nodesStatus);
+const isRefreshing = ref(false);
+
+const otherNodes = computed(() => {
+  return nodesStatus.value.filter(node => node.node !== activeNode.value);
+});
+
+function getLatencyForNode(nodeName) {
+  const node = nodesStatus.value.find(n => n.node === nodeName);
+  return node && node.latency !== Infinity ? `${node.latency}ms` : '';
+}
+
+async function refreshNodes() {
+  isRefreshing.value = true;
+  const bestNode = await appSettings.updateNodes();
+  isRefreshing.value = false;
+
+  if (bestNode) {
+    const toastEl = document.getElementById('toast-nodes');
+    if (toastEl) {
+      const toast = new Toast(toastEl);
+      const toastBody = toastEl.querySelector('.toast-body');
+      if (toastBody) {
+          toastBody.textContent = `Выбран лучший узел: ${bestNode.node} (${bestNode.latency}ms)`;
+      }
+      toast.show();
+    }
+  }
+}
+
 const notificationData = [
   {
     icon: "bi bi-bag text-theme",
@@ -151,30 +187,50 @@ function fullScreen() {
     <div class="menu">
       <div class="menu-item dropdown">
         <a href="#" data-bs-toggle="dropdown" class="menu-link">
+          <div class="menu-icon">
+            <i class="fas fa-lg fa-fw fa-signal" :class="networkStatus"></i>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <div v-if="activeNodeStatus" class="dropdown-item d-flex align-items-center">
+            <i class="fa fa-circle fs-9px fa-fw me-2 text-success"></i>
+            <span class="flex-grow-1 fw-bold">{{ activeNode }}</span>
+            <span class="small text-success">
+              {{ getLatencyForNode(activeNode) }}
+            </span>
+          </div>
+           <div v-else class="dropdown-item d-flex align-items-center">
+              <i class="fa fa-circle fs-9px fa-fw me-2 text-danger"></i>
+              <span class="flex-grow-1 fw-bold">Нет подключения</span>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div v-for="node in otherNodes" :key="node.node" class="dropdown-item d-flex align-items-center">
+            <i class="fa fa-circle fs-9px fa-fw me-2" :class="node.synced ? 'text-success' : 'text-danger'"></i>
+            <span class="flex-grow-1">{{ node.node }}</span>
+            <span class="small" :class="node.synced ? 'text-success' : 'text-danger'">
+              {{ node.latency !== Infinity ? node.latency + 'ms' : 'Offline' }}
+            </span>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item d-flex align-items-center" @click.prevent="refreshNodes">
+            <span v-if="isRefreshing" class="spinner-border spinner-border-sm me-2"></span>
+            <i v-else class="fa fa-redo fa-fw me-2"></i>
+            Обновить список узлов
+          </a>
+        </div>
+      </div>
+      <div class="menu-item dropdown">
+        <a href="#" data-bs-toggle="dropdown" class="menu-link">
           <div class="menu-icon"><i class="fa fa-language"></i></div>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <a @click.prevent="setLocale('en')" href="#" class="dropdown-item"
-            >English</a
-          >
-          <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item"
-            >Русский</a
-          >
-          <a @click.prevent="setLocale('es')" href="#" class="dropdown-item"
-            >Español</a
-          >
-          <a @click.prevent="setLocale('de')" href="#" class="dropdown-item"
-            >Deutsch</a
-          >
-          <a @click.prevent="setLocale('fr')" href="#" class="dropdown-item"
-            >Français</a
-          >
-          <a @click.prevent="setLocale('vi')" href="#" class="dropdown-item"
-            >Tiếng Việt</a
-          >
-          <a @click.prevent="setLocale('id')" href="#" class="dropdown-item"
-            >Bahasa Indonesia</a
-          >
+          <a @click.prevent="setLocale('en')" href="#" class="dropdown-item">English</a>
+          <a @click.prevent="setLocale('ru')" href="#" class="dropdown-item">Русский</a>
+          <a @click.prevent="setLocale('es')" href="#" class="dropdown-item">Español</a>
+          <a @click.prevent="setLocale('de')" href="#" class="dropdown-item">Deutsch</a>
+          <a @click.prevent="setLocale('fr')" href="#" class="dropdown-item">Français</a>
+          <a @click.prevent="setLocale('vi')" href="#" class="dropdown-item">Tiếng Việt</a>
+          <a @click.prevent="setLocale('id')" href="#" class="dropdown-item">Bahasa Indonesia</a>
         </div>
       </div>
       <div class="menu-item dropdown dropdown-mobile-full">
@@ -246,79 +302,9 @@ function fullScreen() {
                 <div class="fw-500 fs-10px text-inverse">2FA</div>
               </a>
             </div>
-            <!--
-
-
-            <div class="col-4">
-              <RouterLink to="/settings" class="dropdown-item text-decoration-none p-3 bg-none">
-                <div class="position-relative">
-                  <i class="bi bi-circle-fill position-absolute text-theme top-0 mt-n2 me-n2 fs-6px d-block text-center w-100"></i>
-                  <i class="bi bi-sliders h2 opacity-5 d-block my-1"></i>
-                </div>
-                <div class="fw-500 fs-10px text-inverse">SETTINGS</div>
-              </RouterLink>
-            </div>
-            <div class="col-4">
-              <RouterLink to="/widgets" class="dropdown-item text-decoration-none p-3 bg-none">
-                <div><i class="bi bi-collection-play h2 opacity-5 d-block my-1"></i></div>
-                <div class="fw-500 fs-10px text-inverse">WIDGETS</div>
-              </RouterLink>
-            </div>
-            -->
           </div>
         </div>
       </div>
-      <!--
-			<div class="menu-item dropdown dropdown-mobile-full">
-				<a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
-					<div class="menu-icon"><i class="bi bi-bell nav-icon"></i></div>
-					<div class="menu-badge bg-theme" v-if="notificationData && notificationData.length > 0"></div>
-				</a>
-				<div class="dropdown-menu dropdown-menu-end mt-1 w-300px fs-11px pt-1">
-					<h6 class="dropdown-header fs-10px mb-1">NOTIFICATIONS</h6>
-					<div class="dropdown-divider mt-1"></div>
-					<template v-if="notificationData && notificationData.length > 0">
-						<a href="#" class="d-flex align-items-center py-10px dropdown-item text-wrap fw-semibold" v-for="(notification, index) in notificationData" v-bind:key="index">
-							<div class="fs-20px">
-								<i v-if="notification.icon" v-bind:class="notification.icon"></i>
-							</div>
-							<div class="flex-1 flex-wrap ps-3">
-								<div class="mb-1 text-inverse">{{ notification.title }}</div>
-								<div class="small text-inverse text-opacity-50">{{ notification.time }}</div>
-							</div>
-							<div class="ps-2 fs-16px">
-								<i class="bi bi-chevron-right"></i>
-							</div>
-						</a>
-					</template>
-					<template v-else>
-						<div class="px-3 pb-3 pt-2">
-							No record found
-						</div>
-					</template>
-					<hr class="m-0">
-					<div class="py-10px mb-n2 text-center">
-						<a href="#" class="text-decoration-none fw-bold">SEE ALL</a>
-					</div>
-				</div>
-			</div>
-			<div class="menu-item dropdown dropdown-mobile-full">
-				<a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
-					<div class="menu-img online">
-						<img src="/assets/img/user/profile.jpg" alt="Profile" height="60">
-					</div>
-					<div class="menu-text d-sm-block d-none w-170px">user@smartholdem.io</div>
-				</a>
-				<div class="dropdown-menu dropdown-menu-end me-lg-3 fs-11px mt-1">
-					<RouterLink to="/profile" class="dropdown-item d-flex align-items-center">PROFILE <i class="bi bi-person-circle ms-auto text-theme fs-16px my-n1"></i></RouterLink>
-					<RouterLink to="/email/inbox" class="dropdown-item d-flex align-items-center">INBOX <i class="bi bi-envelope ms-auto text-theme fs-16px my-n1"></i></RouterLink>
-					<RouterLink to="/settings" class="dropdown-item d-flex align-items-center">SETTINGS <i class="bi bi-gear ms-auto text-theme fs-16px my-n1"></i></RouterLink>
-					<div class="dropdown-divider"></div>
-					<RouterLink to="/page/login" class="dropdown-item d-flex align-items-center">LOGOUT <i class="bi bi-toggle-off ms-auto text-theme fs-16px my-n1"></i></RouterLink>
-				</div>
-			</div>
--->
-      <!--  -->
       <div class="menu-item">
         <div v-on:click="walletLock" class="menu-link">
           <div class="menu-icon">
@@ -330,5 +316,15 @@ function fullScreen() {
       </div>
     </div>
     <!-- END menu -->
+  </div>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+    <div id="toast-nodes" class="toast hide" data-bs-delay="5000">
+      <div class="toast-header">
+        <i class="far fa-bell text-muted me-2"></i>
+        <strong class="me-auto">Сеть</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body"></div>
+    </div>
   </div>
 </template>

@@ -25,6 +25,7 @@ export const useStoreSettings = defineStore("appSettings", {
         ],
         activeNode: "node0.smartholdem.io",
         activeNodeStatus: null,
+        nodesStatus: [],
     }),
     actions: {
         async updateNodes() {
@@ -48,19 +49,30 @@ export const useStoreSettings = defineStore("appSettings", {
             });
 
             const results = await Promise.allSettled(nodePromises);
+            
+            const statuses = [];
+            for (let i = 0; i < results.length; i++) {
+                const result = results[i];
+                if (result.status === 'fulfilled') {
+                    statuses.push(result.value);
+                } else {
+                    statuses.push({ node: this.nodes[i], status: null, latency: Infinity, synced: false });
+                }
+            }
+            this.nodesStatus = statuses.sort((a, b) => a.latency - b.latency);
 
-            const successfulResponses = results
-                .filter(result => result.status === 'fulfilled' && result.value.synced)
-                .map(result => result.value);
+            const successfulResponses = this.nodesStatus.filter(node => node.synced);
 
             if (successfulResponses.length > 0) {
-                successfulResponses.sort((a, b) => a.latency - b.latency);
                 const bestNode = successfulResponses[0];
                 this.activeNode = bestNode.node;
                 this.activeNodeStatus = bestNode.status;
                 console.log(`Выбрана лучшая нода: ${bestNode.node} с задержкой ${bestNode.latency}ms`);
+                return bestNode;
             } else {
                 console.log("Не найдено синхронизированных нод. Используется нода по-умолчанию.");
+                this.activeNodeStatus = null;
+                return null;
             }
         },
         updateSettings(partialSettings: object) {
