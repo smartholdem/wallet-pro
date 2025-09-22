@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-4">
-    <div class="card">
+    <card>
       <div class="card-header">
         <h4 class="mb-0">{{ $t('vanity_address_page_title') }}</h4>
       </div>
@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </card>
   </div>
 </template>
 
