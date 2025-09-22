@@ -188,7 +188,7 @@ function fullScreen() {
       <div class="menu-item dropdown">
         <a href="#" data-bs-toggle="dropdown" class="menu-link">
           <div class="menu-icon">
-            <i class="fas fa-lg fa-fw fa-signal" :class="networkStatus"></i>
+            <i class="fas fa-sm fa-fw fa-signal" :class="networkStatus"></i>
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
@@ -199,15 +199,15 @@ function fullScreen() {
               {{ getLatencyForNode(activeNode) }}
             </span>
           </div>
-           <div v-else class="dropdown-item d-flex align-items-center">
-              <i class="fa fa-circle fs-9px fa-fw me-2 text-danger"></i>
-              <span class="flex-grow-1 fw-bold">Нет подключения</span>
+          <div v-else class="dropdown-item d-flex align-items-center">
+            <i class="fa fa-circle fs-9px fa-fw me-2 text-danger"></i>
+            <span class="flex-grow-1 fw-bold">Нет подключения</span>
           </div>
           <div class="dropdown-divider"></div>
           <div v-for="node in otherNodes" :key="node.node" class="dropdown-item d-flex align-items-center">
             <i class="fa fa-circle fs-9px fa-fw me-2" :class="node.synced ? 'text-success' : 'text-danger'"></i>
             <span class="flex-grow-1">{{ node.node }}</span>
-            <span class="small" :class="node.synced ? 'text-success' : 'text-danger'">
+            &nbsp;<span class="small" :class="node.synced ? 'text-success' : 'text-danger'">
               {{ node.latency !== Infinity ? node.latency + 'ms' : 'Offline' }}
             </span>
           </div>
@@ -233,6 +233,8 @@ function fullScreen() {
           <a @click.prevent="setLocale('id')" href="#" class="dropdown-item">Bahasa Indonesia</a>
         </div>
       </div>
+
+      <!--
       <div class="menu-item dropdown dropdown-mobile-full">
         <a
           href="#"
@@ -254,7 +256,7 @@ function fullScreen() {
                 class="dropdown-item text-decoration-none p-3 bg-none"
               >
                 <div class="position-relative">
-                  <!--<i class="bi bi-circle-fill position-absolute text-theme top-0 mt-n2 me-n2 fs-6px d-block text-center w-100"></i>-->
+                  <i class="bi bi-circle-fill position-absolute text-theme top-0 mt-n2 me-n2 fs-6px d-block text-center w-100"></i>
                   <i class="fa fa-television h2 opacity-5 d-block my-1"></i>
                 </div>
                 <div class="fw-500 fs-10px text-inverse">FULLSCREEN</div>
@@ -305,6 +307,7 @@ function fullScreen() {
           </div>
         </div>
       </div>
+      -->
       <div class="menu-item">
         <div v-on:click="walletLock" class="menu-link">
           <div class="menu-icon">
