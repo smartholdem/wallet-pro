@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, ref, watch } from "vue";
+import { getCurrentInstance, onMounted, ref, watch, computed } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useAppOptionStore } from "@/stores/app-option";
 import { ProgressFinisher, useProgress } from "@marcoschulte/vue3-progress";
@@ -20,6 +20,18 @@ const { settings } = storeToRefs(storeSettings);
 const appOption = useAppOptionStore();
 const isElectron = ref(false);
 const storeExchange = useExchangeStore();
+
+const sthUsdtPrice = computed(() => storeExchange.sth_usdt_price);
+
+watch(sthUsdtPrice, (newPrice) => {
+  if (!isElectron.value) { // Только для веб-версии
+    if (newPrice > 0) {
+      document.title = `STH/USDT: ${newPrice.toFixed(4)} | SmartHoldem Wallet Pro`;
+    } else {
+      document.title = 'SmartHoldem Wallet Pro';
+    }
+  }
+});
 
 // --- Changelog Logic ---
 const showChangelog = ref(false);

@@ -24,6 +24,7 @@ v1.2.18
 - Added a new 'Vanity Address' page with a multi-threaded generator to find custom STH addresses.
 - Added auto-update functionality for the Electron application.
 - Displayed STH/USDT exchange rate in the application title bar.
+- Displayed STH/USDT exchange rate in the browser tab title for the web version.
 
 v1.2.17
 - Add support 7 languages
