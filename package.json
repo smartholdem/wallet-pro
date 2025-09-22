@@ -1,6 +1,6 @@
 {
   "name": "smartholdem-wallet-pro",
-  "version": "1.2.18d",
+  "version": "1.2.18",
   "description": "SmartHoldem Wallet Pro is a desktop wallet (Electron) for the SmartHoldem network with cross-chain support and advanced features.",
   "author": "SmartHoldem Team",
   "main": "electron/main.js",
