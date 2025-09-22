@@ -176,7 +176,7 @@
   "exchange_modal_buy_button": "Купить",
   "exchange_modal_sell_amount_label": "Количество STH для продажи:",
   "exchange_modal_your_balance": "Ваш баланс:",
-  "exchange_modal_your_usdt_address_bsc": "Ваш USDT адрес (BSC):",
+  "exchange_modal_your_usdt_address_bsc": "Ваш USDT адрес BEP20(BSC):",
   "exchange_modal_you_will_receive": "Минимум к получению:",
   "exchange_modal_sell_button": "Продать",
   "exchange_modal_continue_button": "ПРОДОЛЖИТЬ",

@@ -50,7 +50,7 @@
                     {{ $t("exchange_modal_min_guaranteed") }}: {{ calculatedMinBuyAmount.toFixed(8) }} STH
                   </p>
                   <div v-if="depositAddress">
-                    <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }}</label>
+                    <label class="form-label ico-bsc px-4">{{ $t('exchange_modal_send_usdt_to_network', { network: selectedNetwork }) }} BEP20</label>
                     <div class="input-group mb-3">
                       <input type="text" class="form-control text-warning" :value="depositAddress" readonly />
                       <button class="btn btn-outline-theme" type="button" @click="copyAddress">

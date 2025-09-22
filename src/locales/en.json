@@ -176,7 +176,7 @@
   "exchange_modal_buy_button": "Buy",
   "exchange_modal_sell_amount_label": "Amount of STH to sell:",
   "exchange_modal_your_balance": "Your balance:",
-  "exchange_modal_your_usdt_address_bsc": "Your USDT address (BSC):",
+  "exchange_modal_your_usdt_address_bsc": "Your USDT address BEP20 (BSC):",
   "exchange_modal_you_will_receive": "You will receive:",
   "exchange_modal_sell_button": "Sell",
   "exchange_modal_continue_button": "CONTINUE",

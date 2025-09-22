@@ -176,7 +176,7 @@
   "exchange_modal_buy_button": "Mua",
   "exchange_modal_sell_amount_label": "Số lượng STH cần bán:",
   "exchange_modal_your_balance": "Số dư của bạn:",
-  "exchange_modal_your_usdt_address_bsc": "Địa chỉ USDT của bạn (BSC):",
+  "exchange_modal_your_usdt_address_bsc": "Địa chỉ USDT của bạn BEP20(BSC):",
   "exchange_modal_you_will_receive": "Bạn sẽ nhận được:",
   "exchange_modal_sell_button": "Bán",
   "exchange_error_invalid_response": "Phản hồi không hợp lệ từ máy chủ",
