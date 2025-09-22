@@ -36,6 +36,8 @@ This wallet is built using modern web technologies, including Vue.js and Pinia, 
 - **Light & Dark Modes:** Choose a visual theme that's easy on your eyes.
 - **Real-Time Notifications:** Receive instant desktop notifications for incoming transactions.
 - **"What's New" Modal:** Stay informed about the latest features and updates with an automatic changelog popup after every update.
+- **Auto-Update:** The application now automatically checks for and notifies about new versions.
+- **Live Price Ticker:** The current STH/USDT exchange rate is now always visible in the title bar.
 
 ### Security First
 - **PIN Code Protection:** Secure the application interface with a local PIN code.

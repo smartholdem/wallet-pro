@@ -36,6 +36,8 @@ Esta cartera está construida con tecnologías web modernas, incluyendo Vue.js y
 - **Modos Claro y Oscuro:** Elija un tema visual que sea agradable a la vista.
 - **Notificaciones en Tiempo Real:** Reciba notificaciones de escritorio instantáneas sobre las transacciones entrantes.
 - **Modal "Qué hay de nuevo":** Manténgase informado sobre las últimas funciones y actualizaciones con una ventana emergente automática del registro de cambios después de cada actualización.
+- **Actualización automática:** La aplicación ahora comprueba y notifica automáticamente las nuevas versiones.
+- **Ticker de precios en vivo:** El tipo de cambio actual de STH/USDT ahora está siempre visible en la barra de título.
 
 ### La Seguridad es lo Primero
 - **Protección con Código PIN:** Asegure la interfaz de la aplicación con un código PIN local.
