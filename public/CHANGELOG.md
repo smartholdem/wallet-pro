@@ -22,6 +22,8 @@ v1.2.18
 - Integrated the address book into the exchange modal (Sell STH) for quick USDT address selection.
 - Added a check for the maximum STH buy amount based on the hot wallet balance.
 - Added a new 'Vanity Address' page with a multi-threaded generator to find custom STH addresses.
+- Added auto-update functionality for the Electron application.
+- Displayed STH/USDT exchange rate in the application title bar.
 
 v1.2.17
 - Add support 7 languages
