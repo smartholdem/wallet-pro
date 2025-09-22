@@ -2,7 +2,7 @@
 
 A secure, feature-rich, cross-platform desktop wallet for the SmartHoldem blockchain ecosystem.
 
-![STH_wallet](https://private-user-images.githubusercontent.com/9394904/492080167-794d2965-d7d8-446f-86cc-1d9a26fc33e0.png)
+<img width="100%" alt="SmartHoldem Wallet Pro" src="https://github.com/user-attachments/assets/794d2965-d7d8-446f-86cc-1d9a26fc33e0" />
 
 ## About The Project
 
