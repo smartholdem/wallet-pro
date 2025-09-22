@@ -269,5 +269,7 @@
   "warning": "Avertissement",
   "private_key_copied_warning": "Clé privée copiée dans le presse-papiers, gardez-la secrète !",
   "actions": "Actions",
-  "exchange_modal_max_buy_warning": "Maximum à acheter {amount} STH"
+  "exchange_modal_max_buy_warning": "Maximum à acheter {amount} STH",
+  "refresh_node_list": "Actualiser la liste des nœuds",
+  "no_connection": "Pas de connexion"
 }

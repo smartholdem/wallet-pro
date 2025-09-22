@@ -269,5 +269,7 @@
   "warning": "Внимание",
   "private_key_copied_warning": "Приватный ключ скопирован в буфер обмена, храните его в секрете!",
   "actions": "Действия",
-  "exchange_modal_max_buy_warning": "Максимум к покупке {amount} STH"
+  "exchange_modal_max_buy_warning": "Максимум к покупке {amount} STH",
+  "refresh_node_list": "Обновить список узлов",
+  "no_connection": "Нет подключения"
 }

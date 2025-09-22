@@ -269,5 +269,7 @@
   "warning": "Warnung",
   "private_key_copied_warning": "Privater Schlüssel in die Zwischenablage kopiert, geheim halten!",
   "actions": "Aktionen",
-  "exchange_modal_max_buy_warning": "Maximal zu kaufen {amount} STH"
+  "exchange_modal_max_buy_warning": "Maximal zu kaufen {amount} STH",
+  "refresh_node_list": "Knotenliste aktualisieren",
+  "no_connection": "Keine Verbindung"
 }

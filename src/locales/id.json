@@ -269,5 +269,7 @@
   "warning": "Peringatan",
   "private_key_copied_warning": "Kunci pribadi disalin ke papan klip, jaga kerahasiaannya!",
   "actions": "Tindakan",
-  "exchange_modal_max_buy_warning": "Maksimum untuk membeli {amount} STH"
+  "exchange_modal_max_buy_warning": "Maksimum untuk membeli {amount} STH",
+  "refresh_node_list": "Segarkan daftar node",
+  "no_connection": "Tidak ada koneksi"
 }

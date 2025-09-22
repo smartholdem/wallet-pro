@@ -269,5 +269,7 @@
   "warning": "Warning",
   "private_key_copied_warning": "Private key copied to clipboard, keep it secret!",
   "actions": "Actions",
-  "exchange_modal_max_buy_warning": "Maximum to buy {amount} STH"
+  "exchange_modal_max_buy_warning": "Maximum to buy {amount} STH",
+  "refresh_node_list": "Refresh node list",
+  "no_connection": "No connection"
 }

@@ -201,7 +201,7 @@ function fullScreen() {
           </div>
           <div v-else class="dropdown-item d-flex align-items-center">
             <i class="fa fa-circle fs-9px fa-fw me-2 text-danger"></i>
-            <span class="flex-grow-1 fw-bold">Нет подключения</span>
+            <span class="flex-grow-1 fw-bold">{{ $t('no_connection') }}</span>
           </div>
           <div class="dropdown-divider"></div>
           <div v-for="node in otherNodes" :key="node.node" class="dropdown-item d-flex align-items-center">
@@ -215,7 +215,7 @@ function fullScreen() {
           <a href="#" class="dropdown-item d-flex align-items-center" @click.prevent="refreshNodes">
             <span v-if="isRefreshing" class="spinner-border spinner-border-sm me-2"></span>
             <i v-else class="fa fa-redo fa-fw me-2"></i>
-            Обновить список узлов
+            {{ $t('refresh_node_list') }}
           </a>
         </div>
       </div>
@@ -312,8 +312,7 @@ function fullScreen() {
         <div v-on:click="walletLock" class="menu-link">
           <div class="menu-icon">
             <span class="">
-              <i class="fas fa-lock text-success-emphasis"></i
-            ></span>
+              <i class="fas fa-lock text-secondary-emphasis"></i></span>
           </div>
         </div>
       </div>
