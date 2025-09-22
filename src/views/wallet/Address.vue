@@ -56,7 +56,7 @@
             <img src="/images/logo-green32.png" alt="sth logo"/>&nbsp;<span
               class="text-success">{{ balanceDecimal.toFixed(8) }}</span>
             STH
-            <span v-if="balanceInUsdt > 0">&nbsp;(${{ balanceInUsdt.toFixed(2) }} USDT)</span>
+            <span v-if="balanceInUsdt > 0" class="small">&nbsp;[${{ balanceInUsdt.toFixed(2) }} USDT]</span>
           </h5>
           <!--
           <button @click="sendMessage" class="btn btn-info">Connect APP</button>
