@@ -508,11 +508,12 @@
                           ' '
                           + networksTransfer[selectedNetwork].minAmount
                         "
+                          inputmode="decimal"
                           v-model="forSend.amount"
-                          type="text"
+                          type="number"
                           class="form-control form-control-sm"
                           :class="
-                          forSend.amount > 0.00000001
+                          forSend.amount > 0.0000001
                             ? 'is-valid'
                             : 'is-invalid'
                         "
