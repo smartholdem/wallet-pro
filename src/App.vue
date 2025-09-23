@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, ref, watch, computed } from "vue";
-import { RouterLink, RouterView } from "vue-router";
-import { useAppOptionStore } from "@/stores/app-option";
-import { ProgressFinisher, useProgress } from "@marcoschulte/vue3-progress";
+import {getCurrentInstance, onMounted, ref, watch, computed} from "vue";
+import {RouterLink, RouterView} from "vue-router";
+import {useAppOptionStore} from "@/stores/app-option";
+import {ProgressFinisher, useProgress} from "@marcoschulte/vue3-progress";
 import AppSidebar from "@/components/app/Sidebar.vue";
 import AppHeader from "@/components/app/Header.vue";
 import AppTopNav from "@/components/app/TopNav.vue";
@@ -11,12 +11,12 @@ import AppThemePanel from "@/components/app/ThemePanel.vue";
 import ChangelogModal from "@/components/app/ChangelogModal.vue";
 import TitleBar from "@/components/TitleBar.vue"; // Импортируем наш компонент
 import router from "./router";
-import { storeToRefs } from "pinia";
-import { useStoreSettings } from "@/stores/app-settings";
-import { useExchangeStore } from "@/stores/exchange";
+import {storeToRefs} from "pinia";
+import {useStoreSettings} from "@/stores/app-settings";
+import {useExchangeStore} from "@/stores/exchange";
 
 const storeSettings = useStoreSettings();
-const { settings } = storeToRefs(storeSettings);
+const {settings} = storeToRefs(storeSettings);
 const appOption = useAppOptionStore();
 const isElectron = ref(false);
 const storeExchange = useExchangeStore();
@@ -26,7 +26,7 @@ const sthUsdtPrice = computed(() => storeExchange.sth_usdt_price);
 watch(sthUsdtPrice, (newPrice) => {
   if (!isElectron.value) { // Только для веб-версии
     if (newPrice > 0) {
-      document.title = `STH/USDT: ${newPrice.toFixed(4)} | SmartHoldem Wallet Pro`;
+      document.title = `STH/USDT ${newPrice.toFixed(6)} | SmartHoldem Wallet Pro`;
     } else {
       document.title = 'SmartHoldem Wallet Pro';
     }
@@ -64,11 +64,11 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 onMounted(() => {
   isElectron.value = navigator.userAgent.toLowerCase().includes("electron");
   appOption.isMobile = window.innerWidth < 768;
-  
+
   storeExchange.fetchSthUsdtPrice();
   setInterval(() => {
     storeExchange.fetchSthUsdtPrice();
-  }, 60000);
+  }, 300 * 1000);
   if (!settings.value.pinCode) {
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
@@ -94,7 +94,7 @@ router.beforeEach(async (to, from) => {
   document.documentElement.scrollTop = 0;
 
   const targetElm = [].slice.call(
-    document.querySelectorAll(".app-sidebar .menu-submenu")
+      document.querySelectorAll(".app-sidebar .menu-submenu")
   );
   targetElm.map(function (elm) {
     elm.style.display = "";
@@ -110,8 +110,8 @@ document.querySelector("body").classList.add("app-init");
 
 <template>
   <div
-    class="app"
-    :class="{
+      class="app"
+      :class="{
       'is-electron': isElectron,
       'app-header-menu-search-toggled': appOption.appHeaderSearchToggled,
       'app-sidebar-toggled':
@@ -128,22 +128,23 @@ document.querySelector("body").classList.add("app-init");
       'app-footer-fixed': appOption.appFooterFixed,
     }"
   >
-    <title-bar v-if="isElectron" /> <!-- Наша новая шапка, только для Electron -->
-    <vue3-progress-bar />
-    <app-header v-if="!appOption.appHeaderHide" />
-    <app-top-nav v-if="appOption.appTopNav" />
+    <title-bar v-if="isElectron"/> <!-- Наша новая шапка, только для Electron -->
+    <vue3-progress-bar/>
+    <app-header v-if="!appOption.appHeaderHide"/>
+    <app-top-nav v-if="appOption.appTopNav"/>
     <app-sidebar v-if="!appOption.appSidebarHide"/>
-    <div class="app-content" v-bind:class="appOption.appContentClass" :style="{ paddingTop: isElectron ? '64px' : '' }"> <!-- Динамический отступ -->
+    <div class="app-content" v-bind:class="appOption.appContentClass" :style="{ paddingTop: isElectron ? '64px' : '' }">
+      <!-- Динамический отступ -->
       <router-view></router-view>
     </div>
-    <app-footer v-if="appOption.appFooter" />
-    <app-theme-panel />
+    <app-footer v-if="appOption.appFooter"/>
+    <app-theme-panel/>
 
     <!-- --- Add Changelog Modal --- -->
     <ChangelogModal
-      :show="showChangelog"
-      :content="changelogContent"
-      @close="handleCloseChangelog"
+        :show="showChangelog"
+        :content="changelogContent"
+        @close="handleCloseChangelog"
     />
     <!-- --- End Changelog Modal --- -->
   </div>
@@ -162,7 +163,7 @@ document.querySelector("body").classList.add("app-init");
 
 ::-webkit-scrollbar-thumb {
   background: var(
-    --bs-theme
+      --bs-theme
   ); /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70); /**var(--bs-theme); **/
   border: 1px solid #434a52;
 }
@@ -177,9 +178,9 @@ document.querySelector("body").classList.add("app-init");
 @font-face {
   font-family: "Chakra Petch";
   src: local("Chakra Petch Regular"), local("ChakraPetch-Regular"),
-    url("/assets/Chakrapetchregular.woff2") format("woff2"),
-    url("/assets/Chakrapetchregular.woff") format("woff"),
-    url("/assets/Chakrapetchregular.ttf") format("truetype");
+  url("/assets/Chakrapetchregular.woff2") format("woff2"),
+  url("/assets/Chakrapetchregular.woff") format("woff"),
+  url("/assets/Chakrapetchregular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
@@ -187,9 +188,9 @@ document.querySelector("body").classList.add("app-init");
 @font-face {
   font-family: "Chakra Petch Light";
   src: local("Chakra Petch Light"), local("ChakraPetch-Light"),
-    url("/assets/Chakrapetchlight.woff2") format("woff2"),
-    url("/assets/Chakrapetchlight.woff") format("woff"),
-    url("/assets/Chakrapetchlight.ttf") format("truetype");
+  url("/assets/Chakrapetchlight.woff2") format("woff2"),
+  url("/assets/Chakrapetchlight.woff") format("woff"),
+  url("/assets/Chakrapetchlight.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
@@ -251,6 +252,7 @@ h1 {
   background-repeat: no-repeat;
   background-size: 18px;
 }
+
 .ico-xbts {
   background-image: url("/images/xbts32.png");
   background-position: 0px 2px;
