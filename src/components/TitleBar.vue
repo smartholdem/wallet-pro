@@ -1,6 +1,6 @@
 <template>
   <div class="title-bar">
-    <div class="title">Wallet Pro <span v-if="sthUsdtPrice > 0" class="price-info"> | STH/USDT: ${{ sthUsdtPrice.toFixed(6) }}</span></div>
+    <div class="title">Wallet Pro <span v-if="sthUsdtPrice > 0" class="price-info"> | STH/USDT ${{ sthUsdtPrice.toFixed(6) }}</span></div>
     <div class="controls">
       <button class="control-btn" @click="minimize" aria-label="Minimize">
         <svg width="12" height="12" viewBox="0 0 12 12"><rect fill="currentColor" width="10" height="1" x="1" y="6"></rect></svg>
