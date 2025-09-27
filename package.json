@@ -42,7 +42,6 @@
     "@vueuse/core": "^10.4.1",
     "apexcharts": "^5.2.0",
     "axios": "1.12.2",
-    "bcrypto": "5.4.0",
     "bip39": "^3.0.4",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
@@ -125,7 +124,6 @@
   "build": {
     "appId": "com.smartholdem.walletpro",
     "productName": "SmartHoldem Wallet Pro",
-    "compression": "maximum",
     "artifactName": "${name}-${os}-${arch}-${version}.${ext}",
     "directories": {
       "output": "release",

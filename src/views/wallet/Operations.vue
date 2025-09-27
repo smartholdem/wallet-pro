@@ -758,7 +758,7 @@ import {useExchangeStore} from "@/stores/exchange.ts";
 
 const appOption = useAppOptionStore();
 import {useStoreWallet} from "@/stores/wallet.ts";
-import {Identities} from "@smartholdem/crypto";
+//import {Identities} from "@smartholdem/crypto";
 
 const storeWallet = useStoreWallet();
 const exchangeStore = useExchangeStore();

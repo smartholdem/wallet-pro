@@ -62,13 +62,6 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 // --- End Changelog Logic ---
 
 onMounted(() => {
-  isElectron.value = navigator.userAgent.toLowerCase().includes("electron");
-  appOption.isMobile = window.innerWidth < 768;
-
-  storeExchange.fetchSthUsdtPrice();
-  setInterval(() => {
-    storeExchange.fetchSthUsdtPrice();
-  }, 300 * 1000);
   if (!settings.value.pinCode) {
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
@@ -80,6 +73,17 @@ onMounted(() => {
     appOption.appHeaderHide = true;
     router.push("/login");
   }
+
+  isElectron.value = navigator.userAgent.toLowerCase().includes("electron");
+  appOption.isMobile = window.innerWidth < 768;
+
+  if (settings.value.pinCode) {
+    storeExchange.fetchSthUsdtPrice();
+    setInterval(() => {
+      storeExchange.fetchSthUsdtPrice();
+    }, 300 * 1000);
+  }
+
 });
 
 const internalInstance = getCurrentInstance();
