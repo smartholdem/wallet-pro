@@ -1,0 +1,15 @@
+<script>
+import { useAppOptionStore } from '@/stores/app-option';
+
+const appOption = useAppOptionStore();
+
+appOption.appTopNav = true;
+appOption.appBoxedLayout = true;
+
+export default {
+  beforeUnmount() {
+    appOption.appTopNav = false;
+    appOption.appBoxedLayout = false;
+  }
+}
+</script>

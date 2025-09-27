@@ -1,0 +1,13 @@
+<script>
+import { useAppOptionStore } from '@/stores/app-option';
+
+const appOption = useAppOptionStore();
+
+appOption.appTopNav = true;
+
+export default {
+  beforeUnmount() {
+    appOption.appTopNav = false;
+  }
+}
+</script>
