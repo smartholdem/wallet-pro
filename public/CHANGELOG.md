@@ -1,3 +1,7 @@
+v1.2.19
+- Installer update
+- Deps update
+
 v1.2.18
 - Refactored and moved the QR code and secret key modals from the Operations component to the Address page.
 - Implemented dynamic price calculation for swaps, including slippage and price impact.
