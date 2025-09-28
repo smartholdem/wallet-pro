@@ -78,6 +78,7 @@ onMounted(() => {
   appOption.isMobile = window.innerWidth < 768;
 
   if (settings.value.pinCode) {
+    storeSettings.updateNodes();
     storeExchange.fetchSthUsdtPrice();
     setInterval(() => {
       storeExchange.fetchSthUsdtPrice();
