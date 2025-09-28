@@ -1,6 +1,7 @@
 v1.2.19
 - Installer update
 - Deps update
+- Update nodes on pin code setting change
 
 v1.2.18
 - Refactored and moved the QR code and secret key modals from the Operations component to the Address page.

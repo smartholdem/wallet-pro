@@ -92,6 +92,7 @@ onBeforeUnmount(() => {
 function submitForm() {
   storeSettings.savePinCode(pinOne.value);
   storeSettings.tmpPin = pinOne.value;
+  storeSettings.updateNodes();
   router.push("/");
 }
 
