@@ -272,5 +272,6 @@
   "actions": "Actions",
   "exchange_modal_max_buy_warning": "Maximum à acheter {amount} STH",
   "refresh_node_list": "Actualiser la liste des nœuds",
-  "no_connection": "Pas de connexion"
+  "no_connection": "Pas de connexion",
+  "update_available": "Nouvelle version disponible {version}"
 }

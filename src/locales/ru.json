@@ -272,5 +272,6 @@
   "actions": "Действия",
   "exchange_modal_max_buy_warning": "Максимум к покупке {amount} STH",
   "refresh_node_list": "Обновить список узлов",
-  "no_connection": "Нет подключения"
+  "no_connection": "Нет подключения",
+  "update_available": "Доступна новая версия {version}"
 }

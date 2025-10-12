@@ -272,5 +272,6 @@
   "actions": "Tindakan",
   "exchange_modal_max_buy_warning": "Maksimum untuk membeli {amount} STH",
   "refresh_node_list": "Segarkan daftar node",
-  "no_connection": "Tidak ada koneksi"
+  "no_connection": "Tidak ada koneksi",
+  "update_available": "Versi baru tersedia {version}"
 }

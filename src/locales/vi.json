@@ -272,5 +272,6 @@
   "actions": "Hành động",
   "exchange_modal_max_buy_warning": "Tối đa để mua {amount} STH",
   "refresh_node_list": "Làm mới danh sách nút",
-  "no_connection": "Không có kết nối"
+  "no_connection": "Không có kết nối",
+  "update_available": "Có phiên bản mới {version}"
 }
