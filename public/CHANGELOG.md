@@ -1,4 +1,6 @@
 v1.2.19
+- Replaced `electron-updater` auto-update with a simpler, non-blocking update notification
+- The app now checks for new versions on GitHub and displays notification in the title bar
 - Installer update
 - Deps update
 - Update nodes on pin code setting change
