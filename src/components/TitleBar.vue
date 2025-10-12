@@ -1,6 +1,9 @@
 <template>
   <div class="title-bar">
     <div class="title">Wallet Pro <span v-if="sthUsdtPrice > 0" class="price-info"> | STH/USDT ${{ sthUsdtPrice.toFixed(6) }}</span></div>
+    <div class="update-info" v-if="updateMessage">
+      <a href="https://github.com/smartholdem/wallet-pro/releases" target="_blank" class="update-link">{{ updateMessage }}</a>
+    </div>
     <div class="controls">
       <button class="control-btn" @click="minimize" aria-label="Minimize">
         <svg width="12" height="12" viewBox="0 0 12 12"><rect fill="currentColor" width="10" height="1" x="1" y="6"></rect></svg>
@@ -16,11 +19,20 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useExchangeStore } from '@/stores/exchange';
 
 const exchangeStore = useExchangeStore();
 const sthUsdtPrice = computed(() => exchangeStore.sth_usdt_price);
+const updateMessage = ref('');
+
+onMounted(() => {
+  if (window.electronAPI) {
+    window.electronAPI.on('update-available', (version) => {
+      updateMessage.value = `Доступна новая версия ${version}`;
+    });
+  }
+});
 
 const minimize = () => {
   window.electronAPI?.minimize();
@@ -61,6 +73,22 @@ const close = () => {
   font-size: 12px;
   color: #74b1be; /* a color that fits the theme */
   margin-left: 10px;
+}
+
+.update-info {
+  -webkit-app-region: no-drag;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.update-link {
+  color: #74b1be;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.update-link:hover {
+  text-decoration: underline;
 }
 
 .controls {

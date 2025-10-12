@@ -1,7 +1,7 @@
-const { autoUpdater } = require("electron-updater");
 const { app, BrowserWindow, shell, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const axios = require("axios");
 
 // Single instance lock
 if (!app.requestSingleInstanceLock()) {
@@ -94,7 +94,21 @@ app.setAppUserModelId("com.smartholdem.walletpro");
 
 app.whenReady().then(() => {
   createWindow();
-  autoUpdater.checkForUpdatesAndNotify();
+
+  // Check for new version on GitHub
+  if (!isDev) { // Only check when packaged
+    const currentVersion = app.getVersion();
+    axios.get('https://api.github.com/repos/smartholdem/wallet-pro/releases/latest')
+      .then(response => {
+        const latestVersion = response.data.tag_name.replace('v', '');
+        if (latestVersion > currentVersion) {
+          mainWindow.webContents.send('update-available', response.data.tag_name);
+        }
+      })
+      .catch(error => {
+        console.error('Failed to check for updates:', error);
+      });
+  }
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
