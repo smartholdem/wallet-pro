@@ -5,6 +5,7 @@ import axios from "axios";
 const isElectron = navigator.userAgent.toLowerCase().includes("electron");
 const EXCHANGE_API_URL = isElectron ? "http://194.67.116.168:3302" : "https://exchange.smartholdem.io";
 //const EXCHANGE_API_URL = "http://localhost:3302"; //dev
+const SMART_NOTE_API_URL = "http://localhost:3302/smart-note"; //test dev
 
 export const useExchangeStore = defineStore("exchange", {
   state: () => ({

@@ -52,11 +52,12 @@
           </span>
         </card-header>
         <card-body>
-          <h5 v-if="currentAddress.balance" class="card-title">
-            <img src="/images/logo-green32.png" alt="sth logo"/>&nbsp;<span
-              class="text-success">{{ balanceDecimal.toFixed(8) }}</span>
+          <h5 v-if="currentAddress.balance" class="card-title" style="font-weight: lighter">
+            <!--<img width="30" src="/images/logo-green32.png" alt="sth logo"/>&nbsp;-->
+            <span class="text-capitalize">{{$t('modal_delegate_reg_balance')}}</span>
+            <span class="p-1 border-1" style="backdrop-filter: brightness(0.9);">{{ balanceDecimal.toFixed(8) }}</span>
             STH
-            <span v-if="balanceInUsdt > 0" class="small">&nbsp;[${{ balanceInUsdt.toFixed(2) }} USDT]</span>
+            <span v-if="balanceInUsdt > 0" class="small small">&nbsp;[${{ balanceInUsdt.toFixed(2) }} USDT]</span>
           </h5>
           <!--
           <button @click="sendMessage" class="btn btn-info">Connect APP</button>
