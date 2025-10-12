@@ -1,6 +1,6 @@
 {
   "name": "smartholdem-wallet-pro",
-  "version": "1.2.18",
+  "version": "1.2.17",
   "description": "SmartHoldem Wallet Pro is a desktop wallet (Electron) for the SmartHoldem network with cross-chain support",
   "author": "SmartHoldem Team",
   "main": "electron/main.js",
@@ -16,9 +16,9 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "electron:dev": "concurrently -k \"vite --host  0.0.0.0 --port 5173\" \"wait-on http://localhost:5173 && npx electron electron/main.js\"",
     "electron:manual": "npx electron electron/main.js",
-    "electron:build": "vite build && electron-builder -w",
-    "electron:build:linux": "vite build && electron-builder -l",
-    "electron:build:mac": "vite build && electron-builder -m"
+    "electron:build": "vite build --base=./ && electron-builder -w",
+    "electron:build:linux": "vite build --base=./ && electron-builder -l",
+    "electron:build:mac": "vite build --base=./ && electron-builder -m"
   },
   "dependencies": {
     "@caohenghu/vue-colorpicker": "^1.2.4",
