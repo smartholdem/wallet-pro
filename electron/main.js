@@ -52,6 +52,26 @@ function createWindow() {
     return { action: "deny" };
   });
 
+  // Wait for the content to finish loading before checking for updates
+  mainWindow.webContents.on('did-finish-load', () => {
+    if (!isDev) { // Only check when packaged
+      const currentVersion = app.getVersion();
+      axios.get('https://api.github.com/repos/smartholdem/wallet-pro/releases/latest')
+        .then(response => {
+          const latestVersionString = response.data.tag_name.replace('v', '');
+          const currentVersionNum = parseInt(currentVersion.replace(/\./g, ''), 10);
+          const latestVersionNum = parseInt(latestVersionString.replace(/\./g, ''), 10);
+
+          if (latestVersionNum > currentVersionNum) {
+            mainWindow.webContents.send('update-available', response.data.tag_name);
+          }
+        })
+        .catch(error => {
+          console.error('Failed to check for updates:', error);
+        });
+    }
+  });
+
   // Load Vite dev server or production build
   if (isDev) {
     const devUrl = process.env.ELECTRON_RENDERER_URL || "http://127.0.0.1:5173";
@@ -94,24 +114,6 @@ app.setAppUserModelId("com.smartholdem.walletpro");
 
 app.whenReady().then(() => {
   createWindow();
-
-  // Check for new version on GitHub
-  if (!isDev) { // Only check when packaged
-    const currentVersion = app.getVersion();
-    axios.get('https://api.github.com/repos/smartholdem/wallet-pro/releases/latest')
-      .then(response => {
-        const latestVersionString = response.data.tag_name.replace('v', '');
-        const currentVersionNum = parseInt(currentVersion.replace(/\./g, ''), 10);
-        const latestVersionNum = parseInt(latestVersionString.replace(/\./g, ''), 10);
-
-        if (latestVersionNum > currentVersionNum) {
-          mainWindow.webContents.send('update-available', response.data.tag_name);
-        }
-      })
-      .catch(error => {
-        console.error('Failed to check for updates:', error);
-      });
-  }
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

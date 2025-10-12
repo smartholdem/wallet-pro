@@ -20,16 +20,25 @@
 
 <script setup>
 import { computed, ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useExchangeStore } from '@/stores/exchange';
 
+const { t } = useI18n();
 const exchangeStore = useExchangeStore();
 const sthUsdtPrice = computed(() => exchangeStore.sth_usdt_price);
-const updateMessage = ref('');
+const newVersion = ref('');
+
+const updateMessage = computed(() => {
+  if (newVersion.value) {
+    return t('update_available', { version: newVersion.value });
+  }
+  return '';
+});
 
 onMounted(() => {
   if (window.electronAPI) {
     window.electronAPI.on('update-available', (version) => {
-      updateMessage.value = `Доступна новая версия ${version}`;
+      newVersion.value = version;
     });
   }
 });
