@@ -100,8 +100,11 @@ app.whenReady().then(() => {
     const currentVersion = app.getVersion();
     axios.get('https://api.github.com/repos/smartholdem/wallet-pro/releases/latest')
       .then(response => {
-        const latestVersion = response.data.tag_name.replace('v', '');
-        if (latestVersion > currentVersion) {
+        const latestVersionString = response.data.tag_name.replace('v', '');
+        const currentVersionNum = parseInt(currentVersion.replace(/\./g, ''), 10);
+        const latestVersionNum = parseInt(latestVersionString.replace(/\./g, ''), 10);
+
+        if (latestVersionNum > currentVersionNum) {
           mainWindow.webContents.send('update-available', response.data.tag_name);
         }
       })
