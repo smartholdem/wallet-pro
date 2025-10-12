@@ -15,12 +15,15 @@ import {storeToRefs} from "pinia";
 import {useStoreSettings} from "@/stores/app-settings";
 import {useExchangeStore} from "@/stores/exchange";
 
+import {useI18n} from "vue-i18n";
+
 const storeSettings = useStoreSettings();
 const {settings} = storeToRefs(storeSettings);
 const appOption = useAppOptionStore();
 const isElectron = ref(false);
 const storeExchange = useExchangeStore();
 const internalInstance = getCurrentInstance();
+const { t } = useI18n();
 
 // Info Modal State
 const infoModal = ref({
@@ -121,7 +124,7 @@ onMounted(() => {
       } else {
         infoModal.value = {
           show: true,
-          message: 'Вы инициировали платёж по ссылке. Для начала войдите в кошелёк, выберите адрес для отправки и повторите операцию.'
+          message: t('sth_link_info')
         };
       }
     });
@@ -197,7 +200,7 @@ document.querySelector("body").classList.add("app-init");
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Обработка ссылки</h5>
+            <h5 class="modal-title">{{ t('sth_link_title') }}</h5>
             <button @click="infoModal.show = false" type="button" class="btn-close"></button>
           </div>
           <div class="modal-body">

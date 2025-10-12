@@ -273,5 +273,7 @@
   "exchange_modal_max_buy_warning": "Maximum to buy {amount} STH",
   "refresh_node_list": "Refresh node list",
   "no_connection": "No connection",
-  "update_available": "New version available {version}"
+  "update_available": "New version available {version}",
+  "sth_link_title": "Link Processing",
+  "sth_link_info": "You have initiated a payment via a link. First, log in to the wallet, select an address to send from, and repeat the operation."
 }

@@ -273,5 +273,7 @@
   "exchange_modal_max_buy_warning": "Максимум к покупке {amount} STH",
   "refresh_node_list": "Обновить список узлов",
   "no_connection": "Нет подключения",
-  "update_available": "Доступна новая версия {version}"
+  "update_available": "Доступна новая версия {version}",
+  "sth_link_title": "Обработка ссылки",
+  "sth_link_info": "Вы инициировали платёж по ссылке. Для начала войдите в кошелёк, выберите адрес для отправки и повторите операцию."
 }

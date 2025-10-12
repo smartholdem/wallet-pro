@@ -273,5 +273,7 @@
   "exchange_modal_max_buy_warning": "Máximo para comprar {amount} STH",
   "refresh_node_list": "Actualizar lista de nodos",
   "no_connection": "Sin conexión",
-  "update_available": "Nueva versión disponible {version}"
+  "update_available": "Nueva versión disponible {version}",
+  "sth_link_title": "Procesamiento de enlaces",
+  "sth_link_info": "Ha iniciado un pago a través de un enlace. Primero, inicie sesión en la billetera, seleccione una dirección desde la que enviar y repita la operación."
 }

@@ -273,5 +273,7 @@
   "exchange_modal_max_buy_warning": "Tối đa để mua {amount} STH",
   "refresh_node_list": "Làm mới danh sách nút",
   "no_connection": "Không có kết nối",
-  "update_available": "Có phiên bản mới {version}"
+  "update_available": "Có phiên bản mới {version}",
+  "sth_link_title": "Xử lý liên kết",
+  "sth_link_info": "Bạn đã bắt đầu thanh toán qua một liên kết. Trước tiên, hãy đăng nhập vào ví, chọn một địa chỉ để gửi và lặp lại thao tác."
 }

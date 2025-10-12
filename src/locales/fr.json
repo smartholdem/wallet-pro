@@ -273,5 +273,7 @@
   "exchange_modal_max_buy_warning": "Maximum à acheter {amount} STH",
   "refresh_node_list": "Actualiser la liste des nœuds",
   "no_connection": "Pas de connexion",
-  "update_available": "Nouvelle version disponible {version}"
+  "update_available": "Nouvelle version disponible {version}",
+  "sth_link_title": "Traitement du lien",
+  "sth_link_info": "Vous avez initié un paiement via un lien. D'abord, connectez-vous au portefeuille, sélectionnez une adresse d'envoi et répétez l'opération."
 }

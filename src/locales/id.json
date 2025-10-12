@@ -273,5 +273,7 @@
   "exchange_modal_max_buy_warning": "Maksimum untuk membeli {amount} STH",
   "refresh_node_list": "Segarkan daftar node",
   "no_connection": "Tidak ada koneksi",
-  "update_available": "Versi baru tersedia {version}"
+  "update_available": "Versi baru tersedia {version}",
+  "sth_link_title": "Pemrosesan Tautan",
+  "sth_link_info": "Anda telah memulai pembayaran melalui tautan. Pertama, masuk ke dompet, pilih alamat untuk mengirim, dan ulangi operasi."
 }
