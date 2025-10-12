@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getCurrentInstance, onMounted, ref, watch, computed} from "vue";
-import {RouterLink, RouterView} from "vue-router";
+import {RouterLink, RouterView, useRouter} from "vue-router";
 import {useAppOptionStore} from "@/stores/app-option";
 import {ProgressFinisher, useProgress} from "@marcoschulte/vue3-progress";
 import AppSidebar from "@/components/app/Sidebar.vue";
@@ -9,7 +9,7 @@ import AppTopNav from "@/components/app/TopNav.vue";
 import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
 import ChangelogModal from "@/components/app/ChangelogModal.vue";
-import TitleBar from "@/components/TitleBar.vue"; // Импортируем наш компонент
+import TitleBar from "@/components/TitleBar.vue";
 import router from "./router";
 import {storeToRefs} from "pinia";
 import {useStoreSettings} from "@/stores/app-settings";
@@ -20,6 +20,13 @@ const {settings} = storeToRefs(storeSettings);
 const appOption = useAppOptionStore();
 const isElectron = ref(false);
 const storeExchange = useExchangeStore();
+const internalInstance = getCurrentInstance();
+
+// Info Modal State
+const infoModal = ref({
+  show: false,
+  message: ''
+});
 
 const sthUsdtPrice = computed(() => storeExchange.sth_usdt_price);
 
@@ -65,13 +72,11 @@ onMounted(() => {
 
   //проверка на логин, пин код введён или нет?
   if (!settings.value.pinCode) {
-    //если нет пин кода это новый юзер отправить на регистрацию
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
     router.push("/register");
   } else if (!settings.value.tmpPin) {
-    //если нет пин кода в памяти, значит не выполнен вход, отправить на логин - ввести пин код
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
@@ -89,9 +94,40 @@ onMounted(() => {
     }, 300 * 1000);
   }
 
+  // Handle sth: protocol links
+  if (isElectron.value) {
+    const router = useRouter();
+    const emitter = internalInstance.appContext.config.globalProperties.emitter;
+
+    window.electronAPI.on('handle-sth-url', (rawUrl) => {
+      const currentPath = router.currentRoute.value.path;
+
+      if (currentPath.startsWith('/address/')) {
+        try {
+          const url = new URL(rawUrl.replace('sth:', 'sth://'));
+          const recipient = url.pathname.replace('//', '');
+          const amount = url.searchParams.get('amount');
+          const label = url.searchParams.get('label');
+          const message = url.searchParams.get('message');
+
+          emitter.emit('fill-send-form', {
+            recipient: recipient,
+            amount: amount,
+            memo: message || label
+          });
+        } catch (e) {
+          console.error("Failed to parse sth: URL", e);
+        }
+      } else {
+        infoModal.value = {
+          show: true,
+          message: 'Вы инициировали платёж по ссылке. Для начала войдите в кошелёк, выберите адрес для отправки и повторите операцию.'
+        };
+      }
+    });
+  }
 });
 
-const internalInstance = getCurrentInstance();
 const progresses = [] as ProgressFinisher[];
 
 router.beforeEach(async (to, from) => {
@@ -116,7 +152,6 @@ router.afterEach(async (to, from) => {
 
 document.querySelector("body").classList.add("app-init");
 </script>
-
 <template>
   <div
       class="app"
@@ -156,6 +191,26 @@ document.querySelector("body").classList.add("app-init");
         @close="handleCloseChangelog"
     />
     <!-- --- End Changelog Modal --- -->
+
+    <!-- Info Modal for STH Link -->
+    <div v-if="infoModal.show" class="modal fade show" style="display: block;" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Обработка ссылки</h5>
+            <button @click="infoModal.show = false" type="button" class="btn-close"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ infoModal.message }}</p>
+          </div>
+          <div class="modal-footer">
+            <button @click="infoModal.show = false" type="button" class="btn btn-secondary">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="infoModal.show" class="modal-backdrop fade show"></div>
+
   </div>
 </template>
 

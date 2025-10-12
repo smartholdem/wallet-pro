@@ -54,6 +54,12 @@ function createWindow() {
 
   // Wait for the content to finish loading before checking for updates
   mainWindow.webContents.on('did-finish-load', () => {
+    // Handle sth: URL from cold start
+    if (sthUrlToOpen) {
+      mainWindow.webContents.send('handle-sth-url', sthUrlToOpen);
+      sthUrlToOpen = null;
+    }
+
     if (!isDev) { // Only check when packaged
       const currentVersion = app.getVersion();
       axios.get('https://api.github.com/repos/smartholdem/wallet-pro/releases/latest')
@@ -112,19 +118,39 @@ ipcMain.on("close-window", () => {
 
 app.setAppUserModelId("com.smartholdem.walletpro");
 
+// Handle custom protocol `sth:`
+let sthUrlToOpen = null;
+if (process.platform === 'win32') {
+  const urlFromArgv = process.argv.find(arg => arg.startsWith('sth:'));
+  if (urlFromArgv) {
+    sthUrlToOpen = urlFromArgv;
+  }
+}
+
+app.on("second-instance", (event, argv) => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+
+    // Handle URL from warm start
+    if (process.platform === 'win32') {
+      const urlFromArgv = argv.find(arg => arg.startsWith('sth:'));
+      if (urlFromArgv) {
+        mainWindow.webContents.send('handle-sth-url', urlFromArgv);
+      }
+    }
+  }
+});
+
 app.whenReady().then(() => {
+  if (process.platform === 'win32') {
+    app.setAsDefaultProtocolClient('sth');
+  }
   createWindow();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-});
-
-app.on("second-instance", () => {
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
-  }
 });
 
 app.on("window-all-closed", () => {

@@ -766,7 +766,7 @@ import ModalVote from "@/components/wallet/ModalVote.vue";
 import ModalDelegateReg from "@/components/wallet/ModalDelegateReg.vue";
 import ModalSignMessage from "@/components/wallet/ModalSignMessage.vue";
 import ExchangeModal from "@/components/wallet/ExchangeModal.vue";
-import {Toast} from "bootstrap";
+import {Toast, Modal} from "bootstrap";
 
 export default {
   name: "OperationsComponent",
@@ -881,7 +881,41 @@ export default {
       deep: true,
     },
   },
+  mounted() {
+    if (this.emitter) {
+      this.emitter.on('fill-send-form', this.handleFillSendForm);
+    }
+  },
+  beforeUnmount() {
+    if (this.emitter) {
+      this.emitter.off('fill-send-form', this.handleFillSendForm);
+    }
+  },
   methods: {
+    handleFillSendForm(data) {
+      if (!data) return;
+      
+      // Reset the form first
+      this.sendTabPrepare();
+
+      if (data.recipient) {
+        this.forSend.recipientId = data.recipient;
+      }
+      if (data.amount) {
+        this.forSend.amount = data.amount;
+      }
+      if (data.memo) {
+        this.forSend.memo = data.memo;
+      }
+      
+      this.validateAddress();
+      
+      const modalEl = document.getElementById('modalTransfer');
+      if (modalEl) {
+        const modal = new Modal(modalEl);
+        modal.show();
+      }
+    },
     // Показать всплывающее уведомление
     showToast(target, msg, style = "success") {
       this.notifyMsg = msg;
