@@ -62,12 +62,16 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 // --- End Changelog Logic ---
 
 onMounted(() => {
+
+  //проверка на логин, пин код введён или нет?
   if (!settings.value.pinCode) {
+    //если нет пин кода это новый юзер отправить на регистрацию
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
     router.push("/register");
   } else if (!settings.value.tmpPin) {
+    //если нет пин кода в памяти, значит не выполнен вход, отправить на логин - ввести пин код
     appOption.appSidebarCollapsed = true;
     appOption.appSidebarHide = true;
     appOption.appHeaderHide = true;
