@@ -956,7 +956,6 @@ export default {
     // Валидация адреса получателя в зависимости от сети
     async validateAddress() {
       if (this.selectedNetwork === "mainnet") {
-        this.forSend.memo = "";
         this.forSend.addressIsValid = await storeWallet.validateAddress(
             this.forSend.recipientId
         );
