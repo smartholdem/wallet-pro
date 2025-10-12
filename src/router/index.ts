@@ -14,7 +14,9 @@ const history = isElectron
 const router = createRouter({
     history,
     routes: [
-        {path: "/", component: () => import("../views/wallet/Wallet.vue")},
+        {
+            path: "/", component: () => import("../views/wallet/Wallet.vue")
+        },
         {
             path: "/address/:address",
             component: () => import("../views/wallet/Address.vue"),
@@ -38,6 +40,10 @@ const router = createRouter({
         {
             path: "/blockchain",
             component: () => import("../views/wallet/Blockchain.vue"),
+        },
+        {
+            path: "/smart-notes",
+            component: () => import("../views/wallet/SmartNotes.vue"),
         },
         {
             path: "/settings",
