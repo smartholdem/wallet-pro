@@ -942,7 +942,7 @@ export default {
       this.waitConfirmTx = true;
       this.txSendStep = 0;
       this.selectedNetwork = "mainnet";
-      // Инииализация данных для отправки
+      // Инициализация данных для отправки
       this.forSend = {
         network: "mainnet",
         addressIsValid: false,
@@ -962,6 +962,7 @@ export default {
       }
       // Валидация для BSC и Ethereum
       if (this.selectedNetwork === "bsc" || this.selectedNetwork === "eth") {
+        this.forSend.memo = "";
         this.forSend.addressIsValid =
             await storeWallet.validateAddressCrossChain(this.forSend.recipientId);
         if (this.forSend.addressIsValid) {
@@ -971,6 +972,7 @@ export default {
       }
       // Валидация для TON
       if (this.selectedNetwork === "ton") {
+        this.forSend.memo = "";
         this.forSend.addressIsValid =
             this.forSend.recipientId[0] === "U" ||
             this.forSend.recipientId[0] === "E";
