@@ -7,6 +7,16 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-7">
+            <button type="button" @click="$router.push('/address/' + $route.params.address)" class="btn btn-outline-warning btn-lg">
+              <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
+            </button>&nbsp;
+            <button type="button" class="btn btn-warning btn-lg">
+              <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Подключить адрес к SmartNote
+            </button>
+            <div v-if="$route.params.address" class="btn-group mb-3 w-100">
+
+            </div>
+
             <img class="w-100" src="/images/smartnote.png" alt="smartnotes sth">
           </div>
           <div class="col-lg-5">
