@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <card>
       <div class="card-header">
-        <h4 class="mb-0">Smart Notes</h4>
+        <h4 class="mb-0 font-lighter">Smart Notes {{$route.params.address}}</h4>
       </div>
       <div class="card-body">
         <div class="row">
@@ -50,9 +50,17 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script>
+export default {
+  computed: {
+    currentAddress() {
+      return storeWallet.attributes[this.$route.params.address];
+    },
+  }
+}
 
-import CardImgOverlay from "@/components/bootstrap/CardImgOverlay.vue";
+
+
 </script>
 
 

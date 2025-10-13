@@ -50,8 +50,6 @@
           </button>
 
 
-
-
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3 w-100">
@@ -97,6 +95,13 @@
               class="btn btn-outline-theme text-uppercase"
           >
             <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
+          </button>
+          <button
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+              @click="$router.push('/gm/'+$route.params.address)"
+          >
+            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>GM
           </button>
         </div>
       </card-body>
@@ -892,6 +897,9 @@ export default {
     }
   },
   methods: {
+    openRoute(routeName) {
+      this.$router.push(routeName);
+    },
     handleFillSendForm(data) {
       if (!data) return;
       

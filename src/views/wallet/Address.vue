@@ -52,7 +52,7 @@
           </span>
         </card-header>
         <card-body>
-          <h5 v-if="currentAddress.balance" class="card-title" style="font-weight: lighter">
+          <h5 v-if="currentAddress.balance" class="card-title font-lighter">
             <!--<img width="30" src="/images/logo-green32.png" alt="sth logo"/>&nbsp;-->
             <span class="text-capitalize">{{$t('modal_delegate_reg_balance')}}</span>
             <span class="p-1 border-1" style="backdrop-filter: brightness(0.9);">{{ balanceDecimal.toFixed(8) }}</span>

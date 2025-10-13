@@ -42,8 +42,8 @@ const router = createRouter({
             component: () => import("../views/wallet/Blockchain.vue"),
         },
         {
-            path: "/smart-notes",
-            component: () => import("../views/wallet/SmartNotes.vue"),
+            path: "/gm/:address",
+            component: () => import("../views/wallet/GM.vue"),
         },
         {
             path: "/settings",
