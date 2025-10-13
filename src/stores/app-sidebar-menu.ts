@@ -33,11 +33,6 @@ export const useAppSidebarMenuStore = defineStore({
                 icon: "fas fa-search-plus",
                 text: "vanity_address",
             },
-            {
-                url: "/smart-notes",
-                icon: "fas fa-search-plus",
-                text: "smart_note",
-            },
             /*
             {
                 "url": "/settings",
