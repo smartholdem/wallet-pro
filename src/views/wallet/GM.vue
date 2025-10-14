@@ -2,21 +2,22 @@
   <div class="container-fluid">
     <card>
       <div class="card-header">
-        <h4 class="mb-0 font-lighter">Smart Notes {{$route.params.address}}</h4>
+        <h4 class="mb-0 font-lighter">Smart Notes {{address}}</h4>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-lg-7">
-            <button type="button" @click="$router.push('/address/' + $route.params.address)" class="btn btn-outline-warning btn-lg">
+            <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg">
               <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
             </button>&nbsp;
             <button type="button" class="btn btn-warning btn-lg">
               <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Подключить адрес к SmartNote
             </button>
-            <div v-if="$route.params.address" class="btn-group mb-3 w-100">
+            <div v-if="address" class="btn-group mb-3 w-100">
 
             </div>
 
+            {{currentAddress.publicKey}}
             <img class="w-100" src="/images/smartnote.png" alt="smartnotes sth">
           </div>
           <div class="col-lg-5">
@@ -24,6 +25,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
+                    {{gmAccount}}
                     <h5>GM Smartnote - Анонимный актив на блокчейне SmartHoldem.</h5>
                     <p>
                       GM SmartNote - это умные крипто деньги для всего цифрового мира. GM - это быстро, приватно и безопасно. Вы можете спокойно тратить GM SmartNote, зная, что другие не могут видеть ваши балансы или отслеживать вашу деятельность.
@@ -61,16 +63,61 @@
 </template>
 
 <script>
+import {useStoreWallet} from "@/stores/wallet";
+import {useGMStore} from "@/stores/gm";
+
+const storeWallet = useStoreWallet();
+const gmStore = useGMStore();
+
 export default {
+  data() {
+    return {
+      address: this.$route.params.address || '',
+      gmAccount: {},
+    }
+  },
   computed: {
     currentAddress() {
-      return storeWallet.attributes[this.$route.params.address];
+      const address = this.$route.params.address;
+      if (!address) return {};
+      return storeWallet.attributes[address] || {};
     },
+  },
+  async mounted() {
+    const address = this.$route.params.address;
+    if (!address) {
+      console.error("No address provided in route.");
+      return;
+    }
+
+    // Убедимся, что у нас есть атрибуты кошелька, особенно публичный ключ.
+    if (!storeWallet.attributes[address] || !storeWallet.attributes[address].publicKey) {
+      await storeWallet.getAttributes(address);
+    }
+
+    const publicKey = storeWallet.attributes[address]?.publicKey;
+
+    if (!publicKey) {
+      console.error("Не удалось получить публичный ключ для адреса:", address);
+      // TODO: Обработать эту ошибку в UI
+      return;
+    }
+
+    const message = 'account-link';
+    const payload = {
+      address: address,
+      message: message,
+    };
+
+    try {
+      const { signature } = await storeWallet.signMessageSchnorr(payload);
+      this.gmAccount = await gmStore.accountLink(address, message, signature, publicKey);
+    } catch (error) {
+      console.error("Ошибка при привязке аккаунта:", error);
+      // TODO: Обработать эту ошибку в UI
+    }
   }
 }
-
-
-
 </script>
 
 
