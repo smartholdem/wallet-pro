@@ -4,20 +4,35 @@ import { useStoreWallet } from "@/stores/wallet";
 
 const GM_API_URL = "http://localhost:3302/gm"; //test dev
 
-type gmAccountRecord = {
+type GmDep = {
+    address: string;
+    idx: number;
+    add: number;
+    tx: string;
+}
+
+type GmSig = {
+    pubKey: string;
+    signature: string;
+}
+
+type GmPayout = {
+    tx: string;
+    amount: number;
+}
+
+type GmAccount = {
     uid: string;
-    name: string;
-    inviter: string,
-    balance: 0,
-    pubKey: string,
-    updatedAt: string,
-    createdAt: string,
-    counter: 0,
+    inviter: string;
+    balance: number;
+    dep?: GmDep;
+    sig?: GmSig;
+    payout?: GmPayout;
 };
 
 export const useGMStore = defineStore("gm", {
     state: () => ({
-        accounts: {} as Record<string, gmAccountRecord>,
+        accounts: {} as Record<string, GmAccount>,
         transactions: {} as Record<string, any>,
     }),
     getters: {
@@ -59,8 +74,14 @@ export const useGMStore = defineStore("gm", {
                     signature: signature,
                     publicKey: publicKey,
                 });
-                this.accounts[accountId] = response.data;
-                console.log("Account link successfully", this.accounts);
+
+                if (response.data && response.data.success) {
+                    this.accounts[accountId] = response.data.account;
+                    console.log("Account link successfully", this.accounts[accountId]);
+                } else {
+                    console.error("Account link failed:", response.data);
+                }
+
             } catch (error) {
                 console.error("Error fetching account:", error);
             }}

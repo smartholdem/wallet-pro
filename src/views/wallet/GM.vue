@@ -13,11 +13,33 @@
             <button type="button" class="btn btn-warning btn-lg">
               <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Подключить адрес к SmartNote
             </button>
-            <div v-if="address" class="btn-group mb-3 w-100">
+      <div v-if="$route.params.address" class="btn-group mb-3 w-100">
 
+      </div>
+
+
+
+      <img class="w-100 mt-4" src="/images/smartnote.png" alt="smartnotes sth">
+          </div>
+          <div class="col-lg-5">
+            <div v-if="gmAccount" class="mt-4 card">
+              <div class="card-header">
+                <h5 class="mb-0">Данные аккаунта GM</h5>
+              </div>
+              <div class="card-body">
+                <p><strong>UID:</strong> {{ gmAccount.uid }}</p>
+                <p><strong>Inviter:</strong> {{ gmAccount.inviter }}</p>
+                <p><strong>Balance:</strong> {{ gmAccount.balance }}</p>
+                <pre class="bg-dark text-white p-3 rounded"><code>{{ JSON.stringify(gmAccount, null, 2) }}</code></pre>
+              </div>
             </div>
 
-            <img class="w-100" src="/images/smartnote.png" alt="smartnotes sth">
+            <div v-if="!gmAccount && $route.params.address" class="mt-4">
+              <p class="text-center">
+                <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+                Привязка аккаунта к GM...
+              </p>
+            </div>
           </div>
           <div class="col-lg-5">
             <card>
@@ -79,6 +101,11 @@ export default {
       if (!address) return {};
       return storeWallet.attributes[address] || {};
     },
+    gmAccount() {
+      const address = this.$route.params.address;
+      if (!address) return null;
+      return gmStore.accounts[address] || null;
+    }
   },
   async mounted() {
     const address = this.$route.params.address;
