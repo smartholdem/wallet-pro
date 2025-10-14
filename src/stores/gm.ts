@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useStoreWallet } from "@/stores/wallet";
 
 const GM_API_URL = "http://localhost:3302/gm"; //test dev
 
@@ -24,8 +25,15 @@ export const useGMStore = defineStore("gm", {
 
     },
     actions: {
-        async accountLink(accountId: string, message: string, signature: string, publicKey: string) {
+        async accountLink(accountId: string, message: string, publicKey: string) {
+            const storeWallet = useStoreWallet();
             try {
+                const payload = {
+                    address: accountId,
+                    message: message,
+                };
+                const { signature } = await storeWallet.signMessageSchnorr(payload);
+
                 const response = await axios.post(`${GM_API_URL}/account-link`, {
                     address: accountId,
                     message: message,
@@ -33,6 +41,7 @@ export const useGMStore = defineStore("gm", {
                     publicKey: publicKey,
                 });
                 this.accounts[accountId] = response.data;
+                console.log("Account link successfully", this.accounts);
             } catch (error) {
                 console.error("Error fetching account:", error);
             }}

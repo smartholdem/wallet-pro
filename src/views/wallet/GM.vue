@@ -104,14 +104,9 @@ export default {
     }
 
     const message = 'account-link';
-    const payload = {
-      address: address,
-      message: message,
-    };
 
     try {
-      const { signature } = await storeWallet.signMessageSchnorr(payload);
-      this.gmAccount = await gmStore.accountLink(address, message, signature, publicKey);
+      await gmStore.accountLink(address, message, publicKey);
     } catch (error) {
       console.error("Ошибка при привязке аккаунта:", error);
       // TODO: Обработать эту ошибку в UI
