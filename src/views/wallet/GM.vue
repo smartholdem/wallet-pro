@@ -17,7 +17,6 @@
 
             </div>
 
-            {{currentAddress.publicKey}}
             <img class="w-100" src="/images/smartnote.png" alt="smartnotes sth">
           </div>
           <div class="col-lg-5">
@@ -25,7 +24,6 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12">
-                    {{gmAccount}}
                     <h5>GM Smartnote - Анонимный актив на блокчейне SmartHoldem.</h5>
                     <p>
                       GM SmartNote - это умные крипто деньги для всего цифрового мира. GM - это быстро, приватно и безопасно. Вы можете спокойно тратить GM SmartNote, зная, что другие не могут видеть ваши балансы или отслеживать вашу деятельность.
@@ -73,7 +71,6 @@ export default {
   data() {
     return {
       address: this.$route.params.address || '',
-      gmAccount: {},
     }
   },
   computed: {
@@ -90,23 +87,8 @@ export default {
       return;
     }
 
-    // Убедимся, что у нас есть атрибуты кошелька, особенно публичный ключ.
-    if (!storeWallet.attributes[address] || !storeWallet.attributes[address].publicKey) {
-      await storeWallet.getAttributes(address);
-    }
-
-    const publicKey = storeWallet.attributes[address]?.publicKey;
-
-    if (!publicKey) {
-      console.error("Не удалось получить публичный ключ для адреса:", address);
-      // TODO: Обработать эту ошибку в UI
-      return;
-    }
-
-    const message = 'account-link';
-
     try {
-      await gmStore.accountLink(address, message, publicKey);
+      await gmStore.checkLinkAccount(address);
     } catch (error) {
       console.error("Ошибка при привязке аккаунта:", error);
       // TODO: Обработать эту ошибку в UI

@@ -25,6 +25,25 @@ export const useGMStore = defineStore("gm", {
 
     },
     actions: {
+        async checkLinkAccount(accountId: string) {
+            const storeWallet = useStoreWallet();
+            // Убедимся, что у нас есть атрибуты кошелька, особенно публичный ключ.
+            if (!storeWallet.attributes[accountId] || !storeWallet.attributes[accountId].publicKey) {
+                await storeWallet.getAttributes(accountId);
+            }
+
+            const publicKey = storeWallet.attributes[accountId]?.publicKey;
+
+            if (!publicKey) {
+                console.error("Не удалось получить публичный ключ для адреса:", accountId);
+                // TODO: Обработать эту ошибку в UI
+                return;
+            }
+
+            const message = 'account-link-' + accountId;
+            await this.accountLink(accountId, message, publicKey);
+        },
+
         async accountLink(accountId: string, message: string, publicKey: string) {
             const storeWallet = useStoreWallet();
             try {
