@@ -25,7 +25,7 @@
 -->
 
       <div v-if="$route.params.address" class="btn-group mb-3 w-100">
-        <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg">
+        <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg active">
           <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
         </button>
         <button type="button" class="btn btn-outline-warning btn-lg">
