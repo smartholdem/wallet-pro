@@ -22,7 +22,7 @@
       <img class="w-100 mt-4" src="/images/smartnote.png" alt="smartnotes sth">
           </div>
           <div class="col-lg-5">
-            <div v-if="gmAccount" class="mt-4 card">
+            <card v-if="gmAccount" class="">
               <div class="card-header">
                 <h5 class="mb-0">Данные аккаунта GM</h5>
               </div>
@@ -32,7 +32,7 @@
                 <p><strong>Balance:</strong> {{ gmAccount.balance }}</p>
                 <pre class="bg-dark text-white p-3 rounded"><code>{{ JSON.stringify(gmAccount, null, 2) }}</code></pre>
               </div>
-            </div>
+            </card>
 
             <div v-if="!gmAccount && $route.params.address" class="mt-4">
               <p class="text-center">
@@ -85,11 +85,13 @@
 <script>
 import {useStoreWallet} from "@/stores/wallet";
 import {useGMStore} from "@/stores/gm";
+import Card from "@/components/bootstrap/Card.vue";
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
 
 export default {
+  components: {Card},
   data() {
     return {
       address: this.$route.params.address || '',

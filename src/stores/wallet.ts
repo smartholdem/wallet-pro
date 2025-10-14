@@ -529,6 +529,10 @@ export const useStoreWallet = defineStore("walletStorage", {
             const address = Identities.Address.fromPassphrase(secret, 63);
             return {isBip39, address};
         },
+
+        async pubKeyToAddress(publicKey: string) {
+            return Identities.Address.fromPublicKey(publicKey, 63);
+        }
     },
     persist: true,
 });
