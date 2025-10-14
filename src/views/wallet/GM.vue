@@ -34,7 +34,7 @@
         <button type="button" class="btn btn-outline-warning btn-lg">
           <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Активировать
         </button>
-        <button type="button" class="btn btn-outline-warning btn-lg">
+        <button @click="getMyCodes" type="button" class="btn btn-outline-warning btn-lg">
           <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
         </button>
 
@@ -90,6 +90,7 @@ export default {
   data() {
     return {
       address: this.$route.params.address || '',
+      currentTab: 0,
     }
   },
   computed: {
@@ -116,6 +117,13 @@ export default {
     } catch (error) {
       console.error("Ошибка при привязке аккаунта:", error);
       // TODO: Обработать эту ошибку в UI
+    }
+  },
+  methods: {
+    async getMyCodes() {
+      this.currentTab = 3; // Switch to the "My Codes" tab
+      // Implement fetching and displaying user's codes here
+
     }
   }
 }
