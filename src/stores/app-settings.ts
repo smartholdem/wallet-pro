@@ -67,7 +67,7 @@ export const useStoreSettings = defineStore("appSettings", {
                 const bestNode = successfulResponses[0];
                 this.activeNode = bestNode.node;
                 this.activeNodeStatus = bestNode.status;
-                console.log(`Выбрана лучшая нода: ${bestNode.node} с задержкой ${bestNode.latency}ms`);
+                //console.log(`Выбрана лучшая нода: ${bestNode.node} с задержкой ${bestNode.latency}ms`);
                 return bestNode;
             } else {
                 console.log("Не найдено синхронизированных нод. Используется нода по-умолчанию.");
