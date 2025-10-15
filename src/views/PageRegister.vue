@@ -4,6 +4,8 @@ import { useRouter, RouterLink } from "vue-router";
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useStoreSettings } from "@/stores/app-settings.ts";
+import { useStoreWallet } from "@/stores/wallet";
+import CryptoJS from "crypto-js";
 
 import Terms_EN from "@/components/terms/Terms_EN.vue";
 import Terms_RU from "@/components/terms/Terms_RU.vue";
@@ -24,6 +26,7 @@ import Privacy_ID from "@/components/terms/Privacy_ID.vue";
 const appOption = useAppOptionStore();
 const router = useRouter();
 const storeSettings = useStoreSettings();
+const walletStore = useStoreWallet();
 const { locale } = useI18n();
 
 const pinOne = ref("");
@@ -89,9 +92,33 @@ onBeforeUnmount(() => {
   appOption.appContentClass = "";
 });
 
-function submitForm() {
+async function submitForm() {
   storeSettings.savePinCode(pinOne.value);
   storeSettings.tmpPin = pinOne.value;
+
+  // 1. Создаем новый адрес
+  const newAccount = await walletStore.addressNew();
+
+  // 2. Шифруем сид-фразу
+  const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
+  const encryptedSecret = CryptoJS.AES.encrypt(
+    newAccount.secret,
+    storeSettings.tmpPin + hash
+  ).toString();
+
+  // 3. Готовим объект для сохранения
+  const accountToSave = {
+    [newAccount.address]: {
+      address: newAccount.address,
+      secret: encryptedSecret,
+      encrypt: 'aes',
+      //label: 'My first address'
+    }
+  };
+
+  // 4. Сохраняем аккаунт
+  await walletStore.addressSave(accountToSave);
+
   storeSettings.updateNodes();
   router.push("/");
 }
