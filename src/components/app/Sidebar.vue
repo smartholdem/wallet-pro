@@ -87,14 +87,14 @@ onMounted(() => {
         <div
           id="carouselExample"
           class="carousel slide mt-3 mb-3"
-          data-ride="carousel"
+          data-bs-ride="carousel"
         >
-          <!--
+
           <ol class="carousel-indicators">
             <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
           </ol>
-          -->
+
           <div class="carousel-inner border border-secondary-subtle rounded">
             <div class="carousel-item active">
               <a
@@ -105,7 +105,7 @@ onMounted(() => {
                   src="@/assets/smartholder.png"
                   alt=""
                   class="d-block w-100"
-                  style="opacity: 0.9"
+                  style="opacity: 1"
               /></a>
               <!--
               <div class="carousel-caption d-none d-md-block">
@@ -165,3 +165,24 @@ onMounted(() => {
     v-on:click="appSidebarMobileToggled"
   ></button>
 </template>
+
+<style>
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ff00'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ff00'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+/* Убираем прозрачность, чтобы цвет был ярким */
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 0.9;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+</style>
