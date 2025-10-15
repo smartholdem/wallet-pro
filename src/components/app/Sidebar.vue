@@ -79,7 +79,11 @@ onMounted(() => {
         </template>
       </div>
 
+
       <div class="p-3 px-4 mt-auto">
+        <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
+          <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
+        </a>
         <div
           id="carouselExample"
           class="carousel slide mt-3 mb-3"
