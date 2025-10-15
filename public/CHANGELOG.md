@@ -9,6 +9,7 @@ v1.2.19
 - Fixed minor bugs
 - Added a translations
 - Added fast installation for Windows
+- Added Cold address methods
 
 v1.2.18
 - Refactored and moved the QR code and secret key modals from the Operations component to the Address page.
