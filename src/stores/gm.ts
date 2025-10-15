@@ -41,7 +41,8 @@ export const useGMStore = defineStore("gm", {
 
     },
     actions: {
-        async getMyCodes(accountId: string) {
+        async getMyCodes(accountId: any) {
+            console.log('accountId',accountId);
             const storeWallet = useStoreWallet();
             try {
                 // 1. Get Public Key (same as checkLinkAccount)
@@ -72,8 +73,8 @@ export const useGMStore = defineStore("gm", {
 
                 // 4. Handle the response
                 if (response.data && response.data.success) {
-                    this.myCodes = response.data.codes; // Assuming the server returns { success: true, codes: [...] }
-                    console.log("My codes fetched successfully", this.myCodes);
+                    this.myCodes[accountId] = response.data.codes; // Assuming the server returns { success: true, codes: [...] }
+                    console.log("My codes fetched successfully", this.myCodes[accountId]);
                 } else {
                     console.error("Failed to fetch my codes:", response.data);
                 }

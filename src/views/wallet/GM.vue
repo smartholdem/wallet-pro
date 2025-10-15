@@ -1,56 +1,100 @@
 <template>
   <div class="row">
 
-    <div  class="col-lg-7">
-    <card class="h-100">
-      <div class="card-header">
-        <h4 class="mb-0 font-lighter"><span data-bs-toggle="modal" data-bs-target="#gmInfoModal"><i class="text-white-50 fas fa-lg fa-fw me-2 fa-info-circle"></i></span> Smart Notes {{address}}</h4>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-12">
-<!--
-            <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg">
-              <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
-            </button>&nbsp;
-            <button type="button" class="btn btn-warning btn-lg">
-              <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Создать
-            </button>&nbsp;
-            <button type="button" class="btn btn-warning btn-lg">
-              <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Активировать
-            </button>&nbsp;
-            <button type="button" class="btn btn-warning btn-lg">
-              <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
-            </button>
--->
+    <div class="col-lg-10">
+      <card class="h-100">
+        <div class="card-header">
+          <h4 class="mb-0 font-lighter"><span data-bs-toggle="modal" data-bs-target="#gmInfoModal"><i
+              class="text-white-50 fas fa-lg fa-fw me-2 fa-info-circle"></i></span> Smart Notes {{ address }}</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <!--
+                          <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg">
+                            <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
+                          </button>&nbsp;
+                          <button type="button" class="btn btn-warning btn-lg">
+                            <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Создать
+                          </button>&nbsp;
+                          <button type="button" class="btn btn-warning btn-lg">
+                            <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Активировать
+                          </button>&nbsp;
+                          <button type="button" class="btn btn-warning btn-lg">
+                            <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
+                          </button>
+              -->
 
-      <div v-if="$route.params.address" class="btn-group mb-3 w-100">
-        <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg active">
-          <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
-        </button>
-        <button type="button" class="btn btn-outline-warning btn-lg">
-          <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Создать
-        </button>
-        <button type="button" class="btn btn-outline-warning btn-lg">
-          <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Активировать
-        </button>
-        <button @click="getMyCodes" type="button" class="btn btn-outline-warning btn-lg">
-          <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
-        </button>
+              <div v-if="$route.params.address" class="btn-group mb-3 w-100">
+                <button type="button" @click="$router.push('/address/' + address)"
+                        class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
+                  <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
+                </button>
+                <button @click="createNewCode(address)" type="button" class="btn btn-outline-warning btn-lg"
+                        :class="currentTab===1 ? 'active': ''">
+                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Создать
+                </button>
+                <button @click="currentTab=2" type="button" class="btn btn-outline-warning btn-lg"
+                        :class="currentTab===2 ? 'active': ''">
+                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Активировать
+                </button>
+                <button @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
+                        :class="currentTab===3 ? 'active': ''">
+                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
+                </button>
 
-      </div>
+              </div>
 
 
+              <div v-show="currentTab===0">
+                <img class="w-100 mt-4" src="/images/smartnote.png" alt="smartnotes sth">
+              </div>
 
-      <img class="w-100 mt-4" src="/images/smartnote.png" alt="smartnotes sth">
+              <!-- createNewCode currentTab === 1 form -->
+              <div v-show="currentTab===1">
+
+              </div>
+
+              <!-- myCodes -->
+              <div v-show="currentTab===3">
+                <div v-if="myCodes.length === 0" class="alert alert-info text-center">
+                  У вас пока нет активных SmartNotes
+                </div>
+                <div v-else>
+                  <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                      <th>Smart Code</th>
+                      <th>Amount [STH]</th>
+                      <th class="text-center">Status</th>
+                      <th>Created At</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="code in myCodes" :key="code.pub">
+                      <td>GM-{{ code.priv }}</td>
+                      <td>{{ code.amount }}</td>
+                      <td class="text-center"><i class="fas fa-lg fa-fw me-2 fa-circle"
+                                                 :class="code.status === true ? 'text-success' : 'text-white-50'"></i>
+                      </td>
+                      <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+
+            </div>
           </div>
         </div>
-      </div>
-    </card>
+      </card>
     </div>
 
 
     <!-- GM Account-->
+    <!--
     <div class="col-lg-5">
       <card v-if="gmAccount" class="">
         <div class="card-header">
@@ -71,9 +115,10 @@
         </p>
       </div>
     </div>
+    -->
 
   </div>
-  <GmInfoModal />
+  <GmInfoModal/>
 </template>
 
 <script>
@@ -103,6 +148,11 @@ export default {
       const address = this.$route.params.address;
       if (!address) return null;
       return gmStore.accounts[address] || null;
+    },
+    myCodes() {
+      const address = this.$route.params.address;
+      if (!address) return [];
+      return gmStore.myCodes[address] || [];
     }
   },
   async mounted() {
@@ -120,15 +170,27 @@ export default {
     }
   },
   methods: {
-    async getMyCodes() {
+    async createNewCode(address) {
+      this.currentTab = 1; // Switch to the "Create" tab
+      try {
+        await gmStore.createNewCode(address);
+      } catch (error) {
+        console.error("Ошибка при создании кода:", error);
+      }
+    },
+    async getMyCodes(address) {
       this.currentTab = 3; // Switch to the "My Codes" tab
-      // Implement fetching and displaying user's codes here
+      try {
+        await gmStore.getMyCodes(address);
+      } catch (error) {
+        console.error("Ошибка при получении кодов:", error);
+        // TODO: Обработать эту ошибку в UI
+      }
 
     }
   }
 }
 </script>
-
 
 
 <style scoped>
