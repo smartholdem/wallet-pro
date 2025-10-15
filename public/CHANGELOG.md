@@ -1,4 +1,5 @@
 v1.2.19
+- Fixed click area for the 'Show Private Key' button on the Address page.
 - New users now get their first STH address created automatically upon PIN registration.
 - Added support for `sth:` URI scheme to initiate payments from external links (`sth:<address>?amount=...`)
 - The app now handles payment links, opening the send modal if the user is on an address page

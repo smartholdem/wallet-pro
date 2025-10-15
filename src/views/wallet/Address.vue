@@ -37,14 +37,14 @@
                       data-bs-target="#modalQr">
                 <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1"  aria-hidden="true"></i>
               </button>
-              <button type="button" class="btn btn-outline-theme"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalDecryptAddress"
-              >
-                <i class="fas fa-lg fa-fw fa-key hover-info text-warning" @click="decryptSecret()"
-                  aria-hidden="true"></i>
-              </button>
-            </div>
+                            <button type="button" class="btn btn-outline-theme"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalDecryptAddress"
+                                    @click="decryptSecret()"
+                            >
+                              <i class="fas fa-lg fa-fw fa-key hover-info text-warning"
+                                 aria-hidden="true"></i>
+                            </button>            </div>
           </div>
 
           <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
@@ -136,8 +136,9 @@
               <button type="button" class="btn btn-outline-theme"
                       data-bs-toggle="modal"
                       data-bs-target="#modalDecryptAddress"
+                      @click="decryptSecret()"
               >
-                <i class="fas fa-lg fa-fw fa-key hover-info text-warning" @click="decryptSecret()"
+                <i class="fas fa-lg fa-fw fa-key hover-info text-warning"
                    aria-hidden="true"></i>
               </button>
             </div>
