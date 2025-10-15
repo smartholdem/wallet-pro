@@ -35,16 +35,17 @@
               <button type="button" class="btn btn-outline-theme"
                       data-bs-toggle="modal"
                       data-bs-target="#modalQr">
-                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1"  aria-hidden="true"></i>
+                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1" aria-hidden="true"></i>
               </button>
-                            <button type="button" class="btn btn-outline-theme"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalDecryptAddress"
-                                    @click="decryptSecret()"
-                            >
-                              <i class="fas fa-lg fa-fw fa-key hover-info text-warning"
-                                 aria-hidden="true"></i>
-                            </button>            </div>
+              <button type="button" class="btn btn-outline-theme"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalDecryptAddress"
+                      @click="decryptSecret()"
+              >
+                <i class="fas fa-lg fa-fw fa-key hover-info text-warning"
+                   aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
 
           <span v-if="showPubKey && currentAddress.publicKey" class="text-info">
@@ -54,7 +55,7 @@
         <card-body>
           <h5 v-if="currentAddress.balance" class="card-title font-lighter">
             <!--<img width="30" src="/images/logo-green32.png" alt="sth logo"/>&nbsp;-->
-            <span class="text-capitalize">{{$t('modal_delegate_reg_balance')}}</span>
+            <span class="text-capitalize">{{ $t('modal_delegate_reg_balance') }}</span>
             <span class="p-1 border-1" style="backdrop-filter: brightness(0.9);">{{ balanceDecimal.toFixed(8) }}</span>
             STH
             <span v-if="balanceInUsdt > 0" class="small small">&nbsp;[${{ balanceInUsdt.toFixed(2) }} USDT]</span>
@@ -131,7 +132,7 @@
               <button type="button" class="btn btn-outline-theme"
                       data-bs-toggle="modal"
                       data-bs-target="#modalQr">
-                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1"  aria-hidden="true"></i>
+                <i class="fas fa-lg fa-fw fa-qrcode hover-info text-primary me-1" aria-hidden="true"></i>
               </button>
               <button type="button" class="btn btn-outline-theme"
                       data-bs-toggle="modal"
