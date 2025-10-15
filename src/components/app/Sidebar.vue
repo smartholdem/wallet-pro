@@ -3,6 +3,7 @@ import { useAppSidebarMenuStore } from "@/stores/app-sidebar-menu";
 import { useAppOptionStore } from "@/stores/app-option";
 import { onMounted, onBeforeMount } from "vue";
 import SidebarNav from "@/components/app/SidebarNav.vue";
+import { Carousel } from 'bootstrap';
 
 const appSidebarMenu = useAppSidebarMenuStore();
 const appOption = useAppOptionStore();
@@ -64,6 +65,14 @@ onMounted(() => {
     document.querySelectorAll(submenuLvl2Selector + " > .menu-link")
   );
   handleSidebarMenuToggle(submenusLvl2);
+  
+  // Initialize the carousel to ensure autoplay starts
+  const carouselElement = document.getElementById('carouselExample');
+  if (carouselElement) {
+    const carousel = new Carousel(carouselElement, {
+      interval: 5000,
+    });
+  }
 });
 </script>
 <template>
