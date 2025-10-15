@@ -96,7 +96,7 @@
   "produced_blocks": "Произведено блоков",
   "voting_for": "Адрес голосует за",
   "cold_address": "Холодный адрес",
-  "operations": "ОПЕРАЦИИ",
+  "operations": "ДОСТУПНЫЕ ОПЕРАЦИИ",
   "transactions_title": "Транзакции",
   "mpays": "мультиплатежи",
   "htlc": "HTLC",

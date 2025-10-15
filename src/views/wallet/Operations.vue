@@ -15,6 +15,13 @@
           >
             {{ $t("exchange") }}
           </button>
+          <button
+              type="button"
+              class="btn btn-outline-theme text-uppercase"
+              @click="$router.push('/gm/'+$route.params.address)"
+          >
+            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>SmartNotes
+          </button>
         </div>
 
         <div v-if="currentAddress" class="btn-group mb-3 me-2 w-100">

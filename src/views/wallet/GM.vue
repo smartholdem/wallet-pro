@@ -30,7 +30,7 @@
                         class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
                   <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
                 </button>
-                <button @click="createNewCode(address)" type="button" class="btn btn-outline-warning btn-lg"
+                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="createNewCode(address)" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===1 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Создать
                 </button>
