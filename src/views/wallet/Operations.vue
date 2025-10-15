@@ -17,6 +17,7 @@
           </button>
           <button
               type="button"
+              disabled
               class="btn btn-outline-theme text-uppercase"
               @click="$router.push('/gm/'+$route.params.address)"
           >
@@ -105,10 +106,11 @@
           </button>
           <button
               type="button"
+              disabled
               class="btn btn-outline-theme text-uppercase"
               @click="$router.push('/gm/'+$route.params.address)"
           >
-            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>GM
+            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>SmartNotes
           </button>
         </div>
       </card-body>
