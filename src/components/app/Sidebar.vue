@@ -86,87 +86,91 @@ onMounted(() => {
             <sidebar-nav v-if="menu.text" v-bind:menu="menu"></sidebar-nav>
           </template>
         </template>
+
+
+        <div class="p-3 px-4 mt-auto">
+          <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
+            <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
+          </a>
+          <div class="mt-3">
+            <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
+              <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
+            </a>
+          </div>
+          <div
+              id="carouselExample"
+              class="carousel slide mt-3 mb-3"
+              data-bs-ride="carousel"
+          >
+
+            <ol class="carousel-indicators">
+              <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
+              <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+            </ol>
+
+            <div class="carousel-inner border border-secondary-subtle rounded">
+              <div class="carousel-item active">
+                <a
+                    target="_blank"
+                    class=""
+                    href="https://app.xbts.io/#/smartholder"
+                ><img
+                    src="@/assets/smartholder.png"
+                    alt=""
+                    class="d-block w-100"
+                    style="opacity: 1"
+                /></a>
+                <!--
+                <div class="carousel-caption d-none d-md-block">
+                  <h5 class="text-dark">First slide label</h5>
+                  <p class="text-dark">DeFi</p>
+                </div>
+                --->
+              </div>
+              <div class="carousel-item">
+                <a
+                    target="_blank"
+                    href="https://ex.xbts.io/market/XBTSX.STH_XBTSX.BTC"
+                ><img src="@/assets/xbts.png" alt="" class="d-block w-100"
+                /></a>
+                <!--
+               <div class="carousel-caption d-none d-md-block">
+                 <h5 class="text-dark">First slide label</h5>
+                 <p class="text-dark">Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+                  -->
+              </div>
+            </div>
+            <a
+                class="carousel-control-prev"
+                href="#carouselExample"
+                data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a
+                class="carousel-control-next"
+                href="#carouselExample"
+                data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+          <a
+              href="https://explorer.smartholdem.io"
+              target="_blank"
+              class="btn d-block btn-outline-theme"
+          >
+            <i class="bi bi-hdd-network me-2 ms-n2 opacity-5"></i> Explorer
+          </a>
+
       </div>
 
 
-      <div class="p-3 px-4 mt-auto">
-        <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
-          <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
-        </a>
-        <div class="mt-3">
-          <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
-            <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
-          </a>
-        </div>
 
 
-        <div
-          id="carouselExample"
-          class="carousel slide mt-3 mb-3"
-          data-bs-ride="carousel"
-        >
 
-          <ol class="carousel-indicators">
-            <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
-          </ol>
 
-          <div class="carousel-inner border border-secondary-subtle rounded">
-            <div class="carousel-item active">
-              <a
-                target="_blank"
-                class=""
-                href="https://app.xbts.io/#/smartholder"
-                ><img
-                  src="@/assets/smartholder.png"
-                  alt=""
-                  class="d-block w-100"
-                  style="opacity: 1"
-              /></a>
-              <!--
-              <div class="carousel-caption d-none d-md-block">
-                <h5 class="text-dark">First slide label</h5>
-                <p class="text-dark">DeFi</p>
-              </div>
-              --->
-            </div>
-            <div class="carousel-item">
-              <a
-                target="_blank"
-                href="https://ex.xbts.io/market/XBTSX.STH_XBTSX.BTC"
-                ><img src="@/assets/xbts.png" alt="" class="d-block w-100"
-              /></a>
-              <!--
-             <div class="carousel-caption d-none d-md-block">
-               <h5 class="text-dark">First slide label</h5>
-               <p class="text-dark">Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              </div>
-                -->
-            </div>
-          </div>
-          <a
-            class="carousel-control-prev"
-            href="#carouselExample"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a
-            class="carousel-control-next"
-            href="#carouselExample"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon"></span>
-          </a>
-        </div>
-
-        <a
-          href="https://explorer.smartholdem.io"
-          target="_blank"
-          class="btn d-block btn-outline-theme"
-        >
-          <i class="bi bi-hdd-network me-2 ms-n2 opacity-5"></i> Explorer
-        </a>
 
         <!--
         <a href="https://wiki.smartholdem.io" target="_blank" class="btn d-block btn-outline-theme">

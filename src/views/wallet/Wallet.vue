@@ -28,7 +28,7 @@
           :class="tabActive === 0 ? 'show active' : ''"
           id="addressList"
         >
-          <table class="table table-borderless">
+          <table class="table table-borderless h-100">
             <thead>
               <tr v-for="item in listAddresses" :key="item.address">
                 <td>
