@@ -275,5 +275,6 @@
   "no_connection": "Keine Verbindung",
   "update_available": "Neue Version verfügbar {version}",
   "sth_link_title": "Linkverarbeitung",
-  "sth_link_info": "Sie haben eine Zahlung über einen Link initiiert. Melden Sie sich zunächst im Wallet an, wählen Sie eine Absenderadresse aus und wiederholen Sie den Vorgang."
+  "sth_link_info": "Sie haben eine Zahlung über einen Link initiiert. Melden Sie sich zunächst im Wallet an, wählen Sie eine Absenderadresse aus und wiederholen Sie den Vorgang.",
+  "activate_wallet_info": "Um alle Wallet-Funktionen zu aktivieren, führen Sie bitte mindestens eine Transaktion durch."
 }

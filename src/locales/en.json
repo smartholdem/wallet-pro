@@ -275,5 +275,6 @@
   "no_connection": "No connection",
   "update_available": "New version available {version}",
   "sth_link_title": "Link Processing",
-  "sth_link_info": "You have initiated a payment via a link. First, log in to the wallet, select an address to send from, and repeat the operation."
+  "sign_up": "Sign Up",
+  "activate_wallet_info": "To activate all wallet features, please make at least one transaction."
 }

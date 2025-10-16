@@ -275,5 +275,6 @@
   "no_connection": "Tidak ada koneksi",
   "update_available": "Versi baru tersedia {version}",
   "sth_link_title": "Pemrosesan Tautan",
-  "sth_link_info": "Anda telah memulai pembayaran melalui tautan. Pertama, masuk ke dompet, pilih alamat untuk mengirim, dan ulangi operasi."
+  "sth_link_info": "Anda telah memulai pembayaran melalui tautan. Pertama, masuk ke dompet, pilih alamat untuk mengirim, dan ulangi operasi.",
+  "activate_wallet_info": "Untuk mengaktifkan semua fitur dompet, silakan lakukan setidaknya satu transaksi."
 }

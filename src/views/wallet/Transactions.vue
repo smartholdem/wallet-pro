@@ -459,11 +459,11 @@
 
     <div v-if="!transactions">
     <card>
-      <card-body>
+      <card-body class="text-center">
         {{ $t("no_transactions") }}
 
-          <div class="alert alert-primary mt-2">
-            Для активации всех возможностей кошелька, совершите хотя-бы 1 транзакцию.
+          <div class="alert alert-dark mt-2 text-center">
+            {{ $t("activate_wallet_info") }}
           </div>
 
 
