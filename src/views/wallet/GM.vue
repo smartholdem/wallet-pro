@@ -50,7 +50,49 @@
 
               <!-- createNewCode currentTab === 1 form -->
               <div v-show="currentTab===1">
+                <div class="row justify-content-center">
+                  <div class="col-md-4 col-lg-6">
+                    <div v-show="smartCodeStep === 1" class="h-100">
+                      <card class="bg-dark border-secondary h-100">
+                        <div class="card-body">
+                          Creator address: {{address}}
+                          <br/>Creator balance: {{currentAddress.balance / 10**8}} STH
+                          <div class="mb-3 mt-2">
+                            <!--<label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>-->
+                            <select v-model="newCodeAmount" class="form-select form-select-lg" id="codeAmount">
+                              <option value="10">10 STH</option>
+                              <option value="100">100 STH</option>
+                              <option value="1000">1000 STH</option>
+                              <option value="5000">5000 STH</option>
+                              <option value="10000">10000 STH</option>
+                              <option value="25000">25000 STH</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="codeMemo" class="form-label">{{ $t('gm_form_memo') }}</label>
+                            <input
+                                v-model="newCodeMemo"
+                                type="text"
+                                class="form-control form-control-lg"
+                                id="codeMemo"
+                                :placeholder="$t('optional_message')"
+                            />
+                            <br/><span class="small">Fee 5 STH</span>
+                          </div>
+                          <div class="d-grid">
+                            <button @click="submitNewCode" type="button" class="btn btn-warning btn-lg">
+                              {{ $t('gm_form_create_button') }}
+                            </button>
+                          </div>
+                        </div>
+                      </card>
+                    </div>
 
+                  </div>
+                  <div class="col-md-8 col-lg-6">
+                    <img class="w-100 mt-2" src="/images/smartnote.png" alt="smartnotes sth">
+                  </div>
+                </div>
               </div>
 
               <!-- activateCode currentTab === 2 form -->
@@ -182,10 +224,13 @@ export default {
   data() {
     return {
       address: this.$route.params.address || '',
-      currentTab: 0,
+      currentTab: 1,
       smartCode: '',
       toastStyle: 'success',
       notifyMsg: '',
+      newCodeAmount: 10,
+      newCodeMemo: '',
+      smartCodeStep: 1,
     }
   },
   computed: {
@@ -255,6 +300,11 @@ export default {
         // TODO: Обработать эту ошибку в UI
       }
     },
+    async submitNewCode() {
+      console.log('Creating new code with:', this.newCodeAmount, this.newCodeMemo);
+      // TODO: Implement logic to call store action
+      this.showToast('toast-gm', 'Создание кода в разработке...', 'info');
+    },
     async copyText(text) {
       try {
         await navigator.clipboard.writeText(text);
@@ -267,8 +317,3 @@ export default {
   }
 }
 </script>
-
-
-<style scoped>
-
-</style>

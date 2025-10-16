@@ -287,5 +287,8 @@
   "gm_table_amount": "Betrag [STH]",
   "gm_table_status": "Status",
   "gm_table_created_at": "Erstellt am",
-  "copied_to_clipboard": "In die Zwischenablage kopiert!"
+  "gm_form_amount": "Betrag",
+  "gm_form_memo": "Nachricht an den Empfänger (Memo)",
+  "gm_form_create_button": "Neuen STH-Code erstellen",
+  "optional_message": "optionale Nachricht"
 }

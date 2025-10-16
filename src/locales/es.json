@@ -286,5 +286,9 @@
   "gm_table_smart_code": "Smart Code",
   "gm_table_amount": "Cantidad [STH]",
   "gm_table_status": "Estado",
-  "gm_table_created_at": "Creado en"
+  "gm_table_created_at": "Creado en",
+  "gm_form_amount": "Cantidad",
+  "gm_form_memo": "Mensaje al destinatario (memo)",
+  "gm_form_create_button": "Crear nuevo código STH",
+  "optional_message": "mensaje opcional"
 }

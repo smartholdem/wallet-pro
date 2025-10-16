@@ -287,5 +287,8 @@
   "gm_table_amount": "Jumlah [STH]",
   "gm_table_status": "Status",
   "gm_table_created_at": "Dibuat pada",
-  "copied_to_clipboard": "Disalin ke papan klip!"
+  "gm_form_amount": "Jumlah",
+  "gm_form_memo": "Pesan untuk penerima (memo)",
+  "gm_form_create_button": "Buat kode STH baru",
+  "optional_message": "pesan opsional"
 }

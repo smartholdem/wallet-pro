@@ -287,5 +287,8 @@
   "gm_table_amount": "Montant [STH]",
   "gm_table_status": "Statut",
   "gm_table_created_at": "Créé le",
-  "copied_to_clipboard": "Copié dans le presse-papiers!"
+  "gm_form_amount": "Montant",
+  "gm_form_memo": "Message au destinataire (mémo)",
+  "gm_form_create_button": "Créer un nouveau code STH",
+  "optional_message": "message facultatif"
 }

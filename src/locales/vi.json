@@ -287,5 +287,8 @@
   "gm_table_amount": "Số tiền [STH]",
   "gm_table_status": "Trạng thái",
   "gm_table_created_at": "Được tạo vào",
-  "copied_to_clipboard": "Đã sao chép vào khay nhớ tạm!"
+  "gm_form_amount": "Số tiền",
+  "gm_form_memo": "Tin nhắn cho người nhận (ghi nhớ)",
+  "gm_form_create_button": "Tạo mã STH mới",
+  "optional_message": "tin nhắn tùy chọn"
 }
