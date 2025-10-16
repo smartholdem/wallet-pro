@@ -182,7 +182,7 @@ export default {
     }
 
     try {
-      await gmStore.checkLinkAccount(address);
+      await gmStore.accountLink(address);
     } catch (error) {
       console.error("Ошибка при привязке аккаунта:", error);
       // TODO: Обработать эту ошибку в UI
@@ -195,7 +195,7 @@ export default {
     async createNewCode(address) {
       this.currentTab = 1; // Switch to the "Create" tab
       try {
-        await gmStore.createNewCode(address);
+        //await gmStore.createNewCode(address);
       } catch (error) {
         console.error("Ошибка при создании кода:", error);
       }

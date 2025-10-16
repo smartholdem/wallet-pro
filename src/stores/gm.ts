@@ -42,36 +42,37 @@ export const useGMStore = defineStore("gm", {
 
     },
     actions: {
-        async codeActivate(accountId: any, code: string) {
+        async activateSthCode(accountId: any, code: string) {
 
         },
-        async getMyCodes(accountId: any) {
-            const storeWallet = useStoreWallet();
-            try {
-                // 1. Get Public Key (same as checkLinkAccount)
-                if (!storeWallet.attributes[accountId] || !storeWallet.attributes[accountId].publicKey) {
-                    await storeWallet.getAttributes(accountId);
-                }
-                const publicKey = storeWallet.attributes[accountId]?.publicKey;
-                if (!publicKey) {
-                    console.error("Не удалось получить публичный ключ для адреса:", accountId);
-                    return;
-                }
 
-                // 2. Sign a unique message
+        async _getSigningPayload(accountId: string, message: string) {
+            const storeWallet = useStoreWallet();
+            if (!storeWallet.attributes[accountId] || !storeWallet.attributes[accountId].publicKey) {
+                await storeWallet.getAttributes(accountId);
+            }
+            const publicKey = storeWallet.attributes[accountId]?.publicKey;
+            if (!publicKey) {
+                console.error("Не удалось получить публичный ключ для адреса:", accountId);
+                return null;
+            }
+            const payload = { address: accountId, message: message };
+            const { signature } = await storeWallet.signMessageSchnorr(payload);
+            return { publicKey, signature };
+        },
+
+        async getMyCodes(accountId: any) {
+            try {
                 const message = 'my-codes-' + accountId;
-                const payload = {
-                    address: accountId,
-                    message: message,
-                };
-                const { signature } = await storeWallet.signMessageSchnorr(payload);
+                const signed = await this._getSigningPayload(accountId, message);
+                if (!signed) return;
 
                 // 3. Make the API call
                 const response = await axios.post(`${GM_API_URL}/my-codes`, {
                     address: accountId,
                     message: message,
-                    signature: signature,
-                    publicKey: publicKey,
+                    publicKey: signed.publicKey,
+                    signature: signed.signature,
                 });
 
                 // 4. Handle the response
@@ -86,39 +87,17 @@ export const useGMStore = defineStore("gm", {
             }
         },
 
-        async checkLinkAccount(accountId: string) {
-            const storeWallet = useStoreWallet();
-            // Убедимся, что у нас есть атрибуты кошелька, особенно публичный ключ.
-            if (!storeWallet.attributes[accountId] || !storeWallet.attributes[accountId].publicKey) {
-                await storeWallet.getAttributes(accountId);
-            }
-
-            const publicKey = storeWallet.attributes[accountId]?.publicKey;
-
-            if (!publicKey) {
-                console.error("Не удалось получить публичный ключ для адреса:", accountId);
-                // TODO: Обработать эту ошибку в UI
-                return;
-            }
-
-            const message = 'account-link-' + accountId;
-            await this.accountLink(accountId, message, publicKey);
-        },
-
-        async accountLink(accountId: string, message: string, publicKey: string) {
-            const storeWallet = useStoreWallet();
+        async accountLink(accountId: string) {
             try {
-                const payload = {
-                    address: accountId,
-                    message: message,
-                };
-                const { signature } = await storeWallet.signMessageSchnorr(payload);
+                const message = 'account-link-' + accountId;
+                const signed = await this._getSigningPayload(accountId, message);
+                if (!signed) return;
 
                 const response = await axios.post(`${GM_API_URL}/account-link`, {
                     address: accountId,
                     message: message,
-                    signature: signature,
-                    publicKey: publicKey,
+                    publicKey: signed.publicKey,
+                    signature: signed.signature,
                 });
 
                 if (response.data && response.data.success) {
@@ -130,6 +109,7 @@ export const useGMStore = defineStore("gm", {
 
             } catch (error) {
                 console.error("Error fetching account:", error);
-            }}
+            }
+        }
     }
 })
