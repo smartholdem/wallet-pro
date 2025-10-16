@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Константы для подключения
 const isElectron = navigator.userAgent.toLowerCase().includes("electron");
-const EXCHANGE_API_URL = isElectron ? "http://194.67.116.168:3302" : "https://exchange.smartholdem.io";
+const EXCHANGE_API_URL = "https://exchange.smartholdem.io"; //isElectron ? "http://194.67.116.168:3302" : "https://exchange.smartholdem.io";
 //const EXCHANGE_API_URL = "http://localhost:3302"; //dev
 
 export const useExchangeStore = defineStore("exchange", {

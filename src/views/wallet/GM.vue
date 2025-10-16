@@ -66,7 +66,7 @@
                     placeholder="GM-XXXX-XXXXXXXX or STH-XXXX-XXXX"
                 />
 
-                <button :disabled="!smartCode" type="button" @click="$router.push('/address/' + address)" class="mt-2 btn btn-warning btn-lg">
+                <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-2 btn btn-warning btn-lg">
                   Активировать код <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
                 </button>
 
@@ -189,6 +189,9 @@ export default {
     }
   },
   methods: {
+    async codeActivate() {
+
+    },
     async createNewCode(address) {
       this.currentTab = 1; // Switch to the "Create" tab
       try {
