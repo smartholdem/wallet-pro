@@ -1,4 +1,10 @@
 v1.2.19
+- Added new 'Smart Notes' section for creating, activating, and managing private codes.
+- Added internationalization (i18n) support for the 'Smart Notes' page.
+- Added 'copy to clipboard' functionality for SmartNote codes.
+- Improved carousel UI in the sidebar: fixed arrow colors and enabled autoplay.
+- Fixed a bug causing toast notifications to crash in the Address page.
+- Fixed an issue with incorrect event handling for copy-to-clipboard actions.
 - Fixed click area for the 'Show Private Key' button on the Address page.
 - New users now get their first STH address created automatically upon PIN registration.
 - Added support for `sth:` URI scheme to initiate payments from external links (`sth:<address>?amount=...`)
