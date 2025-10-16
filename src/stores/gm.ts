@@ -42,8 +42,10 @@ export const useGMStore = defineStore("gm", {
 
     },
     actions: {
+        async codeActivate(accountId: any, code: string) {
+
+        },
         async getMyCodes(accountId: any) {
-            console.log('accountId',accountId);
             const storeWallet = useStoreWallet();
             try {
                 // 1. Get Public Key (same as checkLinkAccount)
