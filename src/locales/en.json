@@ -276,5 +276,15 @@
   "update_available": "New version available {version}",
   "sth_link_title": "Link Processing",
   "sign_up": "Sign Up",
-  "activate_wallet_info": "To activate all wallet features, please make at least one transaction."
+  "activate_wallet_info": "To activate all wallet features, please make at least one transaction.",
+  "gm_create": "Create",
+  "gm_activate": "Activate",
+  "gm_my_smartnotes": "My SmartNotes",
+  "gm_enter_activation_code": "Enter activation code",
+  "gm_activate_code": "Activate code",
+  "gm_no_active_notes": "You have no active SmartNotes",
+  "gm_table_smart_code": "Smart Code",
+  "gm_table_amount": "Amount [STH]",
+  "gm_table_status": "Status",
+  "gm_table_created_at": "Created At"
 }

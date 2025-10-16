@@ -276,5 +276,15 @@
   "update_available": "Nouvelle version disponible {version}",
   "sth_link_title": "Traitement du lien",
   "sth_link_info": "Vous avez initié un paiement via un lien. D'abord, connectez-vous au portefeuille, sélectionnez une adresse d'envoi et répétez l'opération.",
-  "activate_wallet_info": "Pour activer toutes les fonctionnalités du portefeuille, veuillez effectuer au moins une transaction."
+  "activate_wallet_info": "Pour activer toutes les fonctionnalités du portefeuille, veuillez effectuer au moins une transaction.",
+  "gm_create": "Créer",
+  "gm_activate": "Activer",
+  "gm_my_smartnotes": "Mes SmartNotes",
+  "gm_enter_activation_code": "Entrez le code d'activation",
+  "gm_activate_code": "Activer le code",
+  "gm_no_active_notes": "Vous n'avez pas de SmartNotes actives",
+  "gm_table_smart_code": "Smart Code",
+  "gm_table_amount": "Montant [STH]",
+  "gm_table_status": "Statut",
+  "gm_table_created_at": "Créé le"
 }

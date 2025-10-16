@@ -276,5 +276,15 @@
   "update_available": "Neue Version verfügbar {version}",
   "sth_link_title": "Linkverarbeitung",
   "sth_link_info": "Sie haben eine Zahlung über einen Link initiiert. Melden Sie sich zunächst im Wallet an, wählen Sie eine Absenderadresse aus und wiederholen Sie den Vorgang.",
-  "activate_wallet_info": "Um alle Wallet-Funktionen zu aktivieren, führen Sie bitte mindestens eine Transaktion durch."
+  "activate_wallet_info": "Um alle Wallet-Funktionen zu aktivieren, führen Sie bitte mindestens eine Transaktion durch.",
+  "gm_create": "Erstellen",
+  "gm_activate": "Aktivieren",
+  "gm_my_smartnotes": "Meine SmartNotes",
+  "gm_enter_activation_code": "Aktivierungscode eingeben",
+  "gm_activate_code": "Code aktivieren",
+  "gm_no_active_notes": "Sie haben keine aktiven SmartNotes",
+  "gm_table_smart_code": "Smart Code",
+  "gm_table_amount": "Betrag [STH]",
+  "gm_table_status": "Status",
+  "gm_table_created_at": "Erstellt am"
 }

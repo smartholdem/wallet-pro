@@ -30,15 +30,15 @@
                 </button>
                 <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="createNewCode(address)" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===1 ? 'active': ''">
-                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Создать
+                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_create') }}
                 </button>
                 <button @click="currentTab=2" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===2 ? 'active': ''">
-                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Активировать
+                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_activate') }}
                 </button>
                 <button @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===3 ? 'active': ''">
-                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
+                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_my_smartnotes') }}
                 </button>
 
               </div>
@@ -55,7 +55,7 @@
 
               <!-- activateCode currentTab === 2 form -->
               <div v-show="currentTab===2">
-                <label class="form-label">Укажите код активации</label>
+                <label class="form-label">{{ $t('gm_enter_activation_code') }}</label>
                 <input
                     v-model="smartCode"
                     @input=""
@@ -64,23 +64,23 @@
                     placeholder="GM-XXXX-XXXXXXXX or STH-XXXX-XXXX"
                 />
                 <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-2 btn btn-warning btn-lg">
-                  Активировать код <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
+                  {{ $t('gm_activate_code') }} <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
                 </button>
               </div>
 
               <!-- myCodes -->
               <div v-show="currentTab===3">
                 <div v-if="myCodes.length === 0" class="alert alert-dark text-center">
-                  У вас нет активных SmartNotes
+                  {{ $t('gm_no_active_notes') }}
                 </div>
                 <div v-else>
                   <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                      <th>Smart Code</th>
-                      <th>Amount [STH]</th>
-                      <th class="text-center">Status</th>
-                      <th>Created At</th>
+                      <th>{{ $t('gm_table_smart_code') }}</th>
+                      <th>{{ $t('gm_table_amount') }}</th>
+                      <th class="text-center">{{ $t('gm_table_status') }}</th>
+                      <th>{{ $t('gm_table_created_at') }}</th>
                     </tr>
                     </thead>
                     <tbody>

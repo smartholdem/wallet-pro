@@ -276,5 +276,15 @@
   "update_available": "Versi baru tersedia {version}",
   "sth_link_title": "Pemrosesan Tautan",
   "sth_link_info": "Anda telah memulai pembayaran melalui tautan. Pertama, masuk ke dompet, pilih alamat untuk mengirim, dan ulangi operasi.",
-  "activate_wallet_info": "Untuk mengaktifkan semua fitur dompet, silakan lakukan setidaknya satu transaksi."
+  "activate_wallet_info": "Untuk mengaktifkan semua fitur dompet, silakan lakukan setidaknya satu transaksi.",
+  "gm_create": "Buat",
+  "gm_activate": "Aktifkan",
+  "gm_my_smartnotes": "SmartNotes Saya",
+  "gm_enter_activation_code": "Masukkan kode aktivasi",
+  "gm_activate_code": "Aktifkan kode",
+  "gm_no_active_notes": "Anda tidak memiliki SmartNotes yang aktif",
+  "gm_table_smart_code": "Smart Code",
+  "gm_table_amount": "Jumlah [STH]",
+  "gm_table_status": "Status",
+  "gm_table_created_at": "Dibuat pada"
 }

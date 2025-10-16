@@ -276,5 +276,15 @@
   "update_available": "Có phiên bản mới {version}",
   "sth_link_title": "Xử lý liên kết",
   "sth_link_info": "Bạn đã bắt đầu thanh toán qua một liên kết. Trước tiên, hãy đăng nhập vào ví, chọn một địa chỉ để gửi và lặp lại thao tác.",
-  "activate_wallet_info": "Để kích hoạt tất cả các tính năng của ví, vui lòng thực hiện ít nhất một giao dịch."
+  "activate_wallet_info": "Để kích hoạt tất cả các tính năng của ví, vui lòng thực hiện ít nhất một giao dịch.",
+  "gm_create": "Tạo",
+  "gm_activate": "Kích hoạt",
+  "gm_my_smartnotes": "SmartNotes của tôi",
+  "gm_enter_activation_code": "Nhập mã kích hoạt",
+  "gm_activate_code": "Kích hoạt mã",
+  "gm_no_active_notes": "Bạn không có SmartNotes nào đang hoạt động",
+  "gm_table_smart_code": "Smart Code",
+  "gm_table_amount": "Số tiền [STH]",
+  "gm_table_status": "Trạng thái",
+  "gm_table_created_at": "Được tạo vào"
 }

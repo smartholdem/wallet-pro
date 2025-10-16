@@ -276,5 +276,15 @@
   "update_available": "Nueva versión disponible {version}",
   "sth_link_title": "Procesamiento de enlaces",
   "sth_link_info": "Ha iniciado un pago a través de un enlace. Primero, inicie sesión en la billetera, seleccione una dirección desde la que enviar y repita la operación.",
-  "activate_wallet_info": "Para activar todas las funciones del monedero, realice al menos una transacción."
+  "activate_wallet_info": "Para activar todas las funciones del monedero, realice al menos una transacción.",
+  "gm_create": "Crear",
+  "gm_activate": "Activar",
+  "gm_my_smartnotes": "Mis SmartNotes",
+  "gm_enter_activation_code": "Introducir código de activación",
+  "gm_activate_code": "Activar código",
+  "gm_no_active_notes": "No tienes SmartNotes activos",
+  "gm_table_smart_code": "Smart Code",
+  "gm_table_amount": "Cantidad [STH]",
+  "gm_table_status": "Estado",
+  "gm_table_created_at": "Creado en"
 }
