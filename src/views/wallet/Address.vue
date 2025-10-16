@@ -23,13 +23,13 @@
               v-if="!showPubKey"
               class="text-theme pointer"
               :class="isMobile ? 'small' : ''"
-              @click="copyText($route.params.address)"
+              @click="copyText($route.params.address, $event)"
           >
             &nbsp;{{ $route.params.address }}
           </span>
           <div class="btn-toolbar" :class="!isMobile ? 'float-end' : 'float-start mt-2'">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-outline-theme" @click="copyText($route.params.address)">
+              <button type="button" class="btn btn-outline-theme" @click="copyText($route.params.address, $event)">
                 <i class="fa fa-clipboard hover-info text-secondary ms-1" aria-hidden="true"></i>
               </button>
               <button type="button" class="btn btn-outline-theme"
@@ -126,7 +126,7 @@
           {{ $route.params.address }}
           <div class="btn-toolbar" :class="!isMobile ? 'float-end' : 'float-start mt-2'">
             <div class="btn-group me-2">
-              <button type="button" class="btn btn-outline-theme" @click="copyText($route.params.address)">
+              <button type="button" class="btn btn-outline-theme" @click="copyText($route.params.address, $event)">
                 <i class="fa fa-clipboard hover-info text-secondary ms-1" aria-hidden="true"></i>
               </button>
               <button type="button" class="btn btn-outline-theme"
@@ -325,7 +325,7 @@ export default {
       const toast = new Toast(document.getElementById(target));
       toast.show();
     },
-    async copyText(text) {
+    async copyText(text, event) {
       await navigator.clipboard.writeText(text);
       this.notifyOp = "operation";
       this.showToast(
