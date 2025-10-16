@@ -457,7 +457,22 @@
       </card>
     </div>
 
-    <div v-if="!transactions">{{ $t("no_transactions") }}</div>
+    <div v-if="!transactions">
+    <card>
+      <card-body>
+        {{ $t("no_transactions") }}
+
+          <div class="alert alert-primary mt-2">
+            Для активации всех возможностей кошелька, совершите хотя-бы 1 транзакцию.
+          </div>
+
+
+      </card-body>
+
+    </card>
+
+
+    </div>
   </div>
 </template>
 
@@ -468,11 +483,13 @@ const appOption = useAppOptionStore();
 
 import { useStoreWallet } from "@/stores/wallet";
 import moment from "moment";
+import CardBody from "@/components/bootstrap/CardBody.vue";
 
 const storeWallet = useStoreWallet();
 
 export default {
   name: "ComponentTransactions",
+  components: {CardBody},
   props: {
     address: String,
     newTx: {},
