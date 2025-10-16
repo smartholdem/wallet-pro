@@ -64,7 +64,7 @@ export const useGMStore = defineStore("gm", {
 
                 if (!signed) {
                     console.error("Could not get signing payload for code activation.");
-                    return; // Exit if signing failed
+                    return null;
                 }
 
                 const response = await axios.post(`${GM_API_URL}/code-activate`, {
@@ -77,12 +77,14 @@ export const useGMStore = defineStore("gm", {
 
                 if (response.data && response.data.success) {
                     console.log("Code activated successfully:", response.data);
-                    // TODO: update account balance
+                    await this.accountLink(accountId);
                 } else {
                     console.error("Failed to activate code:", response.data);
                 }
+                return response.data;
             } catch (error) {
                 console.error("Error activating code:", error);
+                return null;
             }
         },
 

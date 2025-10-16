@@ -135,8 +135,57 @@
     </div>
     -->
 
-  </div>
-  <GmInfoModal/>
+    </div>
+
+    <GmInfoModal />
+
+    <!-- toasts-container -->
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+      <div
+
+          class="toast fade hide mb-3"
+
+          data-autohide="false"
+
+          id="toast-gm"
+
+          role="alert"
+
+          aria-live="assertive"
+
+          aria-atomic="true"
+
+      >
+
+        <div class="toast-header" :class="'text-' + toastStyle">
+
+          <i class="far fa-bell me-2"/>
+
+          <strong class="me-auto">{{ toastStyle }}</strong>
+
+          <button
+
+              type="button"
+
+              class="btn-close"
+
+              data-bs-dismiss="toast"
+
+          ></button>
+
+        </div>
+
+        <div class="toast-body small">
+
+          {{ notifyMsg }}
+
+        </div>
+
+      </div>
+
+    </div>
 </template>
 
 <script>
@@ -144,6 +193,7 @@ import {useStoreWallet} from "@/stores/wallet";
 import {useGMStore} from "@/stores/gm";
 import Card from "@/components/bootstrap/Card.vue";
 import GmInfoModal from "@/components/wallet/GmInfoModal.vue";
+import { Toast } from "bootstrap";
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
@@ -155,6 +205,8 @@ export default {
       address: this.$route.params.address || '',
       currentTab: 0,
       smartCode: '',
+      toastStyle: 'success',
+      notifyMsg: '',
     }
   },
   computed: {
@@ -189,9 +241,23 @@ export default {
     }
   },
   methods: {
+    showToast(target, msg, style = "success") {
+      this.notifyMsg = msg;
+      this.toastStyle = style;
+      const toast = new Toast(document.getElementById(target));
+      toast.show();
+    },
     async codeActivate() {
-      await gmStore.codeActivate(this.address, this.smartCode);
+      const result = await gmStore.codeActivate(this.address, this.smartCode);
       this.smartCode = '';
+
+      if (result && result.success) {
+        const message = `Код успешно активирован на сумму ${result.result.amount} STH`;
+        this.showToast('toast-gm', message, 'success');
+      } else {
+        const message = 'Код не найден или активирован ранее.';
+        this.showToast('toast-gm', message, 'danger');
+      }
     },
     async createNewCode(address) {
       this.currentTab = 1; // Switch to the "Create" tab
