@@ -1,6 +1,5 @@
 <template>
   <div class="row">
-
     <div class="col-lg-10">
       <card class="h-100">
         <div class="card-header">
@@ -24,7 +23,6 @@
                             <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
                           </button>
               -->
-
               <div v-if="$route.params.address" class="btn-group mb-3 w-100">
                 <button type="button" @click="$router.push('/address/' + address)"
                         class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
@@ -65,12 +63,9 @@
                     class="form-control form-control-lg bg-dark text-white"
                     placeholder="GM-XXXX-XXXXXXXX or STH-XXXX-XXXX"
                 />
-
                 <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-2 btn btn-warning btn-lg">
                   Активировать код <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
                 </button>
-
-
               </div>
 
               <!-- myCodes -->
@@ -100,10 +95,7 @@
                     </tbody>
                   </table>
                 </div>
-
               </div>
-
-
             </div>
           </div>
         </div>
@@ -142,39 +134,23 @@
     <!-- toasts-container -->
 
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-
       <div
-
           class="toast fade hide mb-3"
-
           data-autohide="false"
-
           id="toast-gm"
-
           role="alert"
-
           aria-live="assertive"
-
           aria-atomic="true"
-
       >
 
         <div class="toast-header" :class="'text-' + toastStyle">
-
           <i class="far fa-bell me-2"/>
-
           <strong class="me-auto">{{ toastStyle }}</strong>
-
           <button
-
               type="button"
-
               class="btn-close"
-
               data-bs-dismiss="toast"
-
           ></button>
-
         </div>
 
         <div class="toast-body small">
