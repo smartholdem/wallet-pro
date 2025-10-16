@@ -190,7 +190,8 @@ export default {
   },
   methods: {
     async codeActivate() {
-
+      await gmStore.activateSthCode(this.address, this.smartCode);
+      this.smartCode = '';
     },
     async createNewCode(address) {
       this.currentTab = 1; // Switch to the "Create" tab

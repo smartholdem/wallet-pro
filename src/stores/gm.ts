@@ -42,10 +42,6 @@ export const useGMStore = defineStore("gm", {
 
     },
     actions: {
-        async activateSthCode(accountId: any, code: string) {
-
-        },
-
         async _getSigningPayload(accountId: string, message: string) {
             const storeWallet = useStoreWallet();
             if (!storeWallet.attributes[accountId] || !storeWallet.attributes[accountId].publicKey) {
@@ -59,6 +55,10 @@ export const useGMStore = defineStore("gm", {
             const payload = { address: accountId, message: message };
             const { signature } = await storeWallet.signMessageSchnorr(payload);
             return { publicKey, signature };
+        },
+
+        async activateSthCode(accountId: any, code: string) {
+
         },
 
         async getMyCodes(accountId: any) {
