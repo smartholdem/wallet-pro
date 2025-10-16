@@ -286,5 +286,6 @@
   "gm_table_smart_code": "Smart Code",
   "gm_table_amount": "Amount [STH]",
   "gm_table_status": "Status",
-  "gm_table_created_at": "Created At"
+  "gm_table_created_at": "Created At",
+  "copied_to_clipboard": "Copied to clipboard!"
 }

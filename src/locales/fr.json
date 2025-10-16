@@ -286,5 +286,6 @@
   "gm_table_smart_code": "Smart Code",
   "gm_table_amount": "Montant [STH]",
   "gm_table_status": "Statut",
-  "gm_table_created_at": "Créé le"
+  "gm_table_created_at": "Créé le",
+  "copied_to_clipboard": "Copié dans le presse-papiers!"
 }

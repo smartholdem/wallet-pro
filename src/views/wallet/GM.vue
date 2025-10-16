@@ -85,7 +85,10 @@
                     </thead>
                     <tbody>
                     <tr v-for="code in myCodes" :key="code.pub">
-                      <td>GM-{{ code.pub }}-{{ code.priv }}</td>
+                      <td>
+                        <i class="far fa-copy me-2 pointer" @click="copyText('GM-' + code.pub + '-' + code.priv)"></i>
+                        GM-{{ code.pub }}-{{ code.priv }}
+                      </td>
                       <td>{{ code.amount }}</td>
                       <td class="text-center"><i class="fas fa-lg fa-fw me-2 fa-circle"
                                                  :class="code.status === true ? 'text-success' : 'text-white-50'"></i>
@@ -251,8 +254,16 @@ export default {
         console.error("Ошибка при получении кодов:", error);
         // TODO: Обработать эту ошибку в UI
       }
-
-    }
+    },
+    async copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        this.showToast('toast-gm', this.$t('copied_to_clipboard'), 'success');
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+        this.showToast('toast-gm', 'Failed to copy', 'danger');
+      }
+    },
   }
 }
 </script>

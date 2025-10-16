@@ -287,5 +287,6 @@
   "gm_table_smart_code": "Smart Code",
   "gm_table_amount": "Сумма [STH]",
   "gm_table_status": "Статус",
-  "gm_table_created_at": "Создано"
+  "gm_table_created_at": "Создано",
+  "copied_to_clipboard": "Скопировано в буфер обмена!"
 }
