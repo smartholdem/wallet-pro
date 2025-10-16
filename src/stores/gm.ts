@@ -57,8 +57,33 @@ export const useGMStore = defineStore("gm", {
             return { publicKey, signature };
         },
 
-        async activateSthCode(accountId: any, code: string) {
+        async codeActivate(accountId: string, code: string) {
+            try {
+                const message = `code-activate-${accountId}-${code}`;
+                const signed = await this._getSigningPayload(accountId, message);
 
+                if (!signed) {
+                    console.error("Could not get signing payload for code activation.");
+                    return; // Exit if signing failed
+                }
+
+                const response = await axios.post(`${GM_API_URL}/code-activate`, {
+                    address: accountId,
+                    message: message,
+                    publicKey: signed.publicKey,
+                    signature: signed.signature,
+                    code: code,
+                });
+
+                if (response.data && response.data.success) {
+                    console.log("Code activated successfully:", response.data);
+                    // TODO: update account balance
+                } else {
+                    console.error("Failed to activate code:", response.data);
+                }
+            } catch (error) {
+                console.error("Error activating code:", error);
+            }
         },
 
         async getMyCodes(accountId: any) {

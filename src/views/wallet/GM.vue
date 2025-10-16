@@ -190,7 +190,7 @@ export default {
   },
   methods: {
     async codeActivate() {
-      await gmStore.activateSthCode(this.address, this.smartCode);
+      await gmStore.codeActivate(this.address, this.smartCode);
       this.smartCode = '';
     },
     async createNewCode(address) {
