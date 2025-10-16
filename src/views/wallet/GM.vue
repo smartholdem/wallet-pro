@@ -75,8 +75,8 @@
 
               <!-- myCodes -->
               <div v-show="currentTab===3">
-                <div v-if="myCodes.length === 0" class="alert alert-info text-center">
-                  У вас пока нет активных SmartNotes
+                <div v-if="myCodes.length === 0" class="alert alert-dark text-center">
+                  У вас нет активных SmartNotes
                 </div>
                 <div v-else>
                   <table class="table table-striped table-bordered">
