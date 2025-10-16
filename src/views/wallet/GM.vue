@@ -55,6 +55,24 @@
 
               </div>
 
+              <!-- activateCode currentTab === 2 form -->
+              <div v-show="currentTab===2">
+                <label class="form-label">Укажите код активации</label>
+                <input
+                    v-model="smartCode"
+                    @input=""
+                    type="text"
+                    class="form-control form-control-lg bg-dark text-white"
+                    placeholder="GM-XXXX-XXXXXXXX or STH-XXXX-XXXX"
+                />
+
+                <button :disabled="!smartCode" type="button" @click="$router.push('/address/' + address)" class="mt-2 btn btn-warning btn-lg">
+                  Активировать код <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
+                </button>
+
+
+              </div>
+
               <!-- myCodes -->
               <div v-show="currentTab===3">
                 <div v-if="myCodes.length === 0" class="alert alert-info text-center">
@@ -72,7 +90,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="code in myCodes" :key="code.pub">
-                      <td>GM-{{ code.priv }}</td>
+                      <td>GM-{{ code.pub }}-{{ code.priv }}</td>
                       <td>{{ code.amount }}</td>
                       <td class="text-center"><i class="fas fa-lg fa-fw me-2 fa-circle"
                                                  :class="code.status === true ? 'text-success' : 'text-white-50'"></i>
@@ -136,6 +154,7 @@ export default {
     return {
       address: this.$route.params.address || '',
       currentTab: 0,
+      smartCode: '',
     }
   },
   computed: {
