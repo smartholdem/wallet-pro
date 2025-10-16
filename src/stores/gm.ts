@@ -3,6 +3,7 @@ import axios from "axios";
 import { useStoreWallet } from "@/stores/wallet";
 
 const GM_API_URL = "http://localhost:3302/gm"; //test dev
+const GM_API_URL_WS = "ws://localhost:3302"; //test dev
 
 type GmDep = {
     address: string;

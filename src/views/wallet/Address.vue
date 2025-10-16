@@ -73,7 +73,7 @@
                       currentAddress.attributes.delegate.username
                     }}</span>
                 </card-header>
-                <card-body>
+                <div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                       {{ $t("rank") }}
@@ -108,10 +108,10 @@
                         }}</span>
                     </li>
                   </ul>
-                </card-body>
+                </div>
               </card>
 
-              <div v-if="currentAddress.voteFor">
+              <div class="mt-1" v-if="currentAddress.voteFor">
                 {{ $t("voting_for") }}
                 <span class="text-info">{{
                     currentAddress.voteFor.username
