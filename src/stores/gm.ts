@@ -59,6 +59,7 @@ export const useGMStore = defineStore("gm", {
 
         async codeActivate(accountId: string, code: string) {
             try {
+                /*
                 const message = `code-activate-${accountId}-${code}`;
                 const signed = await this._getSigningPayload(accountId, message);
 
@@ -66,12 +67,13 @@ export const useGMStore = defineStore("gm", {
                     console.error("Could not get signing payload for code activation.");
                     return null;
                 }
+                 */
 
                 const response = await axios.post(`${GM_API_URL}/code-activate`, {
                     address: accountId,
-                    message: message,
-                    publicKey: signed.publicKey,
-                    signature: signed.signature,
+                    //message: message,
+                    //publicKey: signed.publicKey,
+                    //signature: signed.signature,
                     code: code,
                 });
 

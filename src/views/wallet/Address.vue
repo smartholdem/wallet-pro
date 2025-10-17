@@ -359,7 +359,7 @@ export default {
       if (latestTx.id !== this.latestTxId && latestTx.recipient === address) {
         const amount = (latestTx.amount / 10 ** 8).toFixed(8);
         const message = this.$t('incoming_tx_notification', {amount: amount});
-        this.showToast(null, 'toast-address', message, 'info');
+        //this.showToast(null, 'toast-address', message, 'info');
 
         // Обновляем ID последней транзакции
         this.latestTxId = latestTx.id;
