@@ -288,7 +288,7 @@
   "gm_table_status": "Статус",
   "gm_table_created_at": "Создано",
    "gm_form_amount": "Сумма",
-  "gm_form_memo": "Сообщение получателю (memo)",
+  "gm_form_memo": "Сообщение получателю (memo) при активации кода",
   "gm_form_create_button": "Создать новый STH-код",
   "optional_message": "необязательное сообщение"
 }
