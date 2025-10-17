@@ -45,9 +45,11 @@ export const useGMStore = defineStore("gm", {
         async _getSigningPayload(accountId: string, message: string) {
             const storeWallet = useStoreWallet();
             if (!storeWallet.attributes[accountId] || !storeWallet.attributes[accountId].publicKey) {
-                await storeWallet.getAttributes(accountId);
+                //await storeWallet.getAttributes(accountId);
             }
-            const publicKey = storeWallet.attributes[accountId]?.publicKey;
+            const pass = await storeWallet.decryptByAddress(accountId);
+            const publicKey = await storeWallet.pubKeyFromPassword(pass); //storeWallet.attributes[accountId]?.publicKey;
+
             if (!publicKey) {
                 console.error("Не удалось получить публичный ключ для адреса:", accountId);
                 return null;
@@ -59,7 +61,7 @@ export const useGMStore = defineStore("gm", {
 
         async codeActivate(accountId: string, code: string) {
             try {
-                /*
+
                 const message = `code-activate-${accountId}-${code}`;
                 const signed = await this._getSigningPayload(accountId, message);
 
@@ -67,13 +69,12 @@ export const useGMStore = defineStore("gm", {
                     console.error("Could not get signing payload for code activation.");
                     return null;
                 }
-                 */
 
                 const response = await axios.post(`${GM_API_URL}/code-activate`, {
                     address: accountId,
-                    //message: message,
-                    //publicKey: signed.publicKey,
-                    //signature: signed.signature,
+                    message: message,
+                    publicKey: signed.publicKey,
+                    signature: signed.signature,
                     code: code,
                 });
 

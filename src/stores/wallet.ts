@@ -532,7 +532,12 @@ export const useStoreWallet = defineStore("walletStorage", {
 
         async pubKeyToAddress(publicKey: string) {
             return Identities.Address.fromPublicKey(publicKey, 63);
+        },
+
+        async pubKeyFromPassword(passphrase: string) {
+            return Identities.PublicKey.fromPassphrase(passphrase);
         }
+
     },
     persist: true,
 });

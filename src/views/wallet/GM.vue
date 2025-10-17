@@ -62,6 +62,7 @@
                             <select v-model="newCodeAmount" class="form-select form-select-lg" id="codeAmount">
                               <option value="10">10 STH</option>
                               <option value="100">100 STH</option>
+                              <option value="500">500 STH</option>
                               <option value="1000">1000 STH</option>
                               <option value="5000">5000 STH</option>
                               <option value="10000">10000 STH</option>
@@ -285,6 +286,8 @@ export default {
     },
     async createNewCode(address) {
       this.currentTab = 1; // Switch to the "Create" tab
+      this.depositAddress = this.gmAccount.dep.address;
+
       try {
         //await gmStore.createNewCode(address);
       } catch (error) {
@@ -304,6 +307,7 @@ export default {
       console.log('Creating new code with:', this.newCodeAmount, this.newCodeMemo);
       // TODO: Implement logic to call store action
       this.showToast('toast-gm', 'Создание кода в разработке...', 'info');
+
     },
     async copyText(text) {
       try {
