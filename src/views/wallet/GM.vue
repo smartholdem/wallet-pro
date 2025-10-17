@@ -52,7 +52,7 @@
               <div v-show="currentTab===1">
                 <div class="row justify-content-center">
                   <div class="col-md-4 col-lg-6">
-                    <div v-show="smartCodeStep === 1" class="h-100">
+                    <div v-show="newCode.step === 1" class="h-100">
                       <card class="bg-dark border-secondary h-100">
                         <div class="card-body">
                           Creator address: {{address}}
