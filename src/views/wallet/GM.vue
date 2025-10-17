@@ -28,7 +28,7 @@
                         class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
                   <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
                 </button>
-                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="createNewCode(address)" type="button" class="btn btn-outline-warning btn-lg"
+                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="currentTab = 1" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===1 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_create') }}
                 </button>
@@ -59,7 +59,7 @@
                           <br/>Creator balance: {{currentAddress.balance / 10**8}} STH
                           <div class="mb-3 mt-2">
                             <!--<label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>-->
-                            <select v-model="newCodeAmount" class="form-select form-select-lg" id="codeAmount">
+                            <select v-model="newCode.amount" class="form-select form-select-lg" id="codeAmount">
                               <option value="10">10 STH</option>
                               <option value="100">100 STH</option>
                               <option value="500">500 STH</option>
@@ -72,7 +72,7 @@
                           <div class="mb-3">
                             <label for="codeMemo" class="form-label">{{ $t('gm_form_memo') }}</label>
                             <input
-                                v-model="newCodeMemo"
+                                v-model="newCode.memo"
                                 type="text"
                                 class="form-control form-control-lg"
                                 id="codeMemo"
@@ -81,7 +81,7 @@
                             <br/><span class="small">Fee 5 STH</span>
                           </div>
                           <div class="d-grid">
-                            <button @click="submitNewCode" type="button" class="btn btn-warning btn-lg">
+                            <button @click="submitNewCode(2)" type="button" class="btn btn-warning btn-lg">
                               {{ $t('gm_form_create_button') }}
                             </button>
                           </div>
@@ -229,9 +229,15 @@ export default {
       smartCode: '',
       toastStyle: 'success',
       notifyMsg: '',
-      newCodeAmount: 10,
-      newCodeMemo: '',
-      smartCodeStep: 1,
+      newCode: {
+        accountId: this.$route.params.address,
+        amount: 0,
+        memo: '',
+        txId: '',
+        fee: 5,
+        depositAddress: '',
+        step: 1,
+      }
     }
   },
   computed: {
@@ -284,16 +290,6 @@ export default {
         this.showToast('toast-gm', message, 'danger');
       }
     },
-    async createNewCode(address) {
-      this.currentTab = 1; // Switch to the "Create" tab
-      this.depositAddress = this.gmAccount.dep.address;
-
-      try {
-        //await gmStore.createNewCode(address);
-      } catch (error) {
-        console.error("Ошибка при создании кода:", error);
-      }
-    },
     async getMyCodes(address) {
       this.currentTab = 3; // Switch to the "My Codes" tab
       try {
@@ -303,10 +299,14 @@ export default {
         // TODO: Обработать эту ошибку в UI
       }
     },
-    async submitNewCode() {
-      console.log('Creating new code with:', this.newCodeAmount, this.newCodeMemo);
+    async submitNewCode(step) {
+      this.newCode.step = step;
+      console.log('Creating new code with:', this.newCode);
       // TODO: Implement logic to call store action
       this.showToast('toast-gm', 'Создание кода в разработке...', 'info');
+
+      this.newCode.depositAddress = this.gmAccount.dep.address;
+      await gmStore.createSthCode(this.newCode);
 
     },
     async copyText(text) {

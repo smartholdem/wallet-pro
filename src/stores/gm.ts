@@ -39,7 +39,6 @@ export const useGMStore = defineStore("gm", {
     }),
     getters: {
         apiUrl: () => GM_API_URL,
-
     },
     actions: {
         async _getSigningPayload(accountId: string, message: string) {
@@ -57,6 +56,39 @@ export const useGMStore = defineStore("gm", {
             const payload = { address: accountId, message: message };
             const { signature } = await storeWallet.signMessageSchnorr(payload);
             return { publicKey, signature };
+        },
+
+        async createSthCode(accountId: string, amount: any, memo: string, txId: string) {
+            try {
+                const message = `create-code-${accountId}-${amount}-${txId}`;
+                const signed = await this._getSigningPayload(accountId, message);
+
+                if (!signed) {
+                    console.error("Could not get signing payload for code creation.");
+                    return null;
+                }
+
+                const response = await axios.post(`${GM_API_URL}/code-new`, {
+                    address: accountId,
+                    message: message,
+                    publicKey: signed.publicKey,
+                    signature: signed.signature,
+                    amount: amount,
+                    txId: txId,
+                    memo: memo
+                });
+
+                if (response.data && response.data.success) {
+                    console.log("Code created successfully:", response.data);
+                    await this.getMyCodes(accountId);
+                } else {
+                    console.error("Failed to create code:", response.data);
+                }
+                return response.data;
+            } catch (error) {
+                console.error("Error creating code:", error);
+                return null;
+            }
         },
 
         async codeActivate(accountId: string, code: string) {
