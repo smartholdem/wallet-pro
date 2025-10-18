@@ -54,8 +54,9 @@
                   <div class="col-md-8 col-lg-6">
                     <!-- Step 1: Form -->
                     <div v-show="newCode.step === 1" class="h-100">
-                      <div class="card bg-dark border-secondary mt-4">
+                      <card class="bg-dark border-secondary mt-2">
                         <div class="card-body">
+                          Address for deposit: <strong class="text-success">{{ gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...' }}</strong>
                           <div class="mb-3 mt-2">
                             <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>
                             <select v-model="newCode.amount" class="form-select form-select-lg" id="codeAmount">
@@ -84,7 +85,7 @@
                             </button>
                           </div>
                         </div>
-                      </div>
+                      </card>
                     </div>
 
                     <!-- Step 2: Confirmation -->
@@ -110,7 +111,7 @@
                         <div class="card-body text-center">
                           <p>ID Транзакции:</p>
                           <strong class="text-success text-break">{{ newCode.txId }}</strong>
-                          <p class="mt-3">Код в процессе создания на сервере...</p>
+                          <p class="mt-3">Код в процессе создания...</p>
                           <div class="d-grid mt-4">
                             <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">Закрыть</button>
                           </div>
@@ -157,9 +158,13 @@
                     </thead>
                     <tbody>
                     <tr v-for="code in myCodes" :key="code.pub">
-                      <td>
+                      <td v-if="!code.code">
                         <i class="far fa-copy me-2 pointer" @click="copyText('GM-' + code.pub + '-' + code.priv)"></i>
                         GM-{{ code.pub }}-{{ code.priv }}
+                      </td>
+                      <td v-else>
+                        <i class="far fa-copy me-2 pointer" @click="copyText(code.code)"></i>
+                        {{ code.code }}
                       </td>
                       <td>{{ code.amount }}</td>
                       <td class="text-center"><i class="fas fa-lg fa-fw me-2 fa-circle"
@@ -344,11 +349,9 @@ export default {
         return;
       }
       this.newCode.depositAddress = this.gmAccount.dep.address;
-
       this.txParams.recipientId = this.newCode.depositAddress;
       this.txParams.amount = parseFloat(this.newCode.amount) + this.newCode.fee;
       this.txParams.memo = this.newCode.memo;
-
       this.newCode.step = 2;
     },
     async confirmAndSend() {
@@ -369,7 +372,8 @@ export default {
               this.address,
               this.newCode.amount,
               this.newCode.txId,
-              this.newCode.memo
+              this.newCode.memo,
+              this.txParams.recipientId,
           );
 
           this.showToast('toast-gm', 'Транзакция отправлена! Код в процессе создания...', 'info');
