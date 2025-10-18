@@ -58,7 +58,7 @@ export const useGMStore = defineStore("gm", {
             return { publicKey, signature };
         },
 
-        async createSthCode(accountId: string, amount: any, memo: string, txId: string) {
+        async createSthCode(accountId: string, amount: any, txId: string, memo: string) {
             try {
                 const message = `create-code-${accountId}-${amount}-${txId}`;
                 const signed = await this._getSigningPayload(accountId, message);

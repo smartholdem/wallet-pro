@@ -51,22 +51,20 @@
               <!-- createNewCode currentTab === 1 form -->
               <div v-show="currentTab===1">
                 <div class="row justify-content-center">
-                  <div class="col-md-4 col-lg-6">
+                  <div class="col-md-8 col-lg-6">
+                    <!-- Step 1: Form -->
                     <div v-show="newCode.step === 1" class="h-100">
-                      <card class="bg-dark border-secondary h-100">
+                      <div class="card bg-dark border-secondary mt-4">
                         <div class="card-body">
-                          Creator address: {{address}}
-                          <br/>Creator balance: {{currentAddress.balance / 10**8}} STH
                           <div class="mb-3 mt-2">
-                            <!--<label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>-->
+                            <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>
                             <select v-model="newCode.amount" class="form-select form-select-lg" id="codeAmount">
                               <option value="10">10 STH</option>
                               <option value="100">100 STH</option>
-                              <option value="500">500 STH</option>
                               <option value="1000">1000 STH</option>
                               <option value="5000">5000 STH</option>
                               <option value="10000">10000 STH</option>
-                              <option value="25000">25000 STH</option>
+                              <option value="250000">250000 STH</option>
                             </select>
                           </div>
                           <div class="mb-3">
@@ -78,19 +76,50 @@
                                 id="codeMemo"
                                 :placeholder="$t('optional_message')"
                             />
-                            <br/><span class="small">Fee 5 STH</span>
+                            <br/><span class="small">Fee {{newCode.fee}} STH</span>
                           </div>
                           <div class="d-grid">
-                            <button @click="submitNewCode(2)" type="button" class="btn btn-warning btn-lg">
+                            <button @click="submitNewCode" type="button" class="btn btn-warning btn-lg">
                               {{ $t('gm_form_create_button') }}
                             </button>
                           </div>
                         </div>
-                      </card>
+                      </div>
+                    </div>
+
+                    <!-- Step 2: Confirmation -->
+                    <div v-show="newCode.step === 2" class="h-100">
+                      <div class="card bg-dark border-secondary mt-4">
+                        <div class="card-header"><h5>Подтверждение транзакции</h5></div>
+                        <div class="card-body">
+                          <p><strong>Сумма:</strong> {{ txParams.amount }} STH (включая комиссию)</p>
+                          <p><strong>Получатель:</strong> {{ txParams.recipientId }}</p>
+                          <p><strong>Memo:</strong> {{ txParams.memo || '-' }}</p>
+                          <div class="d-grid gap-2">
+                            <button @click="confirmAndSend" type="button" class="btn btn-success btn-lg">Подтвердить</button>
+                            <button @click="resetNewCode" type="button" class="btn btn-secondary btn-lg">Отмена</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Step 3: Result -->
+                    <div v-show="newCode.step === 3" class="h-100">
+                      <div class="card bg-dark border-secondary mt-4">
+                        <div class="card-header"><h5>Транзакция отправлена</h5></div>
+                        <div class="card-body text-center">
+                          <p>ID Транзакции:</p>
+                          <strong class="text-success text-break">{{ newCode.txId }}</strong>
+                          <p class="mt-3">Код в процессе создания на сервере...</p>
+                          <div class="d-grid mt-4">
+                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">Закрыть</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                   </div>
-                  <div class="col-md-8 col-lg-6">
+                  <div class="col-md-4 col-lg-6">
                     <img class="w-100 mt-2" src="/images/smartnote.png" alt="smartnotes sth">
                   </div>
                 </div>
@@ -231,12 +260,18 @@ export default {
       notifyMsg: '',
       newCode: {
         accountId: this.$route.params.address,
-        amount: 0,
+        amount: 10,
         memo: '',
-        txId: '',
+        txId: null,
         fee: 5,
         depositAddress: '',
         step: 1,
+      },
+      txParams: {
+        recipientId: '',
+        amount: 0,
+        fee: 1,
+        memo: ''
       }
     }
   },
@@ -290,6 +325,10 @@ export default {
         this.showToast('toast-gm', message, 'danger');
       }
     },
+    async createNewCode() {
+      this.resetNewCode();
+      this.currentTab = 1;
+    },
     async getMyCodes(address) {
       this.currentTab = 3; // Switch to the "My Codes" tab
       try {
@@ -299,15 +338,68 @@ export default {
         // TODO: Обработать эту ошибку в UI
       }
     },
-    async submitNewCode(step) {
-      this.newCode.step = step;
-      console.log('Creating new code with:', this.newCode);
-      // TODO: Implement logic to call store action
-      this.showToast('toast-gm', 'Создание кода в разработке...', 'info');
-
+    async submitNewCode() {
+      if (!this.gmAccount || !this.gmAccount.dep || !this.gmAccount.dep.address) {
+        this.showToast('toast-gm', 'Не удалось получить адрес для депозита.', 'danger');
+        return;
+      }
       this.newCode.depositAddress = this.gmAccount.dep.address;
-      await gmStore.createSthCode(this.newCode);
 
+      this.txParams.recipientId = this.newCode.depositAddress;
+      this.txParams.amount = parseFloat(this.newCode.amount) + this.newCode.fee;
+      this.txParams.memo = this.newCode.memo;
+
+      this.newCode.step = 2;
+    },
+    async confirmAndSend() {
+      try {
+        const txResult = await storeWallet.txTransfer({
+          sender: this.address,
+          recipientId: this.txParams.recipientId,
+          amount: this.txParams.amount,
+          fee: this.txParams.fee,
+          //memo: this.txParams.memo,
+          network: 'mainnet'
+        });
+
+        if (txResult && txResult.response && txResult.response.accept && txResult.response.accept.length > 0) {
+          this.newCode.txId = txResult.tx.id;
+
+          await gmStore.createSthCode(
+              this.address,
+              this.newCode.amount,
+              this.newCode.txId,
+              this.newCode.memo
+          );
+
+          this.showToast('toast-gm', 'Транзакция отправлена! Код в процессе создания...', 'info');
+          this.newCode.step = 3;
+        } else {
+          throw new Error('Transaction was not accepted by the network.');
+        }
+      } catch (error) {
+        console.error("Failed to send transaction:", error);
+        this.showToast('toast-gm', 'Ошибка при отправке транзакции.', 'danger');
+        this.resetNewCode();
+      }
+    },
+    resetNewCode() {
+      this.newCode = {
+        accountId: this.address,
+        amount: 10,
+        memo: '',
+        txId: null,
+        fee: 5,
+        depositAddress: '',
+        step: 1,
+      };
+      this.txParams = {
+        recipientId: '',
+        amount: 0,
+        fee: 0.25,
+        memo: ''
+      };
+      this.currentTab = 1;
     },
     async copyText(text) {
       try {
