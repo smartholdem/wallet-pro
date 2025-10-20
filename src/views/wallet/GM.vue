@@ -36,7 +36,7 @@
                         :class="currentTab===2 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_activate') }}
                 </button>
-                <button @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
+                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===3 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_my_smartnotes') }}
                 </button>
@@ -57,15 +57,17 @@
                       <card class="bg-dark border-secondary mt-2">
                         <div class="card-body">
                           Address for deposit: <strong class="text-success">{{ gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...' }}</strong>
+                          <br/>Available balance {{currentAddressBalance}} STH
                           <div class="mb-3 mt-2">
                             <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>
                             <select v-model="newCode.amount" class="form-select form-select-lg" id="codeAmount">
                               <option value="10">10 STH</option>
-                              <option value="100">100 STH</option>
-                              <option value="1000">1000 STH</option>
-                              <option value="5000">5000 STH</option>
-                              <option value="10000">10000 STH</option>
-                              <option value="250000">250000 STH</option>
+                              <option :disabled="currentAddressBalance < 100 + 0.25" value="100">100 STH</option>
+                              <option :disabled="currentAddressBalance < 500 + 0.25" value="500">500 STH</option>
+                              <option :disabled="currentAddressBalance < 1000 + 0.25" value="1000">1 000 STH</option>
+                              <option :disabled="currentAddressBalance < 5000 + 0.25" value="5000">5 000 STH</option>
+                              <option :disabled="currentAddressBalance < 10000 + 0.25" value="10000">10 000 STH</option>
+                              <option :disabled="currentAddressBalance < 25000 + 0.25" value="25000">25 000 STH</option>
                             </select>
                           </div>
                           <div class="mb-3">
@@ -80,7 +82,7 @@
                             <br/><span class="small">Fee {{newCode.fee}} STH</span>
                           </div>
                           <div class="d-grid">
-                            <button @click="submitNewCode" type="button" class="btn btn-warning btn-lg">
+                            <button :disabled="!gmAccount || currentAddressBalance < 10.25" @click="submitNewCode" type="button" class="btn btn-warning btn-lg">
                               {{ $t('gm_form_create_button') }}
                             </button>
                           </div>
@@ -90,7 +92,7 @@
 
                     <!-- Step 2: Confirmation -->
                     <div v-show="newCode.step === 2" class="h-100">
-                      <div class="card bg-dark border-secondary mt-4">
+                      <card class="bg-dark border-secondary mt-4">
                         <div class="card-header"><h5>Подтверждение транзакции</h5></div>
                         <div class="card-body">
                           <p><strong>Сумма:</strong> {{ txParams.amount }} STH (включая комиссию)</p>
@@ -101,7 +103,7 @@
                             <button @click="resetNewCode" type="button" class="btn btn-secondary btn-lg">Отмена</button>
                           </div>
                         </div>
-                      </div>
+                      </card>
                     </div>
 
                     <!-- Step 3: Result -->
@@ -136,7 +138,7 @@
                     class="form-control form-control-lg bg-dark text-white"
                     placeholder="GM-XXXX-XXXXXXXX or STH-XXXX-XXXX"
                 />
-                <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-2 btn btn-warning btn-lg">
+                <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-3 btn btn-warning btn-lg">
                   {{ $t('gm_activate_code') }} <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
                 </button>
               </div>
@@ -281,6 +283,9 @@ export default {
     }
   },
   computed: {
+    currentAddressBalance() {
+      return ((this.currentAddress.balance / 10 ** 8).toFixed(8) * 1) || 0;
+    },
     currentAddress() {
       const address = this.$route.params.address;
       if (!address) return {};
@@ -310,8 +315,20 @@ export default {
       console.error("Ошибка при привязке аккаунта:", error);
       // TODO: Обработать эту ошибку в UI
     }
+
+    if (this.currentAddressBalance < 10) {
+      this.currentTab = 2; // Switch to info tab if balance is insufficient
+    }
   },
   methods: {
+    async accountUpdate() {
+      if (this.address) {
+        await storeWallet.getAttributes(this.address);
+        await storeWallet.getTransactions(this.address, 10);
+      } else {
+        console.log("accountUpdate err", this.address);
+      }
+    },
     showToast(target, msg, style = "success") {
       this.notifyMsg = msg;
       this.toastStyle = style;
@@ -325,6 +342,11 @@ export default {
       if (result && result.success) {
         const message = `Код успешно активирован на сумму ${result.result.amount} STH`;
         this.showToast('toast-gm', message, 'success');
+
+        setTimeout(async () => {
+          await this.accountUpdate();
+        }, 8600);
+
       } else {
         const message = 'Код не найден или активирован ранее.';
         this.showToast('toast-gm', message, 'danger');
@@ -377,6 +399,9 @@ export default {
           );
 
           this.showToast('toast-gm', 'Транзакция отправлена! Код в процессе создания...', 'info');
+          setTimeout(async () => {
+            await this.accountUpdate();
+          }, 8600);
           this.newCode.step = 3;
         } else {
           throw new Error('Transaction was not accepted by the network.');
