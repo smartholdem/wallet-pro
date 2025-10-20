@@ -290,5 +290,6 @@
   "gm_form_amount": "Jumlah",
   "gm_form_memo": "Pesan untuk penerima (memo)",
   "gm_form_create_button": "Buat kode STH baru",
-  "optional_message": "pesan opsional"
+  "optional_message": "pesan opsional",
+  "additional": "Tambahan"
 }

@@ -290,5 +290,6 @@
   "gm_form_amount": "Montant",
   "gm_form_memo": "Message au destinataire (mémo)",
   "gm_form_create_button": "Créer un nouveau code STH",
-  "optional_message": "message facultatif"
+  "optional_message": "message facultatif",
+  "additional": "Additionnel"
 }

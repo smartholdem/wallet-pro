@@ -212,7 +212,7 @@
   "modal_vote_success": "Erfolg!",
   "modal_vote_power": "Die Kraft meiner Stimme",
   "navigation": "Navigation",
-  "wallet": "Geldb\u00f6rse",
+  "wallet": "Geldbörse",
   "delegates": "Delegierte",
   "blockchain": "Blockchain",
   "address_book": "Adressbuch",
@@ -290,5 +290,6 @@
   "gm_form_amount": "Betrag",
   "gm_form_memo": "Nachricht an den Empfänger (Memo)",
   "gm_form_create_button": "Neuen STH-Code erstellen",
-  "optional_message": "optionale Nachricht"
+  "optional_message": "optionale Nachricht",
+  "additional": "Zusätzlich"
 }

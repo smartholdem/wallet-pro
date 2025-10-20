@@ -290,5 +290,6 @@
   "gm_form_amount": "Số tiền",
   "gm_form_memo": "Tin nhắn cho người nhận (ghi nhớ)",
   "gm_form_create_button": "Tạo mã STH mới",
-  "optional_message": "tin nhắn tùy chọn"
+  "optional_message": "tin nhắn tùy chọn",
+  "additional": "Bổ sung"
 }

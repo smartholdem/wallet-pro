@@ -5,7 +5,7 @@
         <span>{{ $t("operations") }}</span>
         <div class="dropdown" v-if="currentAddress">
           <button class="btn btn-sm btn-outline-theme dropdown-toggle" type="button" id="additionalOpsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Дополнительно
+            {{ $t("additional") }}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="additionalOpsDropdown">
             <li>
@@ -41,7 +41,7 @@
           </ul>
         </div>
       </card-header>
-      <card-body style="z-index: 0;">
+      <card-body style="z-index: 1;">
         <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
           <button
               data-bs-toggle="modal"
