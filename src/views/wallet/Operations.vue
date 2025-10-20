@@ -1,10 +1,47 @@
 <template>
   <div class="h-100">
     <card class="h-100 overflow-hidden">
-      <card-header class="card-header fw-bold small">
-        {{ $t("operations") }}
+      <card-header class="card-header fw-bold small d-flex justify-content-between align-items-center" style="position: relative; z-index: 2;">
+        <span>{{ $t("operations") }}</span>
+        <div class="dropdown" v-if="currentAddress">
+          <button class="btn btn-sm btn-outline-theme dropdown-toggle" type="button" id="additionalOpsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Дополнительно
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="additionalOpsDropdown">
+            <li>
+              <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalVote"
+                  type="button"
+                  class="dropdown-item"
+              >
+                <i class="far fa-lg fa-fw me-2 fa-thumbs-up"></i>{{ $t("vote") }}
+              </button>
+            </li>
+            <li v-if="!currentAddress.attributes.delegate">
+              <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalDelegateReg"
+                  type="button"
+                  class="dropdown-item"
+              >
+                <i class="fas fa-lg fa-fw me-2 fa-university"></i>{{ $t("delegate_reg") }}
+              </button>
+            </li>
+            <li>
+              <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalSignMessage"
+                  type="button"
+                  class="dropdown-item"
+              >
+                <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
+              </button>
+            </li>
+          </ul>
+        </div>
       </card-header>
-      <card-body>
+      <card-body style="z-index: 0;">
         <div v-if="!currentAddress" class="btn-group mb-3 mx-1">
           <button
               data-bs-toggle="modal"
@@ -65,44 +102,11 @@
             <i class="far fa-lg fa-fw me-2 fa-clock"></i>{{ $t("htlc") }}
           </button>
           -->
-          <!--
+
           <button disabled="true" type="button" class="btn btn-outline-theme">
             <i class="fas fa-lg fa-fw me-2 fa-user-secret"></i>{{ $t("2nd_pwd") }}
           </button>
-          <button
-              disabled
-              type="button"
-              class="btn btn-outline-theme text-uppercase"
-          >
-            <i class="fas fa-lg fa-fw me-2 fa-users"></i>{{ $t("msig") }}
-          </button>
-          -->
 
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalVote"
-              type="button"
-              class="btn btn-outline-theme text-uppercase"
-          >
-            <i class="far fa-lg fa-fw me-2 fa-thumbs-up"></i>{{ $t("vote") }}
-          </button>
-          <button
-              v-if="!currentAddress.attributes.delegate"
-              data-bs-toggle="modal"
-              data-bs-target="#modalDelegateReg"
-              type="button"
-              class="btn btn-outline-theme"
-          >
-            <i class="fas fa-lg fa-fw me-2 fa-university"></i>{{ $t("delegate_reg") }}
-          </button>
-          <button
-              data-bs-toggle="modal"
-              data-bs-target="#modalSignMessage"
-              type="button"
-              class="btn btn-outline-theme text-uppercase"
-          >
-            <i class="fas fa-lg fa-fw me-2 fa-pen-square"></i>{{ $t("sig") }}
-          </button>
           <button
               type="button"
               class="btn btn-outline-theme text-uppercase"
