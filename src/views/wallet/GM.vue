@@ -325,6 +325,7 @@ export default {
       if (this.address) {
         await storeWallet.getAttributes(this.address);
         await storeWallet.getTransactions(this.address, 10);
+        await gmStore.accountLink(this.address);
       } else {
         console.log("accountUpdate err", this.address);
       }
