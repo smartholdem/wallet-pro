@@ -28,7 +28,8 @@
                         class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
                   <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
                 </button>
-                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="currentTab = 1" type="button" class="btn btn-outline-warning btn-lg"
+                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15"
+                        @click="currentTab = 1" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===1 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_create') }}
                 </button>
@@ -36,7 +37,8 @@
                         :class="currentTab===2 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_activate') }}
                 </button>
-                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15" @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
+                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15"
+                        @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
                         :class="currentTab===3 ? 'active': ''">
                   <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_my_smartnotes') }}
                 </button>
@@ -56,8 +58,10 @@
                     <div v-show="newCode.step === 1" class="h-100">
                       <card class="bg-dark border-secondary mt-2">
                         <div class="card-body">
-                          Address for deposit: <strong class="text-success">{{ gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...' }}</strong>
-                          <br/>Available balance {{currentAddressBalance}} STH
+                          Address for deposit: <strong class="text-success">{{
+                            gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...'
+                          }}</strong>
+                          <br/>Available balance {{ currentAddressBalance }} STH
                           <div class="mb-3 mt-2">
                             <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>
                             <select v-model="newCode.amount" class="form-select form-select-lg" id="codeAmount">
@@ -79,10 +83,11 @@
                                 id="codeMemo"
                                 :placeholder="$t('optional_message')"
                             />
-                            <br/><span class="small">Fee {{newCode.fee}} STH</span>
+                            <br/><span class="small">Fee {{ newCode.fee }} STH</span>
                           </div>
                           <div class="d-grid">
-                            <button :disabled="!gmAccount || currentAddressBalance < 10.25" @click="submitNewCode" type="button" class="btn btn-warning btn-lg">
+                            <button :disabled="!gmAccount || currentAddressBalance < 10.25" @click="submitNewCode"
+                                    type="button" class="btn btn-warning btn-lg">
                               {{ $t('gm_form_create_button') }}
                             </button>
                           </div>
@@ -95,12 +100,17 @@
                       <card class="bg-dark border-secondary mt-4">
                         <div class="card-header"><h5>{{ $t('gm_step2_title') }}</h5></div>
                         <div class="card-body">
-                          <p><strong>{{ $t('amount') }}:</strong> {{ txParams.amount }} STH {{ $t('gm_including_fee') }}</p>
+                          <p><strong>{{ $t('amount') }}:</strong> {{ txParams.amount }} STH {{ $t('gm_including_fee') }}
+                          </p>
                           <p><strong>{{ $t('recipient') }}:</strong> {{ txParams.recipientId }}</p>
                           <p><strong>{{ $t('memo') }}:</strong> {{ txParams.memo || '-' }}</p>
                           <div class="d-grid gap-2">
-                            <button @click="confirmAndSend" type="button" class="btn btn-success btn-lg">{{ $t('gm_step2_confirm_button') }}</button>
-                            <button @click="resetNewCode" type="button" class="btn btn-secondary btn-lg">{{ $t('gm_step2_cancel_button') }}</button>
+                            <button @click="confirmAndSend" type="button" class="btn btn-success btn-lg">
+                              {{ $t('gm_step2_confirm_button') }}
+                            </button>
+                            <button @click="resetNewCode" type="button" class="btn btn-secondary btn-lg">
+                              {{ $t('gm_step2_cancel_button') }}
+                            </button>
                           </div>
                         </div>
                       </card>
@@ -115,7 +125,10 @@
                           <strong class="text-success text-break">{{ newCode.txId }}</strong>
                           <p class="mt-3">{{ $t('gm_step3_code_in_progress') }}</p>
                           <div class="d-grid mt-4">
-                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">{{ $t('close') }}</button>
+                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">{{
+                                $t('close')
+                              }}
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -209,41 +222,41 @@
     </div>
     -->
 
-    </div>
+  </div>
 
-    <GmInfoModal />
+  <GmInfoModal/>
 
-    <!-- toasts-container -->
+  <!-- toasts-container -->
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-          class="toast fade hide mb-3"
-          data-autohide="false"
-          id="toast-gm"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-      >
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div
+        class="toast fade hide mb-3"
+        data-autohide="false"
+        id="toast-gm"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
 
-        <div class="toast-header" :class="'text-' + toastStyle">
-          <i class="far fa-bell me-2"/>
-          <strong class="me-auto">{{ toastStyle }}</strong>
-          <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="toast"
-          ></button>
-        </div>
+      <div class="toast-header" :class="'text-' + toastStyle">
+        <i class="far fa-bell me-2"/>
+        <strong class="me-auto">{{ toastStyle }}</strong>
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+        ></button>
+      </div>
 
-        <div class="toast-body small">
+      <div class="toast-body small">
 
-          {{ notifyMsg }}
-
-        </div>
+        {{ notifyMsg }}
 
       </div>
 
     </div>
+
+  </div>
 </template>
 
 <script>
@@ -251,7 +264,7 @@ import {useStoreWallet} from "@/stores/wallet";
 import {useGMStore} from "@/stores/gm";
 import Card from "@/components/bootstrap/Card.vue";
 import GmInfoModal from "@/components/wallet/GmInfoModal.vue";
-import { Toast } from "bootstrap";
+import {Toast} from "bootstrap";
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
@@ -382,7 +395,7 @@ export default {
         const txResult = await storeWallet.txTransfer({
           sender: this.address,
           recipientId: this.txParams.recipientId,
-          amount: this.txParams.amount,
+          amount: this.txParams.amount - 1,
           fee: this.txParams.fee,
           //memo: this.txParams.memo,
           network: 'mainnet'
