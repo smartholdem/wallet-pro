@@ -58,20 +58,18 @@
                     <div v-show="newCode.step === 1" class="h-100">
                       <card class="bg-dark border-secondary mt-2">
                         <div class="card-body">
-                          Address for deposit: <strong class="text-success">{{
-                            gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...'
-                          }}</strong>
-                          <br/>Available balance {{ currentAddressBalance }} STH
+                          <!--Address for deposit: <strong class="text-success">{{gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...'}}</strong><br/>-->
+                          {{$t('your_balance')}} {{ currentAddressBalance }} STH
                           <div class="mb-3 mt-2">
-                            <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }}</label>
+                            <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }} Smart Note</label>
                             <select v-model="newCode.amount" class="form-select form-select-lg" id="codeAmount">
                               <option value="10">10 STH</option>
-                              <option :disabled="currentAddressBalance < 100 + 0.25" value="100">100 STH</option>
-                              <option :disabled="currentAddressBalance < 500 + 0.25" value="500">500 STH</option>
-                              <option :disabled="currentAddressBalance < 1000 + 0.25" value="1000">1 000 STH</option>
-                              <option :disabled="currentAddressBalance < 5000 + 0.25" value="5000">5 000 STH</option>
-                              <option :disabled="currentAddressBalance < 10000 + 0.25" value="10000">10 000 STH</option>
-                              <option :disabled="currentAddressBalance < 25000 + 0.25" value="25000">25 000 STH</option>
+                              <option :disabled="currentAddressBalance < 100 + newCode.fee" value="100">100 STH</option>
+                              <option :disabled="currentAddressBalance < 500 + newCode.fee" value="500">500 STH</option>
+                              <option :disabled="currentAddressBalance < 1000 + newCode.fee" value="1000">1 000 STH</option>
+                              <option :disabled="currentAddressBalance < 5000 + newCode.fee" value="5000">5 000 STH</option>
+                              <option :disabled="currentAddressBalance < 10000 + newCode.fee" value="10000">10 000 STH</option>
+                              <option :disabled="currentAddressBalance < 25000 + newCode.fee" value="25000">25 000 STH</option>
                             </select>
                           </div>
                           <div class="mb-3">
@@ -83,7 +81,7 @@
                                 id="codeMemo"
                                 :placeholder="$t('optional_message')"
                             />
-                            <br/><span class="small">Fee {{ newCode.fee }} STH</span>
+                            <p class="small text-end mt-1">{{ $t('fee') }} {{ newCode.fee }} STH</p>
                           </div>
                           <div class="d-grid">
                             <button :disabled="!gmAccount || currentAddressBalance < 10.25" @click="submitNewCode"
@@ -125,9 +123,8 @@
                           <strong class="text-success text-break">{{ newCode.txId }}</strong>
                           <p class="mt-3">{{ $t('gm_step3_code_in_progress') }}</p>
                           <div class="d-grid mt-4">
-                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">{{
-                                $t('close')
-                              }}
+                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">
+                              {{$t('close')}}
                             </button>
                           </div>
                         </div>
@@ -143,13 +140,15 @@
 
               <!-- activateCode currentTab === 2 form -->
               <div v-show="currentTab===2">
+                <p v-show="currentAddressBalance > 0" class="text-center">{{$t('your_balance')}} {{ currentAddressBalance }} STH</p>
+
                 <label class="form-label">{{ $t('gm_enter_activation_code') }}</label>
                 <input
                     v-model="smartCode"
                     @input=""
                     type="text"
                     class="form-control form-control-lg bg-dark text-white"
-                    placeholder="GM-XXXX-XXXXXXXX or STH-XXXX-XXXX"
+                    :placeholder="$t('gm_enter_activation_code') + ' GM-XXXX-XXXXXXXX, STH-XXXX-XXXX'"
                 />
                 <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-3 btn btn-warning btn-lg">
                   {{ $t('gm_activate_code') }} <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
