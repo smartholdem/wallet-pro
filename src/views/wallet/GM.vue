@@ -98,8 +98,7 @@
                       <card class="bg-dark border-secondary mt-4">
                         <div class="card-header"><h5>{{ $t('gm_step2_title') }}</h5></div>
                         <div class="card-body">
-                          <p><strong>{{ $t('amount') }}:</strong> {{ txParams.amount }} STH {{ $t('gm_including_fee') }}
-                          </p>
+                          <p><strong>{{ $t('amount') }}:</strong> {{ txParams.amount }} STH {{ $t('gm_including_fee') }}</p>
                           <p><strong>{{ $t('recipient') }}:</strong> {{ txParams.recipientId }}</p>
                           <p><strong>{{ $t('memo') }}:</strong> {{ txParams.memo || '-' }}</p>
                           <div class="d-grid gap-2">
