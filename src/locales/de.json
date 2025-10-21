@@ -298,5 +298,11 @@
   "gm_step3_title": "Transaktion gesendet",
   "gm_step3_tx_id": "Transaktions-ID:",
   "gm_step3_code_in_progress": "Code wird erstellt...",
-  "gm_including_fee": "(inklusive Gebühr)"
+  "gm_including_fee": "(inklusive Gebühr)",
+  "gm_code_not_found_or_activated": "Code nicht gefunden oder bereits aktiviert.",
+  "gm_code_activated_successfully": "Code erfolgreich aktiviert für {amount} STH",
+  "gm_deposit_address_not_found": "Einzahlungsadresse konnte nicht abgerufen werden.",
+  "gm_transaction_sent_code_in_progress": "Transaktion gesendet! Code wird erstellt...",
+  "gm_transaction_send_error": "Fehler beim Senden der Transaktion.",
+  "gm_failed_to_copy": "Kopieren fehlgeschlagen"
 }

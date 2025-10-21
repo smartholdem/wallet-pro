@@ -298,5 +298,11 @@
   "gm_step3_title": "Giao dịch đã được gửi",
   "gm_step3_tx_id": "ID giao dịch:",
   "gm_step3_code_in_progress": "Mã đang được tạo...",
-  "gm_including_fee": "(bao gồm phí)"
+  "gm_including_fee": "(bao gồm phí)",
+  "gm_code_not_found_or_activated": "Mã không tìm thấy hoặc đã được kích hoạt.",
+  "gm_code_activated_successfully": "Mã đã được kích hoạt thành công cho {amount} STH",
+  "gm_deposit_address_not_found": "Không thể lấy địa chỉ gửi tiền.",
+  "gm_transaction_sent_code_in_progress": "Giao dịch đã gửi! Mã đang được tạo...",
+  "gm_transaction_send_error": "Lỗi khi gửi giao dịch.",
+  "gm_failed_to_copy": "Sao chép thất bại"
 }

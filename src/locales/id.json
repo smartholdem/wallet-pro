@@ -298,5 +298,11 @@
   "gm_step3_title": "Transaksi Terkirim",
   "gm_step3_tx_id": "ID Transaksi:",
   "gm_step3_code_in_progress": "Kode sedang dibuat...",
-  "gm_including_fee": "(termasuk biaya)"
+  "gm_including_fee": "(termasuk biaya)",
+  "gm_code_not_found_or_activated": "Kode tidak ditemukan atau sudah diaktifkan.",
+  "gm_code_activated_successfully": "Kode berhasil diaktifkan untuk {amount} STH",
+  "gm_deposit_address_not_found": "Tidak dapat memperoleh alamat deposit.",
+  "gm_transaction_sent_code_in_progress": "Transaksi terkirim! Kode sedang dibuat...",
+  "gm_transaction_send_error": "Kesalahan saat mengirim transaksi.",
+  "gm_failed_to_copy": "Gagal menyalin"
 }

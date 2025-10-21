@@ -298,5 +298,11 @@
   "gm_step3_title": "Transacción enviada",
   "gm_step3_tx_id": "ID de transacción:",
   "gm_step3_code_in_progress": "El código se está creando...",
-  "gm_including_fee": "(incluyendo comisión)"
+  "gm_including_fee": "(incluyendo comisión)",
+  "gm_code_not_found_or_activated": "Código no encontrado o ya activado.",
+  "gm_code_activated_successfully": "Código activado con éxito por {amount} STH",
+  "gm_deposit_address_not_found": "No se pudo obtener la dirección de depósito.",
+  "gm_transaction_sent_code_in_progress": "¡Transacción enviada! El código se está creando...",
+  "gm_transaction_send_error": "Error al enviar la transacción.",
+  "gm_failed_to_copy": "Error al copiar"
 }
