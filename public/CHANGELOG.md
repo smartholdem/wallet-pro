@@ -1,4 +1,7 @@
 v1.2.19
+- Improved Operations UI by moving secondary actions ('Vote', 'Delegate Reg', 'Sign Message') into a new 'Additional' dropdown menu.
+- Added internationalization support for the new 'Additional' dropdown.
+- Fixed a display issue where the new dropdown appeared underneath other elements.
 - Added new 'Smart Notes' section for creating, activating, and managing private codes.
 - Added internationalization (i18n) support for the 'Smart Notes' page.
 - Added 'copy to clipboard' functionality for SmartNote codes.
