@@ -298,5 +298,11 @@
   "gm_step3_title": "Транзакция отправлена",
   "gm_step3_tx_id": "ID Транзакции:",
   "gm_step3_code_in_progress": "Код в процессе создания...",
-  "gm_including_fee": "(включая комиссию)"
+  "gm_including_fee": "(включая комиссию)",
+  "gm_code_not_found_or_activated": "Код не найден или активирован ранее.",
+  "gm_code_activated_successfully": "Код успешно активирован на сумму {amount} STH",
+  "gm_deposit_address_not_found": "Не удалось получить адрес для депозита.",
+  "gm_transaction_sent_code_in_progress": "Транзакция отправлена! Код в процессе создания...",
+  "gm_transaction_send_error": "Ошибка при отправке транзакции.",
+  "gm_failed_to_copy": "Не удалось скопировать"
 }

@@ -298,5 +298,11 @@
   "gm_step3_title": "Transaction Sent",
   "gm_step3_tx_id": "Transaction ID:",
   "gm_step3_code_in_progress": "Code is being created...",
-  "gm_including_fee": "(including fee)"
+  "gm_including_fee": "(including fee)",
+  "gm_code_not_found_or_activated": "Code not found or already activated.",
+  "gm_code_activated_successfully": "Code successfully activated for {amount} STH",
+  "gm_deposit_address_not_found": "Could not get deposit address.",
+  "gm_transaction_sent_code_in_progress": "Transaction sent! Code is being created...",
+  "gm_transaction_send_error": "Error sending transaction.",
+  "gm_failed_to_copy": "Failed to copy"
 }

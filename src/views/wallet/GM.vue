@@ -354,16 +354,14 @@ export default {
       this.smartCode = '';
 
       if (result && result.success) {
-        const message = `Код успешно активирован на сумму ${result.result.amount} STH`;
-        this.showToast('toast-gm', message, 'success');
+        this.showToast('toast-gm', this.$t('gm_code_activated_successfully', { amount: result.result.amount }), 'success');
 
         setTimeout(async () => {
           await this.accountUpdate();
         }, 8600);
 
       } else {
-        const message = 'Код не найден или активирован ранее.';
-        this.showToast('toast-gm', message, 'danger');
+        this.showToast('toast-gm', this.$t('gm_code_not_found_or_activated'), 'danger');
       }
     },
     async createNewCode() {
@@ -381,7 +379,7 @@ export default {
     },
     async submitNewCode() {
       if (!this.gmAccount || !this.gmAccount.dep || !this.gmAccount.dep.address) {
-        this.showToast('toast-gm', 'Не удалось получить адрес для депозита.', 'danger');
+        this.showToast('toast-gm', this.$t('gm_deposit_address_not_found'), 'danger');
         return;
       }
       this.newCode.depositAddress = this.gmAccount.dep.address;
@@ -412,7 +410,7 @@ export default {
               this.txParams.recipientId,
           );
 
-          this.showToast('toast-gm', 'Транзакция отправлена! Код в процессе создания...', 'info');
+          this.showToast('toast-gm', this.$t('gm_transaction_sent_code_in_progress'), 'info');
           setTimeout(async () => {
             await this.accountUpdate();
           }, 8600);
@@ -422,7 +420,7 @@ export default {
         }
       } catch (error) {
         console.error("Failed to send transaction:", error);
-        this.showToast('toast-gm', 'Ошибка при отправке транзакции.', 'danger');
+        this.showToast('toast-gm', this.$t('gm_transaction_send_error'), 'danger');
         this.resetNewCode();
       }
     },
@@ -450,7 +448,7 @@ export default {
         this.showToast('toast-gm', this.$t('copied_to_clipboard'), 'success');
       } catch (err) {
         console.error('Failed to copy: ', err);
-        this.showToast('toast-gm', 'Failed to copy', 'danger');
+        this.showToast('toast-gm', this.$t('gm_failed_to_copy'), 'danger');
       }
     },
   }
