@@ -74,8 +74,14 @@ export const useExchangeStore = defineStore("exchange", {
         const response = await axios.get(`${EXCHANGE_API_URL}/`);
         this.isExchangeAvailable = response.data === true;
       } catch (error) {
-        console.error("Exchange server is not available:", error);
-        this.isExchangeAvailable = false;
+        console.error("Exchange server is not available, trying secondary URL:", error);
+        try {
+          const response2 = await axios.get(`${EXCHANGE_API_URL_2}/`);
+          this.isExchangeAvailable = response2.data === true;
+        } catch (error2) {
+          console.error("Secondary exchange server is also not available:", error2);
+          this.isExchangeAvailable = false;
+        }
       }
     },
     /**
