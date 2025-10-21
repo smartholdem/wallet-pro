@@ -291,5 +291,12 @@
   "gm_form_memo": "Pesan untuk penerima (memo)",
   "gm_form_create_button": "Buat kode STH baru",
   "optional_message": "pesan opsional",
-  "additional": "Tambahan"
+  "additional": "Tambahan",
+  "gm_step2_title": "Konfirmasi Transaksi",
+  "gm_step2_confirm_button": "Konfirmasi",
+  "gm_step2_cancel_button": "Batal",
+  "gm_step3_title": "Transaksi Terkirim",
+  "gm_step3_tx_id": "ID Transaksi:",
+  "gm_step3_code_in_progress": "Kode sedang dibuat...",
+  "gm_including_fee": "(termasuk biaya)"
 }

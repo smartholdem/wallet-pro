@@ -291,5 +291,12 @@
   "gm_form_memo": "Tin nhắn cho người nhận (ghi nhớ)",
   "gm_form_create_button": "Tạo mã STH mới",
   "optional_message": "tin nhắn tùy chọn",
-  "additional": "Bổ sung"
+  "additional": "Bổ sung",
+  "gm_step2_title": "Xác nhận giao dịch",
+  "gm_step2_confirm_button": "Xác nhận",
+  "gm_step2_cancel_button": "Hủy bỏ",
+  "gm_step3_title": "Giao dịch đã được gửi",
+  "gm_step3_tx_id": "ID giao dịch:",
+  "gm_step3_code_in_progress": "Mã đang được tạo...",
+  "gm_including_fee": "(bao gồm phí)"
 }

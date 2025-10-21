@@ -93,14 +93,14 @@
                     <!-- Step 2: Confirmation -->
                     <div v-show="newCode.step === 2" class="h-100">
                       <card class="bg-dark border-secondary mt-4">
-                        <div class="card-header"><h5>Подтверждение транзакции</h5></div>
+                        <div class="card-header"><h5>{{ $t('gm_step2_title') }}</h5></div>
                         <div class="card-body">
-                          <p><strong>Сумма:</strong> {{ txParams.amount }} STH (включая комиссию)</p>
-                          <p><strong>Получатель:</strong> {{ txParams.recipientId }}</p>
-                          <p><strong>Memo:</strong> {{ txParams.memo || '-' }}</p>
+                          <p><strong>{{ $t('amount') }}:</strong> {{ txParams.amount }} STH {{ $t('gm_including_fee') }}</p>
+                          <p><strong>{{ $t('recipient') }}:</strong> {{ txParams.recipientId }}</p>
+                          <p><strong>{{ $t('memo') }}:</strong> {{ txParams.memo || '-' }}</p>
                           <div class="d-grid gap-2">
-                            <button @click="confirmAndSend" type="button" class="btn btn-success btn-lg">Подтвердить</button>
-                            <button @click="resetNewCode" type="button" class="btn btn-secondary btn-lg">Отмена</button>
+                            <button @click="confirmAndSend" type="button" class="btn btn-success btn-lg">{{ $t('gm_step2_confirm_button') }}</button>
+                            <button @click="resetNewCode" type="button" class="btn btn-secondary btn-lg">{{ $t('gm_step2_cancel_button') }}</button>
                           </div>
                         </div>
                       </card>
@@ -109,13 +109,13 @@
                     <!-- Step 3: Result -->
                     <div v-show="newCode.step === 3" class="h-100">
                       <div class="card bg-dark border-secondary mt-4">
-                        <div class="card-header"><h5>Транзакция отправлена</h5></div>
+                        <div class="card-header"><h5>{{ $t('gm_step3_title') }}</h5></div>
                         <div class="card-body text-center">
-                          <p>ID Транзакции:</p>
+                          <p>{{ $t('gm_step3_tx_id') }}</p>
                           <strong class="text-success text-break">{{ newCode.txId }}</strong>
-                          <p class="mt-3">Код в процессе создания...</p>
+                          <p class="mt-3">{{ $t('gm_step3_code_in_progress') }}</p>
                           <div class="d-grid mt-4">
-                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">Закрыть</button>
+                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">{{ $t('close') }}</button>
                           </div>
                         </div>
                       </div>

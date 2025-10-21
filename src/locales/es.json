@@ -291,5 +291,12 @@
   "gm_form_memo": "Mensaje al destinatario (memo)",
   "gm_form_create_button": "Crear nuevo código STH",
   "optional_message": "mensaje opcional",
-  "additional": "Adicional"
+  "additional": "Adicional",
+  "gm_step2_title": "Confirmación de transacción",
+  "gm_step2_confirm_button": "Confirmar",
+  "gm_step2_cancel_button": "Cancelar",
+  "gm_step3_title": "Transacción enviada",
+  "gm_step3_tx_id": "ID de transacción:",
+  "gm_step3_code_in_progress": "El código se está creando...",
+  "gm_including_fee": "(incluyendo comisión)"
 }
