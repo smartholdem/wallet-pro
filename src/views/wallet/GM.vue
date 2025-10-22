@@ -206,7 +206,7 @@
                       </td>
                       <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
                       <td class="text-center">
-                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv)" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
+                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, new Date(code.time * 1000).toLocaleString())" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
                         <i class="fas fa-lg fa-qrcode text-theme"></i>
                       </td>
                     </tr>
@@ -379,6 +379,7 @@ export default {
     async onDetect (promise) {
       try {
         const { content } = await promise
+        console.log(content)
 
         this.smartCode = content
         this.qrResponse.error = null
