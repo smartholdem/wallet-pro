@@ -81,8 +81,14 @@ export default {
               left: this.canvas.width / 2,
               originX: 'center',
               fontSize: 20,
-              fill: '#000000',
+              fill: 'rgba(0,0,0,0.7)',
               fontFamily: 'ChakraPetchregular',
+              shadow: new fabric.Shadow({
+                color: 'rgba(255,255,255,0.3)',
+                offsetX: 1,
+                offsetY: 1,
+                blur: 1
+              })
             });
             this.canvas.add(codeText);
 
