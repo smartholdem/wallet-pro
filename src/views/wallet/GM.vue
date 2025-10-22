@@ -313,6 +313,7 @@
 
   <GmInfoModal/>
   <smart-note-image-modal :code="selectedCode" :creationDate="selectedDate" :amount="selectedAmount"/>
+  <SmartNoteImageModalMobile :code="selectedCode" :creationDate="selectedDate" :amount="selectedAmount"/>
   <GmQrModal :code="selectedCode"/>
 
   <!-- toasts-container -->
@@ -357,12 +358,13 @@ import {Toast, Modal} from "bootstrap";
 import { QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader';
 import SmartNoteImageModal from "@/components/wallet/SmartNoteImageModal.vue";
 import GmQrModal from "@/components/wallet/gmQrModal.vue";
+import SmartNoteImageModalMobile from "@/components/wallet/SmartNoteImageModalMobile.vue";
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
 
 export default {
-  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture, SmartNoteImageModal, GmQrModal},
+  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture, SmartNoteImageModal, GmQrModal, SmartNoteImageModalMobile},
   data() {
     return {
       qrResponse: {
@@ -381,6 +383,7 @@ export default {
       selectedAmount: 0,
       noteModal: null,
       qrModal: null,
+      noteModalMobile: null,
       newCode: {
         accountId: this.$route.params.address,
         amount: 10,
@@ -457,6 +460,7 @@ export default {
     }
     this.noteModal = new Modal(document.getElementById('smartNoteImageModal'));
     this.qrModal = new Modal(document.getElementById('gmQrModal'));
+    this.noteModalMobile = new Modal(document.getElementById('smartNoteImageModalMobile'));
   },
   methods: {
     checkScreenSize() {
@@ -476,7 +480,11 @@ export default {
       this.selectedCode = code;
       this.selectedDate = createDate;
       this.selectedAmount = amount;
-      this.noteModal.show();
+      if (this.isMobile) {
+        this.noteModalMobile.show();
+      } else {
+        this.noteModal.show();
+      }
     },
     onDecode (result) {
       console.log('onDecode', result)
