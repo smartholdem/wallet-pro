@@ -3,8 +3,9 @@
     <div class="col-lg-10">
       <card class="h-100">
         <div class="card-header">
-          <h4 class="mb-0 font-lighter"><span data-bs-toggle="modal" data-bs-target="#gmInfoModal"><i
+          <h4 v-if="!isMobile" class="mb-0 font-lighter"><span data-bs-toggle="modal" data-bs-target="#gmInfoModal"><i
               class="text-white-50 fas fa-lg fa-fw me-2 fa-info-circle"></i></span> Smart Notes {{ address }}</h4>
+          <span v-else>Smart Notes {{ address }}</span>
         </div>
         <div class="card-body">
           <div class="row">
@@ -23,26 +24,46 @@
                             <i class="far fa-lg fa-fw me-2 fa-check-square"></i>Мои SmartNotes
                           </button>
               -->
-              <div v-if="$route.params.address" class="btn-group mb-3 w-100">
-                <button type="button" @click="$router.push('/address/' + address)"
-                        class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
-                  <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
-                </button>
-                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15"
-                        @click="currentTab = 1" type="button" class="btn btn-outline-warning btn-lg"
-                        :class="currentTab===1 ? 'active': ''">
-                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_create') }}
-                </button>
-                <button @click="currentTab=2" type="button" class="btn btn-outline-warning btn-lg"
-                        :class="currentTab===2 ? 'active': ''">
-                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_activate') }}
-                </button>
-                <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15"
-                        @click="getMyCodes(address)" type="button" class="btn btn-outline-warning btn-lg"
-                        :class="currentTab===3 ? 'active': ''">
-                  <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_my_smartnotes') }}
-                </button>
+              <!-- Responsive Actions -->
+              <div v-if="$route.params.address">
+                <!-- Desktop Button Group -->
+                <div v-if="!isMobile" class="btn-group mb-3 w-100">
+                  <button type="button" @click="$router.push('/address/' + address)"
+                          class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
+                    <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
+                  </button>
+                  <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15"
+                          @click="selectTab(1)" type="button" class="btn btn-outline-warning btn-lg"
+                          :class="currentTab===1 ? 'active': ''">
+                    <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_create') }}
+                  </button>
+                  <button @click="selectTab(2)" type="button" class="btn btn-outline-warning btn-lg"
+                          :class="currentTab===2 ? 'active': ''">
+                    <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_activate') }}
+                  </button>
+                  <button :disabled="!currentAddress.balance || currentAddress.balance / 10 ** 8 < 15"
+                          @click="selectTab(3)" type="button" class="btn btn-outline-warning btn-lg"
+                          :class="currentTab===3 ? 'active': ''">
+                    <i class="far fa-lg fa-fw me-2 fa-check-square"></i>{{ $t('gm_my_smartnotes') }}
+                  </button>
+                </div>
 
+                <!-- Mobile Dropdown -->
+                <div v-else class="btn-group mb-3 w-100">
+                  <button type="button" @click="$router.push('/address/' + address)" class="btn btn-outline-warning btn-lg">
+                    <i class="fas fa-lg fa-fw fa-angle-double-left"></i>
+                  </button>
+                  <div class="dropdown btn-group w-100">
+                    <button class="btn btn-warning btn-lg dropdown-toggle w-100" type="button" id="gmActionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{ currentActionName }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="gmActionsDropdown">
+                      <li><a class="dropdown-item" :class="{ 'disabled': !currentAddress.balance || currentAddress.balance / 10 ** 8 < 15 }" href="#" @click.prevent="selectTab(1)">{{ $t('gm_create') }}</a></li>
+                      <li><a class="dropdown-item" href="#" @click.prevent="selectTab(2)">{{ $t('gm_activate') }}</a></li>
+                      <li><a class="dropdown-item" :class="{ 'disabled': !currentAddress.balance || currentAddress.balance / 10 ** 8 < 15 }" href="#" @click.prevent="selectTab(3)">{{ $t('gm_my_smartnotes') }}</a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               <div v-show="currentTab===0">
@@ -397,6 +418,18 @@ export default {
       const address = this.$route.params.address;
       if (!address) return [];
       return gmStore.myCodes[address] || [];
+    },
+    currentActionName() {
+      switch (this.currentTab) {
+        case 1:
+          return this.$t('gm_create');
+        case 2:
+          return this.$t('gm_activate');
+        case 3:
+          return this.$t('gm_my_smartnotes');
+        default:
+          return this.$t('gm_actions_menu_title') || 'Actions';
+      }
     }
   },
   beforeUnmount() {
@@ -428,6 +461,12 @@ export default {
   methods: {
     checkScreenSize() {
       this.isMobile = window.innerWidth <= 768;
+    },
+    selectTab(tab) {
+      this.currentTab = tab;
+      if (tab === 3) {
+        this.getMyCodes(this.address);
+      }
     },
     async showNoteQr(code) {
       this.selectedCode = code;
