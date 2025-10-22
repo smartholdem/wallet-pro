@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content w-100">
         <div class="modal-header">
-          <h5 class="modal-title">Smart Note</h5>
+          <h5 class="modal-title">Smart Note <span class="small text-warning">{{this.code}}</span></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body text-center">
@@ -100,6 +100,34 @@ export default {
               })
             });
             this.canvas.add(codeText);
+
+
+            //code array text
+            if (this.code[0] === 'S' && this.code[1] === 'T' && this.code[2] === 'H') {
+              const codeArray = this.code.split('-');
+              const key1 = codeArray[1];
+              const key2 = codeArray[2];
+
+              const key1Text = new fabric.Text(key1, {
+                top: this.canvas.height - 133,
+                left: 120,
+                originX: 'center',
+                fontSize: 24,
+                //fontWeight: 'bold',
+                fill: 'rgba(0,0,0,0.6)',
+                fontFamily: 'ChakraPetchregular',
+                shadow: new fabric.Shadow({
+                  color: 'rgba(255,255,255,0.3)',
+                  offsetX: 1,
+                  offsetY: 1,
+                  blur: 1
+                })
+              });
+              this.canvas.add(key1Text);
+
+
+            }
+
 
             // Creation Date Text
             if (this.creationDate) {

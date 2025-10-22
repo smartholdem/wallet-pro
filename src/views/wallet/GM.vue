@@ -57,7 +57,7 @@
                     <div v-show="newCode.step === 1" class="h-100">
                       <card class="bg-dark border-secondary mt-2">
                         <div class="card-body">
-                          <!--Address for deposit: <strong class="text-success">{{gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...'}}</strong><br/>-->
+                          Onetime address: <strong class="text-success">{{gmAccount && gmAccount.dep ? gmAccount.dep.address : 'Loading...'}}</strong><br/>
                           {{$t('your_balance')}} {{ currentAddressBalance }} STH
                           <div class="mb-3 mt-2">
                             <label for="codeAmount" class="form-label">{{ $t('gm_form_amount') }} Smart Note</label>
@@ -114,19 +114,26 @@
 
                     <!-- Step 3: Result -->
                     <div v-show="newCode.step === 3" class="h-100">
-                      <div class="card bg-dark border-secondary mt-4">
-                        <div class="card-header"><h5>{{ $t('gm_step3_title') }}</h5></div>
+                      <card class="bg-dark border-secondary mt-2">
+                        <div class="card-header">{{ $t('gm_step3_title') }}</div>
                         <div class="card-body text-center">
                           <p>{{ $t('gm_step3_tx_id') }}</p>
                           <strong class="text-success text-break">{{ newCode.txId }}</strong>
                           <p class="mt-3">{{ $t('gm_step3_code_in_progress') }}</p>
+                          <div v-if="resultSubmitNewCode && resultSubmitNewCode.code" @click="copyText(resultSubmitNewCode.code)" class="alert alert-dark mt-2 text-center">
+                            {{resultSubmitNewCode.code}}
+                          </div>
+
+
+
+
                           <div class="d-grid mt-4">
-                            <button @click="resetNewCode" type="button" class="btn btn-primary btn-lg">
+                            <button @click="resetNewCode" type="button" class="btn btn-warning btn-lg">
                               {{$t('close')}}
                             </button>
                           </div>
                         </div>
-                      </div>
+                      </card>
                     </div>
 
                   </div>
@@ -329,7 +336,8 @@ export default {
         amount: 0,
         fee: 1,
         memo: ''
-      }
+      },
+      resultSubmitNewCode: null,
     }
   },
   computed: {
@@ -468,7 +476,7 @@ export default {
         if (txResult && txResult.response && txResult.response.accept && txResult.response.accept.length > 0) {
           this.newCode.txId = txResult.tx.id;
 
-          await gmStore.createSthCode(
+          this.resultSubmitNewCode = await gmStore.createSthCode(
               this.address,
               this.newCode.amount,
               this.newCode.txId,
@@ -491,6 +499,7 @@ export default {
       }
     },
     resetNewCode() {
+      this.resultSubmitNewCode = null;
       this.newCode = {
         accountId: this.address,
         amount: 10,
