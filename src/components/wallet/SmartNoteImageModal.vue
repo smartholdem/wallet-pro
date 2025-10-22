@@ -18,8 +18,15 @@
 </template>
 
 <script>
+import {fabric} from 'fabric';
+import VueQrcode from '@/util/QrCodeImg';
+
 export default {
-  name: "smartNoteImageModal"
+  name: "smartNoteImageModal",
+  components: {
+    VueQrcode,
+  },
+
 }
 </script>
 
