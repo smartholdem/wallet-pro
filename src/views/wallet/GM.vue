@@ -124,9 +124,6 @@
                             {{resultSubmitNewCode.code}}
                           </div>
 
-
-
-
                           <div class="d-grid mt-4">
                             <button @click="resetNewCode" type="button" class="btn btn-warning btn-lg">
                               {{$t('close')}}

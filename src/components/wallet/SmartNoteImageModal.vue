@@ -73,7 +73,10 @@ export default {
           // QR Code
           const qr = new QRious({
             value: this.code,
-            size: 100
+            size: 100,
+            background: '#292638',
+            foreground: '#f3d66e',
+            level: 'H'
           });
           const qrCodeImage = qr.toDataURL();
 
@@ -126,6 +129,24 @@ export default {
               this.canvas.add(key1Text);
 
 
+              const key2Text = new fabric.Text(key2, {
+                top: this.canvas.height - 85,
+                left: this.canvas.width - 290,
+                originX: 'center',
+                fontSize: 20,
+                //fontWeight: 'bold',
+                fill: 'rgba(107,249,253,0.9)',
+                fontFamily: 'ChakraPetchregular',
+                shadow: new fabric.Shadow({
+                  color: 'rgba(0,0,0,0.3)',
+                  offsetX: 1,
+                  offsetY: 1,
+                  blur: 1
+                })
+              });
+              this.canvas.add(key2Text);
+
+
             }
 
 
@@ -163,7 +184,7 @@ export default {
                 originX: 'center',
                 fontSize: 48,
                 fontWeight: 'bold',
-                fill: 'rgba(0,0,0,0.6)',
+                fill: 'rgba(182,110,38,0.7)',
                 fontFamily: 'ChakraPetchregular',
                 shadow: new fabric.Shadow({
                   color: 'rgba(255,255,255,0.3)',
