@@ -211,7 +211,7 @@
                       <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
                       <td class="text-center">
                         <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, code.time, code.amount )" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
-                        <i class="fas fa-lg fa-qrcode text-theme"></i>
+                        <i @click="showNoteQr(code.code || 'GM-' + code.pub + '-' + code.priv)" class="fas fa-lg fa-qrcode text-theme"></i>
                       </td>
                     </tr>
 
@@ -377,6 +377,12 @@ export default {
     this.noteModal = new Modal(document.getElementById('smartNoteImageModal'));
   },
   methods: {
+    async showNoteQr(code) {
+    this.selectedCode = code;
+      const qrModal = new Modal(document.getElementById('gmQrModal'));
+      qrModal.show();
+
+    },
     async showNoteImage(code, createDate,amount ) {
       this.selectedCode = code;
       this.selectedDate = createDate;
