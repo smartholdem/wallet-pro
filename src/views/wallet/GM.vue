@@ -170,7 +170,7 @@
                             Drop Smart Code image here
                           </div>
                         </qrcode-drop-zone>
-                        <qrcode-capture class="mt-2" @decode="onDecode" />
+                        <qrcode-capture class="mt-2" @detect="onDetect"  />
                       </div>
                     </card>
                   </div>
@@ -384,30 +384,26 @@ export default {
       this.noteModal.show();
     },
     onDecode (result) {
-      this.smartCodeDetect = result;
+      console.log('onDecode', result)
+      //this.smartCode = result;
     },
-    async onDetect (promise) {
-      try {
-        const { content } = await promise
-        console.log(content)
-
-        this.smartCodeDetect = content
-        this.qrResponse.error = null
-      } catch (error) {
-        if (error.name === 'DropImageFetchError') {
-          this.qrResponse.error = 'Sorry, you can\'t load cross-origin images :/'
-        } else if (error.name === 'DropImageDecodeError') {
-          this.qrResponse.error = 'Ok, that\'s not an image. That can\'t be decoded.'
-        } else {
-          this.qrResponse.error = 'Ups, what kind of error is this?! ' + error.message
-        }
+    onDetect(detectedCodes) {
+      if (detectedCodes.length) {
+        this.smartCode = detectedCodes[0].rawValue;
+      }
+     // this.smartCode = JSON.stringify(detectedCodes.map((code) => code.rawValue))
+    },
+    logErrors(error) {
+      if (error.name === 'DropImageFetchError') {
+        this.error = "Sorry, you can't load cross-origin images :/"
+      } else if (error.name === 'DropImageDecodeError') {
+        this.error = "Ok, that's not an image. That can't be decoded."
+      } else {
+        this.error = 'Ups, what kind of error is this?! ' + error.message
       }
     },
-    logErrors (promise) {
-      promise.catch(console.error)
-    },
     onDragOver (isDraggingOver) {
-      this.qrResponse.dragover = isDraggingOver
+      console.log('isDraggingOver', isDraggingOver)
     },
     async accountUpdate() {
       if (this.address) {
@@ -526,3 +522,24 @@ export default {
   }
 }
 </script>
+
+
+<style>
+.drop-area {
+  height: 300px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+
+}
+
+.dragover {
+  background-color: #10b981;
+}
+
+.drop-error {
+  color: red;
+  font-weight: bold;
+}
+</style>

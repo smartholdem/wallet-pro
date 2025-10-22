@@ -1,4 +1,6 @@
 v1.2.19
+- Detect QR Code from image file upload in Send modal.
+- Added support for pasting QR code images from clipboard in Send modal.
 - Improved Operations UI by moving secondary actions ('Vote', 'Delegate Reg', 'Sign Message') into a new 'Additional' dropdown menu.
 - Added internationalization support for the new 'Additional' dropdown.
 - Fixed a display issue where the new dropdown appeared underneath other elements.
