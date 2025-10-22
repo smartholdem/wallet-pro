@@ -369,7 +369,7 @@ export default {
     this.noteModal = new Modal(document.getElementById('smartNoteImageModal'));
   },
   methods: {
-    async showNoteImage(code) {
+    async showNoteImage(code, createDate) {
       this.selectedCode = code;
       this.noteModal.show();
     },
