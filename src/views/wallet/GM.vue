@@ -184,7 +184,8 @@
                   {{ $t('gm_no_active_notes') }}
                 </div>
                 <div v-else>
-                  <table class="table table-striped table-bordered">
+                  <!-- Desktop Table View -->
+                  <table v-if="!isMobile" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                       <th>{{ $t('gm_table_smart_code') }}</th>
@@ -196,27 +197,64 @@
                     </thead>
                     <tbody>
                     <tr v-for="code in myCodes" :key="code.pub">
-                      <td v-if="!code.code">
+                      <td v-if="!code.code" class="text-break">
                         <i class="far fa-copy me-2 pointer" @click="copyText('GM-' + code.pub + '-' + code.priv)"></i>
                         GM-{{ code.pub }}-{{ code.priv }}
                       </td>
-                      <td v-else>
+                      <td v-else class="text-break">
                         <i class="far fa-copy me-2 pointer" @click="copyText(code.code)"></i>
                         {{ code.code }}
                       </td>
                       <td>{{ code.amount }}</td>
-                      <td class="text-center"><i class="fas fa-lg fa-fw me-2 fa-circle"
+                      <td class="text-center"><i class="fas fa-lg fa-fw fa-circle"
                                                  :class="code.status === true ? 'text-success' : 'text-white-50'"></i>
                       </td>
                       <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
                       <td class="text-center">
-                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, code.time, code.amount )" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
-                        <i @click="showNoteQr(code.code || 'GM-' + code.pub + '-' + code.priv)" class="fas fa-lg fa-qrcode text-theme"></i>
+                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, code.time, code.amount )" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer d-inline-block"></div>
+                        <i @click="showNoteQr(code.code || 'GM-' + code.pub + '-' + code.priv)" class="fas fa-lg fa-qrcode text-theme pointer d-inline-block"></i>
                       </td>
                     </tr>
-
                     </tbody>
                   </table>
+
+                  <!-- Mobile Card View -->
+                  <div v-else>
+                    <card v-for="code in myCodes" :key="code.pub" class="bg-dark border-secondary mb-3">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <div class="text-break pe-2">
+                            <strong class="text-white-50">{{ $t('gm_table_smart_code') }}</strong><br>
+                            <i class="far fa-copy me-2 pointer" @click="copyText(code.code || 'GM-' + code.pub + '-' + code.priv)"></i>
+                            <span>{{ code.code || 'GM-' + code.pub + '-' + code.priv }}</span>
+                          </div>
+                          <div class="text-nowrap ps-2">
+                            <i class="fas fa-lg fa-fw fa-circle" :class="code.status === true ? 'text-success' : 'text-white-50'"></i>
+                          </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="row">
+                          <div class="col-6">
+                            <strong class="text-white-50">{{ $t('gm_table_amount') }}</strong><br>
+                            <span>{{ code.amount }} STH</span>
+                          </div>
+                          <div class="col-6">
+                            <strong class="text-white-50">{{ $t('gm_table_created_at') }}</strong><br>
+                            <span>{{ new Date(code.time * 1000).toLocaleDateString() }}</span>
+                          </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="text-center">
+                          <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, code.time, code.amount )" class="btn btn-sm btn-outline-secondary d-inline-block text-theme me-2">
+                            <i class="fas fa-download"></i>
+                          </div>
+                          <div @click="showNoteQr(code.code || 'GM-' + code.pub + '-' + code.priv)" class="btn btn-sm btn-outline-secondary d-inline-block text-theme">
+                            <i class="fas fa-qrcode"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </card>
+                  </div>
                 </div>
               </div>
             </div>
@@ -338,6 +376,7 @@ export default {
         memo: ''
       },
       resultSubmitNewCode: null,
+      isMobile: false,
     }
   },
   computed: {
@@ -360,7 +399,13 @@ export default {
       return gmStore.myCodes[address] || [];
     }
   },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.checkScreenSize);
+  },
   async mounted() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+
     const address = this.$route.params.address;
     if (!address) {
       console.error("No address provided in route.");
@@ -381,6 +426,9 @@ export default {
     this.qrModal = new Modal(document.getElementById('gmQrModal'));
   },
   methods: {
+    checkScreenSize() {
+      this.isMobile = window.innerWidth <= 768;
+    },
     async showNoteQr(code) {
       this.selectedCode = code;
       this.qrModal.show();

@@ -1,4 +1,5 @@
 v1.2.19
+- Added a QR code display modal for SmartNotes.
 - Detect QR Code from image file upload in Send modal.
 - Added support for pasting QR code images from clipboard in Send modal.
 - Improved Operations UI by moving secondary actions ('Vote', 'Delegate Reg', 'Sign Message') into a new 'Additional' dropdown menu.
