@@ -135,7 +135,7 @@
 
                   </div>
                   <div class="col-md-4 col-lg-6">
-                    <img class="w-100 mt-2" src="/images/smartnote.png" alt="smartnotes sth">
+                    <img class="w-100 mt-2" src="/images/STH25000.png" alt="smartnotes sth">
                   </div>
                 </div>
               </div>

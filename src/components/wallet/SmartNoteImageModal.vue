@@ -91,12 +91,12 @@ export default {
 
             // Code Text
             const codeText = new fabric.Text(this.code, {
-              top: this.canvas.height - 21,
+              top: this.canvas.height - 18,
               left: this.canvas.width / 2,
               originX: 'center',
-              fontSize: 20,
+              fontSize: 14,
               fill: 'rgba(0,0,0,0.7)',
-              fontFamily: 'ChakraPetchregular',
+              fontFamily: 'Arial',
               shadow: new fabric.Shadow({
                 color: 'rgba(255,255,255,0.3)',
                 offsetX: 1,
@@ -114,15 +114,15 @@ export default {
               const key2 = codeArray[2];
 
               const key1Text = new fabric.Text(key1, {
-                top: this.canvas.height - 133,
-                left: 120,
+                top: this.canvas.height - 145,
+                left: this.canvas.width - 290,
                 originX: 'center',
-                fontSize: 24,
+                fontSize: 18,
                 //fontWeight: 'bold',
-                fill: 'rgba(0,0,0,0.6)',
-                fontFamily: 'ChakraPetchregular',
+                fill: 'rgba(107,249,253,0.9)',
+                fontFamily: 'Arial',
                 shadow: new fabric.Shadow({
-                  color: 'rgba(255,255,255,0.3)',
+                  color: 'rgba(0,0,0,0.3)',
                   offsetX: 1,
                   offsetY: 1,
                   blur: 1
@@ -132,13 +132,13 @@ export default {
 
 
               const key2Text = new fabric.Text(key2, {
-                top: this.canvas.height - 85,
+                top: this.canvas.height - 82,
                 left: this.canvas.width - 290,
                 originX: 'center',
-                fontSize: 20,
+                fontSize: 18,
                 //fontWeight: 'bold',
                 fill: 'rgba(107,249,253,0.9)',
-                fontFamily: 'ChakraPetchregular',
+                fontFamily: 'Arial',
                 shadow: new fabric.Shadow({
                   color: 'rgba(0,0,0,0.3)',
                   offsetX: 1,
@@ -161,12 +161,12 @@ export default {
                 year: 'numeric'
               });
               const dateText = new fabric.Text(formattedDate, {
-                top: 58,
-                left: this.canvas.width - 90,
-                originX: 'right',
-                fontSize: 24,
-                fill: 'rgba(0,0,0,0.6)',
-                fontFamily: 'ChakraPetchregular',
+                top: this.canvas.height - 131,
+                left: 121,
+                originX: 'center',
+                fontSize: 20,
+                fill: 'rgba(76,45,81,0.8)',
+                fontFamily: 'Arial',
                 shadow: new fabric.Shadow({
                   color: 'rgba(255,255,255,0.3)',
                   offsetX: 1,
@@ -180,14 +180,16 @@ export default {
             // Amount Text
             if (this.amount) {
               console.log('Adding amount:', formatNumber(this.amount, 'ru-Ru'));
-              const amount = new fabric.Text(formatNumber(this.amount, 'ru-Ru'), {
-                top: 45,
-                left: 150,
+              const formatted = formatNumber(this.amount, 'ru-Ru');
+              const amountStr = this.amount.toString();
+              const amount = new fabric.Text(amountStr, {
+                top: 54,
+                left: amountStr.length > 4  ? 150 : 150-36,
                 originX: 'center',
-                fontSize: 48,
+                fontSize: 42,
                 fontWeight: 'bold',
-                fill: 'rgba(182,110,38,0.7)',
-                fontFamily: 'ChakraPetchregular',
+                fill: 'rgba(182,110,38,0.7)', //'rgba(182,110,38,0.7)',
+                fontFamily: 'Arial Black',
                 shadow: new fabric.Shadow({
                   color: 'rgba(255,255,255,0.3)',
                   offsetX: 1,
@@ -196,6 +198,26 @@ export default {
                 })
               });
               this.canvas.add(amount);
+
+              let amount2 = new fabric.Text(amountStr, {
+                top: 54,
+                left: this.canvas.width - 137,
+                originX: 'center',
+                fontSize: 42,
+                fontWeight: 'bold',
+                fill: 'rgba(182,110,38,0.7)', //'rgba(182,110,38,0.7)',
+                fontFamily: 'Arial Black',
+                shadow: new fabric.Shadow({
+                  color: 'rgba(255,255,255,0.3)',
+                  offsetX: 1,
+                  offsetY: 1,
+                  blur: 1
+                })
+              });
+
+              this.canvas.add(amount2);
+
+
             }
 
             this.canvas.renderAll(); // Final render with all elements
