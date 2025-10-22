@@ -21,6 +21,7 @@
 <script>
 import { fabric } from 'fabric';
 import QRious from 'qrious';
+import {formatNumber} from "chart.js/helpers";
 
 export default {
   name: "SmartNoteImageModal",
@@ -28,6 +29,14 @@ export default {
     code: {
       type: String,
       required: true
+    },
+    creationDate: {
+      type: [String, Number],
+      default: null
+    },
+    amount: {
+      type: [String, Number],
+      default: null
     }
   },
   data() {
@@ -91,6 +100,52 @@ export default {
               })
             });
             this.canvas.add(codeText);
+
+            // Creation Date Text
+            if (this.creationDate) {
+              const date = new Date(this.creationDate * 1000); // Assuming timestamp in seconds
+              const formattedDate = date.toLocaleDateString('en-US', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              });
+              const dateText = new fabric.Text(formattedDate, {
+                top: 58,
+                left: this.canvas.width - 90,
+                originX: 'right',
+                fontSize: 24,
+                fill: 'rgba(0,0,0,0.6)',
+                fontFamily: 'ChakraPetchregular',
+                shadow: new fabric.Shadow({
+                  color: 'rgba(255,255,255,0.3)',
+                  offsetX: 1,
+                  offsetY: 1,
+                  blur: 1
+                })
+              });
+              this.canvas.add(dateText);
+            }
+
+            // Amount Text
+            if (this.amount) {
+              console.log('Adding amount:', formatNumber(this.amount, 'ru-Ru'));
+              const amount = new fabric.Text(formatNumber(this.amount, 'ru-Ru'), {
+                top: 45,
+                left: 150,
+                originX: 'center',
+                fontSize: 48,
+                fontWeight: 'bold',
+                fill: 'rgba(0,0,0,0.6)',
+                fontFamily: 'ChakraPetchregular',
+                shadow: new fabric.Shadow({
+                  color: 'rgba(255,255,255,0.3)',
+                  offsetX: 1,
+                  offsetY: 1,
+                  blur: 1
+                })
+              });
+              this.canvas.add(amount);
+            }
 
             this.canvas.renderAll(); // Final render with all elements
           });

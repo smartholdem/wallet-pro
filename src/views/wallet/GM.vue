@@ -206,7 +206,7 @@
                       </td>
                       <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
                       <td class="text-center">
-                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, new Date(code.time * 1000).toLocaleString())" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
+                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv, code.time, code.amount )" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
                         <i class="fas fa-lg fa-qrcode text-theme"></i>
                       </td>
                     </tr>
@@ -249,7 +249,7 @@
   </div>
 
   <GmInfoModal/>
-  <smart-note-image-modal :code="selectedCode" />
+  <smart-note-image-modal :code="selectedCode" :creationDate="selectedDate" :amount="selectedAmount"/>
 
   <!-- toasts-container -->
 
@@ -308,9 +308,12 @@ export default {
       address: this.$route.params.address || '',
       currentTab: 1,
       smartCode: '',
+      smartCodeDetect: '',
       toastStyle: 'success',
       notifyMsg: '',
       selectedCode: '',
+      selectedDate: null,
+      selectedAmount: 0,
       noteModal: null,
       newCode: {
         accountId: this.$route.params.address,
@@ -369,19 +372,21 @@ export default {
     this.noteModal = new Modal(document.getElementById('smartNoteImageModal'));
   },
   methods: {
-    async showNoteImage(code, createDate) {
+    async showNoteImage(code, createDate,amount ) {
       this.selectedCode = code;
+      this.selectedDate = createDate;
+      this.selectedAmount = amount;
       this.noteModal.show();
     },
     onDecode (result) {
-      this.smartCode = result;
+      this.smartCodeDetect = result;
     },
     async onDetect (promise) {
       try {
         const { content } = await promise
         console.log(content)
 
-        this.smartCode = content
+        this.smartCodeDetect = content
         this.qrResponse.error = null
       } catch (error) {
         if (error.name === 'DropImageFetchError') {
@@ -428,10 +433,6 @@ export default {
       } else {
         this.showToast('toast-gm', this.$t('gm_code_not_found_or_activated'), 'danger');
       }
-    },
-    async createNewCode() {
-      this.resetNewCode();
-      this.currentTab = 1;
     },
     async getMyCodes(address) {
       this.currentTab = 3; // Switch to the "My Codes" tab

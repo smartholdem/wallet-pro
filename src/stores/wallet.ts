@@ -15,7 +15,7 @@ import Web3 from "web3";
 import {useStoreSettings} from "@/stores/app-settings";
 
 Managers.configManager.setFromPreset("mainnet");
-Managers.configManager.setHeight(5000000);
+Managers.configManager.setHeight(8000000);
 
 // Ленивые помощники: не трогают сторы до инициализации Pinia/персиста
 const getActiveNode = (): string => {
