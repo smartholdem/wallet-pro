@@ -1,4 +1,7 @@
 v1.2.19
+- Improved responsive layout on the SmartNotes page for the actions menu and notes list.
+- Added a responsive view for the SmartNote image modal on mobile devices.
+- Fixed bugs related to SmartNote image display and download on mobile.
 - Added a QR code display modal for SmartNotes.
 - Detect QR Code from image file upload in Send modal.
 - Added support for pasting QR code images from clipboard in Send modal.
