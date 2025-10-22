@@ -254,6 +254,7 @@
 
   <GmInfoModal/>
   <smart-note-image-modal :code="selectedCode" :creationDate="selectedDate" :amount="selectedAmount"/>
+  <GmQrModal :code="selectedCode"/>
 
   <!-- toasts-container -->
 
@@ -296,12 +297,13 @@ import GmInfoModal from "@/components/wallet/GmInfoModal.vue";
 import {Toast, Modal} from "bootstrap";
 import { QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader';
 import SmartNoteImageModal from "@/components/wallet/SmartNoteImageModal.vue";
+import GmQrModal from "@/components/wallet/gmQrModal.vue";
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
 
 export default {
-  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture, SmartNoteImageModal},
+  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture, SmartNoteImageModal, GmQrModal},
   data() {
     return {
       qrResponse: {
@@ -319,6 +321,7 @@ export default {
       selectedDate: null,
       selectedAmount: 0,
       noteModal: null,
+      qrModal: null,
       newCode: {
         accountId: this.$route.params.address,
         amount: 10,
@@ -375,13 +378,12 @@ export default {
       this.currentTab = 2; // Switch to info tab if balance is insufficient
     }
     this.noteModal = new Modal(document.getElementById('smartNoteImageModal'));
+    this.qrModal = new Modal(document.getElementById('gmQrModal'));
   },
   methods: {
     async showNoteQr(code) {
-    this.selectedCode = code;
-      const qrModal = new Modal(document.getElementById('gmQrModal'));
-      qrModal.show();
-
+      this.selectedCode = code;
+      this.qrModal.show();
     },
     async showNoteImage(code, createDate,amount ) {
       this.selectedCode = code;
