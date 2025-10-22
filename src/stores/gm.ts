@@ -143,7 +143,7 @@ export const useGMStore = defineStore("gm", {
                 // 4. Handle the response
                 if (response.data && response.data.success) {
                     this.myCodes[accountId] = response.data.codes; // Assuming the server returns { success: true, codes: [...] }
-                    console.log("My codes fetched successfully", this.myCodes[accountId]);
+                    //console.log("My codes fetched successfully", this.myCodes[accountId]);
                 } else {
                     console.error("Failed to fetch my codes:", response.data);
                 }
@@ -167,7 +167,7 @@ export const useGMStore = defineStore("gm", {
 
                 if (response.data && response.data.success) {
                     this.accounts[accountId] = response.data.account;
-                    console.log("Account link successfully", this.accounts[accountId]);
+                    //console.log("Account link successfully", this.accounts[accountId]);
                 } else {
                     console.error("Account link failed:", response.data);
                 }

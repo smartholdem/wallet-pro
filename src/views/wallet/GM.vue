@@ -45,7 +45,6 @@
 
               </div>
 
-
               <div v-show="currentTab===0">
                 <img class="w-100 mt-4" src="/images/smartnote.png" alt="smartnotes sth">
               </div>
@@ -139,19 +138,40 @@
 
               <!-- activateCode currentTab === 2 form -->
               <div v-show="currentTab===2">
-                <p v-show="currentAddressBalance > 0" class="text-center">{{$t('your_balance')}} {{ currentAddressBalance }} STH</p>
+                <div class="content">
+                  <div class="row m-1">
+                    <card class="bg-dark col-md-6">
+                      <div class="card-body">
+                        <p v-show="currentAddressBalance > 0" class="text-center">{{$t('your_balance')}} {{ currentAddressBalance }} STH</p>
+                        <label class="form-label">{{ $t('gm_enter_activation_code') }}</label>
+                        <p v-if="qrResponse.error !== null" class="drop-error">
+                          {{ qrResponse.error }}
+                        </p>
+                        <input
+                            v-model="smartCode"
+                            @input=""
+                            type="text"
+                            class="form-control form-control-lg bg-dark text-white"
+                            :placeholder="$t('gm_enter_activation_code') + ' GM-XXXX-XXXXXXXX, STH-XXXX-XXXX'"
+                        />
+                        <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-3 btn btn-warning btn-lg">
+                          {{ $t('gm_activate_code') }} <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
+                        </button>
+                      </div>
+                    </card>
+                    <card class="col-md-6 bg-dark">
+                      <div class="card-body m-1">
+                        <qrcode-drop-zone @detect="onDetect" @dragover="onDragOver" @init="logErrors" class="w-100 mt-1">
+                          <div class="w-100 drop-area" :class="{ 'dragover': qrResponse.dragover }">
+                            Drop Smart Code image here
+                          </div>
+                        </qrcode-drop-zone>
+                        <qrcode-capture class="mt-2" @decode="onDecode" />
+                      </div>
+                    </card>
+                  </div>
 
-                <label class="form-label">{{ $t('gm_enter_activation_code') }}</label>
-                <input
-                    v-model="smartCode"
-                    @input=""
-                    type="text"
-                    class="form-control form-control-lg bg-dark text-white"
-                    :placeholder="$t('gm_enter_activation_code') + ' GM-XXXX-XXXXXXXX, STH-XXXX-XXXX'"
-                />
-                <button :disabled="!smartCode" @click="codeActivate" type="button" class="mt-3 btn btn-warning btn-lg">
-                  {{ $t('gm_activate_code') }} <i class="fas fa-lg fa-fw me-2 fa-angle-double-right"></i>
-                </button>
+                </div>
               </div>
 
               <!-- myCodes -->
@@ -167,6 +187,7 @@
                       <th>{{ $t('gm_table_amount') }}</th>
                       <th class="text-center">{{ $t('gm_table_status') }}</th>
                       <th>{{ $t('gm_table_created_at') }}</th>
+                      <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -184,7 +205,12 @@
                                                  :class="code.status === true ? 'text-success' : 'text-white-50'"></i>
                       </td>
                       <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
+                      <td class="text-center">
+                        <div @click="showNoteImage(code.code)" class="fas fa-lg fa-fw me-2 fa-download text-theme"></div>
+                        <i class="fas fa-lg fa-qrcode text-theme"></i>
+                      </td>
                     </tr>
+
                     </tbody>
                   </table>
                 </div>
@@ -263,14 +289,20 @@ import {useGMStore} from "@/stores/gm";
 import Card from "@/components/bootstrap/Card.vue";
 import GmInfoModal from "@/components/wallet/GmInfoModal.vue";
 import {Toast} from "bootstrap";
+import { QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader';
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
 
 export default {
-  components: {Card, GmInfoModal},
+  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture},
   data() {
     return {
+      qrResponse: {
+        result: null,
+        error: null,
+        dragover: false
+      },
       address: this.$route.params.address || '',
       currentTab: 1,
       smartCode: '',
@@ -332,6 +364,34 @@ export default {
     }
   },
   methods: {
+    async showNoteImage(code) {
+
+    },
+    onDecode (result) {
+      this.smartCode = result;
+    },
+    async onDetect (promise) {
+      try {
+        const { content } = await promise
+
+        this.smartCode = content
+        this.qrResponse.error = null
+      } catch (error) {
+        if (error.name === 'DropImageFetchError') {
+          this.qrResponse.error = 'Sorry, you can\'t load cross-origin images :/'
+        } else if (error.name === 'DropImageDecodeError') {
+          this.qrResponse.error = 'Ok, that\'s not an image. That can\'t be decoded.'
+        } else {
+          this.qrResponse.error = 'Ups, what kind of error is this?! ' + error.message
+        }
+      }
+    },
+    logErrors (promise) {
+      promise.catch(console.error)
+    },
+    onDragOver (isDraggingOver) {
+      this.qrResponse.dragover = isDraggingOver
+    },
     async accountUpdate() {
       if (this.address) {
         await storeWallet.getAttributes(this.address);
