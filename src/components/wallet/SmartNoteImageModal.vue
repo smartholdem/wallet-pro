@@ -56,37 +56,40 @@ export default {
         height: 458,
       });
 
-      this.canvas.setBackgroundImage('/images/smartnote.png', this.canvas.renderAll.bind(this.canvas), {
-        originX: 'left',
-        originY: 'top'
-      });
+      this.canvas.setBackgroundImage('/images/smartnote.png', () => {
+        this.canvas.renderAll(); // Render background first
 
-      const qr = new QRious({
-        value: this.code,
-        size: 100
-      });
-      const qrCodeImage = qr.toDataURL();
+        // Wait for custom fonts to be loaded
+        document.fonts.ready.then(() => {
+          // QR Code
+          const qr = new QRious({
+            value: this.code,
+            size: 100
+          });
+          const qrCodeImage = qr.toDataURL();
 
-      fabric.Image.fromURL(qrCodeImage, (img) => {
-        img.set({
-          left: (this.canvas.width - 292) / 2,
-          top: (this.canvas.height - 148), // slightly move up
+          fabric.Image.fromURL(qrCodeImage, (img) => {
+            img.set({
+              left: (this.canvas.width - 292) / 2,
+              top: (this.canvas.height - 148),
+            });
+            this.canvas.add(img);
+
+            // Code Text
+            const codeText = new fabric.Text(this.code, {
+              top: this.canvas.height - 21,
+              left: this.canvas.width / 2,
+              originX: 'center',
+              fontSize: 20,
+              fill: '#000000',
+              fontFamily: 'ChakraPetchregular',
+            });
+            this.canvas.add(codeText);
+
+            this.canvas.renderAll(); // Final render with all elements
+          });
         });
-        this.canvas.add(img);
-        this.canvas.renderAll();
-      });
-
-      const codeText = new fabric.Text(this.code, {
-        top: this.canvas.height - 170,
-        left: this.canvas.width / 2,
-        originX: 'center',
-        fontSize: 24,
-        fill: '#000000',
-        fontFamily: 'ChakraPetchregular',
-      });
-
-      this.canvas.add(codeText);
-      this.canvas.renderAll();
+      }, { originX: 'left', originY: 'top' });
     },
     downloadImage() {
       const dataURL = this.canvas.toDataURL({
