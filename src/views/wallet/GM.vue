@@ -206,7 +206,7 @@
                       </td>
                       <td>{{ new Date(code.time * 1000).toLocaleString() }}</td>
                       <td class="text-center">
-                        <div @click="showNoteImage(code.code)" class="fas fa-lg fa-fw me-2 fa-download text-theme"></div>
+                        <div @click="showNoteImage(code.code || 'GM-' + code.pub + '-' + code.priv)" class="fas fa-lg fa-fw me-2 fa-download text-theme pointer"></div>
                         <i class="fas fa-lg fa-qrcode text-theme"></i>
                       </td>
                     </tr>
@@ -249,6 +249,7 @@
   </div>
 
   <GmInfoModal/>
+  <smart-note-image-modal :code="selectedCode" />
 
   <!-- toasts-container -->
 
@@ -288,14 +289,15 @@ import {useStoreWallet} from "@/stores/wallet";
 import {useGMStore} from "@/stores/gm";
 import Card from "@/components/bootstrap/Card.vue";
 import GmInfoModal from "@/components/wallet/GmInfoModal.vue";
-import {Toast} from "bootstrap";
+import {Toast, Modal} from "bootstrap";
 import { QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader';
+import SmartNoteImageModal from "@/components/wallet/SmartNoteImageModal.vue";
 
 const storeWallet = useStoreWallet();
 const gmStore = useGMStore();
 
 export default {
-  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture},
+  components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture, SmartNoteImageModal},
   data() {
     return {
       qrResponse: {
@@ -308,6 +310,8 @@ export default {
       smartCode: '',
       toastStyle: 'success',
       notifyMsg: '',
+      selectedCode: '',
+      noteModal: null,
       newCode: {
         accountId: this.$route.params.address,
         amount: 10,
@@ -362,10 +366,12 @@ export default {
     if (this.currentAddressBalance < 10) {
       this.currentTab = 2; // Switch to info tab if balance is insufficient
     }
+    this.noteModal = new Modal(document.getElementById('smartNoteImageModal'));
   },
   methods: {
     async showNoteImage(code) {
-
+      this.selectedCode = code;
+      this.noteModal.show();
     },
     onDecode (result) {
       this.smartCode = result;
