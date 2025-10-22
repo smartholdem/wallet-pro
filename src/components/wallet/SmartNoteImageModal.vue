@@ -22,6 +22,7 @@
 import { fabric } from 'fabric';
 import QRious from 'qrious';
 import {formatNumber} from "chart.js/helpers";
+const isElectron = navigator.userAgent.toLowerCase().includes("electron");
 
 export default {
   name: "SmartNoteImageModal",
@@ -65,7 +66,8 @@ export default {
         height: 458,
       });
 
-      this.canvas.setBackgroundImage('/images/smartnote.png', () => {
+      const pathPrefix = isElectron ? '' : '/';
+      this.canvas.setBackgroundImage(pathPrefix + 'images/smartnote.png', () => {
         this.canvas.renderAll(); // Render background first
 
         // Wait for custom fonts to be loaded
