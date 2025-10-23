@@ -9,6 +9,7 @@ import AppTopNav from "@/components/app/TopNav.vue";
 import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
 import ChangelogModal from "@/components/app/ChangelogModal.vue";
+import UpdateProgressModal from "@/components/app/UpdateProgressModal.vue";
 import TitleBar from "@/components/TitleBar.vue";
 import router from "./router";
 import {storeToRefs} from "pinia";
@@ -16,6 +17,7 @@ import {useStoreSettings} from "@/stores/app-settings";
 import {useExchangeStore} from "@/stores/exchange";
 
 import {useI18n} from "vue-i18n";
+import {useUpdater} from "@/composables/useUpdater";
 
 const storeSettings = useStoreSettings();
 const {settings} = storeToRefs(storeSettings);
@@ -24,6 +26,15 @@ const isElectron = ref(false);
 const storeExchange = useExchangeStore();
 const internalInstance = getCurrentInstance();
 const { t } = useI18n();
+const { 
+  checkForUpdate, 
+  isUpdateAvailable, 
+  updateInfo, 
+  downloadAndInstall,
+  isDownloading,
+  downloadProgress,
+  downloadError
+} = useUpdater();
 
 // Info Modal State
 const infoModal = ref({
@@ -51,6 +62,24 @@ const handleCloseChangelog = () => {
   localStorage.setItem("appVersion", __APP_VERSION__);
 };
 
+watch(isUpdateAvailable, (isAvailable) => {
+  if (isAvailable && updateInfo.value) {
+    // Using cordova-plugin-dialogs
+    if (navigator.notification) {
+      navigator.notification.confirm(
+        `A new version ${updateInfo.value.version} is available. Do you want to download and install it?`, // message
+        (buttonIndex) => {
+          if (buttonIndex === 1) { // 1 is for the 'Update' button
+            downloadAndInstall();
+          }
+        },
+        'Update Available', // title
+        ['Update', 'Later'] // buttonLabels
+      );
+    }
+  }
+});
+
 watch(() => appOption.shouldShowChangelog, async (newValue) => {
   if (newValue) {
     try {
@@ -72,6 +101,10 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 // --- End Changelog Logic ---
 
 onMounted(() => {
+  document.addEventListener('deviceready', () => {
+    console.log('Device is ready. Checking for updates.');
+    checkForUpdate();
+  }, false);
 
   //проверка на логин, пин код введён или нет?
   if (!settings.value.pinCode) {
@@ -192,6 +225,12 @@ document.querySelector("body").classList.add("app-init");
         :show="showChangelog"
         :content="changelogContent"
         @close="handleCloseChangelog"
+    />
+    <UpdateProgressModal 
+      :show="isDownloading" 
+      :progress="downloadProgress" 
+      :version="updateInfo?.version"
+      :error="downloadError"
     />
     <!-- --- End Changelog Modal --- -->
 

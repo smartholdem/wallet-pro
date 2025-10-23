@@ -13,11 +13,29 @@
   "author": "TechnoL0g",
   "license": "Apache-2.0",
   "devDependencies": {
-    "cordova-android": "^14.0.1"
+    "cordova-android": "^14.0.1",
+    "cordova-plugin-app-version": "^0.1.14",
+    "cordova-plugin-dialogs": "^2.0.2",
+    "cordova-plugin-file": "^8.1.3",
+    "cordova-plugin-file-opener2": "^4.0.0",
+    "cordova-plugin-splashscreen": "^6.0.1"
   },
   "cordova": {
     "platforms": [
       "android"
-    ]
+    ],
+    "plugins": {
+      "cordova-plugin-app-version": {},
+      "cordova-plugin-file": {
+        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+      },
+      "cordova-plugin-file-opener2": {
+        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+      },
+      "cordova-plugin-dialogs": {
+        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+      },
+      "cordova-plugin-splashscreen": {}
+    }
   }
 }
