@@ -130,14 +130,14 @@ export const useGMStore = defineStore("gm", {
                 });
 
                 if (response.data && response.data.success) {
-                    console.log("Code activated successfully:", response.data);
+                    //console.log("Code activated successfully:", response.data);
                     await this.accountLink(accountId);
                 } else {
-                    console.error("Failed to activate code:", response.data);
+                    //console.error("Failed to activate code:", response.data);
                 }
                 return response.data;
             } catch (error) {
-                console.error("Error activating code:", error);
+                //console.error("Error activating code:", error);
                 return null;
             }
         },
