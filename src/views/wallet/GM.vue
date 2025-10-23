@@ -219,11 +219,11 @@
                     <tbody>
                     <tr v-for="code in myCodes" :key="code.pub">
                       <td v-if="!code.code" class="text-break">
-                        <i class="far fa-copy me-2 pointer" @click="copyText('GM-' + code.pub + '-' + code.priv)"></i>
+                        <i class="far fa-copy me-2 pointer text-primary" @click="copyText('GM-' + code.pub + '-' + code.priv)"></i>
                         GM-{{ code.pub }}-{{ code.priv }}
                       </td>
                       <td v-else class="text-break">
-                        <i class="far fa-copy me-2 pointer" @click="copyText(code.code)"></i>
+                        <i class="far fa-copy me-2 pointer text-theme" @click="copyText(code.code)"></i>
                         {{ code.code }}
                       </td>
                       <td>{{ code.amount }}</td>
