@@ -1,4 +1,6 @@
 v1.2.19
+- Added Cordova project to build for the Android platform.
+- Added npm script to automate Android release APK generation.
 - Improved responsive layout on the SmartNotes page for the actions menu and notes list.
 - Added a responsive view for the SmartNote image modal on mobile devices.
 - Fixed bugs related to SmartNote image display and download on mobile.

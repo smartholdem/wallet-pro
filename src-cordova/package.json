@@ -1,0 +1,23 @@
+{
+  "name": "com.smartholdem.walletpro",
+  "displayName": "SmartHoldem Wallet Pro",
+  "version": "1.0.0",
+  "description": "SmartHoldem Wallet Pro for Android",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:smartholdem"
+  ],
+  "author": "TechnoL0g",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cordova-android": "^14.0.1"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ]
+  }
+}

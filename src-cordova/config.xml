@@ -13,11 +13,23 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="AndroidXEnabled" value="true" />
         <preference name="ScrollEnabled" value="false" />
         <preference name="Backup" value="false" />
         <preference name="Orientation" value="portrait" />
+        <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
+        <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
+        <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="resources/android/icon/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="resources/android/icon/drawable-xxxhdpi-icon.png" />
+        <splash density="ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+        <splash density="mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png" />
+        <splash density="hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png" />
+        <splash density="xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
+        <splash density="xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
 </widget>

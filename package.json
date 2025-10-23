@@ -8,6 +8,8 @@
     "dev": "vite --host 0.0.0.0",
     "host": "vite --host 0.0.0.0",
     "build": "vue-tsc --noEmit && vite build",
+    "build:cordova": "vue-tsc --noEmit && vite build -c vite.config.cordova.ts",
+    "build:android-release": "npm run build:cordova && cd src-cordova && cordova build android --release --buildConfig=build.json --packageType=apk && ren platforms\\android\\app\\build\\outputs\\apk\\release\\app-release.apk smartholdem-wallet-pro-android-1.2.19.apk",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",

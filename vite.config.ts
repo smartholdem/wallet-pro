@@ -9,7 +9,7 @@ import {version} from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    //base: "./",
+    //base: "./", //electron
     // base: "/", // process.env.NODE_ENV === "production" ? "/wallet/" : "/", // for gh-pages
     define: {
         "__APP_VERSION__": JSON.stringify(version),
