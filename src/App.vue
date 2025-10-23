@@ -28,9 +28,9 @@ const internalInstance = getCurrentInstance();
 const { t } = useI18n();
 const { 
 //  checkForUpdate,
-  isUpdateAvailable, 
+//  isUpdateAvailable,
   updateInfo, 
-  downloadAndInstall,
+//  downloadAndInstall,
   isDownloading,
   downloadProgress,
   downloadError
@@ -62,24 +62,6 @@ const handleCloseChangelog = () => {
   localStorage.setItem("appVersion", __APP_VERSION__);
 };
 
-watch(isUpdateAvailable, (isAvailable) => {
-  if (isAvailable && updateInfo.value) {
-    // Using cordova-plugin-dialogs
-    if (navigator.notification) {
-      navigator.notification.confirm(
-        `A new version ${updateInfo.value.version} is available. Do you want to download and install it?`, // message
-        (buttonIndex) => {
-          if (buttonIndex === 1) { // 1 is for the 'Update' button
-            downloadAndInstall();
-          }
-        },
-        'Update Available', // title
-        ['Update', 'Later'] // buttonLabels
-      );
-    }
-  }
-});
-
 watch(() => appOption.shouldShowChangelog, async (newValue) => {
   if (newValue) {
     try {
@@ -101,10 +83,6 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 // --- End Changelog Logic ---
 
 onMounted(() => {
-  document.addEventListener('deviceready', () => {
-    console.log('Device is ready. Checking for updates.');
-    //checkForUpdate();
-  }, false);
 
   //проверка на логин, пин код введён или нет?
   if (!settings.value.pinCode) {

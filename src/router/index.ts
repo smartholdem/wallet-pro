@@ -2,12 +2,18 @@ import {
     createRouter,
     createWebHistory,
     createWebHashHistory,
+    createMemoryHistory,
 } from "vue-router";
 
 const isElectron =
     typeof navigator !== "undefined" &&
     navigator.userAgent.toLowerCase().includes(" electron/");
-const history = isElectron
+
+const isExtension = process.env.IS_EXTENSION === 'true';
+
+const history = isExtension
+    ? createMemoryHistory(import.meta.env.BASE_URL)
+    : isElectron
     ? createWebHashHistory(import.meta.env.BASE_URL)
     : createWebHistory(import.meta.env.BASE_URL);
 
