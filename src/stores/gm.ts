@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 import axios from "axios";
-import { useStoreWallet } from "@/stores/wallet";
+import {useStoreWallet} from "@/stores/wallet";
 
 //const GM_API_URL = "http://localhost:3302/gm"; //test dev
 const GM_API_URL = "https://exchange.smartholdem.io/gm"; //main
@@ -55,9 +55,9 @@ export const useGMStore = defineStore("gm", {
                 console.error("Не удалось получить публичный ключ для адреса:", accountId);
                 return null;
             }
-            const payload = { address: accountId, message: message };
-            const { signature } = await storeWallet.signMessageSchnorr(payload);
-            return { publicKey, signature };
+            const payload = {address: accountId, message: message};
+            const {signature} = await storeWallet.signMessageSchnorr(payload);
+            return {publicKey, signature};
         },
 
         async createSthCode(accountId: string, amount: any, txId: string, memo: string, depositAddress: string) {
@@ -70,6 +70,21 @@ export const useGMStore = defineStore("gm", {
                     return null;
                 }
 
+                // hack test - 0
+                /*
+                const response = await axios.post(`${GM_API_URL}/code-new`, {
+                    address: 'SiRB1We8M6G81iRioitDWB8bqJeW5vQJqh',
+                    message: 'create-code-SiRB1We8M6G81iRioitDWB8bqJeW5vQJqh-10-83724a11175b896f75b9cc25d765df0f98c40da28bcde1d6495e0480198c35a4',
+                    publicKey: '02b7562218af01101161c76edb7c70111bbafdbf6bf63808e8d5a0ff2f40a6ec86',
+                    signature: '89c104f2ce790a3dfdded95b74a5ae636d20599ade721854b2f755cc8e608de0584c15eff459740936145d71c781723a95234ceca8299cfb4140cccad5bd7fd9',
+                    amount: 10,
+                    txId: '83724a11175b896f75b9cc25d765df0f98c40da28bcde1d6495e0480198c35a4',
+                    memo: '',
+                    depositAddress: 'SRzbiDBt1cunE6T4b6nYjbyknizDninFT5'
+                });
+                 */
+
+
                 const response = await axios.post(`${GM_API_URL}/code-new`, {
                     address: accountId,
                     message: message,
@@ -80,6 +95,7 @@ export const useGMStore = defineStore("gm", {
                     memo: memo,
                     depositAddress: depositAddress
                 });
+
 
                 if (response.data && response.data.success) {
                     console.log("Code created successfully:", response.data);
