@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useAppSidebarMenuStore } from "@/stores/app-sidebar-menu";
-import { useAppOptionStore } from "@/stores/app-option";
-import { onMounted, onBeforeMount } from "vue";
+import {useAppSidebarMenuStore} from "@/stores/app-sidebar-menu";
+import {useAppOptionStore} from "@/stores/app-option";
+import {onMounted, onBeforeMount} from "vue";
 import SidebarNav from "@/components/app/SidebarNav.vue";
-import { Carousel } from 'bootstrap';
+import {Carousel} from 'bootstrap';
 
 const appSidebarMenu = useAppSidebarMenuStore();
 const appOption = useAppOptionStore();
@@ -31,8 +31,8 @@ onMounted(() => {
         const targetItemElm = target.closest(".menu-item");
 
         if (
-          targetItemElm.classList.contains("expand") ||
-          (targetItemElm.classList.contains("active") && !target.style.display)
+            targetItemElm.classList.contains("expand") ||
+            (targetItemElm.classList.contains("active") && !target.style.display)
         ) {
           targetItemElm.classList.remove("expand");
           target.style.display = "none";
@@ -55,18 +55,18 @@ onMounted(() => {
   // submenu lvl 1
   const submenuLvl1Selector = menuBaseSelector + submenuBaseSelector;
   const submenusLvl1 = [].slice.call(
-    document.querySelectorAll(submenuLvl1Selector + " > .menu-link")
+      document.querySelectorAll(submenuLvl1Selector + " > .menu-link")
   );
   handleSidebarMenuToggle(submenusLvl1);
 
   // submenu lvl 2
   const submenuLvl2Selector =
-    menuBaseSelector + submenuBaseSelector + submenuBaseSelector;
+      menuBaseSelector + submenuBaseSelector + submenuBaseSelector;
   const submenusLvl2 = [].slice.call(
-    document.querySelectorAll(submenuLvl2Selector + " > .menu-link")
+      document.querySelectorAll(submenuLvl2Selector + " > .menu-link")
   );
   handleSidebarMenuToggle(submenusLvl2);
-  
+
   // Initialize the carousel to ensure autoplay starts
   const carouselElement = document.getElementById('carouselExample');
   if (carouselElement) {
@@ -90,16 +90,14 @@ onMounted(() => {
 
 
         <div v-if="!isExtension" class="p-3 px-4 mt-auto">
-          <template >
-            <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
-              <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
+          <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
+            <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
+          </a>
+          <div class="mt-3">
+            <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
+              <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
             </a>
-            <div class="mt-3">
-              <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
-                <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
-              </a>
-            </div>
-          </template>
+          </div>
           <div
               id="carouselExample"
               class="carousel slide mt-3 mb-3"
@@ -166,8 +164,7 @@ onMounted(() => {
           >
             <i class="bi bi-hdd-network me-2 ms-n2 opacity-5"></i> Explorer
           </a>
-
-      </div>
+        </div>
 
         <!--
         <a href="https://wiki.smartholdem.io" target="_blank" class="btn d-block btn-outline-theme">
@@ -178,8 +175,8 @@ onMounted(() => {
     </perfect-scrollbar>
   </div>
   <button
-    class="app-sidebar-mobile-backdrop"
-    v-on:click="appSidebarMobileToggled"
+      class="app-sidebar-mobile-backdrop"
+      v-on:click="appSidebarMobileToggled"
   ></button>
 </template>
 

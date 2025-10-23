@@ -202,7 +202,7 @@ $theme-panel-width: $spacer * 12;
 	}
 	& .app-theme-toggle-btn {
 		position: absolute;
-		bottom: 3%;
+		bottom: 0;
 		margin-top: $spacer * -1;
 		width: $spacer * 2;
 		height: $spacer * 2;
