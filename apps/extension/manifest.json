@@ -10,10 +10,6 @@
 	"https://node0.smartholdem.io/*",
     "https://explorer.smartholdem.io/*"
   ],
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
   "browser_action": {
     "default_popup": "popup.html",
     "default_title": "SmartHoldem Wallet",
