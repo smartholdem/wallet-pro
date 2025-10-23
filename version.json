@@ -2,6 +2,10 @@
   "android": {
     "version": "1.2.19",
     "url": "https://wallet.sth.cx/releases/android/smartholdem-wallet-android-1.2.19.apk"
-  }
+  },
+  "windows": {
+    "version": "1.2.19",
+    "url": "https://wallet.sth.cx/releases/windows/smartholdem-wallet-pro-win-x64-1.2.19.exe"
+  },
+  "inherit": true
 }
-
