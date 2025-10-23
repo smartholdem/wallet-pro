@@ -27,7 +27,7 @@ const storeExchange = useExchangeStore();
 const internalInstance = getCurrentInstance();
 const { t } = useI18n();
 const { 
-  checkForUpdate, 
+//  checkForUpdate,
   isUpdateAvailable, 
   updateInfo, 
   downloadAndInstall,
@@ -103,7 +103,7 @@ watch(() => appOption.shouldShowChangelog, async (newValue) => {
 onMounted(() => {
   document.addEventListener('deviceready', () => {
     console.log('Device is ready. Checking for updates.');
-    checkForUpdate();
+    //checkForUpdate();
   }, false);
 
   //проверка на логин, пин код введён или нет?
