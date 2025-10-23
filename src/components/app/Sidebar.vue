@@ -7,6 +7,7 @@ import { Carousel } from 'bootstrap';
 
 const appSidebarMenu = useAppSidebarMenuStore();
 const appOption = useAppOptionStore();
+const isExtension = IS_EXTENSION;
 
 function appSidebarMobileToggled() {
   appOption.appSidebarMobileToggled = !appOption.appSidebarMobileToggled;
@@ -88,15 +89,17 @@ onMounted(() => {
         </template>
 
 
-        <div class="p-3 px-4 mt-auto">
-          <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
-            <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
-          </a>
-          <div class="mt-3">
-            <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
-              <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
+        <div v-if="!isExtension" class="p-3 px-4 mt-auto">
+          <template >
+            <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
+              <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
             </a>
-          </div>
+            <div class="mt-3">
+              <a target="_blank" class=" " href="https://t.me/smartnewscannel/319">
+                <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/airdrop.png"/>
+              </a>
+            </div>
+          </template>
           <div
               id="carouselExample"
               class="carousel slide mt-3 mb-3"
@@ -165,12 +168,6 @@ onMounted(() => {
           </a>
 
       </div>
-
-
-
-
-
-
 
         <!--
         <a href="https://wiki.smartholdem.io" target="_blank" class="btn d-block btn-outline-theme">

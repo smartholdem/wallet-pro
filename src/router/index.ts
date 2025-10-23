@@ -9,7 +9,7 @@ const isElectron =
     typeof navigator !== "undefined" &&
     navigator.userAgent.toLowerCase().includes(" electron/");
 
-const isExtension = process.env.IS_EXTENSION === 'true';
+const isExtension = IS_EXTENSION === 'true';
 
 const history = isExtension
     ? createMemoryHistory(import.meta.env.BASE_URL)

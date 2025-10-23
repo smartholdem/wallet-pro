@@ -13,6 +13,7 @@ export default defineConfig({
     // base: "/", // process.env.NODE_ENV === "production" ? "/wallet/" : "/", // for gh-pages
     define: {
         "__APP_VERSION__": JSON.stringify(version),
+        'IS_EXTENSION': 'false',
     },
     plugins: [vue(), vueJsx()],
     resolve: {
