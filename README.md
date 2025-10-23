@@ -4,6 +4,7 @@ A secure, feature-rich, cross-platform desktop wallet for the SmartHoldem blockc
 
 <img width="100%" alt="SmartHoldem Wallet Pro" src="https://github.com/user-attachments/assets/794d2965-d7d8-446f-86cc-1d9a26fc33e0" />
 
+
 ## About The Project
 
 SmartHoldem Wallet Pro is the official desktop application for interacting with the SmartHoldem blockchain. Built with security and user experience in mind, it serves as a comprehensive gateway for managing STH assets, participating in the network, and accessing cross-chain exchange features.
@@ -38,6 +39,8 @@ This wallet is built using modern web technologies, including Vue.js and Pinia, 
 - **"What's New" Modal:** Stay informed about the latest features and updates with an automatic changelog popup after every update.
 - **Auto-Update:** The application now automatically checks for and notifies about new versions.
 - **Live Price Ticker:** The current STH/USDT exchange rate is now always visible in the title bar.
+
+<img width="60%" alt="SmartHoldem Wallet Pro" src="https://raw.githubusercontent.com/smartholdem/wallet-pro/refs/heads/main/public/images/STH25000.png" />
 
 ### Security First
 - **PIN Code Protection:** Secure the application interface with a local PIN code.
