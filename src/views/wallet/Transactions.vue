@@ -241,6 +241,7 @@
         </div>
       </card>
 
+      <!-- new tx -->
       <card>
         <card-body
           v-if="newTx && transactions.data[0].id !== newTx.id"
@@ -303,65 +304,68 @@
         </card-body>
       </card>
 
-      <card v-for="item in transactions.data" :key="item.id">
-        <card-body class="overflow-hidden">
-          <table class="table table-striped">
-            <tbody>
-              <tr>
-                <td>{{ $t("table_header_id") }}</td>
-                <td>
+      <!-- all tx -->
+      <div class="row container-fluid p-0 m-0">
+
+          <card class="small p-0 m-0 border-1 mb-3" v-for="(item, idx)  in transactions.data" :key="item.id">
+            <card-body class="overflow-hidden p-0 m-0">
+              <table class="table table-striped">
+                <tbody>
+                <tr>
+                  <td class=""><span class="badge rounded" :class="item.recipient === this.address ? 'bg-success' : 'bg-warning'">{{idx+1}}</span>&nbsp;{{ $t("table_header_id") }} <span>{{item.recipient === this.address ? 'tx in' : 'tx out'}}</span></td>
+                  <td>
                   <span
-                    v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'"
+                      v-if="item.sender === 'Sau5rthYK9fCmzrAAzLDLNbmsWMYosSAsb'"
                   >
                     <span :class="'ico-xbts'" style="padding: 3px 16px 3px 3px"
-                      >&nbsp;</span
+                    >&nbsp;</span
                     >
                   </span>
-                  <span v-if="item.vendorField">
+                    <span v-if="item.vendorField">
                     <span
-                      v-if="networksTransfer[item.vendorField.split(':')[0]]"
-                      :class="'ico-' + item.vendorField.split(':')[0]"
-                      style="padding: 3px 16px 3px 3px"
-                      >&nbsp;</span
+                        v-if="networksTransfer[item.vendorField.split(':')[0]]"
+                        :class="'ico-' + item.vendorField.split(':')[0]"
+                        style="padding: 3px 16px 3px 3px"
+                    >&nbsp;</span
                     >
                   </span>
-                  <a
-                    :class="
+                    <a
+                        :class="
                       item.recipient === this.address
                         ? 'text-success'
-                        : 'text-default'
+                        : 'text-warning'
                     "
-                    :href="
+                        :href="
                       'https://explorer.smartholdem.io/#/transaction/' + item.id
                     "
-                    target="_blank"
-                  >
+                        target="_blank"
+                    >
                     <span>
                       {{ item.id.slice(0, 11) }}..{{ item.id.slice(-11) }}
                     </span>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_time") }}</td>
-                <td>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_time") }}</td>
+                  <td>
                   <span
-                    :class="
+                      :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
                   >
                     {{ tmFormat(item.timestamp.unix, "DD/MM/YY") }}
                     <span class="small">{{
-                      format_time(item.timestamp.unix * 1000)
-                    }}</span>
+                        format_time(item.timestamp.unix * 1000)
+                      }}</span>
                   </span>
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_amount") }}</td>
-                <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_amount") }}</td>
+                  <td>
                   <span
-                    :class="
+                      :class="
                       item.recipient === this.address || item.type === 6
                         ? 'text-success'
                         : ''
@@ -369,38 +373,38 @@
                   >
                     {{
                       item.type === 6
-                        ? "MultiPay (" + item["asset"].payments.length + ")"
-                        : (item.amount / 1e8).toFixed(8)
+                          ? "MultiPay (" + item["asset"].payments.length + ")"
+                          : (item.amount / 1e8).toFixed(8)
                     }}
                   </span>
-                  <div v-if="item.type === 6">
-                    <div
-                      v-for="itm in item.asset.payments"
-                      v-show="itm.recipientId === this.address"
-                      v-bind:key="itm.recipientId"
-                    >
-                      +{{ itm.amount / 1e8 }} STH
+                    <div v-if="item.type === 6">
+                      <div
+                          v-for="itm in item.asset.payments"
+                          v-show="itm.recipientId === this.address"
+                          v-bind:key="itm.recipientId"
+                      >
+                        +{{ itm.amount / 1e8 }} STH
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr v-if="item.type !== 6">
-                <td>{{ $t("table_header_sender") }}</td>
-                <td>
+                  </td>
+                </tr>
+                <tr v-if="item.type !== 6">
+                  <td>{{ $t("table_header_sender") }}</td>
+                  <td>
                   <span
-                    :class="
+                      :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
                   >
                     {{ item.sender.slice(0, 11) }}..{{ item.sender.slice(-11) }}
                   </span>
-                </td>
-              </tr>
-              <tr v-if="item.type !== 6">
-                <td>{{ $t("table_header_recipient") }}</td>
-                <td>
+                  </td>
+                </tr>
+                <tr v-if="item.type !== 6">
+                  <td>{{ $t("table_header_recipient") }}</td>
+                  <td>
                   <span
-                    :class="
+                      :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
                   >
@@ -408,53 +412,57 @@
                       item.recipient.slice(-11)
                     }}
                   </span>
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_fee") }}</td>
-                <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_fee") }}</td>
+                  <td>
                   <span
-                    :class="
+                      :class="
                       item.recipient === this.address ? 'text-success' : ''
                     "
-                    >{{ (item.fee / 1e8).toFixed(3) }}</span
+                  >{{ (item.fee / 1e8).toFixed(3) }}</span
                   >
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t("table_header_confirmations") }}</td>
-                <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ $t("table_header_confirmations") }}</td>
+                  <td>
                   <span
-                    v-if="item.recipient === this.address"
-                    :class="
+                      v-if="item.recipient === this.address"
+                      :class="
                       item.confirmations > 7 ? 'text-success' : 'text-warning'
                     "
-                    >{{ item.confirmations }}</span
+                  >{{ item.confirmations }}</span
                   >
-                  <span
-                    v-if="item.recipient !== this.address"
-                    :class="
+                    <span
+                        v-if="item.recipient !== this.address"
+                        :class="
                       item.confirmations > 7 ? 'text-default' : 'text-warning'
                     "
                     >{{ item.confirmations }}</span
-                  >
-                </td>
-              </tr>
+                    >
+                  </td>
+                </tr>
 
-              <tr v-if="item.vendorField">
-                <td>{{ $t("table_header_memo") }}</td>
-                <td>
+                <tr v-if="item.vendorField">
+                  <td>{{ $t("table_header_memo") }}</td>
+                  <td>
                   <span>{{
-                    item.vendorField.length < 40
-                      ? item.vendorField
-                      : item.vendorField.slice(0, 25) + ".."
-                  }}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </card-body>
-      </card>
+                      item.vendorField.length < 40
+                          ? item.vendorField
+                          : item.vendorField.slice(0, 25) + ".."
+                    }}</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </card-body>
+          </card>
+
+
+      </div>
+
     </div>
 
     <div v-if="!transactions">

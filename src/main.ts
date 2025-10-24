@@ -1,5 +1,7 @@
 import { Buffer } from 'buffer';
 window.Buffer = Buffer;
+import process from 'process';
+window.process = process;
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
