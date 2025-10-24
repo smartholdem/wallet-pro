@@ -9,7 +9,7 @@
       </ul>
       <card v-if="delegates">
         <card-header class="card-header fw-bold"> {{ $t("delegate_list") }} </card-header>
-        <card-body style="overflow-x: hidden; overflow-y: auto">
+        <card-body style="overflow-x: hidden; overflow-y: auto" :style="isExtension ? 'max-height: 400px;': ''">
           <table class="table table-hover table-responsive">
             <thead>
               <tr class="text-uppercase">
@@ -68,6 +68,11 @@ const storeWallet = useStoreWallet();
 
 export default {
   name: "DelegatesPage",
+  data() {
+    return {
+      isExtension: IS_EXTENSION,
+    }
+  },
   async created() {
     await storeWallet.getDelegates();
     // eslint-disable-next-line @typescript-eslint/no-this-alias

@@ -249,7 +249,7 @@
     </div>
     -->
 
-    <div class="col-xl-7 mb-3">
+    <div v-show="!isExtension" class="col-xl-7 mb-3">
       <card class="h-100" v-if="nodeConfig && blockchain">
         <card-header class="card-header fw-bold small text-uppercase"
           >{{ $t("blockchain") }}</card-header
@@ -368,6 +368,7 @@ export default {
   name: "nodeConfigPage",
   data() {
     return {
+      isExtension: IS_EXTENSION,
       isMobile: appOption.isMobile,
     };
   },
