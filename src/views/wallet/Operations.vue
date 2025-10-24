@@ -121,7 +121,7 @@
     <!-- modal мультиплатежи transfer до 150 платежей в 1 транзакции-->
     <div class="modal fade modal-transfer" id="modalMPayTransfer">
       <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div :class="isExtension ? 'modal-content border-0' : 'modal-content'">
           <div class="modal-header">
             <h5 class="modal-title">{{ $t("multi_payments") }}</h5>
             <button
@@ -135,7 +135,7 @@
               <div v-if="txSendStep === 0">
                 <!-- CSV Upload Section -->
                 <div class="row mb-3">
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6">
                     <label class="form-label">{{
                         $t("upload_csv_file")
                       }}</label>
@@ -150,7 +150,7 @@
                         $t("format_address_amount")
                       }}</small>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6">
                     <label class="form-label">{{ $t("operations_csv") }}</label>
                     <div class="d-flex gap-2">
                       <button
@@ -173,7 +173,7 @@
 
                 <!-- Manual Add Section -->
                 <div class="row mb-3">
-                  <div class="col-md-8">
+                  <div class="col-md-8 col-sm-8">
                     <label class="form-label">{{ $t("add_recipient") }}</label>
                     <input
                         v-model="newRecipient.address"
@@ -189,7 +189,7 @@
                         :placeholder="$t('enter_address')"
                     />
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3 col-sm-3">
                     <label class="form-label">{{ $t("amount") }}</label>
                     <input
                         v-model="newRecipient.amount"
@@ -202,7 +202,7 @@
                         placeholder="0.00000000"
                     />
                   </div>
-                  <div class="col-md-1 d-flex align-items-end">
+                  <div class="col-md-1 col-sm-1 d-flex align-items-end">
                     <button
                         @click="addRecipient"
                         :disabled="
@@ -314,7 +314,7 @@
 
                 <!-- Network Selection -->
                 <div class="row mb-3">
-                  <div class="col-md-4">
+                  <div class="col-md-4 col-sm-4">
                     <label
                         class="form-label px-4"
                         :class="'ico-' + selectedNetwork"
@@ -331,7 +331,7 @@
                       -->
                     </select>
                   </div>
-                  <div class="col-md-8 d-flex align-items-end">
+                  <div class="col-md-8 col-sm-8 d-flex align-items-end">
                     <button
                         @click="executeMultiPay"
                         :disabled="
@@ -444,7 +444,7 @@
     <!-- modal transfer -->
     <div class="modal fade modal-transfer" id="modalTransfer">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div :class="isExtension ? 'modal-content border-0' : 'modal-content'">
           <div class="modal-header">
             <h5 class="modal-title">{{ $t("transfer") }}</h5>
             <button
@@ -797,6 +797,7 @@ export default {
   },
   data() {
     return {
+      isExtension: IS_EXTENSION,
       timerConfirmation: 8,
       notifyOp: "operation",
       toastStyle: "success",
