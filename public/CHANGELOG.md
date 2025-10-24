@@ -1,7 +1,7 @@
 v1.2.20
 - Added a build process for a cross-browser (Chrome, Firefox, Brave) extension.
 - Created an npm script (`build:extension`) to automate the extension build.
-
+- Drop area fix
 
 v1.2.19
 - Added Cordova project to build for the Android platform.

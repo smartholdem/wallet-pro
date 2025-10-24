@@ -629,7 +629,8 @@ export default {
 
 <style>
 .drop-area {
-  height: 300px;
+  height: 100px;
+  border: solid 1px #fff;
   color: #fff;
   text-align: center;
   font-weight: bold;
