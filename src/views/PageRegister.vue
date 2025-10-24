@@ -6,6 +6,7 @@ import { useI18n } from "vue-i18n";
 import { useStoreSettings } from "@/stores/app-settings.ts";
 import { useStoreWallet } from "@/stores/wallet";
 import CryptoJS from "crypto-js";
+//import crypto from 'crypto';
 
 import Terms_EN from "@/components/terms/Terms_EN.vue";
 import Terms_RU from "@/components/terms/Terms_RU.vue";
@@ -101,6 +102,8 @@ async function submitForm() {
 
   // 2. Шифруем сид-фразу
   const hash = CryptoJS.SHA384(storeSettings.tmpPin).toString();
+  //const hash = crypto.createHash('sha384').update(storeSettings.tmpPin).digest('hex').toString();
+
   const encryptedSecret = CryptoJS.AES.encrypt(
     newAccount.secret,
     storeSettings.tmpPin + hash
@@ -119,8 +122,8 @@ async function submitForm() {
   // 4. Сохраняем аккаунт
   await walletStore.addressSave(accountToSave);
 
-  storeSettings.updateNodes();
-  router.push("/");
+  await storeSettings.updateNodes();
+  await router.push("/");
 }
 
 function setLocale(lang: string) {

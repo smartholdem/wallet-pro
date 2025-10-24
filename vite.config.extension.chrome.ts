@@ -14,6 +14,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      'process': 'process/browser',
+      'buffer': 'buffer/',
     },
   },
   plugins: [
