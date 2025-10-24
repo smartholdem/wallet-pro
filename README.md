@@ -60,7 +60,7 @@ As an Electron-based application, SmartHoldem Wallet Pro is available for:
 ## Development
 
 ### Project setup
-- Install node 24+
+- Install nodejs version 24+
 
 ```
 git clone https://github.com/smartholdem/wallet-pro.git
