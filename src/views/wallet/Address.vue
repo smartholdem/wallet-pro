@@ -269,6 +269,7 @@ export default {
         tx: null,
       },
       isMobile: appOption.isMobile,
+      appMode: appOption.appMode,
       networksTransfer: {
         mainnet: {
           fee: 1,
@@ -297,6 +298,7 @@ export default {
       decryptedSecret: "",
     };
   },
+
   methods: {
     async sendMessage() {
       /*
@@ -414,6 +416,9 @@ export default {
     await this.startUpdateByTimer();
   },
   computed: {
+    mode() {
+      return appOption.appMode
+    },
     sth_usdt_price() {
       return storeExchange.sth_usdt_price;
     },
@@ -477,5 +482,16 @@ export default {
   background-position: 0 2px;
   background-repeat: no-repeat;
   background-size: 18px;
+}
+
+.bg-opacity-sth {
+  background-color: #0c5214 !important;
+  //-webkit-filter: blur(5px);
+  //-moz-filter: blur(5px);
+  //-o-filter: blur(5px);
+  //-ms-filter: blur(5px);
+  //-webkit-filter: grayscale(1);
+  opacity: 0.5;
+
 }
 </style>

@@ -1,6 +1,7 @@
 <!-- Не забудь вынести транзакции в отдельный модуль -->
 <template>
   <div class="col-xl-12 mb-3">
+    <!-- tx desktop -->
     <card v-if="transactions && !isMobile" style="overflow: hidden">
       <card-header class="card-header fw-bold small text-uppercase">{{
         $t("transactions_title")
@@ -233,11 +234,16 @@
         </div>
       </card-body>
     </card>
+
     <!-- tx mobile -->
     <div v-if="transactions && isMobile" style="overflow: hidden">
+      <!--:class="mode === 'dark' ? 'bg-dark': ''"-->
       <card>
-        <div class="card-header fw-bold small text-uppercase">
-          {{ $t("transactions_title") }}
+        <div class="card-header fw-bold small text-uppercase w-100" @click="showTxs = !showTxs">
+          <span class="text-end text-theme pointer">
+          <i class="fas fa-lg fa-fw me-2" :class="!showTxs ? 'fa-eye': 'fa-eye-slash'"></i>
+            {{ $t("transactions_title") }}
+        </span>
         </div>
       </card>
 
@@ -305,8 +311,8 @@
       </card>
 
       <!-- all tx -->
-      <div class="row container-fluid p-0 m-0">
-
+      <div v-if="showTxs" class="row container-fluid p-0 m-0" >
+<!--:class="mode === 'dark' ? 'bg-dark': ''"-->
           <card class="small p-0 m-0 border-1 mb-3" v-for="(item, idx)  in transactions.data" :key="item.id">
             <card-body class="overflow-hidden p-0 m-0">
               <table class="table table-striped">
@@ -504,8 +510,8 @@ export default {
   },
 
   data() {
-    // Table config
     return {
+      showTxs: false,
       hideNewTx: true,
       isMobile: appOption.isMobile,
       timerTx: null,
@@ -519,6 +525,9 @@ export default {
     };
   },
   computed: {
+    mode() {
+      return appOption.appMode
+    },
     transactions() {
       return storeWallet.transactions[this.address];
     },
