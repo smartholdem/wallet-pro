@@ -56,3 +56,32 @@ As an Electron-based application, SmartHoldem Wallet Pro is available for:
 - Linux
 - Telegram app
 - Web
+
+## Development
+
+### Project setup
+```
+npm install
+```
+
+### Build and Run
+
+#### Browser extension Firefox/Brave:
+```
+npm run build:extension
+```
+
+#### Web Application:
+```
+npn run build:web
+```
+
+#### Desktop Application:
+```
+npm run electron:build
+```
+
+#### Android Application:
+```
+npm run build:android-release
+```
