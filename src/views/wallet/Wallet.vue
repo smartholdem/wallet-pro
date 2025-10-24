@@ -152,7 +152,7 @@
             </div>
             <div class="form-group mb-3">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                   <label class="form-label" for="encrypted">{{
                     $t("encrypted_methods")
                   }}</label>
@@ -165,7 +165,7 @@
                     <option value="rabbit">Rabbit</option>
                   </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                   <label class="form-label" for="newLabel">{{
                     $t("label")
                   }}</label>

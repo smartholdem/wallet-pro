@@ -304,5 +304,6 @@
   "gm_deposit_address_not_found": "Impossible d'obtenir l'adresse de dépôt.",
   "gm_transaction_sent_code_in_progress": "Transaction envoyée ! Le code est en cours de création...",
   "gm_transaction_send_error": "Erreur lors de l'envoi de la transaction.",
-  "gm_failed_to_copy": "Échec de la copie"
+  "gm_failed_to_copy": "Échec de la copie",
+  "gm_drop_zone_label": "Déposez l'image du Smart Code ici"
 }

@@ -304,5 +304,6 @@
   "gm_deposit_address_not_found": "Не удалось получить адрес для депозита.",
   "gm_transaction_sent_code_in_progress": "Транзакция отправлена! Код в процессе создания...",
   "gm_transaction_send_error": "Ошибка при отправке транзакции.",
-  "gm_failed_to_copy": "Не удалось скопировать"
+  "gm_failed_to_copy": "Не удалось скопировать",
+  "gm_drop_zone_label": "Перетащите сюда изображение Smart Code"
 }

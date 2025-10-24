@@ -304,5 +304,6 @@
   "gm_deposit_address_not_found": "Tidak dapat memperoleh alamat deposit.",
   "gm_transaction_sent_code_in_progress": "Transaksi terkirim! Kode sedang dibuat...",
   "gm_transaction_send_error": "Kesalahan saat mengirim transaksi.",
-  "gm_failed_to_copy": "Gagal menyalin"
+  "gm_failed_to_copy": "Gagal menyalin",
+  "gm_drop_zone_label": "Letakkan gambar Smart Code di sini"
 }

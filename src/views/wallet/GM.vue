@@ -189,7 +189,7 @@
                       <div class="card-body m-1">
                         <qrcode-drop-zone @detect="onDetect" @dragover="onDragOver" @init="logErrors" class="w-100 mt-1">
                           <div class="w-100 drop-area" :class="{ 'dragover': qrResponse.dragover }">
-                            Drop Smart Code image here
+                            {{ $t('gm_drop_zone_label') }}
                           </div>
                         </qrcode-drop-zone>
                         <qrcode-capture class="mt-2" @detect="onDetect"  />

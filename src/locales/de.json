@@ -304,5 +304,6 @@
   "gm_deposit_address_not_found": "Einzahlungsadresse konnte nicht abgerufen werden.",
   "gm_transaction_sent_code_in_progress": "Transaktion gesendet! Code wird erstellt...",
   "gm_transaction_send_error": "Fehler beim Senden der Transaktion.",
-  "gm_failed_to_copy": "Kopieren fehlgeschlagen"
+  "gm_failed_to_copy": "Kopieren fehlgeschlagen",
+  "gm_drop_zone_label": "Smart Code-Bild hier ablegen"
 }

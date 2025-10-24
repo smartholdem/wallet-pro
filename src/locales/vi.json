@@ -304,5 +304,6 @@
   "gm_deposit_address_not_found": "Không thể lấy địa chỉ gửi tiền.",
   "gm_transaction_sent_code_in_progress": "Giao dịch đã gửi! Mã đang được tạo...",
   "gm_transaction_send_error": "Lỗi khi gửi giao dịch.",
-  "gm_failed_to_copy": "Sao chép thất bại"
+  "gm_failed_to_copy": "Sao chép thất bại",
+  "gm_drop_zone_label": "Thả hình ảnh Smart Code vào đây"
 }
