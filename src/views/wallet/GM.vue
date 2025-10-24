@@ -5,7 +5,8 @@
         <div class="card-header">
           <h4 v-if="!isMobile" class="mb-0 font-lighter"><span data-bs-toggle="modal" data-bs-target="#gmInfoModal"><i
               class="text-white-50 fas fa-lg fa-fw me-2 fa-info-circle"></i></span> Smart Notes {{ address }}</h4>
-          <span v-else>Smart Notes {{ address }}</span>
+          <span v-else><span data-bs-toggle="modal" data-bs-target="#gmInfoModal"><i
+              class="text-white-50 fas fa-lg fa-fw me-2 fa-info-circle"></i></span> Smart Notes {{ address }}</span>
         </div>
         <div class="card-body">
           <div class="row">
@@ -155,7 +156,7 @@
                     </div>
 
                   </div>
-                  <div class="col-md-4 col-lg-6">
+                  <div v-show="!isExtension" class="col-md-4 col-lg-6">
                     <img class="w-100 mt-2" src="/images/STH25000.png" alt="smartnotes sth">
                   </div>
                 </div>
@@ -367,6 +368,7 @@ export default {
   components: {Card, GmInfoModal, QrcodeDropZone, QrcodeCapture, SmartNoteImageModal, GmQrModal, SmartNoteImageModalMobile},
   data() {
     return {
+      isExtension: IS_EXTENSION,
       qrResponse: {
         result: null,
         error: null,
