@@ -6,7 +6,6 @@
   "main": "electron/main.js",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "host": "vite --host 0.0.0.0",
     "build:web": "vue-tsc --noEmit && vite build",
     "build:android-release": "npm run build:cordova && cd src-cordova && cordova build android --release --buildConfig=build.json --packageType=apk && ren platforms\\android\\app\\build\\outputs\\apk\\release\\app-release.apk smartholdem-wallet-pro-android-1.2.19.apk",
     "build:extension": "vue-tsc --noEmit && vite build -c vite.config.extension.ts",
@@ -15,6 +14,7 @@
     "electron:build:mac": "vite build --base=./ && electron-builder -m",
     "build:cordova": "vue-tsc --noEmit && vite build -c vite.config.cordova.ts",
     "electron:dev": "concurrently -k \"vite --host  0.0.0.0 --port 5173\" \"wait-on http://localhost:5173 && npx electron electron/main.js\"",
+    "host": "vite --host 0.0.0.0",
     "electron:manual": "npx electron electron/main.js",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
