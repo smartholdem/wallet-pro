@@ -11,6 +11,7 @@ export default defineConfig({
     base: "./", // Set base for relative paths in Cordova
     define: {
         "__APP_VERSION__": JSON.stringify(version),
+        'IS_EXTENSION': 'false',
     },
     plugins: [vue(), vueJsx()],
     resolve: {
