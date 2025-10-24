@@ -28,7 +28,7 @@
               <!-- Responsive Actions -->
               <div v-if="$route.params.address">
                 <!-- Desktop Button Group -->
-                <div v-if="!isMobile && !isExtension" class="btn-group mb-3 w-100">
+                <div v-if="!isMobile || isExtension" class="btn-group mb-3 w-100">
                   <button type="button" @click="$router.push('/address/' + address)"
                           class="btn btn-outline-warning btn-lg" :class="currentTab===0 ? 'active': ''">
                     <i class="fas fa-lg fa-fw me-2 fa-angle-double-left"></i>
