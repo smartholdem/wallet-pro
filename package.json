@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "host": "vite --host 0.0.0.0",
-    "build": "vue-tsc --noEmit && vite build",
+    "build:web": "vue-tsc --noEmit && vite build",
     "build:android-release": "npm run build:cordova && cd src-cordova && cordova build android --release --buildConfig=build.json --packageType=apk && ren platforms\\android\\app\\build\\outputs\\apk\\release\\app-release.apk smartholdem-wallet-pro-android-1.2.19.apk",
     "build:extension": "vue-tsc --noEmit && vite build -c vite.config.extension.ts",
     "electron:build": "vite build --base=./ && electron-builder -w",
