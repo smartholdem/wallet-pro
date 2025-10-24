@@ -9,11 +9,9 @@
       </ul>
     </div>
 
-    <div class="col-xl-5 mb-3">
+    <div class="col-xl-5" :class="!isExtension ? 'mb-3'  : ''">
       <card class="h-100" v-if="nodeConfig">
-        <card-header class="card-header fw-bold small text-uppercase"
-          >{{ $t("static_fees") }}</card-header
-        >
+        <card-header v-show="!isExtension" class="card-header fw-bold small text-uppercase">{{ $t("static_fees") }}</card-header>
         <card-body class="overflow-hidden">
           <table class="table table-striped text-capitalize">
             <thead>
@@ -122,7 +120,7 @@
                   }}
                 </td>
               </tr>
-              <tr>
+              <tr v-show="!isExtension">
                 <td>{{ $t("htlc_refund") }}</td>
                 <td>
                   {{

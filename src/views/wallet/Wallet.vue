@@ -105,7 +105,7 @@
           :class="tabActive === 1 ? 'show active' : ''"
           id="addressNew"
         >
-          <div class="btn-group mb-1">
+          <div class="btn-group mb-1" :class="isMobile || isExtension ? 'w-100' : ''">
             <button
               @click="getNewAccount"
               type="button"
@@ -137,18 +137,16 @@
               />
             </div>
             <div class="form-group mb-3">
-              <button @click="copyPrivateKey" type="button" class="btn btn-outline p-0 ps-1 pe-1"> <i class="fa fa-copy"></i></button>
+              <button @click="copyPrivateKey" type="button" class="btn btn-outline p-0 ps-1 pe-1 text-theme"> <i class="fa fa-copy"></i></button>
               <label class="form-label" for="newPrivateKey">{{ $t("private_key") }}
-                &nbsp;
-                <span class="small text-danger">
-                  <i class="fas fa-lg fa-fw me-2 fa-key"></i> {{ $t("please_keep_in_secret") }}
+                <span v-show="!isExtension" class="small text-danger"><i class="fas fa-lg fa-fw me-1 fa-key"></i>{{ $t("please_keep_in_secret") }}
                 </span>
               </label>
               <textarea
                 id="newPrivateKey"
                 readonly
                 v-model="account.secret"
-                class="form-control"
+                class="form-control text-danger"
                 rows="3"
               ></textarea>
             </div>
@@ -225,20 +223,20 @@
           </div>
           <div class="form-group mb-3">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-4 col-sm-6">
                 <label class="form-label" for="encryptedImport">{{
                   $t("encrypted_methods")
                 }}</label>
                 <select
                   v-model="encryptedAlgo"
-                  class="form-select form-select-sm"
+                  class="form-select form-select-sm "
                   id="encryptedImport"
                 >
                   <option selected="selected" value="aes">AES256</option>
                   <option value="rabbit">Rabbit</option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 col-sm-6">
                 <label class="form-label" for="importLabel">{{
                   $t("label")
                 }}</label>
@@ -347,6 +345,7 @@ export default {
   },
   data() {
     return {
+      isExtension: IS_EXTENSION,
       showHideEditLabel: false,
       encryptedAlgo: "aes",
       isMobile: appOption.isMobile,

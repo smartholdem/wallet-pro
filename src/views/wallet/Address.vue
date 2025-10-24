@@ -22,15 +22,15 @@
           <span
               v-if="!showPubKey"
               class="text-theme pointer"
-              :class="isMobile ? 'small' : ''"
+              :class="isMobile && !isExtension ? 'small' : ''"
               @click="copyText($route.params.address, $event)"
           >
             &nbsp;{{ $route.params.address }}
           </span>
-          <div class="btn-toolbar" :class="!isMobile ? 'float-end' : 'float-start mt-2'">
+          <div class="btn-toolbar" :class="!isMobile || isExtension? 'float-end' : 'float-start mt-2'">
             <div class="btn-group me-2">
               <button type="button" class="btn btn-outline-theme" @click="copyText($route.params.address, $event)">
-                <i class="fa fa-clipboard hover-info text-secondary ms-1" aria-hidden="true"></i>
+                <i class="fa fa-clipboard hover-info text-theme ms-1" aria-hidden="true"></i>
               </button>
               <button type="button" class="btn btn-outline-theme"
                       data-bs-toggle="modal"
@@ -260,6 +260,7 @@ export default {
   },
   data() {
     return {
+      isExtension: IS_EXTENSION,
       notifyOp: "operation",
       toastStyle: "success",
       notifyMsg: "",
