@@ -1,16 +1,18 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "SmartHoldem Wallet",
   "version": "1.2.19",
   "description": "SmartHoldem cryptocurrency wallet browser extension",
   "permissions": [
     "storage",
-    "activeTab",
+    "activeTab"
+  ],
+  "host_permissions": [
     "https://*.smartholdem.io/*",
-	"https://node0.smartholdem.io/*",
+    "https://node0.smartholdem.io/*",
     "https://explorer.smartholdem.io/*"
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_title": "SmartHoldem Wallet",
     "default_icon": {
@@ -25,5 +27,8 @@
     "32": "icons/icon-32.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }
