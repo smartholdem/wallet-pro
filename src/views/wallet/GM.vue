@@ -242,11 +242,11 @@
 
                   <!-- Mobile Card View -->
                   <div v-else>
-                    <card v-for="code in myCodes" :key="code.pub" class="bg-dark border-secondary mb-3">
+                    <card v-for="code in myCodes" :key="code.pub" class="bg-gradient-gray-dark border-secondary mb-3 text-white">
                       <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                           <div class="text-break pe-2">
-                            <strong class="text-white-50">{{ $t('gm_table_smart_code') }}</strong><br>
+                            <strong class="text-theme-color">{{ $t('gm_table_smart_code') }}</strong><br>
                             <i class="far fa-copy me-2 pointer" @click="copyText(code.code || 'GM-' + code.pub + '-' + code.priv)"></i>
                             <span>{{ code.code || 'GM-' + code.pub + '-' + code.priv }}</span>
                           </div>
@@ -257,11 +257,11 @@
                         <hr class="my-2">
                         <div class="row">
                           <div class="col-6">
-                            <strong class="text-white-50">{{ $t('gm_table_amount') }}</strong><br>
+                            <strong class="text-theme-color">{{ $t('gm_table_amount') }}</strong><br>
                             <span>{{ code.amount }} STH</span>
                           </div>
                           <div class="col-6">
-                            <strong class="text-white-50">{{ $t('gm_table_created_at') }}</strong><br>
+                            <strong class="text-theme-color">{{ $t('gm_table_created_at') }}</strong><br>
                             <span>{{ new Date(code.time * 1000).toLocaleDateString() }}</span>
                           </div>
                         </div>
