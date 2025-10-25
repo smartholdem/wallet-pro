@@ -486,11 +486,6 @@ export default {
 
 .bg-opacity-sth {
   background-color: #0c5214 !important;
-  //-webkit-filter: blur(5px);
-  //-moz-filter: blur(5px);
-  //-o-filter: blur(5px);
-  //-ms-filter: blur(5px);
-  //-webkit-filter: grayscale(1);
   opacity: 0.5;
 
 }
