@@ -9,7 +9,7 @@ import AppTopNav from "@/components/app/TopNav.vue";
 import AppFooter from "@/components/app/Footer.vue";
 import AppThemePanel from "@/components/app/ThemePanel.vue";
 import ChangelogModal from "@/components/app/ChangelogModal.vue";
-import UpdateProgressModal from "@/components/app/UpdateProgressModal.vue";
+//import UpdateProgressModal from "@/components/app/UpdateProgressModal.vue";
 import TitleBar from "@/components/TitleBar.vue";
 import router from "./router";
 import {storeToRefs} from "pinia";
@@ -17,7 +17,7 @@ import {useStoreSettings} from "@/stores/app-settings";
 import {useExchangeStore} from "@/stores/exchange";
 
 import {useI18n} from "vue-i18n";
-import {useUpdater} from "@/composables/useUpdater";
+//import {useUpdater} from "@/composables/useUpdater";
 
 const storeSettings = useStoreSettings();
 const {settings} = storeToRefs(storeSettings);
@@ -26,15 +26,17 @@ const isElectron = ref(false);
 const storeExchange = useExchangeStore();
 const internalInstance = getCurrentInstance();
 const { t } = useI18n();
-const { 
-//  checkForUpdate,
-//  isUpdateAvailable,
-  updateInfo, 
-//  downloadAndInstall,
+/*
+const {
+  checkForUpdate,
+  isUpdateAvailable,
+  downloadAndInstall,
+  updateInfo,
   isDownloading,
   downloadProgress,
   downloadError
 } = useUpdater();
+ */
 
 // Info Modal State
 const infoModal = ref({
@@ -204,12 +206,14 @@ document.querySelector("body").classList.add("app-init");
         :content="changelogContent"
         @close="handleCloseChangelog"
     />
+    <!--
     <UpdateProgressModal 
       :show="isDownloading" 
       :progress="downloadProgress" 
       :version="updateInfo?.version"
       :error="downloadError"
     />
+    -->
     <!-- --- End Changelog Modal --- -->
 
     <!-- Info Modal for STH Link -->
