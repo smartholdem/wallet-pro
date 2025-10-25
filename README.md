@@ -60,16 +60,21 @@ As an Electron-based application, SmartHoldem Wallet Pro is available for:
 ## Development
 
 ### Project setup
-- Install nodejs version 24+
+- Install node 24+
 
 ```
 git clone https://github.com/smartholdem/wallet-pro.git
 cd wallet-pro
 npm install
-npm run dev
 ```
 
 ### Build and Run
+
+### Dev mode
+localhost:5173
+```
+npm run dev
+```
 
 #### Browser extension Firefox/Brave:
 ```
