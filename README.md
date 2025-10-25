@@ -87,7 +87,6 @@ npm run build:extension
 ```
 npn run build:web
 ```
-
 #### Desktop Application:
 ```
 npm run electron:build
