@@ -95,5 +95,5 @@ npm run electron:build
 
 #### Android Application:
 ```
-npm run build:android-release
+npm run build:android-debug
 ```

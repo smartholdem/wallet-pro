@@ -13,6 +13,7 @@
     "electron:build": "vite build --base=./ && electron-builder -w",
     "electron:build:linux": "vite build --base=./ && electron-builder -l",
     "electron:build:mac": "vite build --base=./ && electron-builder -m",
+    "build:android-debug": "npm run build:cordova && cd src-cordova && cordova build android",
     "build:cordova": "vue-tsc --noEmit && vite build -c vite.config.cordova.ts",
     "electron:dev": "concurrently -k \"vite --host  0.0.0.0 --port 5173\" \"wait-on http://localhost:5173 && npx electron electron/main.js\"",
     "host": "vite --host 0.0.0.0",
