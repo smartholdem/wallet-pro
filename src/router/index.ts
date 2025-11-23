@@ -67,6 +67,10 @@ const router = createRouter({
             component: () => import("../views/wallet/VanityAddress.vue"),
         },
         {
+          path: "/steggy",
+          component: () => import("../views/wallet/Steggy.vue")
+        },
+        {
             path: "/:pathMatch(.*)*",
             component: () => import("../views/PageError.vue"),
         },

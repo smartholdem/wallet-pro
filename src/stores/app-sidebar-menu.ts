@@ -33,6 +33,11 @@ export const useAppSidebarMenuStore = defineStore({
                 icon: "fas fa-search-plus",
                 text: "vanity_address",
             },
+            {
+                url: "/steggy",
+                icon: "fas fa-image",
+                text: "steganography",
+            },
             /*
             {
                 "url": "/settings",
