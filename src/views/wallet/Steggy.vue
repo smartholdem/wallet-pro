@@ -78,8 +78,8 @@
           <div class="col-lg-6">
             <div v-if="resultImage">
               <h5>Результат</h5>
-              <img :src="resultImage" alt="Изображение с встроенными данными" />
-              <div class="download-section">
+              <img style="max-height: 200px;" :src="resultImage" alt="Изображение с встроенными данными" />
+              <div class="mt-2">
                 <button
                   @click="downloadImage"
                   class="btn btn-success"
