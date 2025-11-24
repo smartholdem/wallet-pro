@@ -1,75 +1,111 @@
 <template>
-  <div class="steggy-page">
-    <h1>Инструмент стеганографии</h1>
-    <p>Используйте эту страницу для встраивания приватных ключей и адресов в изображения с помощью методов стеганографии.</p>
+  <div class="container mt-4">
+    <card>
+      <div class="card-header">
+        <h4 class="mb-0">Инструмент стеганографии</h4>
+      </div>
+      <div class="card-body">
+        <p>
+          Используйте эту страницу для встраивания текстовых данных в
+          изображения с помощью методов стеганографии.
+        </p>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="">
+              <div class="upload-section">
+                <h5>Загрузить изображение</h5>
 
-    <div class="steggy-content">
-      <div class="upload-section">
-        <h3>Загрузить изображение</h3>
-        <input
-          type="file"
-          accept="image/*"
-          @change="onFileChange"
-          ref="imageInput"
-        />
-        <div v-if="selectedImage" class="image-preview">
-          <img :src="selectedImage" alt="Предварительный просмотр" />
-          <button @click="clearImage" class="btn btn-secondary mt-2">Очистить изображение</button>
+                <div class="row">
+                  <div class="col-lg-8">
+                    <input
+                      class="form-control mb-2"
+                      type="file"
+                      accept="image/*"
+                      @change="onFileChange"
+                      ref="imageInput"
+                    />
+                  </div>
+
+                  <div class="col-lg-4">
+                    <button @click="clearImage" class="btn btn-secondary">
+                      Очистить изображение
+                    </button>
+                  </div>
+                </div>
+
+
+
+
+                <div class="image-preview">
+                  <div v-if="selectedImage">
+                    <img :src="selectedImage" alt="Предварительный просмотр" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="data-input-section">
+                <h3>Введите данные для встраивания</h3>
+                <textarea
+                  class="form-control"
+                  v-model="embedText"
+                  placeholder="Укажите данные для встраивания в изображение"
+                  :disabled="!selectedImage"
+                ></textarea>
+              </div>
+
+
+              <div class="action-buttons">
+                <button
+                  class="btn btn-primary"
+                  @click="embedData"
+                  :disabled="!selectedImage || !embedText"
+                >
+                  Встроить данные
+                </button>
+                <button
+                  class="btn btn-warning"
+                  @click="extractData"
+                  :disabled="!selectedImage"
+                >
+                  Извлечь данные
+                </button>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div v-if="resultImage">
+              <h5>Результат</h5>
+              <img :src="resultImage" alt="Изображение с встроенными данными" />
+              <div class="download-section">
+                <button
+                  @click="downloadImage"
+                  class="btn btn-success"
+                >
+                  Скачать изображение
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="data-input-section">
-        <h3>Введите данные для встраивания</h3>
-        <textarea
-          v-model="embedText"
-          placeholder="Введите приватный ключ или адрес для встраивания в изображение"
-          :disabled="!selectedImage"
-        ></textarea>
-      </div>
 
 
-      <div class="action-buttons">
-        <button
-          class="btn btn-primary"
-          @click="embedData"
-          :disabled="!selectedImage || !embedText"
-        >
-          Встроить данные
-        </button>
-        <button
-          class="btn btn-warning"
-          @click="extractData"
-          :disabled="!selectedImage"
-        >
-          Извлечь данные
-        </button>
       </div>
-
-      <div v-if="resultImage" class="result-section">
-        <h3>Результат</h3>
-        <img :src="resultImage" alt="Изображение с встроенными данными" />
-        <div class="download-section">
-          <button
-            @click="downloadImage"
-            class="btn btn-success"
-          >
-            Скачать изображение
-          </button>
-        </div>
-      </div>
-    </div>
+    </card>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 // Реактивные переменные
 const imageInput = ref<HTMLInputElement | null>(null);
 const selectedImage = ref<string | null>(null);
 const resultImage = ref<string | null>(null);
-const embedText = ref('');
-const resultFilename = ref('steggy_result.png');
+const embedText = ref("");
+const resultFilename = ref("steggy_result.png");
 
 /**
  * Обработка изменения файла изображения
@@ -78,12 +114,12 @@ const onFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const file = target.files?.[0];
 
-  if (file && file.type.startsWith('image/')) {
+  if (file && file.type.startsWith("image/")) {
     const reader = new FileReader();
     reader.onload = (e) => {
       selectedImage.value = e.target?.result as string;
       resultImage.value = null; // Сброс результата при новом изображении
-      embedText.value = '';    // Сброс текста при новом изображении
+      embedText.value = "";    // Сброс текста при новом изображении
     };
     reader.readAsDataURL(file);
   }
@@ -102,11 +138,11 @@ const embedData = () => {
   img.onload = () => {
     try {
       // Создаем canvas для работы с изображением
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
       if (!ctx) {
-        alert('Не удалось получить контекст canvas');
+        alert("Не удалось получить контекст canvas");
         return;
       }
 
@@ -131,7 +167,7 @@ const embedData = () => {
       // Проверим, достаточно ли пикселей для встраивания текста
       const requiredBits = messageBytes.length * 8; // 8 битов на байт
       if (requiredBits > data.length) {
-        alert('Изображение слишком маленькое для встраивания такого объема данных');
+        alert("Изображение слишком маленькое для встраивания такого объема данных");
         return;
       }
 
@@ -165,7 +201,7 @@ const embedData = () => {
       ctx.putImageData(imageData, 0, 0);
 
       // ИСПРАВЛЕНО: Используем PNG вместо JPEG, чтобы избежать сжатия, которое разрушает скрытые данные
-      const imageDataUrl = canvas.toDataURL('image/png');
+      const imageDataUrl = canvas.toDataURL("image/png");
 
       // Проверяем длину URL и при необходимости используем Blob для скачивания
       if (imageDataUrl.length > 1000000) { // Max: 1000000
@@ -175,16 +211,16 @@ const embedData = () => {
             // Создаем URL из Blob
             const blobUrl = URL.createObjectURL(blob);
             resultImage.value = blobUrl;
-            resultFilename.value = 'steggy_output.png';
+            resultFilename.value = "steggy_output.png";
           }
-        }, 'image/png');
+        }, "image/png");
       } else {
         resultImage.value = imageDataUrl;
-        resultFilename.value = 'steggy_output.png';
+        resultFilename.value = "steggy_output.png";
       }
     } catch (error) {
-      console.error('Ошибка при встраивании данных:', error);
-      alert('Ошибка при встраивании данных в изображение');
+      console.error("Ошибка при встраивании данных:", error);
+      alert("Ошибка при встраивании данных в изображение");
     }
   };
 };
@@ -202,11 +238,11 @@ const extractData = () => {
   img.onload = () => {
     try {
       // Создаем canvas для работы с изображением
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
       if (!ctx) {
-        alert('Не удалось получить контекст canvas');
+        alert("Не удалось получить контекст canvas");
         return;
       }
 
@@ -239,7 +275,7 @@ const extractData = () => {
 
       // Проверяем, можно ли извлечь столько байтов
       if (messageLength * 8 > data.length - bitIndex) {
-        alert('Длина сообщения в заголовке превышает доступное пространство');
+        alert("Длина сообщения в заголовке превышает доступное пространство");
         return;
       }
 
@@ -262,13 +298,13 @@ const extractData = () => {
         // Преобразуем байты в строку
         const extractedText = new TextDecoder().decode(new Uint8Array(extractedBytes));
         embedText.value = extractedText;
-        alert(`Извлеченные данные: ${extractedText}`);
+        //alert(`Извлеченные данные: ${extractedText}`);
       } else {
-        alert('В изображении не найдено скрытых данных');
+        alert("В изображении не найдено скрытых данных");
       }
     } catch (error) {
-      console.error('Ошибка при извлечении данных:', error);
-      alert('Ошибка при извлечении данных из изображения');
+      console.error("Ошибка при извлечении данных:", error);
+      alert("Ошибка при извлечении данных из изображения");
     }
   };
 };
@@ -279,11 +315,11 @@ const extractData = () => {
 const clearImage = () => {
   selectedImage.value = null;
   resultImage.value = null;
-  embedText.value = '';
+  embedText.value = "";
 
   // Очищаем input
   if (imageInput.value) {
-    imageInput.value.value = '';
+    imageInput.value.value = "";
   }
 };
 
@@ -294,9 +330,9 @@ const downloadImage = () => {
   if (!resultImage.value) return;
 
   // Проверяем, является ли URL Blob
-  if (resultImage.value.startsWith('blob:')) {
+  if (resultImage.value.startsWith("blob:")) {
     // Если URL - это Blob, создаем ссылку и запускаем скачивание
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = resultImage.value;
     link.download = resultFilename.value;
     document.body.appendChild(link);
@@ -306,7 +342,7 @@ const downloadImage = () => {
     // Если обычный URL, проверяем его длину и при необходимости конвертируем в Blob
     if (resultImage.value.length > 1000000) {
       // Преобразуем data URL в Blob
-      const byteCharacters = atob(resultImage.value.split(',')[1]);
+      const byteCharacters = atob(resultImage.value.split(",")[1]);
       const byteArrays = [];
 
       for (let offset = 0; offset < byteCharacters.length; offset += 512) {
@@ -322,11 +358,11 @@ const downloadImage = () => {
       }
 
       // ИСПРАВЛЕНО: Используем правильный MIME-тип в зависимости от расширения файла
-      const mimeType = resultFilename.value.endsWith('.png') ? 'image/png' : 'image/jpeg';
-      const blob = new Blob(byteArrays, {type: mimeType});
+      const mimeType = resultFilename.value.endsWith(".png") ? "image/png" : "image/jpeg";
+      const blob = new Blob(byteArrays, { type: mimeType });
       const blobUrl = URL.createObjectURL(blob);
 
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = blobUrl;
       link.download = resultFilename.value;
       document.body.appendChild(link);
@@ -337,7 +373,7 @@ const downloadImage = () => {
       URL.revokeObjectURL(blobUrl);
     } else {
       // Иначе используем обычное скачивание
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = resultImage.value;
       link.download = resultFilename.value;
       document.body.appendChild(link);
@@ -367,14 +403,17 @@ const downloadImage = () => {
   margin-bottom: 20px;
 }
 
-.image-preview {
+.image-preview {;
   margin-top: 10px;
+  min-height: 200px;
+  width: 100%;
 }
 
 .image-preview img {
   max-width: 100%;
-  max-height: 300px;
+  max-height: 200px;
   object-fit: contain;
+  border: solid 2px #ccc;
 }
 
 .mt-2 {
