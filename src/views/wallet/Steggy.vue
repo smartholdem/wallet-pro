@@ -40,6 +40,11 @@
                     <img :src="selectedImage" :alt="$t('steggy.image_preview_alt')" />
                   </div>
                 </div>
+
+                <div class="image-info mt-2" v-if="imageWidth && imageHeight">
+                  <p>{{ $t('steggy.image_resolution') }}: {{ imageWidth }} x {{ imageHeight }}</p>
+                  <p>{{ $t('steggy.max_capacity') }}: {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}</p>
+                </div>
               </div>
 
               <div class="data-input-section">
@@ -50,6 +55,12 @@
                   :placeholder="$t('steggy.embed_data_placeholder')"
                   :disabled="!selectedImage"
                 ></textarea>
+                <div class="form-text" v-if="embedText.length > 0">
+                  {{ embedText.length }} / {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}
+                </div>
+                <div class="alert alert-warning mt-2" v-if="showCapacityWarning">
+                  {{ $t('steggy.capacity_warning') }}
+                </div>
               </div>
 
 
@@ -100,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -111,6 +122,29 @@ const selectedImage = ref<string | null>(null);
 const resultImage = ref<string | null>(null);
 const embedText = ref("");
 const resultFilename = ref("steggy_result.png");
+const imageWidth = ref<number | null>(null);
+const imageHeight = ref<number | null>(null);
+
+const maxEmbeddableBytes = computed(() => {
+  if (imageWidth.value && imageHeight.value) {
+    // Общее количество битов, которое можно встроить
+    const totalBits = imageWidth.value * imageHeight.value * 4; // 4 компонента (RGBA) на пиксель, 1 бит на компонент
+    // Вычитаем 32 бита (4 байта) зарезервированных под длину сообщения
+    const availableBits = totalBits - (4 * 8); // 4 байта * 8 бит/байт
+
+    // Максимальное количество байтов, которое можно встроить
+    // Если availableBits меньше 0, значит, изображение слишком маленькое, возвращаем 0
+    return Math.floor(Math.max(0, availableBits) / 8); // Делим на 8, чтобы получить байты
+  }
+  return 0; // Если изображение не выбрано
+});
+
+const showCapacityWarning = computed(() => {
+  if (!embedText.value || !maxEmbeddableBytes.value) {
+    return false;
+  }
+  return new TextEncoder().encode(embedText.value).length > maxEmbeddableBytes.value / 2;
+});
 
 /**
  * Обработка изменения файла изображения
@@ -125,6 +159,13 @@ const onFileChange = (event: Event) => {
       selectedImage.value = e.target?.result as string;
       resultImage.value = null; // Сброс результата при новом изображении
       embedText.value = "";    // Сброс текста при новом изображении
+
+      const img = new Image();
+      img.onload = () => {
+        imageWidth.value = img.width;
+        imageHeight.value = img.height;
+      };
+      img.src = e.target?.result as string;
     };
     reader.readAsDataURL(file);
   }

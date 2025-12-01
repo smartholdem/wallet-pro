@@ -327,6 +327,10 @@
     "no_hidden_data": "Tidak ditemukan data tersembunyi dalam gambar",
     "extract_error": "Kesalahan saat mengekstrak data:",
     "extract_error_msg": "Kesalahan saat mengekstrak data dari gambar",
-    "extracted_data": "Data yang diekstrak"
+    "extracted_data": "Data yang diekstrak",
+    "image_resolution": "Resolusi Gambar",
+    "max_capacity": "Kapasitas Maks",
+    "bytes": "bytes",
+    "capacity_warning": "Menyematkan data dalam jumlah besar dapat menyebabkan artefak yang terlihat pada gambar."
   }
 }

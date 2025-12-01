@@ -327,6 +327,10 @@
     "no_hidden_data": "Không tìm thấy dữ liệu ẩn trong hình ảnh",
     "extract_error": "Lỗi khi trích xuất dữ liệu:",
     "extract_error_msg": "Lỗi khi trích xuất dữ liệu từ hình ảnh",
-    "extracted_data": "Dữ liệu đã trích xuất"
+    "extracted_data": "Dữ liệu đã trích xuất",
+    "image_resolution": "Độ phân giải hình ảnh",
+    "max_capacity": "Dung lượng tối đa",
+    "bytes": "byte",
+    "capacity_warning": "Nhúng một lượng lớn dữ liệu có thể dẫn đến các tạo tác có thể nhìn thấy trong hình ảnh."
   }
 }

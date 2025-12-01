@@ -327,6 +327,10 @@
     "no_hidden_data": "No hidden data found in the image",
     "extract_error": "Error extracting data:",
     "extract_error_msg": "Error extracting data from image",
-    "extracted_data": "Extracted data"
+    "extracted_data": "Extracted data",
+    "image_resolution": "Image Resolution",
+    "max_capacity": "Max Capacity",
+    "bytes": "bytes",
+    "capacity_warning": "Embedding a large amount of data may lead to visible artifacts in the image."
   }
 }
