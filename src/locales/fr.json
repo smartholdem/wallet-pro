@@ -305,5 +305,28 @@
   "gm_transaction_sent_code_in_progress": "Transaction envoyée ! Le code est en cours de création...",
   "gm_transaction_send_error": "Erreur lors de l'envoi de la transaction.",
   "gm_failed_to_copy": "Échec de la copie",
-  "gm_drop_zone_label": "Déposez l'image du Smart Code ici"
+  "gm_drop_zone_label": "Déposez l'image du Smart Code ici",
+  "steggy": {
+    "title": "Outil de stéganographie",
+    "description": "Utilisez cette page pour incorporer des données textuelles dans des images à l'aide de méthodes de stéganographie.",
+    "upload_image": "Télécharger une image",
+    "clear_image": "Effacer l'image",
+    "enter_data": "Entrez les données à incorporer",
+    "embed_data_placeholder": "Précisez les données à incorporer dans l'image",
+    "embed_button": "Incorporer les données",
+    "extract_button": "Extraire les données",
+    "result": "Résultat",
+    "image_preview_alt": "Aperçu",
+    "result_image_alt": "Image avec données incorporées",
+    "download_button": "Télécharger l'image",
+    "canvas_error": "Impossible d'obtenir le contexte du canevas",
+    "image_too_small": "L'image est trop petite pour incorporer cette quantité de données",
+    "embed_error": "Erreur lors de l'incorporation des données :",
+    "embed_error_msg": "Erreur lors de l'incorporation des données dans l'image",
+    "header_too_long": "La longueur du message dans l'en-tête dépasse l'espace disponible",
+    "no_hidden_data": "Aucune donnée cachée n'a été trouvée dans l'image",
+    "extract_error": "Erreur lors de l'extraction des données :",
+    "extract_error_msg": "Erreur lors de l'extraction des données de l'image",
+    "extracted_data": "Données extraites"
+  }
 }

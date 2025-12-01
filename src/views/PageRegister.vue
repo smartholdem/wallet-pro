@@ -302,4 +302,3 @@ function setLocale(lang: string) {
   </div>
   <!-- END register -->
 </template>
-ate>

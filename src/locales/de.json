@@ -305,5 +305,28 @@
   "gm_transaction_sent_code_in_progress": "Transaktion gesendet! Code wird erstellt...",
   "gm_transaction_send_error": "Fehler beim Senden der Transaktion.",
   "gm_failed_to_copy": "Kopieren fehlgeschlagen",
-  "gm_drop_zone_label": "Smart Code-Bild hier ablegen"
+  "gm_drop_zone_label": "Smart Code-Bild hier ablegen",
+  "steggy": {
+    "title": "Steganographie-Tool",
+    "description": "Verwenden Sie diese Seite, um Textdaten mit Hilfe von Steganographiemethoden in Bilder einzubetten.",
+    "upload_image": "Bild hochladen",
+    "clear_image": "Bild löschen",
+    "enter_data": "Zu integrierende Daten eingeben",
+    "embed_data_placeholder": "Geben Sie die Daten an, die in das Bild eingebettet werden sollen",
+    "embed_button": "Daten einbetten",
+    "extract_button": "Daten extrahieren",
+    "result": "Ergebnis",
+    "image_preview_alt": "Vorschau",
+    "result_image_alt": "Bild mit eingebetteten Daten",
+    "download_button": "Bild herunterladen",
+    "canvas_error": "Kann keinen Zugriff auf den Canvas-Kontext erhalten",
+    "image_too_small": "Bild ist zu klein, um diese Menge an Daten einzubetten",
+    "embed_error": "Fehler beim Einbetten der Daten:",
+    "embed_error_msg": "Fehler beim Einbetten der Daten in das Bild",
+    "header_too_long": "Nachrichtenlänge im Header überschreitet den verfügbaren Platz",
+    "no_hidden_data": "Keine versteckten Daten im Bild gefunden",
+    "extract_error": "Fehler beim Extrahieren der Daten:",
+    "extract_error_msg": "Fehler beim Extrahieren der Daten aus dem Bild",
+    "extracted_data": "Extrahierte Daten"
+  }
 }

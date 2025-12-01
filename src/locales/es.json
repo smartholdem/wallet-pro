@@ -305,5 +305,28 @@
   "gm_transaction_sent_code_in_progress": "¡Transacción enviada! El código se está creando...",
   "gm_transaction_send_error": "Error al enviar la transacción.",
   "gm_failed_to_copy": "Error al copiar",
-  "gm_drop_zone_label": "Arrastre la imagen del Smart Code aquí"
+  "gm_drop_zone_label": "Arrastre la imagen del Smart Code aquí",
+  "steggy": {
+    "title": "Herramienta de Esteganografía",
+    "description": "Use esta página para incrustar datos de texto en imágenes usando métodos de esteganografía.",
+    "upload_image": "Subir Imagen",
+    "clear_image": "Limpiar Imagen",
+    "enter_data": "Ingrese datos para incrustar",
+    "embed_data_placeholder": "Especifique los datos para incrustar en la imagen",
+    "embed_button": "Incrustar Datos",
+    "extract_button": "Extraer Datos",
+    "result": "Resultado",
+    "image_preview_alt": "Vista previa",
+    "result_image_alt": "Imagen con datos incrustados",
+    "download_button": "Descargar Imagen",
+    "canvas_error": "No se pudo obtener el contexto del lienzo",
+    "image_too_small": "La imagen es demasiado pequeña para incrustar esta cantidad de datos",
+    "embed_error": "Error al incrustar datos:",
+    "embed_error_msg": "Error al incrustar datos en la imagen",
+    "header_too_long": "La longitud del mensaje en el encabezado excede el espacio disponible",
+    "no_hidden_data": "No se encontraron datos ocultos en la imagen",
+    "extract_error": "Error al extraer datos:",
+    "extract_error_msg": "Error al extraer datos de la imagen",
+    "extracted_data": "Datos extraídos"
+  }
 }

@@ -305,5 +305,28 @@
   "gm_transaction_sent_code_in_progress": "Transaksi terkirim! Kode sedang dibuat...",
   "gm_transaction_send_error": "Kesalahan saat mengirim transaksi.",
   "gm_failed_to_copy": "Gagal menyalin",
-  "gm_drop_zone_label": "Letakkan gambar Smart Code di sini"
+  "gm_drop_zone_label": "Letakkan gambar Smart Code di sini",
+  "steggy": {
+    "title": "Alat Steganografi",
+    "description": "Gunakan halaman ini untuk menyematkan data teks ke dalam gambar menggunakan metode steganografi.",
+    "upload_image": "Unggah Gambar",
+    "clear_image": "Hapus Gambar",
+    "enter_data": "Masukkan data untuk disematkan",
+    "embed_data_placeholder": "Tentukan data yang akan disematkan dalam gambar",
+    "embed_button": "Sematkan Data",
+    "extract_button": "Ekstrak Data",
+    "result": "Hasil",
+    "image_preview_alt": "Pratinjau",
+    "result_image_alt": "Gambar dengan data yang disematkan",
+    "download_button": "Unduh Gambar",
+    "canvas_error": "Tidak dapat mendapatkan konteks kanvas",
+    "image_too_small": "Gambar terlalu kecil untuk menyematkan jumlah data ini",
+    "embed_error": "Kesalahan saat menyematkan data:",
+    "embed_error_msg": "Kesalahan saat menyematkan data dalam gambar",
+    "header_too_long": "Panjang pesan dalam header melebihi ruang yang tersedia",
+    "no_hidden_data": "Tidak ditemukan data tersembunyi dalam gambar",
+    "extract_error": "Kesalahan saat mengekstrak data:",
+    "extract_error_msg": "Kesalahan saat mengekstrak data dari gambar",
+    "extracted_data": "Data yang diekstrak"
+  }
 }

@@ -2,18 +2,17 @@
   <div class="container mt-4">
     <card>
       <div class="card-header">
-        <h4 class="mb-0">Инструмент стеганографии</h4>
+        <h4 class="mb-0">{{ $t('steggy.title') }}</h4>
       </div>
       <div class="card-body">
         <p>
-          Используйте эту страницу для встраивания текстовых данных в
-          изображения с помощью методов стеганографии.
+          {{ $t('steggy.description') }}
         </p>
         <div class="row">
           <div class="col-lg-6">
             <div class="">
               <div class="upload-section">
-                <h5>Загрузить изображение</h5>
+                <h5>{{ $t('steggy.upload_image') }}</h5>
 
                 <div class="row">
                   <div class="col-lg-8">
@@ -28,7 +27,7 @@
 
                   <div class="col-lg-4">
                     <button @click="clearImage" class="btn btn-secondary">
-                      Очистить изображение
+                      {{ $t('steggy.clear_image') }}
                     </button>
                   </div>
                 </div>
@@ -38,17 +37,17 @@
 
                 <div class="image-preview">
                   <div v-if="selectedImage">
-                    <img :src="selectedImage" alt="Предварительный просмотр" />
+                    <img :src="selectedImage" :alt="$t('steggy.image_preview_alt')" />
                   </div>
                 </div>
               </div>
 
               <div class="data-input-section">
-                <h3>Введите данные для встраивания</h3>
+                <h3>{{ $t('steggy.enter_data') }}</h3>
                 <textarea
                   class="form-control"
                   v-model="embedText"
-                  placeholder="Укажите данные для встраивания в изображение"
+                  :placeholder="$t('steggy.embed_data_placeholder')"
                   :disabled="!selectedImage"
                 ></textarea>
               </div>
@@ -60,14 +59,14 @@
                   @click="embedData"
                   :disabled="!selectedImage || !embedText"
                 >
-                  Встроить данные
+                  {{ $t('steggy.embed_button') }}
                 </button>
                 <button
                   class="btn btn-warning"
                   @click="extractData"
                   :disabled="!selectedImage"
                 >
-                  Извлечь данные
+                  {{ $t('steggy.extract_button') }}
                 </button>
               </div>
 
@@ -77,14 +76,17 @@
 
           <div class="col-lg-6">
             <div v-if="resultImage">
-              <h5>Результат</h5>
-              <img style="max-height: 200px;" :src="resultImage" alt="Изображение с встроенными данными" />
+              <h5>{{ $t('steggy.result') }}</h5>
+              <div class="mt-5 pt-3">
+                <img style="max-height: 200px; border: solid 2px #eee" :src="resultImage" :alt="$t('steggy.result_image_alt')" />
+              </div>
+
               <div class="mt-2">
                 <button
                   @click="downloadImage"
                   class="btn btn-success"
                 >
-                  Скачать изображение
+                  {{ $t('steggy.download_button') }}
                 </button>
               </div>
             </div>
@@ -99,6 +101,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 // Реактивные переменные
 const imageInput = ref<HTMLInputElement | null>(null);
@@ -142,7 +147,7 @@ const embedData = () => {
       const ctx = canvas.getContext("2d");
 
       if (!ctx) {
-        alert("Не удалось получить контекст canvas");
+        alert(t('steggy.canvas_error'));
         return;
       }
 
@@ -167,7 +172,7 @@ const embedData = () => {
       // Проверим, достаточно ли пикселей для встраивания текста
       const requiredBits = messageBytes.length * 8; // 8 битов на байт
       if (requiredBits > data.length) {
-        alert("Изображение слишком маленькое для встраивания такого объема данных");
+        alert(t('steggy.image_too_small'));
         return;
       }
 
@@ -219,8 +224,8 @@ const embedData = () => {
         resultFilename.value = "steggy_output.png";
       }
     } catch (error) {
-      console.error("Ошибка при встраивании данных:", error);
-      alert("Ошибка при встраивании данных в изображение");
+      console.error(t('steggy.embed_error'), error);
+      alert(t('steggy.embed_error_msg'));
     }
   };
 };
@@ -242,7 +247,7 @@ const extractData = () => {
       const ctx = canvas.getContext("2d");
 
       if (!ctx) {
-        alert("Не удалось получить контекст canvas");
+        alert(t('steggy.canvas_error'));
         return;
       }
 
@@ -275,7 +280,7 @@ const extractData = () => {
 
       // Проверяем, можно ли извлечь столько байтов
       if (messageLength * 8 > data.length - bitIndex) {
-        alert("Длина сообщения в заголовке превышает доступное пространство");
+        alert(t('steggy.header_too_long'));
         return;
       }
 
@@ -298,13 +303,13 @@ const extractData = () => {
         // Преобразуем байты в строку
         const extractedText = new TextDecoder().decode(new Uint8Array(extractedBytes));
         embedText.value = extractedText;
-        //alert(`Извлеченные данные: ${extractedText}`);
+        //alert(`${t('steggy.extracted_data')}: ${extractedText}`);
       } else {
-        alert("В изображении не найдено скрытых данных");
+        alert(t('steggy.no_hidden_data'));
       }
     } catch (error) {
-      console.error("Ошибка при извлечении данных:", error);
-      alert("Ошибка при извлечении данных из изображения");
+      console.error(t('steggy.extract_error'), error);
+      alert(t('steggy.extract_error_msg'));
     }
   };
 };

@@ -305,5 +305,28 @@
   "gm_transaction_sent_code_in_progress": "Transaction sent! Code is being created...",
   "gm_transaction_send_error": "Error sending transaction.",
   "gm_failed_to_copy": "Failed to copy",
-  "gm_drop_zone_label": "Drop Smart Code image here"
+  "gm_drop_zone_label": "Drop Smart Code image here",
+  "steggy": {
+    "title": "Steganography Tool",
+    "description": "Use this page to embed text data into images using steganography methods.",
+    "upload_image": "Upload Image",
+    "clear_image": "Clear Image",
+    "enter_data": "Enter data to embed",
+    "embed_data_placeholder": "Specify the data to embed in the image",
+    "embed_button": "Embed Data",
+    "extract_button": "Extract Data",
+    "result": "Result",
+    "image_preview_alt": "Preview",
+    "result_image_alt": "Image with embedded data",
+    "download_button": "Download Image",
+    "canvas_error": "Could not get canvas context",
+    "image_too_small": "Image is too small to embed this amount of data",
+    "embed_error": "Error embedding data:",
+    "embed_error_msg": "Error embedding data in image",
+    "header_too_long": "Message length in header exceeds available space",
+    "no_hidden_data": "No hidden data found in the image",
+    "extract_error": "Error extracting data:",
+    "extract_error_msg": "Error extracting data from image",
+    "extracted_data": "Extracted data"
+  }
 }

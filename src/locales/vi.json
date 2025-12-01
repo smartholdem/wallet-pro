@@ -305,5 +305,28 @@
   "gm_transaction_sent_code_in_progress": "Giao dịch đã gửi! Mã đang được tạo...",
   "gm_transaction_send_error": "Lỗi khi gửi giao dịch.",
   "gm_failed_to_copy": "Sao chép thất bại",
-  "gm_drop_zone_label": "Thả hình ảnh Smart Code vào đây"
+  "gm_drop_zone_label": "Thả hình ảnh Smart Code vào đây",
+  "steggy": {
+    "title": "Công cụ Ẩn dữ liệu",
+    "description": "Sử dụng trang này để nhúng dữ liệu văn bản vào hình ảnh bằng các phương pháp ẩn dữ liệu.",
+    "upload_image": "Tải lên hình ảnh",
+    "clear_image": "Xóa hình ảnh",
+    "enter_data": "Nhập dữ liệu để nhúng",
+    "embed_data_placeholder": "Chỉ định dữ liệu để nhúng trong hình ảnh",
+    "embed_button": "Nhúng dữ liệu",
+    "extract_button": "Trích xuất dữ liệu",
+    "result": "Kết quả",
+    "image_preview_alt": "Xem trước",
+    "result_image_alt": "Hình ảnh với dữ liệu đã nhúng",
+    "download_button": "Tải về hình ảnh",
+    "canvas_error": "Không thể lấy ngữ cảnh canvas",
+    "image_too_small": "Hình ảnh quá nhỏ để nhúng lượng dữ liệu này",
+    "embed_error": "Lỗi khi nhúng dữ liệu:",
+    "embed_error_msg": "Lỗi khi nhúng dữ liệu vào hình ảnh",
+    "header_too_long": "Độ dài thông báo trong tiêu đề vượt quá dung lượng khả dụng",
+    "no_hidden_data": "Không tìm thấy dữ liệu ẩn trong hình ảnh",
+    "extract_error": "Lỗi khi trích xuất dữ liệu:",
+    "extract_error_msg": "Lỗi khi trích xuất dữ liệu từ hình ảnh",
+    "extracted_data": "Dữ liệu đã trích xuất"
+  }
 }
