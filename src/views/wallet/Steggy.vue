@@ -5,10 +5,30 @@
         <h4 class="mb-0">{{ $t('steggy.title') }}</h4>
       </div>
       <div class="card-body">
+
         <p>
           {{ $t('steggy.description') }}
         </p>
         <div class="row">
+          <div
+            class="btn-group mb-3 w-100"
+          >
+            <button
+              type="button"
+              class="btn btn-outline-warning btn-lg"
+            >
+              Встроить данные
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-warning btn-lg"
+            >
+              <i class="far fa-lg fa-fw me-2 fa-check-square"></i
+              >
+              Извлечь данные
+            </button>
+          </div>
+          <!-- Встроить данные -->
           <div class="col-lg-6">
             <div class="">
               <div class="upload-section">
