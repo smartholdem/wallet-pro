@@ -331,6 +331,15 @@
     "image_resolution": "Resolución de imagen",
     "max_capacity": "Capacidad máxima",
     "bytes": "bytes",
-    "capacity_warning": "Incrustar una gran cantidad de datos puede provocar artefactos visibles en la imagen."
+    "capacity_warning": "Incrustar una gran cantidad de datos puede provocar artefactos visibles en la imagen.",
+    "modal": {
+      "title": "Datos encriptados",
+      "description": "Los datos extraídos están protegidos por contraseña. Por favor, introduzca la contraseña para desencriptar.",
+      "password_label": "Contraseña",
+      "cancel_button": "Cancelar",
+      "decrypt_button": "Desencriptar",
+      "password_required": "Por favor, introduzca una contraseña.",
+      "decryption_error": "Error de desencriptación. La contraseña puede ser incorrecta."
+    }
   }
 }

@@ -60,26 +60,25 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="decryptionModalLabel">Зашифрованные данные</h5>
+            <h5 class="modal-title" id="decryptionModalLabel">{{ $t('steggy.modal.title') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Извлекаемые данные защищены паролем. Укажите пароль для расшифровки.</p>
+            <p>{{ $t('steggy.modal.description') }}</p>
             <div class="mb-3">
-              <label for="passwordInput" class="form-label">Пароль</label>
+              <label for="passwordInput" class="form-label">{{ $t('steggy.modal.password_label') }}</label>
               <input type="password" class="form-control" id="passwordInput" v-model="password">
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-            <button type="button" class="btn btn-primary" @click="handleDecryption">Расшифровать</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ $t('steggy.modal.cancel_button') }}</button>
+            <button type="button" class="btn btn-primary" @click="handleDecryption">{{ $t('steggy.modal.decrypt_button') }}</button>
           </div>
         </div>
       </div>
     </div>
   </Teleport>
 </template>
-
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
@@ -101,14 +100,7 @@ const password = ref("");
 let decryptionModal: Modal | null = null;
 
 onMounted(() => {
-  const modalElement = document.getElementById('decryptionModal');
-  if (modalElement) {
-    decryptionModal = new Modal(modalElement);
-  }
-});
-
-onMounted(() => {
-  const modalElement = document.getElementById('decryptionModal');
+  const modalElement = document.getElementById("decryptionModal");
   if (modalElement) {
     decryptionModal = new Modal(modalElement);
   }
@@ -215,7 +207,7 @@ const extractData = () => {
 
 const handleDecryption = () => {
   if (!password.value) {
-    alert("Пожалуйста, введите пароль.");
+    alert(t('steggy.modal.password_required'));
     return;
   }
   try {
@@ -224,7 +216,7 @@ const handleDecryption = () => {
     decryptionModal?.hide();
     password.value = "";
   } catch (error) {
-    alert("Ошибка расшифровки. Возможно, неверный пароль.");
+    alert(t('steggy.modal.decryption_error'));
     password.value = "";
   }
 };

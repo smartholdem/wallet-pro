@@ -331,6 +331,15 @@
     "image_resolution": "Độ phân giải hình ảnh",
     "max_capacity": "Dung lượng tối đa",
     "bytes": "byte",
-    "capacity_warning": "Nhúng một lượng lớn dữ liệu có thể dẫn đến các tạo tác có thể nhìn thấy trong hình ảnh."
+    "capacity_warning": "Nhúng một lượng lớn dữ liệu có thể dẫn đến các tạo tác có thể nhìn thấy trong hình ảnh.",
+    "modal": {
+      "title": "Dữ liệu được mã hóa",
+      "description": "Dữ liệu được trích xuất được bảo vệ bằng mật khẩu. Vui lòng nhập mật khẩu để giải mã.",
+      "password_label": "Mật khẩu",
+      "cancel_button": "Hủy bỏ",
+      "decrypt_button": "Giải mã",
+      "password_required": "Vui lòng nhập mật khẩu.",
+      "decryption_error": "Giải mã thất bại. Mật khẩu có thể không chính xác."
+    }
   }
 }

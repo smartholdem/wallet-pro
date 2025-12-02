@@ -331,6 +331,15 @@
     "image_resolution": "Resolusi Gambar",
     "max_capacity": "Kapasitas Maks",
     "bytes": "bytes",
-    "capacity_warning": "Menyematkan data dalam jumlah besar dapat menyebabkan artefak yang terlihat pada gambar."
+    "capacity_warning": "Menyematkan data dalam jumlah besar dapat menyebabkan artefak yang terlihat pada gambar.",
+    "modal": {
+      "title": "Data Terenkripsi",
+      "description": "Data yang diekstrak dilindungi kata sandi. Silakan masukkan kata sandi untuk mendekripsi.",
+      "password_label": "Kata Sandi",
+      "cancel_button": "Batal",
+      "decrypt_button": "Dekripsi",
+      "password_required": "Silakan masukkan kata sandi.",
+      "decryption_error": "Dekripsi gagal. Kata sandi mungkin salah."
+    }
   }
 }

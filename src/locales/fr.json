@@ -331,6 +331,15 @@
     "image_resolution": "Résolution de l'image",
     "max_capacity": "Capacité maximale",
     "bytes": "octets",
-    "capacity_warning": "L'intégration d'une grande quantité de données peut entraîner des artefacts visibles dans l'image."
+    "capacity_warning": "L'intégration d'une grande quantité de données peut entraîner des artefacts visibles dans l'image.",
+    "modal": {
+      "title": "Données chiffrées",
+      "description": "Les données extraites sont protégées par un mot de passe. Veuillez entrer le mot de passe pour déchiffrer.",
+      "password_label": "Mot de passe",
+      "cancel_button": "Annuler",
+      "decrypt_button": "Déchiffrer",
+      "password_required": "Veuillez entrer un mot de passe.",
+      "decryption_error": "Échec du déchiffrement. Le mot de passe est peut-être incorrect."
+    }
   }
 }

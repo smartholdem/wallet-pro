@@ -331,6 +331,15 @@
     "image_resolution": "Image Resolution",
     "max_capacity": "Max Capacity",
     "bytes": "bytes",
-    "capacity_warning": "Embedding a large amount of data may lead to visible artifacts in the image."
+    "capacity_warning": "Embedding a large amount of data may lead to visible artifacts in the image.",
+    "modal": {
+      "title": "Encrypted Data",
+      "description": "The extracted data is password protected. Please enter the password to decrypt.",
+      "password_label": "Password",
+      "cancel_button": "Cancel",
+      "decrypt_button": "Decrypt",
+      "password_required": "Please enter a password.",
+      "decryption_error": "Decryption failed. The password may be incorrect."
+    }
   }
 }

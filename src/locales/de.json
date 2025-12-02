@@ -331,6 +331,15 @@
     "image_resolution": "Bildauflösung",
     "max_capacity": "Max. Kapazität",
     "bytes": "Bytes",
-    "capacity_warning": "Das Einbetten einer großen Datenmenge kann zu sichtbaren Artefakten im Bild führen."
+    "capacity_warning": "Das Einbetten einer großen Datenmenge kann zu sichtbaren Artefakten im Bild führen.",
+    "modal": {
+      "title": "Verschlüsselte Daten",
+      "description": "Die extrahierten Daten sind passwortgeschützt. Bitte geben Sie das Passwort zum Entschlüsseln ein.",
+      "password_label": "Passwort",
+      "cancel_button": "Abbrechen",
+      "decrypt_button": "Entschlüsseln",
+      "password_required": "Bitte geben Sie ein Passwort ein.",
+      "decryption_error": "Entschlüsselung fehlgeschlagen. Das Passwort ist möglicherweise falsch."
+    }
   }
 }
