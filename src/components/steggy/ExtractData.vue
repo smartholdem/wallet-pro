@@ -174,7 +174,7 @@ const clearImage = () => {
   max-width: 100%;
   max-height: 200px;
   object-fit: contain;
-  border: solid 2px #ccc;
+  border: solid 2px #53749c;
 }
 
 textarea {
