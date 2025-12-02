@@ -1,3 +1,5 @@
+apps/chrome/dist-chrome
+.env
 examples
 release
 # Logs
