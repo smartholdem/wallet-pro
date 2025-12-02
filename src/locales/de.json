@@ -340,6 +340,11 @@
       "decrypt_button": "Entschlüsseln",
       "password_required": "Bitte geben Sie ein Passwort ein.",
       "decryption_error": "Entschlüsselung fehlgeschlagen. Das Passwort ist möglicherweise falsch."
-    }
+    },
+    "encrypt_data": "Daten verschlüsseln",
+    "password_label": "Passwort",
+    "encrypt_button": "Verschlüsseln",
+    "encrypted_data_json": "Verschlüsselte Daten (JSON)",
+    "encryption_text_password_required": "Bitte geben Sie Text und Passwort ein."
   }
 }

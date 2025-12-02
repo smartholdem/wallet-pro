@@ -327,7 +327,7 @@
     "no_hidden_data": "В изображении не найдено скрытых данных",
     "extract_error": "Ошибка при извлечении данных:",
     "extract_error_msg": "Ошибка при извлечении данных из изображения",
-    "extracted_data": "Извлеченные данные",
+    "extracted_data": "Извлечённые данные",
     "image_resolution": "Разрешение изображения",
     "max_capacity": "Макс. емкость",
     "bytes": "байт",
@@ -340,6 +340,11 @@
       "decrypt_button": "Расшифровать",
       "password_required": "Пожалуйста, введите пароль.",
       "decryption_error": "Ошибка расшифровки. Возможно, неверный пароль."
-    }
+    },
+    "encrypt_data": "Зашифровать данные",
+    "password_label": "Пароль",
+    "encrypt_button": "Зашифровать",
+    "encrypted_data_json": "Зашифрованные данные (JSON)",
+    "encryption_text_password_required": "Пожалуйста, введите текст и пароль."
   }
 }

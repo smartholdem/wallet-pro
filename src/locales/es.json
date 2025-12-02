@@ -340,6 +340,11 @@
       "decrypt_button": "Desencriptar",
       "password_required": "Por favor, introduzca una contraseña.",
       "decryption_error": "Error de desencriptación. La contraseña puede ser incorrecta."
-    }
+    },
+    "encrypt_data": "Cifrar datos",
+    "password_label": "Contraseña",
+    "encrypt_button": "Cifrar",
+    "encrypted_data_json": "Datos cifrados (JSON)",
+    "encryption_text_password_required": "Por favor, introduzca texto y contraseña."
   }
 }

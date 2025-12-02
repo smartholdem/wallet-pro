@@ -340,6 +340,11 @@
       "decrypt_button": "Giải mã",
       "password_required": "Vui lòng nhập mật khẩu.",
       "decryption_error": "Giải mã thất bại. Mật khẩu có thể không chính xác."
-    }
+    },
+    "encrypt_data": "Mã hóa dữ liệu",
+    "password_label": "Mật khẩu",
+    "encrypt_button": "Mã hóa",
+    "encrypted_data_json": "Dữ liệu được mã hóa (JSON)",
+    "encryption_text_password_required": "Vui lòng nhập văn bản và mật khẩu."
   }
 }

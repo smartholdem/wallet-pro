@@ -340,6 +340,11 @@
       "decrypt_button": "Déchiffrer",
       "password_required": "Veuillez entrer un mot de passe.",
       "decryption_error": "Échec du déchiffrement. Le mot de passe est peut-être incorrect."
-    }
+    },
+    "encrypt_data": "Chiffrer les données",
+    "password_label": "Mot de passe",
+    "encrypt_button": "Chiffrer",
+    "encrypted_data_json": "Données chiffrées (JSON)",
+    "encryption_text_password_required": "Veuillez entrer le texte et le mot de passe."
   }
 }

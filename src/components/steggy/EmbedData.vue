@@ -62,24 +62,24 @@
           </div>
         </div>
 
-        <div class="encryption-section mt-3">
+        <div class="encryption-section mt-2 mb-2">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" v-model="useEncryption" id="useEncryptionCheck">
             <label class="form-check-label" for="useEncryptionCheck">
-              Зашифровать данные
+              {{ $t('steggy.encrypt_data') }}
             </label>
           </div>
 
           <div v-if="useEncryption" class="encryption-fields mt-2">
             <div class="mb-2">
-              <label for="password" class="form-label">Пароль</label>
-              <input type="password" class="form-control" id="password" v-model="password">
+              <label for="password" class="form-label">{{ $t('steggy.password_label') }}</label>
+              <input type="text" class="form-control" id="password" v-model="password">
             </div>
             <button class="btn btn-secondary mb-2" @click="encryptText" :disabled="!embedText || !password">
-              Зашифровать
+              {{ $t('steggy.encrypt_button') }}
             </button>
             <div v-if="encryptedDataJson">
-              <label for="encryptedData" class="form-label">Зашифрованные данные (JSON)</label>
+              <label for="encryptedData" class="form-label">{{ $t('steggy.encrypted_data_json') }}</label>
               <textarea id="encryptedData" class="form-control" :value="encryptedDataJson" readonly></textarea>
             </div>
           </div>
@@ -191,7 +191,7 @@ const onFileChange = (event: Event) => {
 
 const encryptText = () => {
   if (!embedText.value || !password.value) {
-    alert("Пожалуйста, введите текст и пароль.");
+    alert(t('steggy.encryption_text_password_required'));
     return;
   }
   try {

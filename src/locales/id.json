@@ -340,6 +340,11 @@
       "decrypt_button": "Dekripsi",
       "password_required": "Silakan masukkan kata sandi.",
       "decryption_error": "Dekripsi gagal. Kata sandi mungkin salah."
-    }
+    },
+    "encrypt_data": "Enkripsi Data",
+    "password_label": "Kata Sandi",
+    "encrypt_button": "Enkripsi",
+    "encrypted_data_json": "Data Terenkripsi (JSON)",
+    "encryption_text_password_required": "Harap masukkan teks dan kata sandi."
   }
 }
