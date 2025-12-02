@@ -24,16 +24,30 @@
             </div>
           </div>
 
-          <div class="image-preview">
-            <div v-if="selectedImage">
-              <img :src="selectedImage" :alt="$t('steggy.image_preview_alt')" />
+          <div class="row">
+            <div class="col-md-3">
+              <div class="image-preview float-left">
+                <div v-if="selectedImage">
+                  <img :src="selectedImage" :alt="$t('steggy.image_preview_alt')" />
+                </div>
+                <div
+                  v-else
+                  style="width: 120px; height: 120px; border: dashed 1px #ccc"
+                >
+                </div>
+              </div>
             </div>
+            <div class="col-md-8">
+              <div class="image-info mt-2 float-start1" v-if="imageWidth && imageHeight">
+                <p>{{ $t('steggy.image_resolution') }}: {{ imageWidth }} x {{ imageHeight }}</p>
+                <p>{{ $t('steggy.max_capacity') }}: {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}</p>
+              </div>
+            </div>
+
+
+
           </div>
 
-          <div class="image-info mt-2" v-if="imageWidth && imageHeight">
-            <p>{{ $t('steggy.image_resolution') }}: {{ imageWidth }} x {{ imageHeight }}</p>
-            <p>{{ $t('steggy.max_capacity') }}: {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}</p>
-          </div>
         </div>
 
         <div class="data-input-section">
@@ -44,7 +58,7 @@
             :placeholder="$t('steggy.embed_data_placeholder')"
             :disabled="!selectedImage"
           ></textarea>
-          <div class="form-text" v-if="embedText.length > 0">
+          <div class="form-text">
             {{ embedTextBytesLength }} / {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}
           </div>
           <div class="alert alert-warning mt-2" v-if="showCapacityWarning">
@@ -52,7 +66,7 @@
           </div>
         </div>
 
-        <div class="action-buttons">
+        <div class="action-buttons mb-2">
           <button
             class="btn btn-primary"
             @click="embedData"
@@ -64,11 +78,11 @@
       </div>
     </div>
 
-    <div class="col-lg-6 px-3 pt-3" style="border: dashed 1px rgba(221,221,221,0.22);">
+    <div class="col-lg-6 px-3 pt-3 text-center" style="border: dashed 1px rgba(221,221,221,0.22);">
       <h5 class="text-center">{{ $t('steggy.result') }}</h5>
       <div v-if="resultImage">
-        <div class="mt-5 pt-3">
-          <img style="max-height: 200px; border: solid 2px #eee" :src="resultImage" :alt="$t('steggy.result_image_alt')" />
+        <div class="">
+          <img style="max-height: 320px; border: solid 2px #0bc566" :src="resultImage" :alt="$t('steggy.result_image_alt')" />
         </div>
 
         <div class="mt-2">
@@ -80,6 +94,11 @@
           </button>
         </div>
       </div>
+      <div
+        v-else
+        style="width: 320px; height: 320px; border: dashed 1px #ccc; margin-left: auto; margin-right: auto;"
+      ></div>
+
     </div>
   </div>
 </template>
@@ -282,13 +301,13 @@ const downloadImage = () => {
 
 .image-preview {
   margin-top: 10px;
-  min-height: 200px;
+  max-height: 120px;
   width: 100%;
 }
 
 .image-preview img {
   max-width: 100%;
-  max-height: 200px;
+  height: 120px;
   object-fit: contain;
   border: solid 2px #ccc;
 }
