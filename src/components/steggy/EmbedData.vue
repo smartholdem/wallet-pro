@@ -62,6 +62,29 @@
           </div>
         </div>
 
+        <div class="encryption-section mt-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" v-model="useEncryption" id="useEncryptionCheck">
+            <label class="form-check-label" for="useEncryptionCheck">
+              Зашифровать данные
+            </label>
+          </div>
+
+          <div v-if="useEncryption" class="encryption-fields mt-2">
+            <div class="mb-2">
+              <label for="password" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="password" v-model="password">
+            </div>
+            <button class="btn btn-secondary mb-2" @click="encryptText" :disabled="!embedText || !password">
+              Зашифровать
+            </button>
+            <div v-if="encryptedDataJson">
+              <label for="encryptedData" class="form-label">Зашифрованные данные (JSON)</label>
+              <textarea id="encryptedData" class="form-control" :value="encryptedDataJson" readonly></textarea>
+            </div>
+          </div>
+        </div>
+
         <div class="action-buttons mb-2">
           <button
             class="btn btn-primary"
@@ -102,7 +125,9 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { useStoreSteggy } from "@/stores/steggy";
 
+const steggyStore = useStoreSteggy();
 const { t } = useI18n();
 
 // Реактивные переменные
@@ -113,6 +138,11 @@ const embedText = ref("");
 const resultFilename = ref("steggy_result.png");
 const imageWidth = ref<number | null>(null);
 const imageHeight = ref<number | null>(null);
+
+// Шифрование
+const useEncryption = ref(false);
+const password = ref("");
+const encryptedDataJson = ref("");
 
 const maxEmbeddableBytes = computed(() => {
   if (imageWidth.value && imageHeight.value) {
@@ -144,6 +174,9 @@ const onFileChange = (event: Event) => {
       selectedImage.value = e.target?.result as string;
       resultImage.value = null;
       embedText.value = "";
+      encryptedDataJson.value = "";
+      password.value = "";
+      useEncryption.value = false;
 
       const img = new Image();
       img.onload = () => {
@@ -156,8 +189,31 @@ const onFileChange = (event: Event) => {
   }
 };
 
+const encryptText = () => {
+  if (!embedText.value || !password.value) {
+    alert("Пожалуйста, введите текст и пароль.");
+    return;
+  }
+  try {
+    const encrypted = steggyStore.encryptData(embedText.value, password.value);
+    const jsonObj = {
+      provider: "sth",
+      encryption_type: "AES",
+      encryption_data: encrypted,
+    };
+    encryptedDataJson.value = JSON.stringify(jsonObj, null, 2);
+  } catch (error) {
+    alert(error);
+  }
+};
+
 const embedData = () => {
-  if (!selectedImage.value || !embedText.value) return;
+  let dataToEmbed = embedText.value;
+  if (useEncryption.value && encryptedDataJson.value) {
+    dataToEmbed = encryptedDataJson.value;
+  }
+  
+  if (!selectedImage.value || !dataToEmbed) return;
 
   const img = new Image();
   img.src = selectedImage.value;
@@ -179,7 +235,7 @@ const embedData = () => {
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData.data;
 
-      const textBytes = new TextEncoder().encode(embedText.value);
+      const textBytes = new TextEncoder().encode(dataToEmbed);
       const lengthBytes = new Uint8Array(4);
       new DataView(lengthBytes.buffer).setUint32(0, textBytes.length, false);
 
