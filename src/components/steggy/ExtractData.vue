@@ -8,11 +8,11 @@
           <div class="row">
             <div class="col-lg-8">
               <input
-                class="form-control mb-2"
-                type="file"
-                accept="image/*"
-                @change="onFileChange"
-                ref="imageInput"
+                  class="form-control mb-2"
+                  type="file"
+                  accept="image/*"
+                  @change="onFileChange"
+                  ref="imageInput"
               />
             </div>
 
@@ -32,9 +32,9 @@
 
         <div class="action-buttons">
           <button
-            class="btn btn-warning"
-            @click="extractData"
-            :disabled="!selectedImage"
+              class="btn btn-warning"
+              @click="extractData"
+              :disabled="!selectedImage"
           >
             {{ $t('steggy.extract_button') }}
           </button>
@@ -46,25 +46,73 @@
       <div v-if="extractedText">
         <h5>{{ $t('steggy.extracted_data') }}</h5>
         <textarea
-          class="form-control"
-          v-model="extractedText"
-          readonly
+            class="form-control"
+            v-model="extractedText"
+            readonly
         ></textarea>
       </div>
     </div>
   </div>
+
+  <!-- Modal for Decryption Password -->
+  <Teleport to="body">
+    <div class="modal fade" id="decryptionModal" tabindex="-1" aria-labelledby="decryptionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="decryptionModalLabel">Зашифрованные данные</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Извлекаемые данные защищены паролем. Укажите пароль для расшифровки.</p>
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="passwordInput" v-model="password">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="button" class="btn btn-primary" @click="handleDecryption">Расшифровать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
+import { useStoreSteggy } from "@/stores/steggy";
+import { Modal } from 'bootstrap';
 
+const steggyStore = useStoreSteggy();
 const { t } = useI18n();
 
 // Реактивные переменные
 const imageInput = ref<HTMLInputElement | null>(null);
 const selectedImage = ref<string | null>(null);
 const extractedText = ref("");
+
+// Для расшифровки
+const isEncryptedData = ref(false);
+const dataToDecrypt = ref("");
+const password = ref("");
+let decryptionModal: Modal | null = null;
+
+onMounted(() => {
+  const modalElement = document.getElementById('decryptionModal');
+  if (modalElement) {
+    decryptionModal = new Modal(modalElement);
+  }
+});
+
+onMounted(() => {
+  const modalElement = document.getElementById('decryptionModal');
+  if (modalElement) {
+    decryptionModal = new Modal(modalElement);
+  }
+});
 
 const onFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -75,6 +123,9 @@ const onFileChange = (event: Event) => {
     reader.onload = (e) => {
       selectedImage.value = e.target?.result as string;
       extractedText.value = "";
+      isEncryptedData.value = false;
+      dataToDecrypt.value = "";
+      password.value = "";
     };
     reader.readAsDataURL(file);
   }
@@ -138,7 +189,20 @@ const extractData = () => {
       }
 
       if (extractedBytes.length > 0) {
-        extractedText.value = new TextDecoder().decode(new Uint8Array(extractedBytes));
+        const decodedText = new TextDecoder().decode(new Uint8Array(extractedBytes));
+        try {
+          const jsonObj = JSON.parse(decodedText);
+          if (jsonObj.provider === 'sth' && jsonObj.encryption_type === 'AES') {
+            isEncryptedData.value = true;
+            dataToDecrypt.value = jsonObj.encryption_data;
+            decryptionModal?.show();
+          } else {
+            extractedText.value = decodedText;
+          }
+        } catch (e) {
+          // Не JSON, просто показываем как есть
+          extractedText.value = decodedText;
+        }
       } else {
         alert(t('steggy.no_hidden_data'));
       }
@@ -149,9 +213,28 @@ const extractData = () => {
   };
 };
 
+const handleDecryption = () => {
+  if (!password.value) {
+    alert("Пожалуйста, введите пароль.");
+    return;
+  }
+  try {
+    const decrypted = steggyStore.decryptData(dataToDecrypt.value, password.value);
+    extractedText.value = decrypted;
+    decryptionModal?.hide();
+    password.value = "";
+  } catch (error) {
+    alert("Ошибка расшифровки. Возможно, неверный пароль.");
+    password.value = "";
+  }
+};
+
 const clearImage = () => {
   selectedImage.value = null;
   extractedText.value = "";
+  isEncryptedData.value = false;
+  dataToDecrypt.value = "";
+  password.value = "";
 
   if (imageInput.value) {
     imageInput.value.value = "";
