@@ -2,6 +2,11 @@ v1.2.20
 - Added a build process for a cross-browser (Chrome, Firefox, Brave) extension.
 - Created an npm script (`build:extension`) to automate the extension build.
 - Drop area fix
+- **Steganography Tool:**
+    - Implemented a tool to embed and extract hidden messages in images using the LSB method.
+    - Added the ability to encrypt embedded data with AES-256 using a user-provided password.
+    - Integrated a password-protected decryption process for extracted data.
+    - Enhanced UI with image resolution, max capacity display, and a capacity warning.
 
 v1.2.19
 - Added Cordova project to build for the Android platform.

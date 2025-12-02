@@ -21,6 +21,7 @@ This wallet is built using modern web technologies, including Vue.js and Pinia, 
 - **Secure Key Access:** Easily view and copy your private keys with appropriate security warnings.
 
 ### Advanced Blockchain Capabilities
+- **Steganography Tool:** Embed hidden messages or encrypted data directly into images (PNG, JPG) using the LSB method, providing an extra layer of stealth and security for your communications or data storage.
 - **Cross-Chain Atomic Swaps:** Instantly and securely swap `STH` ↔ `USDT` through a decentralized gateway powered by the BitShares network.
 - **Dynamic Swap Pricing:** Get the best rates with real-time price calculation for swaps, including slippage and price impact display.
 - **Multi-Payments:** Send STH to up to 150 recipients in a single, efficient transaction.
