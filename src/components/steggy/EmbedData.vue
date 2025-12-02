@@ -309,7 +309,7 @@ const downloadImage = () => {
   max-width: 100%;
   height: 120px;
   object-fit: contain;
-  border: solid 2px #ccc;
+  border: solid 2px #32465e;
 }
 
 .mt-2 {
