@@ -43,11 +43,7 @@
                 <p>{{ $t('steggy.max_capacity') }}: {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}</p>
               </div>
             </div>
-
-
-
           </div>
-
         </div>
 
         <div class="data-input-section">
