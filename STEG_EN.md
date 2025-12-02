@@ -26,3 +26,15 @@ The possibilities are limited only by your imagination:
 *   **Quests and Puzzles (ARGs):** Creators of alternate reality games can hide clues and keys in images that players will have to "scan" with our tool.
 
 With our steganography tool, you become a true digital ninja, capable of hiding information in plain sight!
+
+#### An Extra Layer of Security: Data Encryption
+
+We don't just hide the message; we can also **encrypt** it! Imagine sending a picture with a secret, but even if someone guesses that something is hidden and manages to extract the data, they still can't read it without a special password. It's like double protection: the message is not visible, and if it is discovered, it is also incomprehensible!
+
+*   **How it works:** Before embedding it into the image, you can select the "Encrypt Data" option and specify your password. The text will be encrypted using the reliable **AES-256** algorithm (the same one used in cryptography to protect the most important data) and only then hidden in the pixels.
+*   **During extraction:** If encrypted data is detected in the image, our tool will ask for a password. Only after entering the correct password will the message be decrypted and displayed.
+
+---
+*   **Top-Secret Correspondence:** Now your messages are not just invisible; they are also impregnable to prying eyes. Perfect for confidential information!
+*   **"Digital Stashes" on the web:** You can leave a picture in a public place (like a forum or social network), and the recipient, knowing the password, can securely extract and decrypt the secret message.
+---
