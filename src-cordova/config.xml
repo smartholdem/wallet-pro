@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.smartholdem.walletpro" version="1.2.20" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.smartholdem.walletpro" version="1.2.20" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>SmartHoldem Wallet Pro</name>
     <description>SmartHoldem Wallet Pro for Android</description>
     <author email="support@smartholdem.io" href="https://smartholdem.io">
@@ -13,11 +13,15 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="SplashScreenDelay" value="1000" />
+    <preference name="SplashScreenDelay" value="100" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashScreen" value="screen" />
     <platform name="android">
+        <preference name="AndroidLegacyExternalStorage" value="true" />
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
         <allow-intent href="market:*" />
         <preference name="AndroidXEnabled" value="true" />
         <preference name="ScrollEnabled" value="false" />
@@ -31,11 +35,5 @@
         <icon density="xhdpi" src="resources/android/icon/xhdpi.png" />
         <icon density="xxhdpi" src="resources/android/icon/xxhdpi.png" />
         <icon density="xxxhdpi" src="resources/android/icon/xxxhdpi.png" />
-        <splash density="ldpi" src="resources/android/splash/splash-port-ldpi.png" />
-        <splash density="mdpi" src="resources/android/splash/splash-port-mdpi.png" />
-        <splash density="hdpi" src="resources/android/splash/splash-port-hdpi.png" />
-        <splash density="xhdpi" src="resources/android/splash/splash-port-xhdpi.png" />
-        <splash density="xxhdpi" src="resources/android/splash/splash-port-xxhdpi.png" />
-        <splash density="xxxhdpi" src="resources/android/splash/splash-port-xxxhdpi.png" />
     </platform>
 </widget>

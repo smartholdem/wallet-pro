@@ -17,8 +17,7 @@
     "cordova-plugin-app-version": "^0.1.14",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-file": "^8.1.3",
-    "cordova-plugin-file-opener2": "^4.0.0",
-    "cordova-plugin-splashscreen": "^6.0.1"
+    "cordova-plugin-file-opener2": "^4.0.0"
   },
   "cordova": {
     "platforms": [
@@ -26,16 +25,17 @@
     ],
     "plugins": {
       "cordova-plugin-app-version": {},
-      "cordova-plugin-file": {
-        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
-      },
+      "cordova-plugin-file": {},
       "cordova-plugin-file-opener2": {
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
       },
       "cordova-plugin-dialogs": {
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
-      },
-      "cordova-plugin-splashscreen": {}
+      }
     }
+  },
+  "dependencies": {
+    "cordova-plugin-android-permissions": "^1.1.5",
+    "cordova-plugin-saf-mediastore": "^1.0.10"
   }
 }
