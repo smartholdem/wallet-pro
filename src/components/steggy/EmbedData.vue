@@ -49,7 +49,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-3">
               <div class="image-preview float-left">
                 <div v-if="selectedImage">
                   <img :src="selectedImage" :alt="$t('steggy.image_preview_alt')" />
@@ -61,7 +61,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
               <div class="image-info mt-2 float-start1" v-if="imageWidth && imageHeight">
                 <p>{{ $t('steggy.image_resolution') }}: {{ imageWidth }} x {{ imageHeight }}</p>
                 <p>{{ $t('steggy.max_capacity') }}: {{ maxEmbeddableBytes }} {{ $t('steggy.bytes') }}</p>
