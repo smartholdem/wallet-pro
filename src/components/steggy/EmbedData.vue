@@ -302,12 +302,10 @@ const embedData = () => {
           if (blob) {
             const blobUrl = URL.createObjectURL(blob);
             resultImage.value = blobUrl;
-            resultFilename.value = "steggy_output.png";
           }
         }, "image/png");
       } else {
         resultImage.value = imageDataUrl;
-        resultFilename.value = "steggy_output.png";
       }
     } catch (error) {
       console.error(t('steggy.embed_error'), error);
