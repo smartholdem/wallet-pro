@@ -23,7 +23,7 @@
 */
 -->
 <template>
-  <div class="row">
+  <div class="row mb-3">
     <!-- Встроить данные -->
     <div class="col-lg-6 px-3">
       <div class="">
@@ -139,7 +139,7 @@
       </div>
       <div
         v-else
-        style="width: 320px; height: 320px; border: dashed 1px #ccc; margin-left: auto; margin-right: auto;"
+        style="width: 240px; height: 240px; border: dashed 1px #ccc; margin-left: auto; margin-right: auto;"
       ></div>
 
     </div>
