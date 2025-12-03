@@ -2,6 +2,15 @@ v1.2.20
 - Added a build process for a cross-browser (Chrome, Firefox, Brave) extension.
 - Created an npm script (`build:extension`) to automate the extension build.
 - Drop area fix
+- Migrated Android build from Cordova to Capacitor for improved performance, stability, and modern API access.
+- Refactored Android build process with new `cap:android` and `cap:build:release` npm scripts.
+- Re-implemented file download functionality using Capacitor Filesystem API to fix save errors on modern Android versions.
+- Replaced JavaScript alerts with native Toast notifications on mobile for better user experience.
+- Prefixed filenames with `STEG-` for saved steganography images.
+- Configured native Android project:
+    - Set screen orientation to portrait-only.
+    - Fixed status bar overlap issues by applying correct padding.
+    - Replaced default app icon with the custom SmartHoldem icon set.
 - **Steganography Tool:**
     - Implemented a tool to embed and extract hidden messages in images using the LSB method.
     - Added the ability to encrypt embedded data with AES-256 using a user-provided password.
