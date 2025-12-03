@@ -150,6 +150,9 @@
 import { ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useStoreSteggy } from "@/stores/steggy";
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Toast } from '@capacitor/toast';
 
 const steggyStore = useStoreSteggy();
 const { t } = useI18n();
@@ -193,6 +196,7 @@ const onFileChange = (event: Event) => {
   const file = target.files?.[0];
 
   if (file && file.type.startsWith("image/")) {
+    resultFilename.value = `STEG-${file.name}`; // Set the final filename here
     const reader = new FileReader();
     reader.onload = (e) => {
       selectedImage.value = e.target?.result as string;
@@ -318,53 +322,69 @@ const clearImage = () => {
   embedText.value = "";
   imageWidth.value = null;
   imageHeight.value = null;
+  resultFilename.value = "steggy_result.png";
 
   if (imageInput.value) {
     imageInput.value.value = "";
   }
 };
 
-const downloadImage = () => {
+const downloadImage = async () => {
   if (!resultImage.value) return;
 
-  if (resultImage.value.startsWith("blob:")) {
-    const link = document.createElement("a");
-    link.href = resultImage.value;
-    link.download = resultFilename.value;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } else {
-    if (resultImage.value.length > 1000000) {
-      const byteCharacters = atob(resultImage.value.split(",")[1]);
-      const byteArrays = [];
-      for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-        const slice = byteCharacters.slice(offset, offset + 512);
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
+  const getBase64Data = (url: string): Promise<string> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (url.startsWith('blob:')) {
+          const response = await fetch(url);
+          const blob = await response.blob();
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64Data = (reader.result as string).split(',')[1];
+            resolve(base64Data);
+          };
+          reader.onerror = (err) => reject(err);
+          reader.readAsDataURL(blob);
+        } else { // It's a dataURL
+          const base64Data = url.split(',')[1];
+          resolve(base64Data);
         }
-        const byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
+      } catch (e) {
+        reject(e);
       }
-      const mimeType = resultFilename.value.endsWith(".png") ? "image/png" : "image/jpeg";
-      const blob = new Blob(byteArrays, { type: mimeType });
-      const blobUrl = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = resultFilename.value;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(blobUrl);
+    });
+  };
+
+  try {
+    const fileName = resultFilename.value; // Use the filename set in onFileChange
+
+    if (Capacitor.getPlatform() !== 'web') {
+      // Capacitor/Android logic
+      const base64 = await getBase64Data(resultImage.value);
+      const result = await Filesystem.writeFile({
+        path: fileName,
+        data: base64,
+        directory: Directory.Documents,
+      });
+      await Toast.show({
+        text: `Файл сохранен: ${fileName}`,
+        duration: 'long'
+      });
     } else {
+      // Default web logic
       const link = document.createElement("a");
       link.href = resultImage.value;
-      link.download = resultFilename.value;
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
+  } catch (e: any) {
+    await Toast.show({
+      text: `Ошибка сохранения: ${e.message}`,
+      duration: 'long'
+    });
+    console.error('Download error', e);
   }
 };
 </script>

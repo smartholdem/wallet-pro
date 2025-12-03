@@ -18,11 +18,15 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashScreen" value="screen" />
     <platform name="android">
-        <preference name="AndroidLegacyExternalStorage" value="true" />
-        <config-file target="AndroidManifest.xml" parent="/*">
+        <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest" mode="merge">
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        </config-file>
+        </edit-config>
+        <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
+            <application android:requestLegacyExternalStorage="true" />
+        </edit-config>
         <allow-intent href="market:*" />
+        <framework src="androidx.documentfile:documentfile:1.0.1" type="gradleReference" />
         <preference name="AndroidXEnabled" value="true" />
         <preference name="ScrollEnabled" value="false" />
         <preference name="Backup" value="false" />

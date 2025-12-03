@@ -1,3 +1,4 @@
+android/keys
 # Using Android gitignore template: https://github.com/github/gitignore/blob/HEAD/Android.gitignore
 release-signing.properties
 # Built application files

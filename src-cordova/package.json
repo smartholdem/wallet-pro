@@ -31,7 +31,8 @@
       },
       "cordova-plugin-dialogs": {
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
-      }
+      },
+      "cordova-plugin-saf-mediastore": {}
     }
   },
   "dependencies": {
