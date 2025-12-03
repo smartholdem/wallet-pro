@@ -204,7 +204,6 @@ document.querySelector("body").classList.add("app-init");
     </div>
     <app-footer v-if="appOption.appFooter" />
     <app-theme-panel />
-
     <!-- --- Add Changelog Modal --- -->
     <ChangelogModal
       :show="showChangelog"
@@ -240,6 +239,9 @@ document.querySelector("body").classList.add("app-init");
     </div>
     <div v-if="infoModal.show" class="modal-backdrop fade show"></div>
 
+    <div class="mobile-footer p-2 text-center text-dark">
+      &copy; 2017 - {{ new Date().getFullYear() }}
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4">
+  <div class="col-xl-12 mt-3">
     <card>
       <div class="card-header">
         <h4 class="mb-0">{{ $t('steggy.title') }}</h4>

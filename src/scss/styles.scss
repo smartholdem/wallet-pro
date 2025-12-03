@@ -17,11 +17,29 @@
 @import '_rtl.scss';
 @import 'font.scss';
 
+.mobile-footer {
+  display: none;
+  width:100% !important;
+  height: 40px;
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  background-color: #171e25;
+  z-index: 100000;
+  opacity: 0.95;
+}
 
 .is-android {
   overflow-x: hidden;
 }
 
+.is-android .mobile-footer {
+  display: block;
+}
+
+.is-android .login .login-content {
+  margin-top: -5rem !important;
+}
 .is-android .app {
   padding-top: 5rem !important;;
 }

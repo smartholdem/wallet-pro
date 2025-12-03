@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :class="!isExtension ? 'mt-4' : 'mt-0'">
+  <div class="col-xl-12" :class="!isExtension ? 'mt-4' : 'mt-0'">
     <card>
       <div class="card-header">
         <h4 class="mb-0">{{ $t('vanity_address_page_title') }}</h4>
