@@ -16,3 +16,146 @@
 @import '_widgets.scss';
 @import '_rtl.scss';
 @import 'font.scss';
+
+
+.is-android {
+  overflow-x: hidden;
+}
+
+.is-android .app {
+  padding-top: 5rem !important;;
+}
+
+.is-android .app-sidebar {
+  top: 5rem !important;
+}
+
+.is-android .app-header {
+  padding-top: 2.1rem !important;
+  height: 5rem !important;
+}
+
+.is-android .app-theme-panel {
+  bottom: 39px !important;
+}
+
+.is-android .app-content {
+  padding: 2rem 0.9rem;
+}
+
+-moz-scrollbar,
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar {
+  background-color: #fefdf9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(
+                  --bs-theme
+  ); /**linear-gradient(-45deg, #88d0ba 1%, #3cd2a5 48%, #288f70); /**var(--bs-theme); **/
+  border: 1px solid #434a52;
+}
+
+/**
+@font-face {
+  font-family: BankGothic;
+  src: url("/assets/bankgothicmdbt_medium.otf") format("opentype");
+}
+ **/
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: local("Chakra Petch Regular"), local("ChakraPetch-Regular"),
+  url("/assets/Chakrapetchregular.woff2") format("woff2"),
+  url("/assets/Chakrapetchregular.woff") format("woff"),
+  url("/assets/Chakrapetchregular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Chakra Petch Light";
+  src: local("Chakra Petch Light"), local("ChakraPetch-Light"),
+  url("/assets/Chakrapetchlight.woff2") format("woff2"),
+  url("/assets/Chakrapetchlight.woff") format("woff"),
+  url("/assets/Chakrapetchlight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/*
+h1 {
+  font-family: "BankGothic";
+}
+
+ */
+
+.pointer {
+  cursor: pointer;
+}
+
+.hover-info:hover {
+  color: #009be3 !important;
+  cursor: pointer;
+}
+
+.ico-telegram {
+  background-image: url("/images/telegram.svg");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-ton {
+  background-image: url("/images/ton.svg");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-heco {
+  background-image: url("/images/heco.svg");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-mainnet {
+  background-image: url("/images/logo-green32.png");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-bsc {
+  background-image: url("/images/bsc.svg");
+  background-position: 0 2px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.ico-eth {
+  background-image: url("/images/eth.svg");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-xbts {
+  background-image: url("/images/xbts32.png");
+  background-position: 0px 2px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.ico-mainnet-18,
+.ico-heco-18,
+.ico-bsc-18,
+.ico-ton-18,
+.ico-eth-18 {
+  background-size: 18px;
+}
