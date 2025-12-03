@@ -89,7 +89,7 @@ onMounted(() => {
         </template>
 
 
-        <div v-if="!isExtension" class="p-3 px-4 mt-auto">
+        <div v-if="!isExtension" class="p-3 px-4 mt-auto d-none d-sm-block">
           <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
             <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png"/>
           </a>
