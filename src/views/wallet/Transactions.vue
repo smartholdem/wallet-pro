@@ -96,21 +96,20 @@
                   >
                 </span>
 
-                <a
+                <MultiLink
+                  :url="
+                    'https://explorer.smartholdem.io/#/transaction/' + item.id
+                  "
                   :class="
                     item.recipient === this.address
                       ? 'text-success'
                       : 'text-default'
                   "
-                  :href="
-                    'https://explorer.smartholdem.io/#/transaction/' + item.id
-                  "
-                  target="_blank"
                 >
                   <span>
                     {{ item.id.slice(0, 5) }} .. {{ item.id.slice(-5) }}
                   </span>
-                </a>
+                </MultiLink>
               </td>
               <td>
                 <span
@@ -154,40 +153,33 @@
                 </div>
               </td>
               <td>
-                <a
+                <MultiLink
+                  :url="'https://explorer.smartholdem.io/#/wallets/' + item.sender"
                   :class="
                     item.recipient === this.address
                       ? 'text-success'
                       : 'text-default'
                   "
-                  :href="
-                    'https://explorer.smartholdem.io/#/wallets/' + item.sender
-                  "
-                  target="_blank"
                 >
                   <span>
                     {{ item.sender.slice(0, 5) }} .. {{ item.sender.slice(-5) }}
                   </span>
-                </a>
+                </MultiLink>
               </td>
               <td>
-                <a
+                <MultiLink
+                  :url="'https://explorer.smartholdem.io/#/wallets/' + item.recipient"
                   :class="
                     item.recipient === this.address
                       ? 'text-success'
                       : 'text-default'
                   "
-                  :href="
-                    'https://explorer.smartholdem.io/#/wallets/' +
-                    item.recipient
-                  "
-                  target="_blank"
                 >
                   <span
                     >{{ item.recipient.slice(0, 5) }} ..
                     {{ item.recipient.slice(-5) }}</span
                   >
-                </a>
+                </MultiLink>
               </td>
               <td>
                 <span
@@ -335,21 +327,18 @@
                     >&nbsp;</span
                     >
                   </span>
-                    <a
-                        :class="
-                      item.recipient === this.address
-                        ? 'text-success'
-                        : 'text-warning'
-                    "
-                        :href="
-                      'https://explorer.smartholdem.io/#/transaction/' + item.id
-                    "
-                        target="_blank"
+                    <MultiLink
+                      :url="'https://explorer.smartholdem.io/#/transaction/' + item.id"
+                      :class="
+                        item.recipient === this.address
+                          ? 'text-success'
+                          : 'text-warning'
+                      "
                     >
                     <span>
                       {{ item.id.slice(0, 11) }}..{{ item.id.slice(-11) }}
                     </span>
-                    </a>
+                    </MultiLink>
                   </td>
                 </tr>
                 <tr>
@@ -498,12 +487,13 @@ const appOption = useAppOptionStore();
 import { useStoreWallet } from "@/stores/wallet";
 import moment from "moment";
 import CardBody from "@/components/bootstrap/CardBody.vue";
+import MultiLink from "@/components/MultiLink.vue";
 
 const storeWallet = useStoreWallet();
 
 export default {
   name: "ComponentTransactions",
-  components: {CardBody},
+  components: {CardBody, MultiLink},
   props: {
     address: String,
     newTx: {},
