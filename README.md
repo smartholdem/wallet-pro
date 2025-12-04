@@ -90,6 +90,11 @@ npn run build:web
 ```
 #### Desktop Application:
 ```
+npm run tauri:build
+npm run tauri:dev
+```
+#### Electron Application:
+```
 npm run electron:build
 ```
 
