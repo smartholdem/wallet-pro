@@ -1,6 +1,6 @@
 <template>
   <div class="col-xl-10">
-    <card>
+    <card class="">
       <card-header class="card-header fw-bold small"
         >{{ $t("list_of_your_accounts") }}
       </card-header>
@@ -21,7 +21,7 @@
           }}</a>
         </li>
       </ul>
-      <div class="tab-content p-4">
+      <div class="tab-content p-4" :class="!isMobile ? 'h-550px' : ''">
         <!-- accounts list -->
         <div
           class="tab-pane fade"

@@ -4,6 +4,7 @@ import { useAppOptionStore } from "@/stores/app-option";
 import { onMounted, onBeforeMount } from "vue";
 import SidebarNav from "@/components/app/SidebarNav.vue";
 import { Carousel } from "bootstrap";
+import MultiLink from "@/components/MultiLink.vue";
 
 const appSidebarMenu = useAppSidebarMenuStore();
 const appOption = useAppOptionStore();
@@ -71,7 +72,7 @@ onMounted(() => {
   const carouselElement = document.getElementById("carouselExample");
   if (carouselElement) {
     const carousel = new Carousel(carouselElement, {
-      interval: 5000,
+      interval: 100000,
     });
   }
 });
@@ -89,19 +90,22 @@ onMounted(() => {
         </template>
 
 
-        <div v-if="!isExtension" class="p-3 px-4 mt-auto d-none d-sm-block">
-          <a target="_blank" class=" " href="https://t.me/sthhubbot/start">
+
+        <div v-if="!isExtension" class="p-3 px-4 mt-auto">
+
+          <MultiLink url="https://t.me/sthhubbot/start" class=" ">
             <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100" src="/images/sthhub.png" />
-          </a>
+          </MultiLink>
+
+          <div class="d-none d-sm-block">
           <div class="mt-3">
-            <a
-              target="_blank"
+            <MultiLink
+              url="https://t.me/smartnewscannel/319"
               class=" "
-              href="https://t.me/smartnewscannel/319"
             >
               <img style="opacity: 0.9" class="border border-secondary-subtle rounded w-100"
                    src="/images/airdrop.png" />
-            </a>
+            </MultiLink>
           </div>
           <div
             id="carouselExample"
@@ -119,16 +123,16 @@ onMounted(() => {
 
             <div class="carousel-inner border border-secondary-subtle rounded">
               <div class="carousel-item active">
-                <a
-                  target="_blank"
+                <MultiLink
+                  url="https://app.xbts.io/#/smartholder"
                   class=""
-                  href="https://app.xbts.io/#/smartholder"
-                  ><img
+                >
+                  <img
                     src="@/assets/smartholder.png"
                     alt=""
                   class="d-block w-100"
                     style="opacity: 1"
-                /></a>
+                /></MultiLink>
                 <!--
                 <div class="carousel-caption d-none d-md-block">
                   <h5 class="text-dark">First slide label</h5>
@@ -137,11 +141,11 @@ onMounted(() => {
                 --->
               </div>
               <div class="carousel-item">
-                <a
-                  target="_blank"
-                  href="https://ex.xbts.io/market/XBTSX.STH_XBTSX.BTC"
-                ><img src="@/assets/xbts.png" alt="" class="d-block w-100"
-                /></a>
+                <MultiLink
+                  url="https://ex.xbts.io/market/XBTSX.STH_XBTSX.BTC"
+                >
+                  <img src="@/assets/xbts.png" alt="" class="d-block w-100"
+                /></MultiLink>
                 <!--
                <div class="carousel-caption d-none d-md-block">
                  <h5 class="text-dark">First slide label</h5>
@@ -165,13 +169,15 @@ onMounted(() => {
               <span class="carousel-control-next-icon"></span>
             </a>
           </div>
-          <a
-            href="https://explorer.smartholdem.io"
-            target="_blank"
+
+          </div>
+
+          <MultiLink
+            url="https://explorer.smartholdem.io"
             class="btn d-block btn-outline-theme"
           >
             <i class="bi bi-hdd-network me-2 ms-n2 opacity-5"></i> Explorer
-          </a>
+          </MultiLink>
         </div>
 
         <!--
