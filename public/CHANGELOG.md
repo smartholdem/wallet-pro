@@ -1,3 +1,10 @@
+v1.2.21
+- Started migration to Tauri, laying the groundwork for replacing Electron.
+- Integrated Tauri into the project, including the creation of the `src-tauri` structure.
+- Configured Tauri build settings in `src-tauri/tauri.conf.json`.
+- Adapted codebase for Tauri compatibility, analyzing `TitleBar.vue`, implementing Rust commands in `src-tauri/src/main.rs`, and developing a JS layer for API calls.
+- Created `tauri:dev` and `tauri:build` NPM scripts for streamlined development and build processes.
+
 v1.2.20
 - Added a build process for a cross-browser (Chrome, Firefox, Brave) extension.
 - Created an npm script (`build:extension`) to automate the extension build.

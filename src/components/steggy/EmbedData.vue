@@ -153,9 +153,14 @@ import { useStoreSteggy } from "@/stores/steggy";
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Toast } from '@capacitor/toast';
+import { save } from '@tauri-apps/plugin-dialog';
+import { writeFile, BaseDirectory } from '@tauri-apps/plugin-fs';
 
 const steggyStore = useStoreSteggy();
 const { t } = useI18n();
+
+// Проверяем, запущено ли приложение в Tauri
+const isTauri = typeof window.__TAURI_INTERNALS__ !== 'undefined';
 
 // Реактивные переменные
 const imageInput = ref<HTMLInputElement | null>(null);
@@ -356,7 +361,29 @@ const downloadImage = async () => {
   try {
     const fileName = resultFilename.value; // Use the filename set in onFileChange
 
-    if (Capacitor.getPlatform() !== 'web') {
+    if (isTauri) {
+      // Логика для Tauri приложения
+      const filePath = await save({
+        filters: [{
+          name: 'Image',
+          extensions: ['png', 'jpeg']
+        }],
+        defaultPath: fileName
+      });
+
+      if (filePath) {
+        // Преобразуем URL изображения в бинарные данные
+        const response = await fetch(resultImage.value);
+        const blob = await response.blob();
+        const bytes = await blob.arrayBuffer();
+
+        await writeFile(filePath, new Uint8Array(bytes), { dir: BaseDirectory.App });
+        await Toast.show({
+          text: `Файл сохранен: ${filePath}`,
+          duration: 'long'
+        });
+      }
+    } else if (Capacitor.getPlatform() !== 'web') {
       // Capacitor/Android logic
       const base64 = await getBase64Data(resultImage.value);
       const result = await Filesystem.writeFile({
