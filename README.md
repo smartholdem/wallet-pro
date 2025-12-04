@@ -98,7 +98,16 @@ npm run tauri:dev
 npm run electron:build
 ```
 
-#### Android Application:
-```
-npm run build:android-debug
+#### Android Application (Capacitor)
+
+Building the Android application using Capacitor requires the following:
+- **Android Studio**: Ensure Android Studio is installed along with the necessary SDKs and build tools.
+- **Java Development Kit (JDK)**: JDK 17 or later is required.
+- **Capacitor CLI**: Make sure `@capacitor/cli` is installed as a dev dependency (`npm install -D @capacitor/cli`).
+
+To build and run the Android application:
+**Run on device/emulator**: Use Android Studio to build and run the application, or use the following npm script:
+
+```bash
+npm run cap:android
 ```
