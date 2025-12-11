@@ -416,7 +416,7 @@
               <!-- myCodes -->
               <div v-show="currentTab === 3">
                 <div
-                  v-if="myCodes.length === 0"
+                  v-if="sortedMyCodes.length === 0"
                   class="alert alert-dark text-center"
                 >
                   {{ $t("gm_no_active_notes") }}
@@ -437,7 +437,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="code in myCodes" :key="code.pub">
+                      <tr v-for="code in sortedMyCodes" :key="code.pub">
                         <td v-if="!code.code" class="text-break">
                           <i
                             class="far fa-copy me-2 pointer text-primary"
@@ -495,7 +495,7 @@
                   <!-- Mobile Card View -->
                   <div v-else>
                     <card
-                      v-for="code in myCodes"
+                      v-for="code in sortedMyCodes"
                       :key="code.pub"
                       class="bg-gradient-gray-dark border-secondary mb-3 text-white"
                     >
@@ -717,6 +717,10 @@ export default {
     };
   },
   computed: {
+    sortedMyCodes() {
+      // Сортируем копию массива, чтобы не мутировать состояние в хранилище
+      return [...this.myCodes].sort((a, b) => b.time - a.time);
+    },
     currentAddressBalance() {
       return (this.currentAddress.balance / 10 ** 8).toFixed(8) * 1 || 0;
     },

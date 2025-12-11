@@ -1,4 +1,5 @@
 v1.2.21
+- Sorted the "My Smart Notes" list to show the most recent notes first.
 - Started migration to Tauri, laying the groundwork for replacing Electron.
 - Integrated Tauri into the project, including the creation of the `src-tauri` structure.
 - Configured Tauri build settings in `src-tauri/tauri.conf.json`.
